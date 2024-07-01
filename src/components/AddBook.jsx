@@ -37,7 +37,7 @@ function AddBook() {
         }
       );
       if (addBook) {
-        console.log(addBook?.data?.data);
+        // console.log(addBook?.data?.data);
         console.log(addBook.data.message);
       }
       navigate("/all-books");

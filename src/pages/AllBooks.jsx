@@ -7,7 +7,6 @@ function AllBooks() {
   return (
     <>
       <Container>
-        {console.log(envVars.backend_uri)}
         <BookShop />
       </Container>
     </>

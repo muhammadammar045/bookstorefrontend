@@ -73,7 +73,7 @@ function EditBook() {
         { headers: { "Content-Type": "application/json" } }
       );
 
-      console.log(response);
+      console.log(response.data.message);
       navigate(`/all-books`);
     } catch (error) {
       console.log("Edit Form Error ", error);

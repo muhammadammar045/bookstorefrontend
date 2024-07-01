@@ -21,7 +21,7 @@ function BookShop() {
       setBooks(results);
       setTotalPages(meta.totalPages);
       // console.log(meta);
-      console.log(results);
+      // console.log(results);
     } catch (error) {
       console.log("Error Fetching The Books:", error.message);
     } finally {
