@@ -45,7 +45,7 @@ function EditBookThumbnail() {
         { headers: { "Content-Type": "multipart/form-data" } }
       );
 
-      console.log(response);
+      console.log(response.data.message);
       navigate(`/all-books`);
     } catch (error) {
       console.error("Error updating book thumbnail: ", error);
