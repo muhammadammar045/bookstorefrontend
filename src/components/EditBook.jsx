@@ -5,7 +5,7 @@ import Button from "./Button";
 import axios from "axios";
 import envVars from "../../envexport";
 import { useNavigate, useParams } from "react-router-dom";
-import { ClimbingBoxLoader } from "react-spinners";
+import { PacmanLoader } from "react-spinners";
 
 function EditBook() {
   const navigate = useNavigate();
@@ -89,8 +89,12 @@ function EditBook() {
   return (
     <>
       {loading ? (
-        <div className="flex min-h-[300px] items-center justify-center">
-          <ClimbingBoxLoader color="white" />
+        <div className="flex h-[350px] items-center justify-center rounded-3xl bg-black">
+          <h2 className="text-3xl">Editing Books </h2>
+          <PacmanLoader
+            className="mx-5"
+            color="white"
+          />
         </div>
       ) : book ? (
         <div className="mx-auto my-10 max-w-[900px] rounded-lg bg-zinc-800 p-10">

@@ -8,13 +8,13 @@ function Footer() {
       className="body-font bg-gray-800 text-gray-400"
       id="footer"
     >
-      <div className="container mx-auto flex flex-col items-center px-5 py-8 sm:flex-row">
+      <div className="container mx-auto flex flex-col items-center justify-center px-5 py-8 sm:flex-row">
         <Link className="font flex cursor-pointer items-center justify-center font-medium text-white md:justify-start">
           <img
             src={logo}
             className="hidden h-20 sm:block"
           />
-          <span className="ml-3 text-xl">AmmaR i</span>
+          <span className="ml-3 text-xl">AmmaRi</span>
         </Link>
         <p className="mt-4 text-sm text-gray-400 sm:ml-4 sm:mt-0 sm:border-l-2 sm:border-gray-800 sm:py-2 sm:pl-4">
           © 2024 AmmaRi —

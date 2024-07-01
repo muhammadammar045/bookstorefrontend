@@ -31,7 +31,7 @@ function Navbar() {
                 className="h-20"
               />
               <span className="xs:hidden self-center whitespace-nowrap text-2xl font-semibold sm:block dark:text-white">
-                AmmaR
+                AmmaRi
               </span>
             </Link>
             <div className="flex space-x-3 md:order-2 md:space-x-0 rtl:space-x-reverse">

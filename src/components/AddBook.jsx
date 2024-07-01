@@ -5,7 +5,7 @@ import Button from "./Button";
 import axios from "axios";
 import envVars from "../../envexport";
 import { useNavigate } from "react-router-dom";
-import { ClimbingBoxLoader } from "react-spinners";
+import { PacmanLoader } from "react-spinners";
 
 function AddBook() {
   const navigate = useNavigate();
@@ -54,8 +54,12 @@ function AddBook() {
       <div className="mx-auto my-10 max-w-[900px] rounded-lg bg-zinc-800 p-10">
         <h1 className="mb-4 text-center text-3xl text-white">Add Book</h1>
         {loading ? (
-          <div className="flex items-center justify-center">
-            <ClimbingBoxLoader color="white" />
+          <div className="flex h-[350px] items-center justify-center rounded-3xl bg-black">
+            <h2 className="text-3xl">Adding Book </h2>
+            <PacmanLoader
+              className="mx-5"
+              color="white"
+            />
           </div>
         ) : (
           <form onSubmit={handleSubmit(addBook)}>

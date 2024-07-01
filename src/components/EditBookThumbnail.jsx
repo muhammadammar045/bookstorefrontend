@@ -5,7 +5,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import envVars from "../../envexport";
 import Input from "./Input";
 import Button from "./Button";
-import { ClimbingBoxLoader } from "react-spinners";
+import { PacmanLoader } from "react-spinners";
 
 function EditBookThumbnail() {
   const navigate = useNavigate();
@@ -60,8 +60,12 @@ function EditBookThumbnail() {
   return (
     <>
       {loading ? (
-        <div className="flex items-center justify-center">
-          <ClimbingBoxLoader color="white" />
+        <div className="flex h-[350px] items-center justify-center rounded-3xl bg-black">
+          <h2 className="text-3xl">Updating Book Thumbnail </h2>
+          <PacmanLoader
+            className="mx-5"
+            color="white"
+          />
         </div>
       ) : (
         <>

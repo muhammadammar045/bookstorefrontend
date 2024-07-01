@@ -3,7 +3,7 @@ import BookCard from "./BookCard";
 import axios from "axios";
 import envVars from "../../envexport";
 import Pagination from "./Pagination";
-import { ClimbingBoxLoader } from "react-spinners";
+import { PacmanLoader } from "react-spinners";
 
 function BookShop() {
   const [books, setBooks] = useState([]);
@@ -57,8 +57,12 @@ function BookShop() {
       <h1 className="mb-8 text-center text-4xl font-bold italic">BookShop</h1>
       {loading ? (
         <>
-          <div className="flex items-center justify-center">
-            <ClimbingBoxLoader color="white" />
+          <div className="flex h-[350px] items-center justify-center rounded-3xl bg-black">
+            <h2 className="text-3xl">Loading Books </h2>
+            <PacmanLoader
+              className="mx-5"
+              color="white"
+            />
           </div>
         </>
       ) : (
