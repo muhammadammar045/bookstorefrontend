@@ -30,6 +30,8 @@ function BookShop() {
   };
 
   const handleDelete = async (bookId) => {
+    setLoading(true);
+
     try {
       const deletedBook = await axios.delete(
         `${envVars.backend_uri}/books/delete-book/${bookId}`
@@ -40,6 +42,8 @@ function BookShop() {
       }
     } catch (error) {
       console.log("Error Deleting The book:", error.message);
+    } finally {
+      setLoading(false);
     }
   };
 
