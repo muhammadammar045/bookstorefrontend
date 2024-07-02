@@ -39,6 +39,14 @@ function BookShop() {
       if (deletedBook) {
         setBooks(books.filter((book) => book._id !== bookId));
         console.log(`Book Deleted : ${deletedBook.data}`);
+
+        if (updatedBooks.length === 0 && currentPage > 1) {
+          // If the current page is empty and it's not the first page, go to the previous page
+          setCurrentPage(currentPage - 1);
+          fetchBooks(currentPage - 1);
+        } else {
+          fetchBooks(currentPage);
+        }
       }
     } catch (error) {
       console.log("Error Deleting The book:", error.message);
