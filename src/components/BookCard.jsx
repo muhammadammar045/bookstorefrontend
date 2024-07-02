@@ -27,14 +27,19 @@ function BookCard({ id, imgSrc, title, category, desc, price, onDelete }) {
 
   return (
     <div className="rounded-lg border border-gray-200 bg-white shadow-xl shadow-red-900 lg:w-[350px] dark:border-gray-700 dark:bg-gray-800">
-      <Link to="#">
-        <div className="relative">
-          <img
-            className="max-h-[250px] w-full rounded-t-lg bg-cover p-3 shadow-md shadow-green-600"
-            src={imgSrc}
-            alt=""
-          />
-          <div className="absolute right-4 top-10 flex h-8 w-8 items-center justify-center rounded-full bg-pink-400">
+      <Link
+        to="#"
+        className=""
+      >
+        <div className="relative p-2">
+          <div className="overflow-hidden">
+            <img
+              className="max-h-[250px] w-full rounded-t-lg bg-cover p-3 shadow-md shadow-green-600 duration-700 hover:scale-125"
+              src={imgSrc}
+              alt=""
+            />
+          </div>
+          <div className="absolute right-6 top-10 flex h-8 w-8 items-center justify-center rounded-full bg-red-700">
             <Button onClick={() => onThumbnailChange(id)}>
               <FontAwesomeIcon
                 icon={faCamera}

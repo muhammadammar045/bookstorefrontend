@@ -39,7 +39,7 @@ function BookShop() {
       if (deletedBook) {
         const updatedBooks = books.filter((book) => book._id !== bookId);
         setBooks(updatedBooks);
-        console.log(`Book Deleted: ${deletedBook.data}`);
+        // console.log(`Book Deleted: ${deletedBook.data}`);
 
         if (updatedBooks.length === 0 && currentPage > 1) {
           // If the current page is empty and it's not the first page, go to the previous page
@@ -67,7 +67,7 @@ function BookShop() {
 
   return (
     <div className="p-8">
-      <h1 className="mb-8 text-center text-4xl font-bold italic">BookShop</h1>
+      <h1 className="mb-8 text-center text-6xl font-bold italic">BookShop</h1>
       {loading ? (
         <>
           <div className="flex h-[350px] items-center justify-center rounded-3xl bg-black">
