@@ -37,10 +37,11 @@ function BookShop() {
         `${envVars.backend_uri}/books/delete-book/${bookId}`
       );
       if (deletedBook) {
-        setBooks(books.filter((book) => book._id !== bookId));
-        console.log(`Book Deleted : ${deletedBook.data}`);
+        const updatedBooks = books.filter((book) => book._id !== bookId);
+        setBooks(updatedBooks);
+        console.log(`Book Deleted: ${deletedBook.data}`);
 
-        if (deletedBook.length === 0 && currentPage > 1) {
+        if (updatedBooks.length === 0 && currentPage > 1) {
           // If the current page is empty and it's not the first page, go to the previous page
           setCurrentPage(currentPage - 1);
           fetchBooks(currentPage - 1);
