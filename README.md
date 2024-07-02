@@ -1,3 +1,6 @@
+### Frontend `README.md`
+
+```markdown
 # Bookstore Frontend
 
 This is the frontend of the Bookstore application, built with React and Vite. It provides a user interface for managing books, including creating, reading, updating, and deleting books, as well as pagination and file uploading.
@@ -25,10 +28,4 @@ To get started with the frontend of the Bookstore application, follow these step
 ### Prerequisites
 
 - Node.js and npm installed on your machine.
-
-### Clone the Repository
-
-```bash
-git clone https://github.com/yourusername/bookstore.git
-cd bookstore/frontend
 ```
