@@ -6,7 +6,7 @@ function Input(
     className = "",
     labelColor = "text-white",
     placeholder = "Type here",
-    label = "Enter text : ",
+    label = "",
     padding = "px-3 py-2",
     width = "w-full",
     rounded = "rounded-lg",

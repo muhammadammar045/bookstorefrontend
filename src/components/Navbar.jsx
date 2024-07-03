@@ -8,6 +8,8 @@ const links = [
   ["Home", ""],
   ["Book Shop", "all-books"],
   ["Add Book", "add-book"],
+  ["Login", "login"],
+  ["Register", "signup"],
 ];
 
 function Navbar() {

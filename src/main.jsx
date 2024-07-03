@@ -13,6 +13,8 @@ import Layout from "./components/Layout.jsx";
 import AllBooks from "./pages/AllBooks.jsx";
 import AddBook from "./pages/AddBook.jsx";
 import EditBook from "./pages/EditBook.jsx";
+import Login from "./pages/Login.jsx";
+import Signup from "./pages/Signup.jsx";
 import EditBookThumbnail from "./components/EditBookThumbnail.jsx";
 
 const router = createBrowserRouter(
@@ -24,6 +26,14 @@ const router = createBrowserRouter(
       <Route
         path=""
         element={<Layout />}
+      />
+      <Route
+        path="login"
+        element={<Login />}
+      />
+      <Route
+        path="signup"
+        element={<Signup />}
       />
       <Route
         path="all-books"
