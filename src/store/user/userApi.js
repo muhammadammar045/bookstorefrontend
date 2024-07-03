@@ -1,11 +1,15 @@
+// userApi.js
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
-import envVars from "../../../envexport";
 
-export const fetchUser = createAsyncThunk(
-    'user/fetchUser',
-    async () => {
-        const response = await axios.get(`${envVars.backend_uri}/api/user`);
-        return response.data;
+export const loginUser = createAsyncThunk(
+    "user/login",
+    async (credentials, { rejectWithValue }) => {
+        try {
+            const response = await axios.post("/api/v1/user/login", credentials);
+            return response.data;
+        } catch (err) {
+            return rejectWithValue(err.response.data);
+        }
     }
-)
+);
