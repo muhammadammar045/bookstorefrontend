@@ -13,7 +13,7 @@ function Logout() {
       await dispatch(logoutUser());
       navigate("/login");
     } catch (error) {
-      console.error("Failed to logout:", err);
+      console.error("Failed to logout:", error);
     }
   };
 
