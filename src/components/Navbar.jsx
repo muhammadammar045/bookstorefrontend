@@ -5,6 +5,7 @@ import logo from "../assets/images/ARlogo.png";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { selectUser } from "../store/user/userAuthSlice";
+import Logout from "./Logout.jsx";
 
 function Navbar() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -20,7 +21,6 @@ function Navbar() {
     ["Home", ""],
     ["Book Shop", "all-books"],
     ["Add Book", "add-book"],
-    ["Logout", "logout"],
   ];
 
   const toggleMobileMenu = () => {
@@ -59,37 +59,40 @@ function Navbar() {
               }`}
               id="navbar-sticky"
             >
-              <ul className="xs:dark:bg-slate-900 mt-4 flex flex-col rounded-lg border border-gray-100 bg-gray-50 p-4 font-medium text-white md:mt-0 md:flex-row md:space-x-8 md:border-0 md:bg-transparent md:bg-white md:p-0 rtl:space-x-reverse dark:border-gray-700 dark:bg-transparent md:dark:bg-transparent">
-                {user
-                  ? authenticatedLinks.map(([label, path]) => (
-                      <li
-                        key={path}
-                        className="cursor-pointer"
-                      >
-                        <Link
-                          to={path}
-                          className="block rounded px-3 py-2 md:p-0 dark:hover:text-orange-600 md:dark:text-white"
-                          aria-current="page"
+              <div>
+                <ul className="xs:dark:bg-slate-900 mt-4 flex flex-col rounded-lg border border-gray-100 bg-gray-50 p-4 font-medium text-white md:mt-0 md:flex-row md:space-x-8 md:border-0 md:bg-transparent md:bg-white md:p-0 rtl:space-x-reverse dark:border-gray-700 dark:bg-transparent md:dark:bg-transparent">
+                  {user
+                    ? authenticatedLinks.map(([label, path]) => (
+                        <li
+                          key={path}
+                          className="cursor-pointer"
                         >
-                          {label}
-                        </Link>
-                      </li>
-                    ))
-                  : links.map(([label, path]) => (
-                      <li
-                        key={path}
-                        className="cursor-pointer"
-                      >
-                        <Link
-                          to={path}
-                          className="block rounded px-3 py-2 md:p-0 dark:hover:text-orange-600 md:dark:text-white"
-                          aria-current="page"
+                          <Link
+                            to={path}
+                            className="block rounded px-3 py-2 md:p-0 dark:hover:text-orange-600 md:dark:text-white"
+                            aria-current="page"
+                          >
+                            {label}
+                          </Link>
+                        </li>
+                      ))
+                    : links.map(([label, path]) => (
+                        <li
+                          key={path}
+                          className="cursor-pointer"
                         >
-                          {label}
-                        </Link>
-                      </li>
-                    ))}
-              </ul>
+                          <Link
+                            to={path}
+                            className="block rounded px-3 py-2 md:p-0 dark:hover:text-orange-600 md:dark:text-white"
+                            aria-current="page"
+                          >
+                            {label}
+                          </Link>
+                        </li>
+                      ))}
+                  <Logout />
+                </ul>
+              </div>
             </div>
           </div>
         </nav>

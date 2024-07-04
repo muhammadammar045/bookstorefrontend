@@ -18,6 +18,7 @@ import Signup from "./pages/Signup.jsx";
 import EditBookThumbnail from "./components/EditBookThumbnail.jsx";
 import { Provider } from "react-redux";
 import store from "./store/store.js";
+import Logout from "./components/Logout.jsx";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -32,6 +33,10 @@ const router = createBrowserRouter(
       <Route
         path="login"
         element={<Login />}
+      />
+      <Route
+        path="logout"
+        element={<Logout />}
       />
       <Route
         path="signup"
