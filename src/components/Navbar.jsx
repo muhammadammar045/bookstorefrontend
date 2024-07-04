@@ -90,7 +90,7 @@ function Navbar() {
                           </Link>
                         </li>
                       ))}
-                  <Logout />
+                  {user && <Logout />}
                 </ul>
               </div>
             </div>
