@@ -3,17 +3,25 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars } from "@fortawesome/free-solid-svg-icons";
 import logo from "../assets/images/ARlogo.png";
 import { Link } from "react-router-dom";
-
-const links = [
-  ["Home", ""],
-  ["Book Shop", "all-books"],
-  ["Add Book", "add-book"],
-  ["Login", "login"],
-  ["Register", "signup"],
-];
+import { useSelector } from "react-redux";
+import { selectUser } from "../store/user/userAuthSlice";
 
 function Navbar() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const user = useSelector(selectUser);
+
+  const links = [
+    ["Home", ""],
+    ["Login", "login"],
+    ["Register", "signup"],
+  ];
+
+  const authenticatedLinks = [
+    ["Home", ""],
+    ["Book Shop", "all-books"],
+    ["Add Book", "add-book"],
+    ["Logout", "logout"],
+  ];
 
   const toggleMobileMenu = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen);
@@ -22,7 +30,7 @@ function Navbar() {
   return (
     <>
       <header id="header">
-        <nav className={"w-full bg-slate-900"}>
+        <nav className="w-full bg-slate-900">
           <div className="mx-auto flex max-w-screen-xl flex-wrap items-center justify-between p-4">
             <Link
               to={"header"}
@@ -52,20 +60,35 @@ function Navbar() {
               id="navbar-sticky"
             >
               <ul className="xs:dark:bg-slate-900 mt-4 flex flex-col rounded-lg border border-gray-100 bg-gray-50 p-4 font-medium text-white md:mt-0 md:flex-row md:space-x-8 md:border-0 md:bg-transparent md:bg-white md:p-0 rtl:space-x-reverse dark:border-gray-700 dark:bg-transparent md:dark:bg-transparent">
-                {links.map(([label, path]) => (
-                  <li
-                    key={path}
-                    className="cursor-pointer"
-                  >
-                    <Link
-                      to={path}
-                      className="block rounded px-3 py-2 md:p-0 dark:hover:text-orange-600 md:dark:text-white"
-                      aria-current="page"
-                    >
-                      {label}
-                    </Link>
-                  </li>
-                ))}
+                {user
+                  ? authenticatedLinks.map(([label, path]) => (
+                      <li
+                        key={path}
+                        className="cursor-pointer"
+                      >
+                        <Link
+                          to={path}
+                          className="block rounded px-3 py-2 md:p-0 dark:hover:text-orange-600 md:dark:text-white"
+                          aria-current="page"
+                        >
+                          {label}
+                        </Link>
+                      </li>
+                    ))
+                  : links.map(([label, path]) => (
+                      <li
+                        key={path}
+                        className="cursor-pointer"
+                      >
+                        <Link
+                          to={path}
+                          className="block rounded px-3 py-2 md:p-0 dark:hover:text-orange-600 md:dark:text-white"
+                          aria-current="page"
+                        >
+                          {label}
+                        </Link>
+                      </li>
+                    ))}
               </ul>
             </div>
           </div>

@@ -22,7 +22,7 @@ function Login() {
 
   const login = async (data) => {
     try {
-      await dispatch(loginUser(data)).unwrap();
+      await dispatch(loginUser(data));
       navigate("/");
       reset();
     } catch (err) {

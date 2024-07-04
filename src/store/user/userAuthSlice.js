@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { loginUser } from "./userApi";
+import { loginUser, registerUser } from "./userApi";
 
 const initialState = {
     user: null,
@@ -23,7 +23,17 @@ const userAuthSlice = createSlice({
             .addCase(loginUser.rejected, (state, action) => {
                 state.isLoading = false;
                 state.error = action.error.message || "Something went wrong";
-            });
+            })
+            .addCase(registerUser.pending, (state) => {
+                state.isLoading = true;
+            })
+            .addCase(registerUser.fulfilled, (state, action) => {
+                state.isLoading = false;
+            })
+            .addCase(registerUser.rejected, (state, action) => {
+                state.isLoading = false;
+                state.error = action.error.message || "Something went wrong";
+            })
     },
 });
 

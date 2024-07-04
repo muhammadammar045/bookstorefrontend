@@ -65,15 +65,13 @@ function BookShop() {
       setLoading(false);
     }
   };
-
   const handlePageChange = (page) => {
     setCurrentPage(page);
     fetchBooks(page);
   };
-
   useEffect(() => {
-    fetchBooks();
-  }, []);
+    fetchBooks(currentPage);
+  }, [currentPage]);
 
   return (
     <div className="p-8">

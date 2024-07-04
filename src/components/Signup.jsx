@@ -2,14 +2,17 @@ import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import Input from "./Input";
 import Button from "./Button";
-import axios from "axios";
-import envVars from "../../envexport";
 import { useNavigate } from "react-router-dom";
 import { PacmanLoader } from "react-spinners";
+import { useDispatch, useSelector } from "react-redux";
+import { registerUser } from "../store/user/userApi";
+import { selectIsLoading, selectError } from "../store/user/userAuthSlice";
 
 function Signup() {
   const navigate = useNavigate();
-  const [loading, setLoading] = useState(false);
+  const dispatch = useDispatch();
+  const isLoading = useSelector(selectIsLoading);
+  const error = useSelector(selectError);
   const {
     register,
     handleSubmit,
@@ -17,13 +20,14 @@ function Signup() {
     formState: { errors },
   } = useForm();
 
-  const login = async (data) => {
+  const handleRegisterUser = async (data) => {
     setLoading(true);
     try {
+      await dispatch(registerUser(data));
       navigate("/login");
       reset();
     } catch (error) {
-      navigate("/signup");
+      console.error("Failed to register:", error);
     } finally {
       setLoading(false);
     }
@@ -33,7 +37,7 @@ function Signup() {
     <>
       <div className="mx-auto my-10 max-w-[500px] rounded-lg bg-zinc-800 p-10">
         <h1 className="mb-4 text-center text-3xl text-white">Register</h1>
-        {loading ? (
+        {isLoading ? (
           <div className="flex h-[350px] items-center justify-center rounded-3xl bg-black">
             <h2 className="text-3xl">Logging </h2>
             <PacmanLoader
@@ -42,7 +46,7 @@ function Signup() {
             />
           </div>
         ) : (
-          <form onSubmit={handleSubmit(login)}>
+          <form onSubmit={handleSubmit(handleRegisterUser)}>
             <div className="flex w-full flex-col">
               <div className="mb-4">
                 <Input
@@ -119,6 +123,7 @@ function Signup() {
                 Register
               </Button>
             </div>
+            {error && <div className="text-red-500">{error}</div>}
           </form>
         )}
       </div>

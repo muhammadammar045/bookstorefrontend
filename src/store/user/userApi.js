@@ -14,3 +14,25 @@ export const loginUser = createAsyncThunk(
         }
     }
 );
+export const logoutUser = createAsyncThunk(
+    "user/logout",
+    async ({ rejectWithValue }) => {
+        try {
+            const response = await axios.post(`${envVars.backend_uri}/user/logout`);
+            return response.data;
+        } catch (err) {
+            return rejectWithValue(err.response.data);
+        }
+    }
+);
+export const registerUser = createAsyncThunk(
+    "user/register",
+    async (credentials, { rejectWithValue }) => {
+        try {
+            const response = await axios.post(`${envVars.backend_uri}/user/register`, credentials);
+            return response.data;
+        } catch (err) {
+            return rejectWithValue(err.response.data);
+        }
+    }
+);
