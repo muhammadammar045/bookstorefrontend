@@ -6,6 +6,8 @@ import axios from "axios";
 import envVars from "../../envexport";
 import { useNavigate } from "react-router-dom";
 import { PacmanLoader } from "react-spinners";
+import { useSelector } from "react-redux";
+import { selectAccessToken } from "../store/user/userAuthSlice";
 
 function AddBook() {
   const navigate = useNavigate();
@@ -16,7 +18,13 @@ function AddBook() {
     reset,
     formState: { errors },
   } = useForm();
-
+  const accessToken = useSelector(selectAccessToken);
+  const config = {
+    headers: {
+      "Content-Type": "multipart/form-data",
+      Authorization: `Bearer ${accessToken}`,
+    },
+  };
   const addBook = async (data) => {
     setLoading(true);
     try {
@@ -30,11 +38,7 @@ function AddBook() {
       const addBook = await axios.post(
         `${envVars.backend_uri}/books/add-book`,
         newBook,
-        {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
-        }
+        config
       );
       if (addBook) {
         // console.log(addBook?.data?.data);

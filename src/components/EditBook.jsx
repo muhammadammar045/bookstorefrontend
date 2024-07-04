@@ -6,6 +6,8 @@ import axios from "axios";
 import envVars from "../../envexport";
 import { useNavigate, useParams } from "react-router-dom";
 import { PacmanLoader } from "react-spinners";
+import { useSelector } from "react-redux";
+import { selectAccessToken } from "../store/user/userAuthSlice";
 
 function EditBook() {
   const navigate = useNavigate();
@@ -14,7 +16,13 @@ function EditBook() {
   const [initialValues, setInitialValues] = useState({});
   const [modifyValues, setModifyValues] = useState(false);
   const [loading, setLoading] = useState(false);
-
+  const accessToken = useSelector(selectAccessToken);
+  const config = {
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${accessToken}`,
+    },
+  };
   const {
     register,
     handleSubmit,
@@ -27,7 +35,8 @@ function EditBook() {
     setLoading(true);
     try {
       const response = await axios.get(
-        `${envVars.backend_uri}/books/get-book/${bookId}`
+        `${envVars.backend_uri}/books/get-book/${bookId}`,
+        config
       );
       const fetchedBook = response.data.data;
 
@@ -70,7 +79,7 @@ function EditBook() {
       const response = await axios.patch(
         `${envVars.backend_uri}/books/update-book/${bookId}`,
         bookDetails,
-        { headers: { "Content-Type": "application/json" } }
+        config
       );
 
       console.log(response.data.message);

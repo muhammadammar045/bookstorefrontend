@@ -4,18 +4,28 @@ import axios from "axios";
 import envVars from "../../envexport";
 import Pagination from "./Pagination";
 import { PacmanLoader } from "react-spinners";
+import { useSelector } from "react-redux";
+import { selectAccessToken } from "../store/user/userAuthSlice";
 
 function BookShop() {
   const [books, setBooks] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(0);
   const [loading, setLoading] = useState(false);
+  const accessToken = useSelector(selectAccessToken);
+  const config = {
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${accessToken}`,
+    },
+  };
 
   const fetchBooks = async (page = 1) => {
     setLoading(true);
     try {
       const response = await axios.get(
-        `${envVars.backend_uri}/books/get-all-books?page=${page}`
+        `${envVars.backend_uri}/books/get-all-books?page=${page}`,
+        config
       );
       const { results, meta } = response.data.data;
       setBooks(results);
@@ -28,13 +38,13 @@ function BookShop() {
       setLoading(false);
     }
   };
-
   const handleDelete = async (bookId) => {
     setLoading(true);
 
     try {
       const deletedBook = await axios.delete(
-        `${envVars.backend_uri}/books/delete-book/${bookId}`
+        `${envVars.backend_uri}/books/delete-book/${bookId}`,
+        config
       );
       if (deletedBook) {
         const updatedBooks = books.filter((book) => book._id !== bookId);

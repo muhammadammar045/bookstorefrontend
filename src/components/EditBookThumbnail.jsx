@@ -6,6 +6,8 @@ import envVars from "../../envexport";
 import Input from "./Input";
 import Button from "./Button";
 import { PacmanLoader } from "react-spinners";
+import { useSelector } from "react-redux";
+import { selectAccessToken } from "../store/user/userAuthSlice";
 
 function EditBookThumbnail() {
   const navigate = useNavigate();
@@ -17,12 +19,19 @@ function EditBookThumbnail() {
     handleSubmit,
     formState: { errors },
   } = useForm();
-
+  const accessToken = useSelector(selectAccessToken);
+  const config = {
+    headers: {
+      "Content-Type": "multipart/form-data",
+      Authorization: `Bearer ${accessToken}`,
+    },
+  };
   const editBook = async () => {
     setLoading(true);
     try {
       const response = await axios.get(
-        `${envVars.backend_uri}/books/get-book/${bookId}`
+        `${envVars.backend_uri}/books/get-book/${bookId}`,
+        config
       );
       const fetchedBook = response.data.data;
       setBook(fetchedBook);
@@ -42,7 +51,7 @@ function EditBookThumbnail() {
       const response = await axios.patch(
         `${envVars.backend_uri}/books/update-book-thumbnail/${bookId}`,
         formData,
-        { headers: { "Content-Type": "multipart/form-data" } }
+        config
       );
       console.log(response.data.message);
       navigate(`/all-books`);
