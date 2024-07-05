@@ -15,37 +15,39 @@ const userAuthSlice = createSlice({
         builder
             .addCase(loginUser.pending, (state) => {
                 state.isLoading = true;
+                state.error = null;
             })
             .addCase(loginUser.fulfilled, (state, action) => {
                 state.isLoading = false;
                 state.user = action.payload.data;
+                state.error = null;
             })
             .addCase(loginUser.rejected, (state, action) => {
                 state.isLoading = false;
-                state.error = action.error.message || "Something went wrong";
+                state.error = action.payload.message || "Something went wrong";
             })
             .addCase(registerUser.pending, (state) => {
                 state.isLoading = true;
             })
-            .addCase(registerUser.fulfilled, (state, action) => {
+            .addCase(registerUser.fulfilled, (state) => {
                 state.isLoading = false;
+                state.error = null;
             })
             .addCase(registerUser.rejected, (state, action) => {
                 state.isLoading = false;
-                state.error = action.error.message || "Something went wrong";
+                state.error = action.payload.message || "Something went wrong";
             })
             .addCase(logoutUser.pending, (state) => {
                 state.isLoading = true;
             })
             .addCase(logoutUser.fulfilled, (state) => {
-                state.isLoading = false
+                state.isLoading = false;
                 state.user = null;
             })
             .addCase(logoutUser.rejected, (state, action) => {
                 state.isLoading = false;
-                state.error = action.error.message || "Something went wrong"
-            })
-
+                state.error = action.payload.message || "Something went wrong";
+            });
     },
 });
 

@@ -22,11 +22,12 @@ function Login() {
 
   const login = async (data) => {
     try {
-      await dispatch(loginUser(data));
+      await dispatch(loginUser(data)).unwrap();
       navigate("/");
       reset();
     } catch (err) {
       console.error("Failed to login:", err);
+      navigate("/login");
     }
   };
 
