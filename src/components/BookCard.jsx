@@ -34,7 +34,7 @@ function BookCard({ id, imgSrc, title, category, desc, price, onDelete }) {
         <div className="relative p-2">
           <div className="overflow-hidden">
             <img
-              className="max-h-[250px] w-full rounded-t-lg bg-cover p-3 shadow-md shadow-green-600 duration-700 hover:scale-125"
+              className="max-h-[250px] min-h-[250px] w-full rounded-t-lg bg-cover p-3 shadow-md shadow-green-600 duration-700 hover:scale-125"
               src={imgSrc}
               alt=""
             />
