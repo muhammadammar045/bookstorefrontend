@@ -21,15 +21,12 @@ function Signup() {
   } = useForm();
 
   const handleRegisterUser = async (data) => {
-    setLoading(true);
     try {
       await dispatch(registerUser(data));
       navigate("/login");
       reset();
     } catch (error) {
       console.error("Failed to register:", error);
-    } finally {
-      setLoading(false);
     }
   };
 
