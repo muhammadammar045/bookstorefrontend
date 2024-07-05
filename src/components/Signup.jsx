@@ -36,7 +36,7 @@ function Signup() {
         <h1 className="mb-4 text-center text-3xl text-white">Register</h1>
         {isLoading ? (
           <div className="flex h-[350px] items-center justify-center rounded-3xl bg-black">
-            <h2 className="text-3xl">Logging </h2>
+            <h2 className="text-3xl">Redirecting To Login </h2>
             <PacmanLoader
               className="mx-5"
               color="white"
