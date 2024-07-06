@@ -3,7 +3,6 @@ import { useNavigate } from "react-router-dom";
 import { logoutUser } from "../store/user/userApi";
 import { useDispatch, useSelector } from "react-redux";
 import { selectIsLoading } from "../store/user/userAuthSlice";
-import { PacmanLoader } from "react-spinners";
 
 function Logout() {
   const dispatch = useDispatch();
@@ -22,15 +21,15 @@ function Logout() {
   return (
     <>
       {isLoading ? (
-        <>
-          <div className="flex h-[350px] items-center justify-center rounded-3xl bg-black">
-            <h2 className="text-3xl">Loading Books </h2>
-            <PacmanLoader
-              className="mx-5"
-              color="white"
-            />
-          </div>
-        </>
+        <li className="cursor-pointer">
+          <button
+            onClick={handleLogout}
+            className="block rounded px-3 py-2 md:p-0 dark:hover:text-orange-600 md:dark:text-white"
+            aria-current="page"
+          >
+            Logout
+          </button>
+        </li>
       ) : (
         <li className="cursor-pointer">
           <button
