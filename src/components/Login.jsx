@@ -32,7 +32,7 @@ function Login() {
   };
 
   return (
-    <div className="mx-auto my-10 max-w-[500px] rounded-lg bg-zinc-800 p-14">
+    <div className="mx-auto my-10 max-w-[500px] rounded-lg border-2 border-orange-300 bg-zinc-800 p-14">
       <h1 className="mb-4 text-center text-3xl text-white">Login</h1>
       {isLoading ? (
         <div className="flex h-[350px] items-center justify-center rounded-3xl bg-black">
