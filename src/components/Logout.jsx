@@ -28,7 +28,7 @@ function Logout() {
             className="block rounded px-3 py-2 md:p-0 dark:hover:text-orange-600 md:dark:text-white"
             aria-current="page"
           >
-            <PacmanLoader /> Logging Out
+            Logging Out...
           </button>
         </li>
       ) : (
