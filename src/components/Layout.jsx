@@ -1,26 +1,16 @@
 import React from "react";
-import { useSelector } from "react-redux";
-import { selectUser } from "../store/user/userAuthSlice";
+import { Outlet } from "react-router-dom";
+import Navbar from "./Navbar";
+import Footer from "./Footer";
 
-function Layout() {
-  const user = useSelector(selectUser);
+const Layout = () => {
   return (
-    <div className="my-48">
-      {user ? (
-        <h1 className="p-4 text-center text-5xl font-bold text-white">
-          <span className="bg-slate-800 px-12 italic shadow-xl shadow-rose-700">
-            {`Welcome ! ${user?.user?.fullname}`}
-          </span>
-        </h1>
-      ) : (
-        <h1 className="p-4 text-center text-5xl font-bold text-white">
-          <span className="bg-slate-800 px-12 italic shadow-xl shadow-rose-700">
-            Login To See Books
-          </span>
-        </h1>
-      )}
-    </div>
+    <>
+      <Navbar />
+      <Outlet />
+      <Footer />
+    </>
   );
-}
+};
 
 export default Layout;

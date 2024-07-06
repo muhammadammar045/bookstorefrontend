@@ -1,15 +1,15 @@
 import React from "react";
-import { Login as LoginComp } from "../components/AllComponents";
+import { Home as HomeComp } from "../components/AllComponents";
 import { Container } from "./Allpages";
 
-function Login() {
+function Home() {
   return (
     <>
       <Container>
-        <LoginComp />
+        <HomeComp />
       </Container>
     </>
   );
 }
 
-export default Login;
+export default Home;

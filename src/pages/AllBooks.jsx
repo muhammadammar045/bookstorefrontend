@@ -1,12 +1,12 @@
 import React from "react";
-import Container from "./Container";
-import BookShop from "../components/BookShop";
+import { BookShop as BookShopComp } from "../components/AllComponents";
+import { Container } from "./Allpages";
 
 function AllBooks() {
   return (
     <>
       <Container>
-        <BookShop />
+        <BookShopComp />
       </Container>
     </>
   );

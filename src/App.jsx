@@ -1,28 +1,47 @@
-import { Outlet, useNavigate } from "react-router-dom";
-import Footer from "./components/Footer";
-import Navbar from "./components/Navbar";
-import { useSelector } from "react-redux";
-import { selectUser } from "./store/user/userAuthSlice";
-import { useEffect } from "react";
+import React from "react";
+import { Routes, Route } from "react-router-dom";
+import { Layout, Protected } from "./components/AllComponents";
+import { AddBook, AllBooks, Home, Login, Signup } from "./pages/Allpages";
 
-function App() {
-  const user = useSelector(selectUser);
-  const navigate = useNavigate();
-  useEffect(() => {
-    if (!user) {
-      navigate("/login");
-    }
-  }, []);
-
+const App = () => {
   return (
-    <>
-      <Navbar />
+    <Routes>
+      <Route
+        path="/"
+        element={<Layout />}
+      >
+        <Route
+          index
+          element={<Home />}
+        />
+        <Route
+          path="login"
+          element={<Login />}
+        />
+        <Route
+          path="signup"
+          element={<Signup />}
+        />
 
-      <Outlet />
-
-      <Footer />
-    </>
+        <Route
+          path="all-books"
+          element={
+            <Protected>
+              <AllBooks />
+            </Protected>
+          }
+        />
+        <Route
+          path="add-book"
+          element={
+            <Protected>
+              <AddBook />
+            </Protected>
+          }
+        />
+      </Route>
+    </Routes>
   );
-}
+};
 
 export default App;

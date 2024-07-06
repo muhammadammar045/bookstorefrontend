@@ -1,6 +1,7 @@
 import React from "react";
-import SignupComp from "../components/Signup.jsx";
-import Container from "./Container.jsx";
+import { Signup as SignupComp } from "../components/AllComponents";
+import { Container } from "./Allpages";
+
 function Signup() {
   return (
     <>

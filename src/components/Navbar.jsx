@@ -2,10 +2,10 @@ import React, { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars } from "@fortawesome/free-solid-svg-icons";
 import logo from "../assets/images/ARlogo.png";
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { selectUser } from "../store/user/userAuthSlice";
-import Logout from "./Logout.jsx";
+import { Logout } from "./AllComponents";
 
 function Navbar() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -32,8 +32,8 @@ function Navbar() {
       <header id="header">
         <nav className="w-full bg-slate-900">
           <div className="mx-auto flex max-w-screen-xl flex-wrap items-center justify-between p-4">
-            <Link
-              to={"header"}
+            <NavLink
+              to="/"
               className="flex cursor-pointer items-center space-x-3 rtl:space-x-reverse"
             >
               <img
@@ -43,7 +43,7 @@ function Navbar() {
               <span className="xs:hidden self-center whitespace-nowrap text-2xl font-semibold sm:block dark:text-white">
                 AmmaRi
               </span>
-            </Link>
+            </NavLink>
             <div className="flex space-x-3 md:order-2 md:space-x-0 rtl:space-x-reverse">
               <button
                 onClick={toggleMobileMenu}
@@ -67,13 +67,17 @@ function Navbar() {
                           key={path}
                           className="cursor-pointer"
                         >
-                          <Link
+                          <NavLink
                             to={path}
-                            className="block rounded px-3 py-2 md:p-0 dark:hover:text-orange-600 md:dark:text-white"
+                            className={({ isActive }) =>
+                              `block rounded px-3 py-2 md:p-0 ${
+                                isActive ? "text-orange-600" : "text-white"
+                              } dark:hover:text-orange-600 md:dark:text-white`
+                            }
                             aria-current="page"
                           >
                             {label}
-                          </Link>
+                          </NavLink>
                         </li>
                       ))
                     : links.map(([label, path]) => (
@@ -81,13 +85,17 @@ function Navbar() {
                           key={path}
                           className="cursor-pointer"
                         >
-                          <Link
+                          <NavLink
                             to={path}
-                            className="block rounded px-3 py-2 md:p-0 dark:hover:text-orange-600 md:dark:text-white"
+                            className={({ isActive }) =>
+                              `block rounded px-3 py-2 md:p-0 ${
+                                isActive ? "text-orange-600" : "text-white"
+                              } dark:hover:text-orange-600 md:dark:text-white`
+                            }
                             aria-current="page"
                           >
                             {label}
-                          </Link>
+                          </NavLink>
                         </li>
                       ))}
                   {user && <Logout />}
