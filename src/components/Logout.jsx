@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { logoutUser } from "../store/user/userApi";
 import { useDispatch, useSelector } from "react-redux";
 import { selectIsLoading } from "../store/user/userAuthSlice";
+import { PacmanLoader } from "react-spinners";
 
 function Logout() {
   const dispatch = useDispatch();
