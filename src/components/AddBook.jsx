@@ -58,7 +58,7 @@ function AddBook() {
       <div className="mx-auto my-10 max-w-[900px] rounded-lg border-2 border-orange-300 bg-zinc-800 p-10">
         <h1 className="mb-4 text-center text-3xl text-white">Add Book</h1>
         {loading ? (
-          <div className="flex h-[350px] items-center justify-center rounded-3xl bg-black">
+          <div className="flex h-[350px] items-center justify-center rounded-3xl border-2 border-orange-300 bg-black">
             <h2 className="text-3xl">Adding Book </h2>
             <PacmanLoader
               className="mx-5"

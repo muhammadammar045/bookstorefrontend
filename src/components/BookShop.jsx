@@ -78,7 +78,7 @@ function BookShop() {
       <h1 className="mb-8 text-center text-6xl font-bold italic">BookShop</h1>
       {loading ? (
         <>
-          <div className="flex h-[350px] items-center justify-center rounded-3xl bg-black">
+          <div className="flex h-[350px] items-center justify-center rounded-3xl border-2 border-orange-300 bg-black">
             <h2 className="text-3xl">Loading Books </h2>
             <PacmanLoader
               className="mx-5"
