@@ -2,12 +2,12 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import { logoutUser } from "../store/user/userApi";
 import { useDispatch, useSelector } from "react-redux";
-import { selectError } from "../store/user/userAuthSlice";
+import { selectIsLoading } from "../store/user/userAuthSlice";
 
 function Logout() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const isLoading = useSelector(selectError);
+  const isLoading = useSelector(selectIsLoading);
 
   const handleLogout = async () => {
     try {
