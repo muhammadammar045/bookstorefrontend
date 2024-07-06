@@ -9,7 +9,7 @@ function Layout() {
       {user ? (
         <h1 className="p-4 text-center text-5xl font-bold text-white">
           <span className="bg-slate-800 px-12 italic shadow-xl shadow-rose-700">
-            Click On BookShop To See Books
+            {`Welcome ! ${user?.user?.fullname}`}
           </span>
         </h1>
       ) : (
