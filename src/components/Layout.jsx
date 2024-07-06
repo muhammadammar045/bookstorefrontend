@@ -7,12 +7,16 @@ function Layout() {
   return (
     <div className="my-48">
       {user ? (
-        <h1 className="bg-slate-800 p-4 text-center text-5xl font-bold text-white shadow-xl shadow-rose-700">
-          Click On The Book Shop To See Books
+        <h1 className="p-4 text-center text-5xl font-bold text-white">
+          <span className="bg-slate-800 px-12 italic shadow-xl shadow-rose-700">
+            Click On BookShop To See Books
+          </span>
         </h1>
       ) : (
-        <h1 className="bg-slate-800 p-4 text-center text-5xl font-bold text-white shadow-xl shadow-rose-700">
-          Click On The Login To See Books
+        <h1 className="p-4 text-center text-5xl font-bold text-white">
+          <span className="bg-slate-800 px-12 italic shadow-xl shadow-rose-700">
+            Login To See Books
+          </span>
         </h1>
       )}
     </div>

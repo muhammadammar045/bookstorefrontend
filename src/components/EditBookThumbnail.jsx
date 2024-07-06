@@ -69,7 +69,7 @@ function EditBookThumbnail() {
   return (
     <>
       {loading ? (
-        <div className="flex h-[350px] items-center justify-center rounded-3xl border-2 border-orange-300 bg-black">
+        <div className="mx-auto my-10 flex h-[350px] max-w-[500px] items-center justify-center rounded-3xl border-2 border-orange-300 bg-black">
           <h2 className="text-3xl">Updating Book Thumbnail </h2>
           <PacmanLoader
             className="mx-5"
