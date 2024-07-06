@@ -24,12 +24,12 @@ function BookShop() {
     setLoading(true);
     try {
       const response = await axios.get(
-        `${envVars.backend_uri}/books/get-current-user-books?page=${page}`,
+        `${envVars.backend_uri}/books/get-current-user-books`,
         config
       );
-      const { results, meta } = response.data.data;
+      const results = response.data.data;
       setBooks(results);
-      setTotalPages(meta.totalPages);
+      // setTotalPages(meta.totalPages);
       // console.log(meta);
       // console.log(results);
     } catch (error) {
