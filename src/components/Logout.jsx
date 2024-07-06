@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { logoutUser } from "../store/user/userApi";
 import { useDispatch, useSelector } from "react-redux";
 import { selectIsLoading } from "../store/user/userAuthSlice";
+import { PacmanLoader } from "react-spinners";
 
 function Logout() {
   const dispatch = useDispatch();
@@ -27,7 +28,7 @@ function Logout() {
             className="block rounded px-3 py-2 md:p-0 dark:hover:text-orange-600 md:dark:text-white"
             aria-current="page"
           >
-            Logging Out
+            <PacmanLoader /> Logging Out
           </button>
         </li>
       ) : (
