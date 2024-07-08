@@ -90,7 +90,7 @@ function Navbar() {
                             className={({ isActive }) =>
                               `block rounded px-3 py-2 md:p-0 ${
                                 isActive ? "text-orange-600" : "text-white"
-                              } dark:hover:text-orange-600 md:dark:text-white`
+                              } duration-700 hover:scale-125 dark:hover:text-orange-600 md:dark:text-white`
                             }
                             aria-current="page"
                           >
