@@ -5,6 +5,7 @@ import Home from "./Home";
 import EditBook from "./EditBook";
 import Login from "./Login";
 import Signup from "./Signup";
+import EditBookThumbnail from "./EditBookThumbnail";
 
 export {
     AddBook,
@@ -13,5 +14,6 @@ export {
     Home,
     EditBook,
     Login,
-    Signup
+    Signup,
+    EditBookThumbnail
 }

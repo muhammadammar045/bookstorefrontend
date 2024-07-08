@@ -1,7 +1,15 @@
 import React from "react";
 import { Routes, Route } from "react-router-dom";
 import { Layout, Protected } from "./components/AllComponents";
-import { AddBook, AllBooks, Home, Login, Signup } from "./pages/Allpages";
+import {
+  AddBook,
+  AllBooks,
+  EditBook,
+  EditBookThumbnail,
+  Home,
+  Login,
+  Signup,
+} from "./pages/Allpages";
 
 const App = () => {
   return (
@@ -36,6 +44,22 @@ const App = () => {
           element={
             <Protected>
               <AddBook />
+            </Protected>
+          }
+        />
+        <Route
+          path="edit-book/:bookId"
+          element={
+            <Protected>
+              <EditBook />
+            </Protected>
+          }
+        />
+        <Route
+          path="edit-book-thumbnail/:bookId"
+          element={
+            <Protected>
+              <EditBookThumbnail />
             </Protected>
           }
         />
