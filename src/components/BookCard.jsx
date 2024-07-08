@@ -26,20 +26,20 @@ function BookCard({ id, imgSrc, title, category, desc, price, onDelete }) {
   };
 
   return (
-    <div className="rounded-lg border border-gray-200 bg-white shadow-xl shadow-red-900 lg:w-[350px] dark:border-gray-700 dark:bg-gray-800">
-      <div className="relative p-2">
-        <div className="overflow-hidden">
+    <div className="rounded-lg border-2 border-white bg-white lg:w-[350px] dark:bg-gray-800">
+      <div className="relative">
+        <div className="overflow-hidden p-2">
           <img
-            className="max-h-[250px] min-h-[250px] w-full rounded-t-lg bg-cover p-3 shadow-md shadow-green-600 duration-700 hover:scale-125"
+            className="max-h-[250px] min-h-[250px] w-full rounded-lg border-2 border-white bg-cover duration-700 hover:scale-125"
             src={imgSrc}
             alt=""
           />
         </div>
-        <div className="absolute right-6 top-10 flex h-8 w-8 items-center justify-center rounded-full bg-red-700">
+        <div className="absolute right-6 top-10 flex h-8 w-8 items-center justify-center rounded-full border-2 border-black bg-white duration-700 hover:scale-125">
           <button onClick={() => onThumbnailChange(id)}>
             <FontAwesomeIcon
               icon={faCamera}
-              color="white"
+              color="black"
             />
           </button>
         </div>
@@ -51,7 +51,10 @@ function BookCard({ id, imgSrc, title, category, desc, price, onDelete }) {
             {category}
           </h5>
           <span className="">
-            <button onClick={() => onDelete(id)}>
+            <button
+              className="duration-700 hover:scale-150"
+              onClick={() => onDelete(id)}
+            >
               <span className="px-2">
                 <FontAwesomeIcon
                   icon={faTrash}
@@ -60,7 +63,10 @@ function BookCard({ id, imgSrc, title, category, desc, price, onDelete }) {
               </span>
             </button>
 
-            <button onClick={() => handleEdit(id)}>
+            <button
+              className="duration-700 hover:scale-150"
+              onClick={() => handleEdit(id)}
+            >
               <span className="px-2">
                 <FontAwesomeIcon
                   icon={faEdit}
@@ -79,7 +85,7 @@ function BookCard({ id, imgSrc, title, category, desc, price, onDelete }) {
         <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">
           {showFullDescription ? desc : `${desc.slice(0, 40)}... `}
           <button
-            className="text-blue-500 hover:underline focus:outline-none"
+            className="text-blue-500 duration-700 hover:scale-125 hover:pl-2 hover:text-red-600 focus:outline-none"
             onClick={toggleDescription}
           >
             {showFullDescription ? "Read less" : "Read more"}

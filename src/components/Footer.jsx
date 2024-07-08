@@ -32,7 +32,7 @@ function Footer() {
             <Link
               to={"https://www.facebook.com/profile.php?id=100008523095118"}
             >
-              <button className="inline-flex items-center space-x-2 rounded bg-blue-500 p-2 font-semibold text-white">
+              <button className="inline-flex items-center space-x-2 rounded bg-blue-500 p-2 font-semibold text-white duration-700 hover:scale-125">
                 <svg
                   className="h-5 w-5 fill-current"
                   role="img"
@@ -46,7 +46,7 @@ function Footer() {
 
             <Link to="/">
               {" "}
-              <button className="inline-flex items-center space-x-2 rounded bg-blue-400 p-2 font-semibold text-white">
+              <button className="inline-flex items-center space-x-2 rounded bg-blue-400 p-2 font-semibold text-white duration-700 hover:scale-125">
                 <svg
                   className="h-5 w-5 fill-current"
                   role="img"
@@ -60,7 +60,7 @@ function Footer() {
 
             <Link to={"https://www.linkedin.com/in/ammar-afridi-045abc"}>
               {" "}
-              <button className="inline-flex items-center space-x-2 rounded bg-blue-600 p-2 font-semibold text-white">
+              <button className="inline-flex items-center space-x-2 rounded bg-blue-600 p-2 font-semibold text-white duration-700 hover:scale-125">
                 <svg
                   className="h-5 w-5 fill-current"
                   role="img"
@@ -76,7 +76,7 @@ function Footer() {
 
             <Link to={"https://github.com/muhammadammar045"}>
               {" "}
-              <button className="inline-flex items-center space-x-2 rounded bg-gray-700 p-2 font-semibold text-white">
+              <button className="inline-flex items-center space-x-2 rounded bg-gray-700 p-2 font-semibold text-white duration-700 hover:scale-125">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   xmlnsXlink="http://www.w3.org/1999/xlink"
@@ -100,7 +100,7 @@ function Footer() {
 
             <Link to={"mailto:ammardata122@gmail.com"}>
               {" "}
-              <button className="inline-flex items-center space-x-2 rounded bg-red-500 p-2 font-semibold text-white">
+              <button className="inline-flex items-center space-x-2 rounded bg-red-500 p-2 font-semibold text-white duration-700 hover:scale-125">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   xmlnsXlink="http://www.w3.org/1999/xlink"
