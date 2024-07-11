@@ -218,7 +218,7 @@ const booksSlice = createSlice({
             })
             .addCase(updateBookThumbnailThunk.fulfilled, (state, action) => {
                 state.isLoading = false;
-                state.books = state.books.map(book => book._id === action.payload._id ? action.payload : book);
+                state.book = action.payload.data;
                 state.status = "succeeded";
             })
             .addCase(updateBookThumbnailThunk.rejected, (state, action) => {
