@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import {
   selectBooks,
-  selectLoading,
+  selectIsLoading,
   fetchBooksThunk,
   deleteBookThunk,
   selectTotalPages,
@@ -14,7 +14,7 @@ import { PacmanLoader } from "react-spinners";
 function BookShop() {
   const [currentPage, setCurrentPage] = useState(1);
   const dispatch = useDispatch();
-  const loading = useSelector(selectLoading);
+  const loading = useSelector(selectIsLoading);
   const books = useSelector(selectBooks);
   const totalPages = useSelector(selectTotalPages);
 

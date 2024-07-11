@@ -109,13 +109,15 @@ export const updateBookThunk = createAsyncThunk(
 export const updateBookThumbnailThunk = createAsyncThunk(
     "book/updateBookThumbnail",
     async (
-        { bookId, thumbnail },
+        { bookId, bookData },
         { getState, rejectWithValue }
     ) => {
         const state = getState();
         const accessToken = selectAccessToken(state);
         try {
-            const response = await updateBookThumbnail(bookId, thumbnail, accessToken);
+            const formData = new FormData();
+            formData.append("thumbnail", bookData.thumbnail[0]);
+            const response = await updateBookThumbnail(bookId, formData, accessToken);
             return response;
         } catch (error) {
             return rejectWithValue(error.response.data);
@@ -144,6 +146,7 @@ const booksSlice = createSlice({
                 state.error = action.payload;
                 state.status = "failed";
             })
+
             .addCase(fetchBooksThunk.pending, (state) => {
                 state.isLoading = true;
                 state.error = null;
@@ -159,6 +162,7 @@ const booksSlice = createSlice({
                 state.error = action.payload;
                 state.status = "failed";
             })
+
             .addCase(fetchBookThunk.pending, (state) => {
                 state.isLoading = true;
                 state.error = null;
@@ -166,7 +170,7 @@ const booksSlice = createSlice({
             })
             .addCase(fetchBookThunk.fulfilled, (state, action) => {
                 state.isLoading = false;
-                state.book = action.payload;
+                state.book = action.payload.data;
                 state.status = "succeeded";
             })
             .addCase(fetchBookThunk.rejected, (state, action) => {
@@ -174,6 +178,7 @@ const booksSlice = createSlice({
                 state.error = action.payload;
                 state.status = "failed";
             })
+
             .addCase(deleteBookThunk.pending, (state) => {
                 state.isLoading = true;
                 state.error = null;
@@ -189,6 +194,7 @@ const booksSlice = createSlice({
                 state.error = action.payload;
                 state.status = "failed";
             })
+
             .addCase(updateBookThunk.pending, (state) => {
                 state.isLoading = true;
                 state.error = null;
@@ -196,7 +202,7 @@ const booksSlice = createSlice({
             })
             .addCase(updateBookThunk.fulfilled, (state, action) => {
                 state.isLoading = false;
-                state.books = state.books.map(book => book._id === action.payload._id ? action.payload : book);
+                state.book = action.payload.data;
                 state.status = "succeeded";
             })
             .addCase(updateBookThunk.rejected, (state, action) => {
@@ -204,6 +210,7 @@ const booksSlice = createSlice({
                 state.error = action.payload;
                 state.status = "failed";
             })
+
             .addCase(updateBookThumbnailThunk.pending, (state) => {
                 state.isLoading = true;
                 state.error = null;
@@ -219,6 +226,7 @@ const booksSlice = createSlice({
                 state.error = action.payload;
                 state.status = "failed";
             });
+
     },
 });
 
@@ -226,10 +234,11 @@ const booksSlice = createSlice({
 export default booksSlice.reducer;
 
 export const selectBooks = (state) => state.booksData?.books?.results;
+export const selectBook = (state) => state.booksData?.book;
 export const selectTotalPages = (state) => state.booksData?.books?.meta?.totalPages;
 export const selectTotalDocuments = (state) => state.booksData?.books?.meta?.totalDocuments;
 export const selectCurrentPage = (state) => state.booksData?.books?.meta?.page;
 export const selectLimit = (state) => state.booksData?.books?.meta?.limit;
-export const selectLoading = (state) => state.booksData?.isLoading;
+export const selectIsLoading = (state) => state.booksData?.isLoading;
 export const selectError = (state) => state.booksData?.error;
 export const selectStatus = (state) => state.booksData?.status;
