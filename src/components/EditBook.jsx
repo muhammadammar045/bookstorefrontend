@@ -1,99 +1,53 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import Input from "./Input";
 import Button from "./Button";
-import axios from "axios";
-import envVars from "../../envexport";
 import { useNavigate, useParams } from "react-router-dom";
 import { PacmanLoader } from "react-spinners";
-import { useSelector } from "react-redux";
-import { selectAccessToken } from "../store/user/userAuthSlice";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  fetchBookThunk,
+  updateBookThunk,
+  selectBook,
+  selectIsLoading,
+} from "../store/book/bookSlice";
 
 function EditBook() {
-  const navigate = useNavigate();
-  const { bookId } = useParams();
-  const [book, setBook] = useState(null);
-  const [initialValues, setInitialValues] = useState({});
-  const [modifyValues, setModifyValues] = useState(false);
-  const [loading, setLoading] = useState(false);
-  const accessToken = useSelector(selectAccessToken);
-  const config = {
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: `Bearer ${accessToken}`,
-    },
-  };
   const {
     register,
     handleSubmit,
     setValue,
-    reset,
     formState: { errors },
   } = useForm();
+  const navigate = useNavigate();
+  const { bookId } = useParams();
+  const book = useSelector(selectBook);
+  const loading = useSelector(selectIsLoading);
+  const dispatch = useDispatch();
 
-  const fetchBook = async () => {
-    setLoading(true);
-    try {
-      const response = await axios.get(
-        `${envVars.backend_uri}/books/get-book/${bookId}`,
-        config
-      );
-      const fetchedBook = response.data.data;
-
-      setValue("title", fetchedBook.title);
-      setValue("description", fetchedBook.description);
-      setValue("price", fetchedBook.price);
-      setValue("category", fetchedBook.category);
-      setBook(fetchedBook);
-      setInitialValues({
-        title: fetchedBook.title,
-        description: fetchedBook.description,
-        price: fetchedBook.price,
-        category: fetchedBook.category,
-      });
-    } catch (error) {
-      console.log("Error Fetching The book:", error.message);
-    } finally {
-      setLoading(false);
+  useEffect(() => {
+    if (bookId) {
+      dispatch(fetchBookThunk(bookId));
     }
-  };
+  }, [dispatch, bookId]);
 
-  const editForm = async (data) => {
-    const bookDetails = {};
-    const fields = ["title", "description", "price", "category"];
-
-    fields.forEach((field) => {
-      if (data[field] !== initialValues[field]) {
-        bookDetails[field] = data[field];
-      }
-    });
-
-    if (Object.keys(bookDetails).length === 0) {
-      console.log("No changes made");
-      setModifyValues("No Changes Recorded");
-      return;
+  useEffect(() => {
+    if (book) {
+      setValue("title", book.title);
+      setValue("category", book.category);
+      setValue("price", book.price);
+      setValue("description", book.description);
     }
+  }, [book, setValue]);
 
-    setLoading(true);
+  const editForm = async (bookData) => {
     try {
-      const response = await axios.patch(
-        `${envVars.backend_uri}/books/update-book/${bookId}`,
-        bookDetails,
-        config
-      );
-
-      console.log(response.data.message);
+      await dispatch(updateBookThunk({ bookId, bookData })).unwrap();
       navigate(`/all-books`);
     } catch (error) {
       console.log("Edit Form Error ", error);
-    } finally {
-      setLoading(false);
     }
   };
-
-  useEffect(() => {
-    fetchBook();
-  }, []);
 
   return (
     <>
@@ -137,9 +91,8 @@ function EditBook() {
                 <Input
                   type="text"
                   label="Category"
-                  placeholder="Enter Book Title"
+                  placeholder="Enter Book Category"
                   {...register("category", {
-                    // required: "Category is required",
                     minLength: {
                       value: 4,
                       message: "Category should be at least 4 characters",
@@ -156,7 +109,6 @@ function EditBook() {
                   </span>
                 )}
               </div>
-
               <div className="mb-4 ml-1 w-6/12">
                 <Input
                   type="text"
@@ -192,11 +144,6 @@ function EditBook() {
                 </span>
               )}
             </div>
-
-            {modifyValues && (
-              <div className="mb-2 text-red-600">Modify At least one Field</div>
-            )}
-
             <div className="mb-2">
               <Button
                 type="submit"

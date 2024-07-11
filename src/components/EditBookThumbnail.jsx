@@ -1,70 +1,42 @@
-import axios from "axios";
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate, useParams } from "react-router-dom";
-import envVars from "../../envexport";
 import Input from "./Input";
 import Button from "./Button";
 import { PacmanLoader } from "react-spinners";
-import { useSelector } from "react-redux";
-import { selectAccessToken } from "../store/user/userAuthSlice";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  fetchBookThunk,
+  selectBook,
+  selectIsLoading,
+  updateBookThumbnailThunk,
+} from "../store/book/bookSlice";
 
 function EditBookThumbnail() {
-  const navigate = useNavigate();
-  const { bookId } = useParams();
-  const [book, setBook] = useState(null);
-  const [loading, setLoading] = useState(false);
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm();
-  const accessToken = useSelector(selectAccessToken);
-  const config = {
-    headers: {
-      "Content-Type": "multipart/form-data",
-      Authorization: `Bearer ${accessToken}`,
-    },
-  };
-  const editBook = async () => {
-    setLoading(true);
-    try {
-      const response = await axios.get(
-        `${envVars.backend_uri}/books/get-book/${bookId}`,
-        config
-      );
-      const fetchedBook = response.data.data;
-      setBook(fetchedBook);
-    } catch (error) {
-      console.error("Error fetching book: ", error);
-    } finally {
-      setLoading(false);
-    }
-  };
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const { bookId } = useParams();
+  const loading = useSelector(selectIsLoading);
+  const book = useSelector(selectBook);
+  console.log(book);
 
-  const editThumbnail = async (data) => {
-    setLoading(true);
-    const formData = new FormData();
-    formData.append("thumbnail", data.thumbnail[0]);
+  useEffect(() => {
+    dispatch(fetchBookThunk(bookId));
+  }, []);
 
+  const editThumbnail = async (bookData) => {
     try {
-      const response = await axios.patch(
-        `${envVars.backend_uri}/books/update-book-thumbnail/${bookId}`,
-        formData,
-        config
-      );
-      console.log(response.data.message);
+      await dispatch(updateBookThumbnailThunk({ bookId, bookData })).unwrap();
       navigate(`/all-books`);
     } catch (error) {
       console.error("Error updating book thumbnail: ", error);
-    } finally {
-      setLoading(false);
     }
   };
-
-  useEffect(() => {
-    editBook();
-  }, []);
 
   return (
     <>

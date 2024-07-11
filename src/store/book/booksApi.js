@@ -19,11 +19,13 @@ const addBooks = async (bookData, accessToken) => {
 
 const fetchBooks = async (page, accessToken) => {
     try {
-        const response = await axios.get(`/books/get-current-user-books?page=${page}`, {
-            headers: {
-                'Authorization': `Bearer ${accessToken}`
-            }
-        });
+        const response = await axios
+            .get(`/books/get-current-user-books?page=${page}`,
+                {
+                    headers: {
+                        'Authorization': `Bearer ${accessToken}`
+                    }
+                });
         return response.data;
     } catch (error) {
         throw error;
@@ -32,11 +34,13 @@ const fetchBooks = async (page, accessToken) => {
 
 const fetchBook = async (bookId, accessToken) => {
     try {
-        const response = await axios.get(`/books/get-book/${bookId}`, {
-            headers: {
-                'Authorization': `Bearer ${accessToken}`
-            }
-        });
+        const response = await axios
+            .get(`/books/get-book/${bookId}`,
+                {
+                    headers: {
+                        'Authorization': `Bearer ${accessToken}`
+                    }
+                });
         return response.data;
     } catch (error) {
         throw error;
@@ -45,11 +49,14 @@ const fetchBook = async (bookId, accessToken) => {
 
 const deleteBook = async (bookId, accessToken) => {
     try {
-        const response = await axios.delete(`/books/delete-book/${bookId}`, {
-            headers: {
-                'Authorization': `Bearer ${accessToken}`
-            }
-        });
+        const response = await axios
+            .delete(
+                `/books/delete-book/${bookId}`,
+                {
+                    headers: {
+                        'Authorization': `Bearer ${accessToken}`
+                    }
+                });
         return response.data;
     } catch (error) {
         throw error;
@@ -58,25 +65,33 @@ const deleteBook = async (bookId, accessToken) => {
 
 const updateBook = async (bookId, bookData, accessToken) => {
     try {
-        const response = await axios.patch(`/books/update-book/${bookId}`, bookData, {
-            headers: {
-                'Authorization': `Bearer ${accessToken}`
-            }
-        });
+        const response = await axios
+            .patch(
+                `/books/update-book/${bookId}`,
+                bookData,
+                {
+                    headers: {
+                        'Authorization': `Bearer ${accessToken}`
+                    }
+                });
         return response.data;
     } catch (error) {
         throw error;
     }
 }
 
-const updateBookThumbnail = async (bookId, thumbnail, accessToken) => {
+const updateBookThumbnail = async (bookId, thumbnailFile, accessToken) => {
     try {
-        const response = await axios.patch(`/books/update-book-thumbnail/${bookId}`, thumbnail, {
-            headers: {
-                "Content-Type": "multipart/form-data",
-                'Authorization': `Bearer ${accessToken}`
-            }
-        });
+        const response = await axios
+            .patch(
+                `/books/update-book-thumbnail/${bookId}`,
+                thumbnailFile,
+                {
+                    headers: {
+                        "Content-Type": "multipart/form-data",
+                        'Authorization': `Bearer ${accessToken}`
+                    }
+                });
         return response.data;
     } catch (error) {
         throw error;
