@@ -1,77 +1,34 @@
 import React, { useEffect, useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import {
+  selectBooks,
+  selectLoading,
+  fetchBooksThunk,
+  deleteBookThunk,
+  selectTotalPages,
+} from "../store/book/bookSlice";
 import BookCard from "./BookCard";
-import axios from "axios";
-import envVars from "../../envexport";
 import Pagination from "./Pagination";
 import { PacmanLoader } from "react-spinners";
-import { useSelector } from "react-redux";
-import { selectAccessToken } from "../store/user/userAuthSlice";
 
 function BookShop() {
-  const [books, setBooks] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
-  const [totalPages, setTotalPages] = useState(0);
-  const [loading, setLoading] = useState(false);
-  const accessToken = useSelector(selectAccessToken);
-  const config = {
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: `Bearer ${accessToken}`,
-    },
+  const dispatch = useDispatch();
+  const loading = useSelector(selectLoading);
+  const books = useSelector(selectBooks);
+  const totalPages = useSelector(selectTotalPages);
+
+  useEffect(() => {
+    dispatch(fetchBooksThunk(currentPage));
+  }, [dispatch, currentPage]);
+
+  const handleDelete = (bookId) => {
+    dispatch(deleteBookThunk(bookId));
   };
 
-  const fetchBooks = async (page = 1) => {
-    setLoading(true);
-    try {
-      const response = await axios.get(
-        `${envVars.backend_uri}/books/get-current-user-books?page=${page}`,
-        config
-      );
-      const { results, meta } = response.data.data;
-      setBooks(results);
-      setTotalPages(meta.totalPages);
-      // console.log(meta);
-      // console.log(results);
-    } catch (error) {
-      console.log("Error Fetching The Books:", error.message);
-    } finally {
-      setLoading(false);
-    }
-  };
-  const handleDelete = async (bookId) => {
-    setLoading(true);
-
-    try {
-      const deletedBook = await axios.delete(
-        `${envVars.backend_uri}/books/delete-book/${bookId}`,
-        config
-      );
-      if (deletedBook) {
-        const updatedBooks = books.filter((book) => book._id !== bookId);
-        setBooks(updatedBooks);
-        // console.log(`Book Deleted: ${deletedBook.data}`);
-
-        if (updatedBooks.length === 0 && currentPage > 1) {
-          // If the current page is empty and it's not the first page, go to the previous page
-          setCurrentPage(currentPage - 1);
-          fetchBooks(currentPage - 1);
-        } else {
-          fetchBooks(currentPage);
-        }
-      }
-    } catch (error) {
-      console.log("Error Deleting The book:", error.message);
-    } finally {
-      setLoading(false);
-    }
-  };
   const handlePageChange = (page) => {
     setCurrentPage(page);
-    fetchBooks(page);
   };
-  useEffect(() => {
-    fetchBooks(currentPage);
-  }, [currentPage]);
 
   return (
     <>
@@ -90,7 +47,7 @@ function BookShop() {
               BookShop
             </h1>
             <div className="my-10 flex flex-wrap gap-4">
-              {books.length > 0 ? (
+              {books && books.length > 0 ? (
                 books.map((book) => (
                   <BookCard
                     key={book._id}
@@ -100,7 +57,7 @@ function BookShop() {
                     category={book.category}
                     desc={book.description}
                     price={book.price}
-                    onDelete={handleDelete}
+                    onDelete={() => handleDelete(book._id)}
                   />
                 ))
               ) : (
@@ -109,7 +66,7 @@ function BookShop() {
                 </div>
               )}
             </div>
-            {books.length > 0 && (
+            {books && books.length > 0 && (
               <div className="mt-4 flex justify-center">
                 <Pagination
                   currentPage={currentPage}

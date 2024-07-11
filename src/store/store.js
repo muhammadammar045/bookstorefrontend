@@ -1,9 +1,11 @@
 import { configureStore } from "@reduxjs/toolkit";
-import userAuthReducer from "./user/userAuthSlice";  // Adjust the path as needed
+import userAuthReducer from "./user/userAuthSlice";
+import booksReducer from "./book/bookSlice";
 
 const store = configureStore({
     reducer: {
         userAuth: userAuthReducer,
+        booksData: booksReducer,
     },
 });
 

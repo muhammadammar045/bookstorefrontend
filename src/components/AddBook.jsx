@@ -2,48 +2,26 @@ import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import Input from "./Input";
 import Button from "./Button";
-import axios from "axios";
-import envVars from "../../envexport";
 import { useNavigate } from "react-router-dom";
 import { PacmanLoader } from "react-spinners";
-import { useSelector } from "react-redux";
-import { selectAccessToken } from "../store/user/userAuthSlice";
+import { useDispatch } from "react-redux";
+import { addBookThunk } from "../store/book/bookSlice";
 
 function AddBook() {
-  const navigate = useNavigate();
-  const [loading, setLoading] = useState(false);
   const {
     register,
     handleSubmit,
     reset,
     formState: { errors },
   } = useForm();
-  const accessToken = useSelector(selectAccessToken);
-  const config = {
-    headers: {
-      "Content-Type": "multipart/form-data",
-      Authorization: `Bearer ${accessToken}`,
-    },
-  };
-  const addBook = async (data) => {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const [loading, setLoading] = useState(false);
+
+  const addBook = async (bookData) => {
     setLoading(true);
     try {
-      const newBook = {
-        title: data.title,
-        price: data.price,
-        description: data.description,
-        category: data.category,
-        thumbnail: data.thumbnail[0],
-      };
-      const addBook = await axios.post(
-        `${envVars.backend_uri}/books/add-book`,
-        newBook,
-        config
-      );
-      if (addBook) {
-        // console.log(addBook?.data?.data);
-        console.log(addBook.data.message);
-      }
+      await dispatch(addBookThunk(bookData)).unwrap();
       navigate("/all-books");
       reset();
     } catch (error) {
