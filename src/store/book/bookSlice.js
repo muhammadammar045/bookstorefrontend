@@ -9,14 +9,6 @@ import {
     updateBookThumbnail
 } from "./booksApi";
 
-const initialState = {
-    books: [],
-    book: {},
-    isLoading: false,
-    error: null,
-    status: "idle",
-};
-
 export const addBookThunk = createAsyncThunk(
     "book/addBook",
     async (bookData, { getState, rejectWithValue }) => {
@@ -125,12 +117,23 @@ export const updateBookThumbnailThunk = createAsyncThunk(
     }
 );
 
+const initialState = {
+    books: [],
+    book: {},
+    isLoading: false,
+    error: null,
+    status: "idle",
+};
+
 const booksSlice = createSlice({
     name: "book",
     initialState,
     reducers: {},
     extraReducers: (builder) => {
         builder
+
+            //=======================================================ADD A BOOK==================================================
+
             .addCase(addBookThunk.pending, (state) => {
                 state.isLoading = true;
                 state.error = null;
@@ -146,6 +149,9 @@ const booksSlice = createSlice({
                 state.error = action.payload;
                 state.status = "failed";
             })
+
+
+            //=======================================================FETCH ALL BOOK===============================================
 
             .addCase(fetchBooksThunk.pending, (state) => {
                 state.isLoading = true;
@@ -163,6 +169,10 @@ const booksSlice = createSlice({
                 state.status = "failed";
             })
 
+
+            //=======================================================FETCH SINGLE BOOK============================================
+
+
             .addCase(fetchBookThunk.pending, (state) => {
                 state.isLoading = true;
                 state.error = null;
@@ -178,6 +188,10 @@ const booksSlice = createSlice({
                 state.error = action.payload;
                 state.status = "failed";
             })
+
+
+            //=======================================================DELETE BOOK==================================================
+
 
             .addCase(deleteBookThunk.pending, (state) => {
                 state.isLoading = true;
@@ -195,6 +209,10 @@ const booksSlice = createSlice({
                 state.status = "failed";
             })
 
+
+            //=======================================================UPDATE BOOK==================================================
+
+
             .addCase(updateBookThunk.pending, (state) => {
                 state.isLoading = true;
                 state.error = null;
@@ -210,6 +228,10 @@ const booksSlice = createSlice({
                 state.error = action.payload;
                 state.status = "failed";
             })
+
+
+            //=======================================================UPDATE THUMBNAIL============================================
+
 
             .addCase(updateBookThumbnailThunk.pending, (state) => {
                 state.isLoading = true;
