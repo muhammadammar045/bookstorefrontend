@@ -34,7 +34,7 @@ function AddBook() {
   return (
     <>
       {loading ? (
-        <div className="mx-auto my-10 flex h-[350px] max-w-[500px] items-center justify-center rounded-3xl border-2 border-orange-300 bg-black">
+        <div className="mx-auto my-10 flex h-[350px] max-w-[500px] items-center justify-center rounded-3xl border-2 border-pink-700 bg-black">
           <h2 className="text-3xl">Adding Book </h2>
           <PacmanLoader
             className="mx-5"
@@ -42,7 +42,7 @@ function AddBook() {
           />
         </div>
       ) : (
-        <div className="mx-auto my-10 max-w-[900px] rounded-lg border-2 border-orange-300 bg-zinc-800 p-10">
+        <div className="mx-auto my-10 max-w-[900px] rounded-lg border-2 border-pink-700 bg-zinc-800 p-10">
           <h1 className="mb-4 text-center text-3xl text-white">Add Book</h1>
           <form onSubmit={handleSubmit(addBook)}>
             <div className="flex w-full">

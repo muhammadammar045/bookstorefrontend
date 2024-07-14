@@ -1,9 +1,7 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import { logoutUser } from "../store/user/userApi";
 import { useDispatch, useSelector } from "react-redux";
-import { selectIsLoading } from "../store/user/userAuthSlice";
-import { PacmanLoader } from "react-spinners";
+import { logoutUserThunk, selectIsLoading } from "../store/user/userAuthSlice";
 
 function Logout() {
   const dispatch = useDispatch();
@@ -12,7 +10,7 @@ function Logout() {
 
   const handleLogout = async () => {
     try {
-      await dispatch(logoutUser());
+      await dispatch(logoutUserThunk()).unwrap();
       navigate("/login");
     } catch (error) {
       console.error("Failed to logout:", error);

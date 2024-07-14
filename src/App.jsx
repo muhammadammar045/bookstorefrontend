@@ -1,15 +1,16 @@
-import React from "react";
-import { Routes, Route } from "react-router-dom";
-import { Layout, Protected } from "./components/AllComponents";
 import {
   AddBook,
   AllBooks,
+  Book,
   EditBook,
   EditBookThumbnail,
   Home,
   Login,
   Signup,
 } from "./pages/Allpages";
+import React from "react";
+import { Routes, Route } from "react-router-dom";
+import { Layout, Protected } from "./components/AllComponents";
 
 const App = () => {
   return (
@@ -31,6 +32,14 @@ const App = () => {
           element={<Signup />}
         />
 
+        <Route
+          path="book/:bookId"
+          element={
+            <Protected>
+              <Book />
+            </Protected>
+          }
+        />
         <Route
           path="all-books"
           element={

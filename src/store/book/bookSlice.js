@@ -1,12 +1,12 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { selectAccessToken } from "../user/userAuthSlice"
+import { logoutUserThunk, selectAccessToken } from "../user/userAuthSlice"
 import {
-    addBooks,
-    fetchBooks,
-    fetchBook,
-    deleteBook,
-    updateBook,
-    updateBookThumbnail
+    apiAddBooks,
+    apiFetchBooks,
+    apiFetchBook,
+    apiDeleteBook,
+    apiUpdateBook,
+    apiUpdateBookThumbnail
 } from "./booksApi";
 
 export const addBookThunk = createAsyncThunk(
@@ -22,7 +22,7 @@ export const addBookThunk = createAsyncThunk(
             formData.append("category", bookData.category);
             formData.append("thumbnail", bookData.thumbnail[0]);
 
-            const response = await addBooks(formData, accessToken);
+            const response = await apiAddBooks(formData, accessToken);
             return response;
         } catch (error) {
             return rejectWithValue(error.response.data);
@@ -39,7 +39,7 @@ export const fetchBooksThunk = createAsyncThunk(
         const state = getState();
         const accessToken = selectAccessToken(state);
         try {
-            const response = await fetchBooks(page, accessToken);
+            const response = await apiFetchBooks(page, accessToken);
             return response;
         } catch (error) {
             return rejectWithValue(error.response.data);
@@ -56,7 +56,7 @@ export const fetchBookThunk = createAsyncThunk(
         const state = getState();
         const accessToken = selectAccessToken(state);
         try {
-            const response = await fetchBook(bookId, accessToken);
+            const response = await apiFetchBook(bookId, accessToken);
             return response;
         } catch (error) {
             return rejectWithValue(error.response.data);
@@ -73,7 +73,7 @@ export const deleteBookThunk = createAsyncThunk(
         const state = getState();
         const accessToken = selectAccessToken(state);
         try {
-            const response = await deleteBook(bookId, accessToken);
+            const response = await apiDeleteBook(bookId, accessToken);
             return response;
         } catch (error) {
             return rejectWithValue(error.response.data);
@@ -90,7 +90,7 @@ export const updateBookThunk = createAsyncThunk(
         const state = getState();
         const accessToken = selectAccessToken(state);
         try {
-            const response = await updateBook(bookId, bookData, accessToken);
+            const response = await apiUpdateBook(bookId, bookData, accessToken);
             return response;
         } catch (error) {
             return rejectWithValue(error.response.data);
@@ -109,7 +109,7 @@ export const updateBookThumbnailThunk = createAsyncThunk(
         try {
             const formData = new FormData();
             formData.append("thumbnail", bookData.thumbnail[0]);
-            const response = await updateBookThumbnail(bookId, formData, accessToken);
+            const response = await apiUpdateBookThumbnail(bookId, formData, accessToken);
             return response;
         } catch (error) {
             return rejectWithValue(error.response.data);
@@ -200,7 +200,6 @@ const booksSlice = createSlice({
             })
             .addCase(deleteBookThunk.fulfilled, (state, action) => {
                 state.isLoading = false;
-                state.books = state.books.filter(book => book._id !== action.payload._id);
                 state.status = "succeeded";
             })
             .addCase(deleteBookThunk.rejected, (state, action) => {
@@ -247,7 +246,12 @@ const booksSlice = createSlice({
                 state.isLoading = false;
                 state.error = action.payload;
                 state.status = "failed";
-            });
+            })
+
+            //=======================================================Logout============================================
+            .addCase(logoutUserThunk.fulfilled, (state) => {
+                return initialState;
+            })
 
     },
 });

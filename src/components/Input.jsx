@@ -3,7 +3,7 @@ import React, { useId } from "react";
 function Input(
   {
     type = "text",
-    className = "",
+    className = "outline outline-cyan-500 shadow-md shadow-cyan-500 focus:shadow-lg focus:shadow-cyan-600 focus:outline-cyan-600",
     labelColor = "text-white",
     placeholder = "Type here",
     label = "",
@@ -11,7 +11,7 @@ function Input(
     width = "w-full",
     rounded = "rounded-lg",
     text = "text-black",
-    border = "border border-gray-200",
+    border = "",
 
     ...props
   },
@@ -22,7 +22,7 @@ function Input(
   const inputProps = {
     id: id,
     ref: ref,
-    className: `${className} ${padding} ${width} ${border} ${rounded} ${text}`,
+    className: `${className} ${padding} ${width} ${border} ${rounded} ${text} outline outline-cyan-500 shadow-md shadow-cyan-500 focus:shadow-lg focus:shadow-cyan-600 focus:outline-cyan-600 `,
     placeholder: placeholder,
     ...props,
   };

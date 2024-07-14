@@ -1,48 +1,21 @@
-// userApi.js
-import { createAsyncThunk } from "@reduxjs/toolkit";
-import axios from "axios";
-import envVars from "../../../envexport";
-import { selectAccessToken } from "./userAuthSlice";
+import axios from "../axiosInstance";
 
+export const apiLoginUser = async (credentials) => {
+    const response = await axios.post(`/user/login`, credentials);
+    return response.data;
+};
 
-export const loginUser = createAsyncThunk(
-    "user/login",
-    async (credentials, { rejectWithValue }) => {
-        try {
-            const response = await axios.post(`${envVars.backend_uri}/user/login`, credentials);
-            return response.data;
-        } catch (err) {
-            return rejectWithValue(err.response.data);
-        }
-    }
-);
-export const logoutUser = createAsyncThunk(
-    "user/logout",
-    async (_, { getState, rejectWithValue }) => {
-        try {
-            const state = getState();
-            const accessToken = selectAccessToken(state);
-            const config = {
-                headers: {
-                    "Content-Type": "application/json",
-                    Authorization: `Bearer ${accessToken}`,
-                },
-            };
-            const response = await axios.post(`${envVars.backend_uri}/user/logout`, {}, config);
-            return response.data;
-        } catch (err) {
-            return rejectWithValue(err.response.data);
-        }
-    }
-);
-export const registerUser = createAsyncThunk(
-    "user/register",
-    async (credentials, { rejectWithValue }) => {
-        try {
-            const response = await axios.post(`${envVars.backend_uri}/user/register`, credentials);
-            return response.data;
-        } catch (err) {
-            return rejectWithValue(err.response.data);
-        }
-    }
-);
+export const apiLogoutUser = async (accessToken) => {
+    const config = {
+        headers: {
+            Authorization: `Bearer ${accessToken}`,
+        },
+    };
+    const response = await axios.post(`/user/logout`, {}, config);
+    return response.data;
+};
+
+export const apiRegisterUser = async (credentials) => {
+    const response = await axios.post(`/user/register`, credentials);
+    return response.data;
+};
