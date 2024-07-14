@@ -141,7 +141,7 @@ const booksSlice = createSlice({
             })
             .addCase(addBookThunk.fulfilled, (state, action) => {
                 state.isLoading = false;
-                state.books.push(action.payload);
+                // state.books.push(action.payload);
                 state.status = "succeeded";
             })
             .addCase(addBookThunk.rejected, (state, action) => {
