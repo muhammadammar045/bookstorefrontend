@@ -43,7 +43,7 @@ function EditBook() {
   const editForm = async (bookData) => {
     try {
       await dispatch(updateBookThunk({ bookId, bookData })).unwrap();
-      navigate(`/all-books`);
+      navigate(`/book/${bookId}`);
     } catch (error) {
       console.log("Edit Form Error ", error);
     }
@@ -52,7 +52,7 @@ function EditBook() {
   return (
     <>
       {loading ? (
-        <div className="flex h-[350px] items-center justify-center rounded-3xl border-2 border-orange-300 bg-black">
+        <div className="flex h-[350px] items-center justify-center rounded-3xl border-2 border-pink-700 bg-black">
           <h2 className="text-3xl">Editing Books </h2>
           <PacmanLoader
             className="mx-5"
@@ -60,7 +60,7 @@ function EditBook() {
           />
         </div>
       ) : book ? (
-        <div className="mx-auto my-10 max-w-[900px] rounded-lg border-2 border-orange-300 bg-zinc-800 p-10">
+        <div className="mx-auto my-10 max-w-[900px] rounded-lg border-2 border-pink-700 bg-zinc-800 p-10">
           <h1 className="mb-4 text-center text-3xl text-white">
             Edit Book Details
           </h1>

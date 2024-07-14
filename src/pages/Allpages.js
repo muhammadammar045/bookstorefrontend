@@ -1,4 +1,5 @@
 import AddBook from "./AddBook";
+import Book from "./Book";
 import AllBooks from "./AllBooks";
 import Container from "./Container";
 import Home from "./Home";
@@ -9,6 +10,7 @@ import EditBookThumbnail from "./EditBookThumbnail";
 
 export {
     AddBook,
+    Book,
     AllBooks,
     Container,
     Home,

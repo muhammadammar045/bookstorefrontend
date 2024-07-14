@@ -4,7 +4,6 @@ import {
   selectBooks,
   selectIsLoading,
   fetchBooksThunk,
-  deleteBookThunk,
   selectTotalPages,
 } from "../store/book/bookSlice";
 import BookCard from "./BookCard";
@@ -22,10 +21,6 @@ function BookShop() {
     dispatch(fetchBooksThunk(currentPage));
   }, [dispatch, currentPage]);
 
-  const handleDelete = (bookId) => {
-    dispatch(deleteBookThunk(bookId));
-  };
-
   const handlePageChange = (page) => {
     setCurrentPage(page);
   };
@@ -33,7 +28,7 @@ function BookShop() {
   return (
     <>
       {loading ? (
-        <div className="mx-auto my-10 flex h-[350px] max-w-[500px] items-center justify-center rounded-3xl border-2 border-orange-300 bg-black">
+        <div className="mx-auto my-10 flex h-[350px] max-w-[500px] items-center justify-center rounded-3xl border-2 border-pink-700 bg-black">
           <h2 className="text-3xl">Loading Books </h2>
           <PacmanLoader
             className="mx-5"
@@ -43,21 +38,15 @@ function BookShop() {
       ) : (
         <>
           <div className="p-8">
-            <h1 className="mb-8 text-center text-6xl font-bold italic">
-              BookShop
+            <h1 className="text mb-8 text-center text-6xl font-bold italic tracking-wider">
+              Your Books
             </h1>
             <div className="my-10 flex flex-wrap gap-4">
               {books && books.length > 0 ? (
                 books.map((book) => (
                   <BookCard
+                    book={book}
                     key={book._id}
-                    id={book._id}
-                    imgSrc={book.thumbnail}
-                    title={book.title}
-                    category={book.category}
-                    desc={book.description}
-                    price={book.price}
-                    onDelete={() => handleDelete(book._id)}
                   />
                 ))
               ) : (

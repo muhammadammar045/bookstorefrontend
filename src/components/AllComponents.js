@@ -1,4 +1,5 @@
 import AddBook from "./AddBook"
+import Book from "./Book"
 import BookCard from "./BookCard"
 import BookShop from "./BookShop"
 import Button from "./Button"
@@ -17,6 +18,7 @@ import Signup from "./Signup"
 
 export {
     AddBook,
+    Book,
     BookCard,
     BookShop,
     Button,

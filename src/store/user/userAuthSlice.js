@@ -1,5 +1,44 @@
-import { createSlice } from "@reduxjs/toolkit";
-import { loginUser, logoutUser, registerUser } from "./userApi";
+// store.js
+import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import { apiLoginUser, apiLogoutUser, apiRegisterUser } from "./userApi";
+
+export const loginUserThunk = createAsyncThunk(
+    "user/login",
+    async (credentials, { rejectWithValue }) => {
+        try {
+            const data = await apiLoginUser(credentials);
+            return data;
+        } catch (err) {
+            return rejectWithValue(err.response.data);
+        }
+    }
+);
+
+export const logoutUserThunk = createAsyncThunk(
+    "user/logout",
+    async (_, { getState, rejectWithValue }) => {
+        try {
+            const state = getState();
+            const accessToken = selectAccessToken(state);
+            const data = await apiLogoutUser(accessToken);
+            return data;
+        } catch (err) {
+            return rejectWithValue(err.response.data);
+        }
+    }
+);
+
+export const registerUserThunk = createAsyncThunk(
+    "user/register",
+    async (credentials, { rejectWithValue }) => {
+        try {
+            const data = await apiRegisterUser(credentials);
+            return data;
+        } catch (err) {
+            return rejectWithValue(err.response.data);
+        }
+    }
+);
 
 const initialState = {
     user: null,
@@ -13,38 +52,38 @@ const userAuthSlice = createSlice({
     reducers: {},
     extraReducers: (builder) => {
         builder
-            .addCase(loginUser.pending, (state) => {
+            .addCase(loginUserThunk.pending, (state) => {
                 state.isLoading = true;
                 state.error = null;
             })
-            .addCase(loginUser.fulfilled, (state, action) => {
+            .addCase(loginUserThunk.fulfilled, (state, action) => {
                 state.isLoading = false;
                 state.user = action.payload.data;
                 state.error = null;
             })
-            .addCase(loginUser.rejected, (state, action) => {
+            .addCase(loginUserThunk.rejected, (state, action) => {
                 state.isLoading = false;
                 state.error = action.payload.message || "Something went wrong";
             })
-            .addCase(registerUser.pending, (state) => {
+            .addCase(registerUserThunk.pending, (state) => {
                 state.isLoading = true;
             })
-            .addCase(registerUser.fulfilled, (state) => {
+            .addCase(registerUserThunk.fulfilled, (state) => {
                 state.isLoading = false;
                 state.error = null;
             })
-            .addCase(registerUser.rejected, (state, action) => {
+            .addCase(registerUserThunk.rejected, (state, action) => {
                 state.isLoading = false;
                 state.error = action.payload.message || "Something went wrong";
             })
-            .addCase(logoutUser.pending, (state) => {
+            .addCase(logoutUserThunk.pending, (state) => {
                 state.isLoading = true;
             })
-            .addCase(logoutUser.fulfilled, (state) => {
+            .addCase(logoutUserThunk.fulfilled, (state) => {
                 state.isLoading = false;
                 state.user = null;
             })
-            .addCase(logoutUser.rejected, (state, action) => {
+            .addCase(logoutUserThunk.rejected, (state, action) => {
                 state.isLoading = false;
                 state.error = action.payload.message || "Something went wrong";
             });

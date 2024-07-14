@@ -1,6 +1,6 @@
 import axios from "../axiosInstance";
 
-const addBooks = async (bookData, accessToken) => {
+const apiAddBooks = async (bookData, accessToken) => {
     try {
         const response = await axios
             .post(
@@ -17,7 +17,7 @@ const addBooks = async (bookData, accessToken) => {
     }
 }
 
-const fetchBooks = async (page, accessToken) => {
+const apiFetchBooks = async (page, accessToken) => {
     try {
         const response = await axios
             .get(`/books/get-current-user-books?page=${page}`,
@@ -32,7 +32,7 @@ const fetchBooks = async (page, accessToken) => {
     }
 }
 
-const fetchBook = async (bookId, accessToken) => {
+const apiFetchBook = async (bookId, accessToken) => {
     try {
         const response = await axios
             .get(`/books/get-book/${bookId}`,
@@ -47,7 +47,7 @@ const fetchBook = async (bookId, accessToken) => {
     }
 }
 
-const deleteBook = async (bookId, accessToken) => {
+const apiDeleteBook = async (bookId, accessToken) => {
     try {
         const response = await axios
             .delete(
@@ -63,7 +63,7 @@ const deleteBook = async (bookId, accessToken) => {
     }
 }
 
-const updateBook = async (bookId, bookData, accessToken) => {
+const apiUpdateBook = async (bookId, bookData, accessToken) => {
     try {
         const response = await axios
             .patch(
@@ -80,7 +80,7 @@ const updateBook = async (bookId, bookData, accessToken) => {
     }
 }
 
-const updateBookThumbnail = async (bookId, thumbnailFile, accessToken) => {
+const apiUpdateBookThumbnail = async (bookId, thumbnailFile, accessToken) => {
     try {
         const response = await axios
             .patch(
@@ -99,10 +99,10 @@ const updateBookThumbnail = async (bookId, thumbnailFile, accessToken) => {
 }
 
 export {
-    addBooks,
-    fetchBooks,
-    fetchBook,
-    deleteBook,
-    updateBook,
-    updateBookThumbnail
+    apiAddBooks,
+    apiFetchBooks,
+    apiFetchBook,
+    apiDeleteBook,
+    apiUpdateBook,
+    apiUpdateBookThumbnail
 };

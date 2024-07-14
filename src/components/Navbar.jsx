@@ -29,8 +29,8 @@ function Navbar() {
 
   return (
     <>
-      <header id="header">
-        <nav className="w-full bg-slate-900">
+      <header>
+        <nav className="w-full border-b-2 border-pink-700 bg-slate-900">
           <div className="mx-auto flex max-w-screen-xl flex-wrap items-center justify-between p-4">
             <NavLink
               to="/"

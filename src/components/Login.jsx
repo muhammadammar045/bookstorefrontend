@@ -5,24 +5,27 @@ import Button from "./Button";
 import { useNavigate } from "react-router-dom";
 import { PacmanLoader } from "react-spinners";
 import { useDispatch, useSelector } from "react-redux";
-import { loginUser } from "../store/user/userApi";
-import { selectIsLoading, selectError } from "../store/user/userAuthSlice";
+import {
+  selectIsLoading,
+  selectError,
+  loginUserThunk,
+} from "../store/user/userAuthSlice";
 
 function Login() {
-  const navigate = useNavigate();
   const {
     register,
     handleSubmit,
     reset,
     formState: { errors },
   } = useForm();
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const isLoading = useSelector(selectIsLoading);
   const error = useSelector(selectError);
 
   const login = async (data) => {
     try {
-      await dispatch(loginUser(data)).unwrap();
+      await dispatch(loginUserThunk(data)).unwrap();
       navigate("/");
       reset();
     } catch (err) {
@@ -30,11 +33,10 @@ function Login() {
       navigate("/login");
     }
   };
-
   return (
     <>
       {isLoading ? (
-        <div className="mx-auto my-10 flex h-[350px] max-w-[500px] items-center justify-center rounded-3xl border-2 border-orange-300 bg-black">
+        <div className="mx-auto my-10 flex h-[350px] max-w-[500px] items-center justify-center rounded-3xl border-2 border-pink-700 bg-black">
           <h2 className="text-3xl">Logging In </h2>
           <PacmanLoader
             className="mx-5"
@@ -42,7 +44,7 @@ function Login() {
           />
         </div>
       ) : (
-        <div className="mx-auto my-10 max-w-[500px] rounded-lg border-2 border-orange-300 bg-zinc-800 p-14">
+        <div className="mx-auto my-10 max-w-[500px] rounded-lg border-2 border-pink-700 bg-zinc-800 p-14">
           <h1 className="mb-4 text-center text-3xl text-white">Login</h1>
           <form onSubmit={handleSubmit(login)}>
             <div className="flex w-full flex-col">

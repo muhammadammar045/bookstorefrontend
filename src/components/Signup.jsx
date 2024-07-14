@@ -5,24 +5,27 @@ import Button from "./Button";
 import { useNavigate } from "react-router-dom";
 import { PacmanLoader } from "react-spinners";
 import { useDispatch, useSelector } from "react-redux";
-import { registerUser } from "../store/user/userApi";
-import { selectIsLoading, selectError } from "../store/user/userAuthSlice";
+import {
+  selectIsLoading,
+  selectError,
+  registerUserThunk,
+} from "../store/user/userAuthSlice";
 
 function Signup() {
-  const navigate = useNavigate();
-  const dispatch = useDispatch();
-  const isLoading = useSelector(selectIsLoading);
-  const error = useSelector(selectError);
   const {
     register,
     handleSubmit,
     reset,
     formState: { errors },
   } = useForm();
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const isLoading = useSelector(selectIsLoading);
+  const error = useSelector(selectError);
 
   const handleRegisterUser = async (data) => {
     try {
-      await dispatch(registerUser(data));
+      await dispatch(registerUserThunk(data)).unwrap();
       navigate("/login");
       reset();
     } catch (error) {
@@ -33,7 +36,7 @@ function Signup() {
   return (
     <>
       {isLoading ? (
-        <div className="mx-auto my-10 flex h-[350px] max-w-[550px] items-center justify-center rounded-3xl border-2 border-orange-300 bg-black">
+        <div className="mx-auto my-10 flex h-[350px] max-w-[550px] items-center justify-center rounded-3xl border-2 border-pink-700 bg-black">
           <h2 className="text-3xl">Redirecting To Login</h2>
           <PacmanLoader
             className="mx-5"
@@ -42,7 +45,7 @@ function Signup() {
         </div>
       ) : (
         <>
-          <div className="mx-auto my-10 max-w-[500px] rounded-lg border-2 border-orange-300 bg-zinc-800 p-10">
+          <div className="mx-auto my-10 max-w-[500px] rounded-lg border-2 border-pink-700 bg-zinc-800 p-10">
             <h1 className="mb-4 text-center text-3xl text-white">Register</h1>
             <form onSubmit={handleSubmit(handleRegisterUser)}>
               <div className="flex w-full flex-col">
