@@ -12,15 +12,15 @@ function Navbar() {
   const user = useSelector(selectUser);
 
   const links = [
-    ["Home", ""],
-    ["Login", "login"],
-    ["Register", "signup"],
+    ["Home", "/"],
+    ["Login", "/login"],
+    ["Register", "/signup"],
   ];
 
   const authenticatedLinks = [
-    ["Home", ""],
-    ["Book Shop", "all-books"],
-    ["Add Book", "add-book"],
+    ["Home", "/"],
+    ["Book Shop", "/all-books"],
+    ["Add Book", "/add-book"],
   ];
 
   const toggleMobileMenu = () => {
@@ -30,18 +30,18 @@ function Navbar() {
   return (
     <>
       <header>
-        <nav className="w-full border-b-2 border-pink-700 bg-slate-900">
+        <nav className="border-primary-500 w-full border-b-2 bg-slate-900">
           <div className="mx-auto flex max-w-screen-xl flex-wrap items-center justify-between p-4">
             <NavLink
               to="/"
-              className="flex cursor-pointer items-center space-x-3 rtl:space-x-reverse"
+              className="group flex cursor-pointer items-center space-x-1 rtl:space-x-reverse"
             >
               <img
                 src={logo}
-                className="h-20"
+                className="h-20 duration-700 group-hover:scale-125"
               />
-              <span className="xs:hidden self-center whitespace-nowrap text-2xl font-semibold sm:block dark:text-white">
-                AmmaRi
+              <span className="xs:hidden self-center whitespace-nowrap text-2xl font-semibold duration-700 group-hover:scale-125 sm:block dark:text-white">
+                . AmmaRi
               </span>
             </NavLink>
             <div className="flex space-x-3 md:order-2 md:space-x-0 rtl:space-x-reverse">
@@ -71,8 +71,8 @@ function Navbar() {
                             to={path}
                             className={({ isActive }) =>
                               `block rounded px-3 py-2 md:p-0 ${
-                                isActive ? "text-orange-600" : "text-white"
-                              } duration-700 hover:scale-125 dark:hover:text-orange-600 md:dark:text-white`
+                                isActive ? "text-primary-500" : "text-white"
+                              } dark:hover:text-primary-500 duration-700 hover:scale-125 md:dark:text-white`
                             }
                             aria-current="page"
                           >
@@ -89,8 +89,8 @@ function Navbar() {
                             to={path}
                             className={({ isActive }) =>
                               `block rounded px-3 py-2 md:p-0 ${
-                                isActive ? "text-orange-600" : "text-white"
-                              } duration-700 hover:scale-125 dark:hover:text-orange-600 md:dark:text-white`
+                                isActive ? "text-primary-500" : "text-white"
+                              } dark:hover:text-primary-500 duration-700 hover:scale-125 md:dark:text-white`
                             }
                             aria-current="page"
                           >

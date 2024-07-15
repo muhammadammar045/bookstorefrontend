@@ -1,16 +1,14 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { faCartShopping } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Button from "./Button";
 
 function BookCard({ book }) {
   return (
     <>
-      <div className="group rounded-lg border-2 border-pink-700 bg-slate-900 lg:w-[350px]">
+      <div className="border-primary-500 group rounded-lg border-2 bg-slate-900 lg:w-[350px]">
         <Link to={`/book/${book?._id}`}>
           <div className="relative p-2">
-            <div className="overflow-hidden border-2 border-pink-700">
+            <div className="border-primary-500 overflow-hidden border-2">
               <img
                 className="max-h-[250px] min-h-[250px] w-full bg-cover duration-700 group-hover:scale-125"
                 src={book?.thumbnail}
@@ -32,7 +30,7 @@ function BookCard({ book }) {
             </p>
 
             <div className="pt-2">
-              <Button className="block w-full rounded-lg px-5 py-2 text-center font-medium text-pink-700 outline outline-pink-700 hover:text-white dark:hover:bg-pink-700">
+              <Button className="text-primary-500 outline-primary-500 dark:hover:bg-primary-500 block w-full rounded-lg px-5 py-2 text-center font-medium outline hover:text-white">
                 Read more{" "}
               </Button>
             </div>

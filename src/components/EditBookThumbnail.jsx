@@ -50,7 +50,7 @@ function EditBookThumbnail() {
       ) : (
         <>
           {book ? (
-            <div className="mx-auto my-10 max-w-[900px] rounded-lg border-2 border-pink-700 bg-zinc-800 p-10">
+            <div className="border-primary-500 mx-auto my-10 max-w-[900px] rounded-lg border-4 bg-zinc-800 p-10">
               <h1 className="mb-4 text-center text-3xl text-white">
                 Edit Book Thumbnail
               </h1>
