@@ -1,11 +1,10 @@
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
-import Input from "./Input";
-import Button from "./Button";
 import { useNavigate } from "react-router-dom";
 import { PacmanLoader } from "react-spinners";
 import { useDispatch } from "react-redux";
 import { addBookThunk } from "../store/book/bookSlice";
+import { Input, Button } from "./AllComponents";
 
 function AddBook() {
   const {
@@ -34,7 +33,7 @@ function AddBook() {
   return (
     <>
       {loading ? (
-        <div className="border-primary-500 mx-auto my-10 flex h-[350px] max-w-[500px] items-center justify-center rounded-3xl border-2 bg-black">
+        <div className="border-primary bg-tertiary mx-auto my-10 flex h-[350px] max-w-[500px] items-center justify-center rounded-3xl border-2">
           <h2 className="text-3xl">Adding Book </h2>
           <PacmanLoader
             className="mx-5"
@@ -42,8 +41,8 @@ function AddBook() {
           />
         </div>
       ) : (
-        <div className="border-primary-500 mx-auto my-10 max-w-[900px] rounded-lg border-4 bg-zinc-800 p-10">
-          <h1 className="mb-4 text-center text-3xl text-white">Add Book</h1>
+        <div className="border-primary bg-tertiary mx-auto my-10 max-w-[900px] rounded-lg border-4 p-10">
+          <h1 className="text-primary mb-4 text-center text-3xl">Add Book</h1>
           <form onSubmit={handleSubmit(addBook)}>
             <div className="flex w-full">
               <div className="mx-1 mb-4 w-4/12">
@@ -142,11 +141,11 @@ function AddBook() {
             <div className="mb-2">
               <Button
                 type="submit"
-                bgColor="outline-none hover:bg-primary-500"
+                bgColor="outline-none hover:bg-primary"
                 padding="px-5 py-2"
                 rounded="rounded-lg"
-                textColor="text-white hover:text-black"
-                className="hover:shadow-primary-500 shadow-lg outline outline-cyan-600"
+                textColor="text-primary hover:text-black"
+                className="hover:shadow-primary shadow-lg outline outline-cyan-600"
               >
                 Add Book
               </Button>

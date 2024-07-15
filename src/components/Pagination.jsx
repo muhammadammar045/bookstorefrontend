@@ -17,8 +17,8 @@ const Pagination = ({ currentPage, totalPages, onPageChange }) => {
     buttons.push(
       <button
         key="prev"
-        className={`outline-primary-500 mx-1 rounded-lg px-3 py-1 text-white outline ${
-          currentPage <= 1 ? "cursor-not-allowed" : "hover:bg-primary-500"
+        className={`outline-primary text-primary mx-1 rounded-lg px-3 py-1 outline ${
+          currentPage <= 1 ? "cursor-not-allowed" : "hover:bg-primary"
         }`}
         onClick={() => currentPage > 1 && handleClick(currentPage - 1)}
         disabled={currentPage <= 1}
@@ -34,8 +34,8 @@ const Pagination = ({ currentPage, totalPages, onPageChange }) => {
           key={i}
           className={`mx-1 rounded-lg px-3 py-1 ${
             currentPage === i
-              ? "bg-primary-500 text-white"
-              : "outline-primary-500 hover:bg-primary-500 outline"
+              ? "bg-primary text-primary"
+              : "outline-primary hover:bg-primary outline"
           }`}
           onClick={() => handleClick(i)}
         >
@@ -49,7 +49,7 @@ const Pagination = ({ currentPage, totalPages, onPageChange }) => {
       buttons.push(
         <span
           key="ellipsis-start"
-          className="outline-primary-500 mx-1 rounded-lg px-3 py-1 text-white outline"
+          className="outline-primary text-primary mx-1 rounded-lg px-3 py-1 outline"
         >
           ...
         </span>
@@ -68,8 +68,8 @@ const Pagination = ({ currentPage, totalPages, onPageChange }) => {
             key={i}
             className={`mx-1 rounded-lg px-3 py-1 ${
               currentPage === i
-                ? "bg-primary-500 text-white"
-                : "outline-primary-500 hover:bg-primary-500 outline"
+                ? "bg-primary text-primary"
+                : "outline-primary hover:bg-primary outline"
             }`}
             onClick={() => handleClick(i)}
           >
@@ -84,7 +84,7 @@ const Pagination = ({ currentPage, totalPages, onPageChange }) => {
       buttons.push(
         <span
           key="ellipsis-end"
-          className="outline-primary-500 mx-1 rounded-lg px-3 py-1 text-white outline"
+          className="outline-primary text-primary mx-1 rounded-lg px-3 py-1 outline"
         >
           ...
         </span>
@@ -103,8 +103,8 @@ const Pagination = ({ currentPage, totalPages, onPageChange }) => {
             key={i}
             className={`mx-1 rounded-lg px-3 py-1 ${
               currentPage === i
-                ? "bg-primary-500 text-white"
-                : "outline-primary-500 hover:bg-primary-500 outline"
+                ? "bg-primary text-primary"
+                : "outline-primary hover:bg-primary outline"
             }`}
             onClick={() => handleClick(i)}
           >
@@ -118,10 +118,8 @@ const Pagination = ({ currentPage, totalPages, onPageChange }) => {
     buttons.push(
       <button
         key="next"
-        className={`outline-primary-500 mx-1 rounded-lg px-3 py-1 text-white outline ${
-          currentPage >= totalPages
-            ? "cursor-not-allowed"
-            : "hover:bg-primary-500"
+        className={`outline-primary text-primary mx-1 rounded-lg px-3 py-1 outline ${
+          currentPage >= totalPages ? "cursor-not-allowed" : "hover:bg-primary"
         }`}
         onClick={() => currentPage < totalPages && handleClick(currentPage + 1)}
         disabled={currentPage >= totalPages}

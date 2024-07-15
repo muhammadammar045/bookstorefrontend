@@ -1,15 +1,14 @@
-import React from "react";
-import { useForm } from "react-hook-form";
-import Input from "./Input";
-import Button from "./Button";
-import { useNavigate } from "react-router-dom";
-import { PacmanLoader } from "react-spinners";
-import { useDispatch, useSelector } from "react-redux";
 import {
   selectIsLoading,
   selectError,
   loginUserThunk,
 } from "../store/user/userAuthSlice";
+import React from "react";
+import { useForm } from "react-hook-form";
+import { useNavigate } from "react-router-dom";
+import { PacmanLoader } from "react-spinners";
+import { useDispatch, useSelector } from "react-redux";
+import { Input, Button } from "./AllComponents";
 
 function Login() {
   const {
@@ -36,7 +35,7 @@ function Login() {
   return (
     <>
       {isLoading ? (
-        <div className="border-primary-500 mx-auto my-10 flex h-[350px] max-w-[500px] items-center justify-center rounded-3xl border-2 bg-black">
+        <div className="border-primary bg-tertiary mx-auto my-10 flex h-[350px] max-w-[500px] items-center justify-center rounded-3xl border-2">
           <h2 className="text-3xl">Logging In </h2>
           <PacmanLoader
             className="mx-5"
@@ -44,8 +43,8 @@ function Login() {
           />
         </div>
       ) : (
-        <div className="border-primary-500 mx-auto my-10 max-w-[500px] rounded-lg border-4 bg-zinc-800 p-14">
-          <h1 className="mb-4 text-center text-3xl text-white">Login</h1>
+        <div className="border-primary bg-tertiary mx-auto my-10 max-w-[500px] rounded-lg border-4 p-14">
+          <h1 className="text-primary mb-4 text-center text-3xl">Login</h1>
           <form onSubmit={handleSubmit(login)}>
             <div className="flex w-full flex-col">
               <div className="mb-4">
@@ -92,11 +91,11 @@ function Login() {
             <div className="my-2">
               <Button
                 type="submit"
-                bgColor="outline-none hover:bg-primary-500"
+                bgColor="outline-none hover:bg-primary"
                 padding="px-5 py-2"
                 rounded="rounded-lg"
-                textColor="text-white hover:text-black"
-                className="hover:shadow-primary-500 shadow-lg outline outline-cyan-600"
+                textColor="text-primary hover:text-tertiary"
+                className="hover:shadow-primary shadow-lg outline outline-cyan-600"
               >
                 Login
               </Button>

@@ -1,16 +1,15 @@
-import React, { useEffect } from "react";
-import { useForm } from "react-hook-form";
-import Input from "./Input";
-import Button from "./Button";
-import { useNavigate, useParams } from "react-router-dom";
-import { PacmanLoader } from "react-spinners";
-import { useDispatch, useSelector } from "react-redux";
 import {
   fetchBookThunk,
   updateBookThunk,
   selectBook,
   selectIsLoading,
 } from "../store/book/bookSlice";
+import React, { useEffect } from "react";
+import { useForm } from "react-hook-form";
+import { useNavigate, useParams } from "react-router-dom";
+import { PacmanLoader } from "react-spinners";
+import { useDispatch, useSelector } from "react-redux";
+import { Input, Button } from "./AllComponents";
 
 function EditBook() {
   const {
@@ -52,7 +51,7 @@ function EditBook() {
   return (
     <>
       {loading ? (
-        <div className="border-primary-500 flex h-[350px] items-center justify-center rounded-3xl border-2 bg-black">
+        <div className="border-primary bg-tertiary flex h-[350px] items-center justify-center rounded-3xl border-2">
           <h2 className="text-3xl">Editing Books </h2>
           <PacmanLoader
             className="mx-5"
@@ -60,8 +59,8 @@ function EditBook() {
           />
         </div>
       ) : book ? (
-        <div className="border-primary-500 mx-auto my-10 max-w-[900px] rounded-lg border-4 bg-zinc-800 p-10">
-          <h1 className="mb-4 text-center text-3xl text-white">
+        <div className="border-primary bg-tertiary mx-auto my-10 max-w-[900px] rounded-lg border-4 p-10">
+          <h1 className="text-primary mb-4 text-center text-3xl">
             Edit Book Details
           </h1>
           <form onSubmit={handleSubmit(editForm)}>
@@ -147,11 +146,11 @@ function EditBook() {
             <div className="mb-2">
               <Button
                 type="submit"
-                bgColor="outline-none hover:bg-primary-500"
+                bgColor="outline-none hover:bg-primary"
                 padding="px-5 py-2"
                 rounded="rounded-lg"
-                textColor="text-white hover:text-black"
-                className="hover:shadow-primary-500 shadow-lg outline outline-cyan-600"
+                textColor="text-primary hover:text-black"
+                className="hover:shadow-primary shadow-lg outline outline-cyan-600"
               >
                 Submit
               </Button>
