@@ -41,9 +41,7 @@ function Book() {
     <>
       {loading ? (
         <div className="mx-auto my-10 flex h-[350px] max-w-[500px] items-center justify-center rounded-3xl border-2 border-pink-700 bg-black">
-          <h2 className="text-3xl">
-            {onDelete ? "Deleting Book " : "Loading Book "}
-          </h2>
+          <h2 className="text-3xl">Loading Book </h2>
           <PacmanLoader
             className="mx-5"
             color="white"
