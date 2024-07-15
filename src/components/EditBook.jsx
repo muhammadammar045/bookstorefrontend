@@ -66,7 +66,7 @@ function EditBook() {
           </h1>
           <form onSubmit={handleSubmit(editForm)}>
             <div className="flex w-full">
-              <div className="mb-4 mr-1 w-6/12">
+              <div className="mx-1 mb-4 w-4/12">
                 <Input
                   type="text"
                   label="Title"
@@ -87,7 +87,7 @@ function EditBook() {
                   <span className="text-red-500">{errors.title.message}</span>
                 )}
               </div>
-              <div className="mb-4 mr-1 w-6/12">
+              <div className="mx-1 mb-4 w-4/12">
                 <Input
                   type="text"
                   label="Category"
@@ -109,7 +109,7 @@ function EditBook() {
                   </span>
                 )}
               </div>
-              <div className="mb-4 ml-1 w-6/12">
+              <div className="mx-1 mb-4 w-4/12">
                 <Input
                   type="text"
                   label="Price"
@@ -147,10 +147,11 @@ function EditBook() {
             <div className="mb-2">
               <Button
                 type="submit"
-                bgColor="bg-blue-600 hover:bg-green-400"
+                bgColor="outline-none hover:bg-primary-500"
                 padding="px-5 py-2"
                 rounded="rounded-lg"
-                textColor="text-white"
+                textColor="text-white hover:text-black"
+                className="hover:shadow-primary-500 shadow-lg outline outline-cyan-600"
               >
                 Submit
               </Button>
