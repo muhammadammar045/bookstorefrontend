@@ -40,7 +40,7 @@ function Book() {
   return (
     <>
       {loading ? (
-        <div className="mx-auto my-10 flex h-[350px] max-w-[500px] items-center justify-center rounded-3xl border-2 border-pink-700 bg-black">
+        <div className="border-primary-500 mx-auto my-10 flex h-[350px] max-w-[500px] items-center justify-center rounded-3xl border-2 bg-black">
           <h2 className="text-3xl">Loading Book </h2>
           <PacmanLoader
             className="mx-5"
@@ -48,11 +48,11 @@ function Book() {
           />
         </div>
       ) : (
-        <div className="my-10 rounded-lg border-2 border-red-500 bg-slate-900 p-10">
+        <div className="border-primary-500 my-10 rounded-lg border-4 bg-slate-900 p-10">
           <div className="relative">
             <div>
               <img
-                className="max-h-[500px] w-full rounded-lg border-2 border-pink-700 bg-cover"
+                className="border-primary-500 max-h-[500px] w-full rounded-lg border-2 bg-cover"
                 src={book?.thumbnail}
                 alt=""
               />
@@ -106,7 +106,7 @@ function Book() {
               {book?.description}
             </p>
             <div className="pt-5">
-              <Button className="block w-full rounded-lg bg-pink-700 px-5 py-2 text-center font-medium text-white hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 dark:bg-pink-700 dark:hover:bg-pink-900 dark:focus:ring-white">
+              <Button className="bg-primary-500 dark:bg-primary-500 block w-full rounded-lg px-5 py-2 text-center font-medium text-white hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 dark:hover:bg-cyan-600 dark:focus:ring-white">
                 {` $${book?.price}`} <FontAwesomeIcon icon={faCartShopping} />
               </Button>
             </div>

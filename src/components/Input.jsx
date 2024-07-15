@@ -3,7 +3,7 @@ import React, { useId } from "react";
 function Input(
   {
     type = "text",
-    className = "outline outline-cyan-500 shadow-md shadow-cyan-500 focus:shadow-lg focus:shadow-cyan-600 focus:outline-cyan-600",
+    className = "outline outline-primary-500 shadow-md shadow-primary-500 focus:shadow-lg focus:shadow-cyan-600 focus:outline-cyan-600",
     labelColor = "text-white",
     placeholder = "Type here",
     label = "",
@@ -22,7 +22,7 @@ function Input(
   const inputProps = {
     id: id,
     ref: ref,
-    className: `${className} ${padding} ${width} ${border} ${rounded} ${text} outline outline-cyan-500 shadow-md shadow-cyan-500 focus:shadow-lg focus:shadow-cyan-600 focus:outline-cyan-600 `,
+    className: `${className} ${padding} ${width} ${border} ${rounded} ${text} outline outline-primary-500 duration-700 shadow-md shadow-primary-500 focus:shadow-lg focus:shadow-cyan-600 focus:outline-cyan-600 `,
     placeholder: placeholder,
     ...props,
   };
@@ -34,7 +34,7 @@ function Input(
           className={`mb-1 inline-block pl-1 ${labelColor}`}
           htmlFor={id}
         >
-          {label}
+          {`${label} :`}
         </label>
       )}
 

@@ -23,7 +23,7 @@ function Logout() {
         <li className="cursor-pointer">
           <button
             onClick={handleLogout}
-            className="block rounded px-3 py-2 md:p-0 dark:hover:text-orange-600 md:dark:text-white"
+            className="dark:hover:text-primary-500 block rounded px-3 py-2 md:p-0 md:dark:text-white"
             aria-current="page"
           >
             Logging Out...
@@ -33,7 +33,7 @@ function Logout() {
         <li className="cursor-pointer">
           <button
             onClick={handleLogout}
-            className="block rounded px-3 py-2 duration-700 hover:scale-125 md:p-0 dark:hover:text-orange-600 md:dark:text-white"
+            className="dark:hover:text-primary-500 block rounded px-3 py-2 duration-700 hover:scale-125 md:p-0 md:dark:text-white"
             aria-current="page"
           >
             Logout

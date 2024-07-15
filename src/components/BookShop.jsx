@@ -28,7 +28,7 @@ function BookShop() {
   return (
     <>
       {loading ? (
-        <div className="mx-auto my-10 flex h-[350px] max-w-[500px] items-center justify-center rounded-3xl border-2 border-pink-700 bg-black">
+        <div className="border-primary-500 mx-auto my-10 flex h-[350px] max-w-[500px] items-center justify-center rounded-3xl border-2 bg-black">
           <h2 className="text-3xl">Loading Books </h2>
           <PacmanLoader
             className="mx-5"
@@ -38,10 +38,10 @@ function BookShop() {
       ) : (
         <>
           <div className="p-8">
-            <h1 className="text mb-8 text-center text-6xl font-bold italic tracking-wider">
+            <h1 className="text outline-primary-500 mb-8 bg-slate-800 py-2 text-center text-6xl font-bold italic tracking-wider shadow-xl shadow-cyan-700 outline">
               Your Books
             </h1>
-            <div className="my-10 flex flex-wrap gap-4">
+            <div className="my-10 flex flex-wrap justify-center gap-4">
               {books && books.length > 0 ? (
                 books.map((book) => (
                   <BookCard
@@ -56,7 +56,7 @@ function BookShop() {
               )}
             </div>
             {books && books.length > 0 && (
-              <div className="mt-4 flex justify-center">
+              <div className="mt-4 flex items-center justify-center">
                 <Pagination
                   currentPage={currentPage}
                   totalPages={totalPages}
