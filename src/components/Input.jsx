@@ -22,7 +22,7 @@ function Input(
   const inputProps = {
     id: id,
     ref: ref,
-    className: `${className} ${padding} ${width} ${border} ${rounded} ${text} outline outline-primary-500 duration-700 shadow-md shadow-primary-500 focus:shadow-lg focus:shadow-cyan-600 focus:outline-cyan-600 `,
+    className: `${className} ${padding} ${width} ${border} ${rounded} ${text} bg-slate-800 text-white outline outline-primary-500 duration-700 shadow-md shadow-primary-500 focus:shadow-lg focus:shadow-cyan-600 focus:outline-cyan-600 `,
     placeholder: placeholder,
     ...props,
   };

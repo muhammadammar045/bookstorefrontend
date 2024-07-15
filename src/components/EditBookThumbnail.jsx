@@ -75,10 +75,11 @@ function EditBookThumbnail() {
                   <div className="mb-2">
                     <Button
                       type="submit"
-                      bgColor="bg-blue-600 hover:bg-green-400"
+                      bgColor="outline-none hover:bg-primary-500"
                       padding="px-5 py-2"
                       rounded="rounded-lg"
-                      textColor="text-white"
+                      textColor="text-white hover:text-black"
+                      className="hover:shadow-primary-500 shadow-lg outline outline-cyan-600"
                     >
                       Submit
                     </Button>
