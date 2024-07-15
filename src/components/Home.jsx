@@ -8,8 +8,8 @@ function Home() {
   return (
     <div className="my-48">
       {user ? (
-        <h1 className="p-4 text-center text-5xl font-bold text-white">
-          <span className="shadow-primary-700 outline-primary-500 bg-slate-800 px-12 italic shadow-xl outline">
+        <h1 className="text-primary p-4 text-center text-5xl font-bold">
+          <span className="shadow-primary-700 outline-primary bg-slate-800 px-12 italic shadow-xl outline">
             {`Welcome !  `}
             <span className="animate-pulse duration-700">
               {user?.user?.fullname}
@@ -17,7 +17,7 @@ function Home() {
           </span>
         </h1>
       ) : (
-        <h1 className="shadow-primary-700 outline-primary-500 bg-slate-800 px-12 py-2 text-5xl font-bold text-white shadow-xl outline">
+        <h1 className="shadow-primary-700 outline-primary text-primary bg-slate-800 px-12 py-2 text-5xl font-bold shadow-xl outline">
           <span className="flex items-center justify-center italic">
             <span> Login To </span>
             <Typewriter

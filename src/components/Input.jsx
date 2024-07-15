@@ -3,16 +3,18 @@ import React, { useId } from "react";
 function Input(
   {
     type = "text",
-    className = "outline outline-primary-500 shadow-md shadow-primary-500 focus:shadow-lg focus:shadow-cyan-600 focus:outline-cyan-600",
-    labelColor = "text-white",
-    placeholder = "Type here",
-    label = "",
+    labelColor = "text-primary",
+    bgColor = "bg-tertiary",
+    textColor = "text-primary",
     padding = "px-3 py-2",
     width = "w-full",
     rounded = "rounded-lg",
-    text = "text-black",
+    shadow = "shadow-md shadow-primary focus:shadow-lg focus:shadow-primary",
+    outline = "outline outline-primary  focus:outline-primary",
+    className = "duration-700",
+    label = "",
+    placeholder = "",
     border = "",
-
     ...props
   },
   ref
@@ -22,7 +24,7 @@ function Input(
   const inputProps = {
     id: id,
     ref: ref,
-    className: `${className} ${padding} ${width} ${border} ${rounded} ${text} bg-slate-800 text-white outline outline-primary-500 duration-700 shadow-md shadow-primary-500 focus:shadow-lg focus:shadow-cyan-600 focus:outline-cyan-600 `,
+    className: `${className} ${padding} ${width} ${border} ${rounded} ${textColor} ${bgColor} ${shadow} ${outline}`,
     placeholder: placeholder,
     ...props,
   };

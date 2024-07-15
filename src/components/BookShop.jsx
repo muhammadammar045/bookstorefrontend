@@ -1,14 +1,13 @@
-import React, { useEffect, useState } from "react";
-import { useSelector, useDispatch } from "react-redux";
 import {
   selectBooks,
   selectIsLoading,
   fetchBooksThunk,
   selectTotalPages,
 } from "../store/book/bookSlice";
-import BookCard from "./BookCard";
-import Pagination from "./Pagination";
+import React, { useEffect, useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import { PacmanLoader } from "react-spinners";
+import { Pagination, BookCard } from "./AllComponents";
 
 function BookShop() {
   const [currentPage, setCurrentPage] = useState(1);
@@ -28,7 +27,7 @@ function BookShop() {
   return (
     <>
       {loading ? (
-        <div className="border-primary-500 mx-auto my-10 flex h-[350px] max-w-[500px] items-center justify-center rounded-3xl border-2 bg-black">
+        <div className="border-primary bg-tertiary mx-auto my-10 flex h-[350px] max-w-[500px] items-center justify-center rounded-3xl border-2">
           <h2 className="text-3xl">Loading Books </h2>
           <PacmanLoader
             className="mx-5"
@@ -38,7 +37,7 @@ function BookShop() {
       ) : (
         <>
           <div className="p-8">
-            <h1 className="text outline-primary-500 mb-8 bg-slate-800 py-2 text-center text-6xl font-bold italic tracking-wider shadow-xl shadow-cyan-700 outline">
+            <h1 className="text outline-primary mb-8 bg-slate-800 py-2 text-center text-6xl font-bold italic tracking-wider shadow-xl shadow-cyan-700 outline">
               Your Books
             </h1>
             <div className="my-10 flex flex-wrap justify-center gap-4">

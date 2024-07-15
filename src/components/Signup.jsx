@@ -36,7 +36,7 @@ function Signup() {
   return (
     <>
       {isLoading ? (
-        <div className="border-primary-500 mx-auto my-10 flex h-[350px] max-w-[550px] items-center justify-center rounded-3xl border-2 bg-black">
+        <div className="border-primary bg-tertiary mx-auto my-10 flex h-[350px] max-w-[550px] items-center justify-center rounded-3xl border-2">
           <h2 className="text-3xl">Redirecting To Login</h2>
           <PacmanLoader
             className="mx-5"
@@ -45,8 +45,8 @@ function Signup() {
         </div>
       ) : (
         <>
-          <div className="border-primary-500 mx-auto my-10 max-w-[500px] rounded-lg border-4 bg-zinc-800 p-10">
-            <h1 className="mb-4 text-center text-3xl text-white">Register</h1>
+          <div className="border-primary mx-auto my-10 max-w-[500px] rounded-lg border-4 bg-zinc-800 p-10">
+            <h1 className="text-primary mb-4 text-center text-3xl">Register</h1>
             <form onSubmit={handleSubmit(handleRegisterUser)}>
               <div className="flex w-full flex-col">
                 <div className="mb-4">
@@ -116,11 +116,11 @@ function Signup() {
               <div className="my-2">
                 <Button
                   type="submit"
-                  bgColor="outline-none hover:bg-primary-500"
+                  bgColor="outline-none hover:bg-primary"
                   padding="px-5 py-2"
                   rounded="rounded-lg"
-                  textColor="text-white hover:text-black"
-                  className="hover:shadow-primary-500 shadow-lg outline outline-cyan-600"
+                  textColor="text-primary hover:text-black"
+                  className="hover:shadow-primary shadow-lg outline outline-cyan-600"
                 >
                   Register
                 </Button>

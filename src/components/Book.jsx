@@ -14,8 +14,8 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import Button from "./Button";
 import { PacmanLoader } from "react-spinners";
+import { Button } from "./AllComponents";
 
 function Book() {
   const loading = useSelector(selectIsLoading);
@@ -40,7 +40,7 @@ function Book() {
   return (
     <>
       {loading ? (
-        <div className="border-primary-500 mx-auto my-10 flex h-[350px] max-w-[500px] items-center justify-center rounded-3xl border-2 bg-black">
+        <div className="border-primary bg-tertiary mx-auto my-10 flex h-[350px] max-w-[500px] items-center justify-center rounded-3xl border-2">
           <h2 className="text-3xl">Loading Book </h2>
           <PacmanLoader
             className="mx-5"
@@ -48,16 +48,16 @@ function Book() {
           />
         </div>
       ) : (
-        <div className="border-primary-500 my-10 rounded-lg border-4 bg-slate-900 p-10">
+        <div className="border-primary my-10 rounded-lg border-4 bg-slate-900 p-10">
           <div className="relative">
             <div>
               <img
-                className="border-primary-500 max-h-[500px] w-full rounded-lg border-2 bg-cover"
+                className="border-primary max-h-[500px] w-full rounded-lg border-2 bg-cover"
                 src={book?.thumbnail}
                 alt=""
               />
             </div>
-            <div className="absolute right-6 top-10 flex h-14 w-14 items-center justify-center rounded-full border-2 border-white bg-black duration-700 hover:scale-125">
+            <div className="bg-tertiary absolute right-6 top-10 flex h-14 w-14 items-center justify-center rounded-full border-2 border-white duration-700 hover:scale-125">
               <Link to={`/edit-book-thumbnail/${bookId}`}>
                 <button>
                   <FontAwesomeIcon
@@ -71,9 +71,11 @@ function Book() {
           </div>
           <div>
             <div className="mt-10 flex items-center justify-between">
-              <h5 className="text-xl text-gray-500 hover:text-red-400 dark:text-gray-500">
-                {book?.category}
-              </h5>
+              <Link>
+                <h5 className="hover:text-primary text-xl text-gray-500 duration-700 dark:text-gray-500">
+                  {book?.category}
+                </h5>
+              </Link>
               <span className="">
                 <button
                   className="duration-700 hover:scale-150"
@@ -106,7 +108,7 @@ function Book() {
               {book?.description}
             </p>
             <div className="pt-5">
-              <Button className="bg-primary-500 dark:bg-primary-500 block w-full rounded-lg px-5 py-2 text-center font-medium text-white hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 dark:hover:bg-cyan-600 dark:focus:ring-white">
+              <Button className="bg-primary dark:bg-primary text-primary block w-full rounded-lg px-5 py-2 text-center font-medium hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 dark:hover:bg-cyan-600 dark:focus:ring-white">
                 {` $${book?.price}`} <FontAwesomeIcon icon={faCartShopping} />
               </Button>
             </div>
