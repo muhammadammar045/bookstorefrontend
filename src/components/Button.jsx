@@ -15,7 +15,7 @@ function Button({
   return (
     <button
       type={type}
-      className={`${bgColor} ${textColor} ${padding} ${margin} ${rounded} ${textSize} ${className}`}
+      className={`${bgColor} ${textColor} ${padding} ${margin} ${rounded} ${textSize} ${className} duration-700`}
       onClick={onClick}
     >
       {children}

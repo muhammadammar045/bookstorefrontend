@@ -120,7 +120,7 @@ function Signup() {
                   padding="px-5 py-2"
                   rounded="rounded-lg"
                   textColor="text-white hover:text-black"
-                  className="hover:shadow-primary-500 shadow-lg outline outline-cyan-600 duration-700"
+                  className="hover:shadow-primary-500 shadow-lg outline outline-cyan-600"
                 >
                   Register
                 </Button>
