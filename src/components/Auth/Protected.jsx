@@ -1,5 +1,5 @@
 import { useSelector } from "react-redux";
-import { selectUser } from "../store/user/userAuthSlice";
+import { selectUser } from "../../store/user/userAuthSlice";
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 
@@ -9,7 +9,7 @@ const Protected = ({ children }) => {
 
   useEffect(() => {
     if (!user) {
-      navigate("/");
+      navigate("/login");
     }
   }, [user, navigate]);
 

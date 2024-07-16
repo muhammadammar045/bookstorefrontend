@@ -20,7 +20,7 @@ const App = () => {
         element={<Layout />}
       >
         <Route
-          index
+          path=""
           element={<Home />}
         />
         <Route
@@ -41,7 +41,7 @@ const App = () => {
           }
         />
         <Route
-          path="all-books"
+          path="books"
           element={
             <Protected>
               <AllBooks />

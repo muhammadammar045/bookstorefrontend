@@ -3,7 +3,7 @@ import {
   fetchBookThunk,
   selectBook,
   selectIsLoading,
-} from "../store/book/bookSlice";
+} from "../../store/book/bookSlice";
 import {
   faCamera,
   faCartShopping,
@@ -15,7 +15,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { PacmanLoader } from "react-spinners";
-import { Button } from "./AllComponents";
+import { Button } from "../AllComponents";
 
 function Book() {
   const loading = useSelector(selectIsLoading);
@@ -27,7 +27,7 @@ function Book() {
   const onDelete = async () => {
     try {
       await dispatch(deleteBookThunk(book._id)).unwrap();
-      navigate("/all-books");
+      navigate("/books");
     } catch (error) {
       console.error(error);
     }
