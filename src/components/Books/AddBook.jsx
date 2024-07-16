@@ -1,69 +1,49 @@
-import {
-  fetchBookThunk,
-  updateBookThunk,
-  selectBook,
-  selectIsLoading,
-} from "../store/book/bookSlice";
-import React, { useEffect } from "react";
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { PacmanLoader } from "react-spinners";
-import { useDispatch, useSelector } from "react-redux";
-import { Input, Button } from "./AllComponents";
+import { useDispatch } from "react-redux";
+import { addBookThunk } from "../../store/book/bookSlice";
+import { Input, Button } from "../AllComponents";
 
-function EditBook() {
+function AddBook() {
   const {
     register,
     handleSubmit,
-    setValue,
+    reset,
     formState: { errors },
   } = useForm();
   const navigate = useNavigate();
-  const { bookId } = useParams();
-  const book = useSelector(selectBook);
-  const loading = useSelector(selectIsLoading);
   const dispatch = useDispatch();
+  const [loading, setLoading] = useState(false);
 
-  useEffect(() => {
-    if (bookId) {
-      dispatch(fetchBookThunk(bookId));
-    }
-  }, [dispatch, bookId]);
-
-  useEffect(() => {
-    if (book) {
-      setValue("title", book.title);
-      setValue("category", book.category);
-      setValue("price", book.price);
-      setValue("description", book.description);
-    }
-  }, [book, setValue]);
-
-  const editForm = async (bookData) => {
+  const addBook = async (bookData) => {
+    setLoading(true);
     try {
-      await dispatch(updateBookThunk({ bookId, bookData })).unwrap();
-      navigate(`/book/${bookId}`);
+      await dispatch(addBookThunk(bookData)).unwrap();
+      navigate("/books");
+      reset();
     } catch (error) {
-      console.log("Edit Form Error ", error);
+      console.log("Error Adding The book:", error.message);
+    } finally {
+      setLoading(false);
     }
   };
 
   return (
     <>
       {loading ? (
-        <div className="border-primary bg-tertiary flex h-[350px] items-center justify-center rounded-3xl border-2">
-          <h2 className="text-3xl">Editing Books </h2>
+        <div className="border-primary bg-tertiary mx-auto my-10 flex h-[350px] max-w-[500px] items-center justify-center rounded-3xl border-2">
+          <h2 className="text-3xl">Adding Book </h2>
           <PacmanLoader
             className="mx-5"
             color="white"
           />
         </div>
-      ) : book ? (
+      ) : (
         <div className="border-primary bg-tertiary mx-auto my-10 max-w-[900px] rounded-lg border-4 p-10">
-          <h1 className="text-primary mb-4 text-center text-3xl">
-            Edit Book Details
-          </h1>
-          <form onSubmit={handleSubmit(editForm)}>
+          <h1 className="text-primary mb-4 text-center text-3xl">Add Book</h1>
+          <form onSubmit={handleSubmit(addBook)}>
             <div className="flex w-full">
               <div className="mx-1 mb-4 w-4/12">
                 <Input
@@ -90,8 +70,9 @@ function EditBook() {
                 <Input
                   type="text"
                   label="Category"
-                  placeholder="Enter Book Category"
+                  placeholder="Enter Book Title"
                   {...register("category", {
+                    // required: "Category is required",
                     minLength: {
                       value: 4,
                       message: "Category should be at least 4 characters",
@@ -127,7 +108,7 @@ function EditBook() {
                 )}
               </div>
             </div>
-            <div className="mb-4">
+            <div className="mb-2">
               <Input
                 type="textarea"
                 className="min-h-32"
@@ -143,6 +124,20 @@ function EditBook() {
                 </span>
               )}
             </div>
+            <div className="mb-5">
+              <Input
+                type="file"
+                label="Book Thumbnail"
+                text={"text-gray-400"}
+                placeholder="Select Book Thumbnail"
+                {...register("thumbnail", {
+                  required: "Thumbnail is required",
+                })}
+              />
+              {errors.thumbnail && (
+                <span className="text-red-500">{errors.thumbnail.message}</span>
+              )}
+            </div>
             <div className="mb-2">
               <Button
                 type="submit"
@@ -152,16 +147,14 @@ function EditBook() {
                 textColor="text-primary hover:text-black"
                 className="hover:shadow-primary shadow-lg outline outline-cyan-600"
               >
-                Submit
+                Add Book
               </Button>
             </div>
           </form>
         </div>
-      ) : (
-        <h1 className="text-center text-3xl">No Book Found For Editing</h1>
       )}
     </>
   );
 }
 
-export default EditBook;
+export default AddBook;

@@ -3,13 +3,13 @@ import {
   selectBook,
   selectIsLoading,
   updateBookThumbnailThunk,
-} from "../store/book/bookSlice";
+} from "../../store/book/bookSlice";
 import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate, useParams } from "react-router-dom";
 import { PacmanLoader } from "react-spinners";
 import { useDispatch, useSelector } from "react-redux";
-import { Input, Button } from "./AllComponents";
+import { Input, Button } from "../AllComponents";
 
 function EditBookThumbnail() {
   const {
@@ -39,7 +39,7 @@ function EditBookThumbnail() {
   return (
     <>
       {loading ? (
-        <div className="bg-tertiary mx-auto my-10 flex h-[350px] max-w-[500px] items-center justify-center rounded-3xl border-2 border-pink-700">
+        <div className="bg-tertiary border-primary mx-auto my-10 flex h-[350px] max-w-[500px] items-center justify-center rounded-3xl border-2">
           <h2 className="text-3xl">Updating Book Thumbnail </h2>
           <PacmanLoader
             className="mx-5"
