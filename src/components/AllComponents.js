@@ -4,6 +4,7 @@ import AddBook from "./Books/AddBook"
 import BookCard from "./Books/BookCard"
 import BookShop from "./Books/BookShop"
 import EditBook from "./Books/EditBook"
+import AllBooks from "./Books/AllBooks"
 import EditBookThumbnail from "./Books/EditBookThumbnail"
 import Button from "./Partials/Button"
 import Footer from "./Partials/Footer"
@@ -19,6 +20,7 @@ import Signup from "./Auth/Signup"
 export {
     AddBook,
     Book,
+    AllBooks,
     BookCard,
     BookShop,
     Button,

@@ -93,6 +93,7 @@ const userAuthSlice = createSlice({
 export default userAuthSlice.reducer;
 
 export const selectUser = (state) => state.userAuth?.user;
+export const selectUserId = (state) => state.userAuth?.user?.user?._id;
 export const selectAccessToken = (state) => state.userAuth?.user?.accessToken;
 export const selectRefreshToken = (state) => state.userAuth?.user?.refreshToken;
 export const selectIsLoading = (state) => state.userAuth?.isLoading;

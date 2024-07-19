@@ -19,7 +19,7 @@ function Navbar() {
 
   const authenticatedLinks = [
     ["Home", "/"],
-    ["Book Shop", "/books"],
+    ["My Books", "/books"],
     ["Add Book", "/add-book"],
   ];
 
