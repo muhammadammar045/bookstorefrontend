@@ -8,11 +8,22 @@ import {
   Login,
   Signup,
 } from "./pages/Allpages";
-import React from "react";
-import { Routes, Route } from "react-router-dom";
+import React, { useEffect } from "react";
+import { Routes, Route, useLocation } from "react-router-dom";
 import { Layout, Protected } from "./components/AllComponents";
+import "./admin/charts/ChartjsConfig";
+import Dashboard from "./admin/pages/Dashboard";
+import AdminLayout from "./admin/partials/AdminLayout";
 
 const App = () => {
+  const location = useLocation();
+
+  useEffect(() => {
+    document.querySelector("html").style.scrollBehavior = "auto";
+    window.scroll({ top: 0 });
+    document.querySelector("html").style.scrollBehavior = "";
+  }, [location.pathname]);
+
   return (
     <Routes>
       <Route
@@ -31,7 +42,6 @@ const App = () => {
           path="signup"
           element={<Signup />}
         />
-
         <Route
           path="book/:bookId"
           element={
@@ -69,6 +79,19 @@ const App = () => {
           element={
             <Protected>
               <EditBookThumbnail />
+            </Protected>
+          }
+        />
+      </Route>
+      <Route
+        path="/admin"
+        element={<AdminLayout />}
+      >
+        <Route
+          path="dashboard"
+          element={
+            <Protected>
+              <Dashboard />
             </Protected>
           }
         />

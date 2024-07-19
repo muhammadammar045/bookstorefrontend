@@ -21,6 +21,7 @@ function Navbar() {
     ["Home", "/"],
     ["My Books", "/books"],
     ["Add Book", "/add-book"],
+    ["Dashboard", "/admin/dashboard"],
   ];
 
   const toggleMobileMenu = () => {

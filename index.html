@@ -12,6 +12,15 @@
       content="width=device-width, initial-scale=1.0"
     />
     <title>Books Management System</title>
+    <script>
+      if (localStorage.theme === "dark" || !("theme" in localStorage)) {
+        document.querySelector("html").classList.add("dark");
+        document.querySelector("html").style.colorScheme = "dark";
+      } else {
+        document.querySelector("html").classList.remove("dark");
+        document.querySelector("html").style.colorScheme = "light";
+      }
+    </script>
   </head>
   <body
     style="
@@ -22,6 +31,13 @@
     "
   >
     <div id="root"></div>
+    <script>
+      if (localStorage.getItem("sidebar-expanded") == "true") {
+        document.querySelector("body").classList.add("sidebar-expanded");
+      } else {
+        document.querySelector("body").classList.remove("sidebar-expanded");
+      }
+    </script>
     <script
       type="module"
       src="/src/main.jsx"
