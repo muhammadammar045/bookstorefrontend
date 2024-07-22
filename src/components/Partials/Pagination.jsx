@@ -17,8 +17,10 @@ const Pagination = ({ currentPage, totalPages, onPageChange }) => {
     buttons.push(
       <button
         key="prev"
-        className={`outline-primary text-primary mx-1 rounded-lg px-3 py-1 outline ${
-          currentPage <= 1 ? "cursor-not-allowed" : "hover:bg-primary"
+        className={`mx-1 rounded-lg px-3 py-1 ${
+          currentPage <= 1
+            ? "cursor-not-allowed bg-gray-500 dark:bg-gray-600"
+            : "bg-blue-500 text-white dark:bg-blue-600 dark:text-gray-200 dark:hover:bg-blue-700"
         }`}
         onClick={() => currentPage > 1 && handleClick(currentPage - 1)}
         disabled={currentPage <= 1}
@@ -34,8 +36,8 @@ const Pagination = ({ currentPage, totalPages, onPageChange }) => {
           key={i}
           className={`mx-1 rounded-lg px-3 py-1 ${
             currentPage === i
-              ? "bg-primary text-primary"
-              : "outline-primary hover:bg-primary outline"
+              ? "bg-blue-500 text-white dark:bg-blue-600 dark:text-gray-200"
+              : "bg-gray-900 text-white hover:bg-blue-600 dark:bg-gray-700 dark:text-gray-200 dark:hover:bg-blue-700"
           }`}
           onClick={() => handleClick(i)}
         >
@@ -49,7 +51,7 @@ const Pagination = ({ currentPage, totalPages, onPageChange }) => {
       buttons.push(
         <span
           key="ellipsis-start"
-          className="outline-primary text-primary mx-1 rounded-lg px-3 py-1 outline"
+          className="mx-1 rounded-lg bg-gray-900 px-3 py-1 text-white dark:bg-gray-700 dark:text-gray-200"
         >
           ...
         </span>
@@ -68,8 +70,8 @@ const Pagination = ({ currentPage, totalPages, onPageChange }) => {
             key={i}
             className={`mx-1 rounded-lg px-3 py-1 ${
               currentPage === i
-                ? "bg-primary text-primary"
-                : "outline-primary hover:bg-primary outline"
+                ? "bg-blue-500 text-white dark:bg-blue-600 dark:text-gray-200"
+                : "bg-gray-900 text-white hover:bg-blue-600 dark:bg-gray-700 dark:text-gray-200 dark:hover:bg-blue-700"
             }`}
             onClick={() => handleClick(i)}
           >
@@ -84,7 +86,7 @@ const Pagination = ({ currentPage, totalPages, onPageChange }) => {
       buttons.push(
         <span
           key="ellipsis-end"
-          className="outline-primary text-primary mx-1 rounded-lg px-3 py-1 outline"
+          className="mx-1 rounded-lg bg-gray-900 px-3 py-1 text-white dark:bg-gray-700 dark:text-gray-200"
         >
           ...
         </span>
@@ -103,8 +105,8 @@ const Pagination = ({ currentPage, totalPages, onPageChange }) => {
             key={i}
             className={`mx-1 rounded-lg px-3 py-1 ${
               currentPage === i
-                ? "bg-primary text-primary"
-                : "outline-primary hover:bg-primary outline"
+                ? "bg-blue-500 text-white dark:bg-blue-600 dark:text-gray-200"
+                : "bg-gray-900 text-white hover:bg-blue-600 dark:bg-gray-700 dark:text-gray-200 dark:hover:bg-blue-700"
             }`}
             onClick={() => handleClick(i)}
           >
@@ -118,8 +120,10 @@ const Pagination = ({ currentPage, totalPages, onPageChange }) => {
     buttons.push(
       <button
         key="next"
-        className={`outline-primary text-primary mx-1 rounded-lg px-3 py-1 outline ${
-          currentPage >= totalPages ? "cursor-not-allowed" : "hover:bg-primary"
+        className={`mx-1 rounded-lg px-3 py-1 ${
+          currentPage >= totalPages
+            ? "cursor-not-allowed bg-gray-500 dark:bg-gray-600"
+            : "bg-blue-500 text-white dark:bg-blue-600 dark:text-gray-200 dark:hover:bg-blue-700"
         }`}
         onClick={() => currentPage < totalPages && handleClick(currentPage + 1)}
         disabled={currentPage >= totalPages}

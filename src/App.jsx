@@ -14,6 +14,9 @@ import { Layout, Protected } from "./components/AllComponents";
 import "./admin/charts/ChartjsConfig";
 import Dashboard from "./admin/pages/Dashboard";
 import AdminLayout from "./admin/partials/AdminLayout";
+import AllUsers from "./admin/pages/AllUsers";
+import AllRoles from "./admin/pages/AllRoles";
+import AllPermissions from "./admin/pages/AllPermissions";
 
 const App = () => {
   const location = useLocation();
@@ -92,6 +95,30 @@ const App = () => {
           element={
             <Protected>
               <Dashboard />
+            </Protected>
+          }
+        />
+        <Route
+          path="all-users"
+          element={
+            <Protected>
+              <AllUsers />
+            </Protected>
+          }
+        />
+        <Route
+          path="all-roles"
+          element={
+            <Protected>
+              <AllRoles />
+            </Protected>
+          }
+        />
+        <Route
+          path="all-permissions"
+          element={
+            <Protected>
+              <AllPermissions />
             </Protected>
           }
         />

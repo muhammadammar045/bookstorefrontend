@@ -11,9 +11,6 @@ export default {
   theme: {
     extend: {
       colors: {
-        primary: '#26C6DA',
-        secondary: '#FFFFFF',
-        tertiary: '#000000',
         gray: {
           50: '#F9FAFB',
           100: '#F3F4F6',
@@ -93,16 +90,6 @@ export default {
           950: '#342809',
         },
       },
-      textColor: {
-        primary: "#FFFFFF",
-        secondary: "#9CA3AF",
-        tertiary: "#26C6DA",
-      },
-      backgroundColor: {
-        primary: "#26C6DA",
-        secondary: "#F5F5F5",
-        tertiary: "#000000"
-      },
       fontFamily: {
         inter: ['Inter', 'sans-serif'],
       },
@@ -141,6 +128,7 @@ export default {
       },
     },
   },
+
   plugins: [
     forms,
     // add custom variant for expanding sidebar

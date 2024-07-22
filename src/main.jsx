@@ -6,6 +6,8 @@ import App from "./App";
 import store from "./store/store";
 import ThemeProvider from "./admin/utils/ThemeContext";
 import "./index.css";
+import "react-toastify/ReactToastify.css";
+import { ToastContainer } from "react-toastify";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
@@ -13,6 +15,12 @@ ReactDOM.createRoot(document.getElementById("root")).render(
       <Router>
         <ThemeProvider>
           <App />
+          <ToastContainer
+            position="top-center"
+            autoClose={2000}
+            pauseOnHover={false}
+            theme="colored"
+          />
         </ThemeProvider>
       </Router>
     </Provider>

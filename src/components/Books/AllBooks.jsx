@@ -8,6 +8,8 @@ import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { PacmanLoader } from "react-spinners";
 import { Pagination, BookCard } from "../AllComponents";
+import Typewriter from "typewriter-effect";
+import showToast from "../../toastAlert/toaster";
 
 function AllBooks() {
   const [currentPage, setCurrentPage] = useState(1);
@@ -17,7 +19,7 @@ function AllBooks() {
   const totalPages = useSelector(selectTotalPages);
 
   useEffect(() => {
-    dispatch(fetchAllUsersBooksThunk(currentPage));
+    const res = dispatch(fetchAllUsersBooksThunk(currentPage));
   }, [dispatch, currentPage]);
 
   const handlePageChange = (page) => {
@@ -27,18 +29,91 @@ function AllBooks() {
   return (
     <>
       {loading ? (
-        <div className="mx-auto my-10 flex h-[350px] max-w-[500px] items-center justify-center rounded-3xl border-2 border-primary bg-tertiary">
-          <h2 className="text-3xl">Loading Books </h2>
-          <PacmanLoader
-            className="mx-5"
-            color="white"
-          />
-        </div>
+        <>
+          <div className="my-8 flex items-center justify-center gap-5">
+            <div
+              role="status"
+              className="w-[350px] animate-pulse rounded border border-gray-200 p-4 shadow md:p-6 dark:border-gray-700"
+            >
+              <div className="mb-4 flex h-48 items-center justify-center rounded bg-gray-300 dark:bg-gray-700">
+                <svg
+                  className="h-10 w-10 text-gray-200 dark:text-gray-600"
+                  aria-hidden="true"
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="currentColor"
+                  viewBox="0 0 16 20"
+                >
+                  <path d="M14.066 0H7v5a2 2 0 0 1-2 2H0v11a1.97 1.97 0 0 0 1.934 2h12.132A1.97 1.97 0 0 0 16 18V2a1.97 1.97 0 0 0-1.934-2ZM10.5 6a1.5 1.5 0 1 1 0 2.999A1.5 1.5 0 0 1 10.5 6Zm2.221 10.515a1 1 0 0 1-.858.485h-8a1 1 0 0 1-.9-1.43L5.6 10.039a.978.978 0 0 1 .936-.57 1 1 0 0 1 .9.632l1.181 2.981.541-1a.945.945 0 0 1 .883-.522 1 1 0 0 1 .879.529l1.832 3.438a1 1 0 0 1-.031.988Z" />
+                  <path d="M5 5V.13a2.96 2.96 0 0 0-1.293.749L.879 3.707A2.98 2.98 0 0 0 .13 5H5Z" />
+                </svg>
+              </div>
+              <div className="mb-4 h-2.5 w-48 rounded-full bg-gray-200 dark:bg-gray-700" />
+              <div className="mb-2.5 h-2 rounded-full bg-gray-200 dark:bg-gray-700" />
+              <div className="mb-2.5 h-2 rounded-full bg-gray-200 dark:bg-gray-700" />
+              <div className="h-2 rounded-full bg-gray-200 dark:bg-gray-700" />
+
+              <span className="sr-only">Loading...</span>
+            </div>
+            <div
+              role="status"
+              className="w-[350px] animate-pulse rounded border border-gray-200 p-4 shadow md:p-6 dark:border-gray-700"
+            >
+              <div className="mb-4 flex h-48 items-center justify-center rounded bg-gray-300 dark:bg-gray-700">
+                <svg
+                  className="h-10 w-10 text-gray-200 dark:text-gray-600"
+                  aria-hidden="true"
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="currentColor"
+                  viewBox="0 0 16 20"
+                >
+                  <path d="M14.066 0H7v5a2 2 0 0 1-2 2H0v11a1.97 1.97 0 0 0 1.934 2h12.132A1.97 1.97 0 0 0 16 18V2a1.97 1.97 0 0 0-1.934-2ZM10.5 6a1.5 1.5 0 1 1 0 2.999A1.5 1.5 0 0 1 10.5 6Zm2.221 10.515a1 1 0 0 1-.858.485h-8a1 1 0 0 1-.9-1.43L5.6 10.039a.978.978 0 0 1 .936-.57 1 1 0 0 1 .9.632l1.181 2.981.541-1a.945.945 0 0 1 .883-.522 1 1 0 0 1 .879.529l1.832 3.438a1 1 0 0 1-.031.988Z" />
+                  <path d="M5 5V.13a2.96 2.96 0 0 0-1.293.749L.879 3.707A2.98 2.98 0 0 0 .13 5H5Z" />
+                </svg>
+              </div>
+              <div className="mb-4 h-2.5 w-48 rounded-full bg-gray-200 dark:bg-gray-700" />
+              <div className="mb-2.5 h-2 rounded-full bg-gray-200 dark:bg-gray-700" />
+              <div className="mb-2.5 h-2 rounded-full bg-gray-200 dark:bg-gray-700" />
+              <div className="h-2 rounded-full bg-gray-200 dark:bg-gray-700" />
+
+              <span className="sr-only">Loading...</span>
+            </div>
+            <div
+              role="status"
+              className="w-[350px] animate-pulse rounded border border-gray-200 p-4 shadow md:p-6 dark:border-gray-700"
+            >
+              <div className="mb-4 flex h-48 items-center justify-center rounded bg-gray-300 dark:bg-gray-700">
+                <svg
+                  className="h-10 w-10 text-gray-200 dark:text-gray-600"
+                  aria-hidden="true"
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="currentColor"
+                  viewBox="0 0 16 20"
+                >
+                  <path d="M14.066 0H7v5a2 2 0 0 1-2 2H0v11a1.97 1.97 0 0 0 1.934 2h12.132A1.97 1.97 0 0 0 16 18V2a1.97 1.97 0 0 0-1.934-2ZM10.5 6a1.5 1.5 0 1 1 0 2.999A1.5 1.5 0 0 1 10.5 6Zm2.221 10.515a1 1 0 0 1-.858.485h-8a1 1 0 0 1-.9-1.43L5.6 10.039a.978.978 0 0 1 .936-.57 1 1 0 0 1 .9.632l1.181 2.981.541-1a.945.945 0 0 1 .883-.522 1 1 0 0 1 .879.529l1.832 3.438a1 1 0 0 1-.031.988Z" />
+                  <path d="M5 5V.13a2.96 2.96 0 0 0-1.293.749L.879 3.707A2.98 2.98 0 0 0 .13 5H5Z" />
+                </svg>
+              </div>
+              <div className="mb-4 h-2.5 w-48 rounded-full bg-gray-200 dark:bg-gray-700" />
+              <div className="mb-2.5 h-2 rounded-full bg-gray-200 dark:bg-gray-700" />
+              <div className="mb-2.5 h-2 rounded-full bg-gray-200 dark:bg-gray-700" />
+              <div className="h-2 rounded-full bg-gray-200 dark:bg-gray-700" />
+
+              <span className="sr-only">Loading...</span>
+            </div>
+          </div>
+        </>
       ) : (
         <>
           <div className="p-8">
-            <h1 className="text mb-8 bg-slate-800 py-2 text-center text-6xl font-bold italic tracking-wider shadow-xl shadow-cyan-700 outline outline-primary">
-              Available Books
+            <h1 className="mb-3 py-2 text-center text-3xl font-bold italic tracking-wider text-gray-900 dark:text-gray-200">
+              <Typewriter
+                options={{
+                  wrapperClassName: "text-gray-900 dark:text-gray-200 ml-4 ",
+                  strings: ["Available Books"],
+                  autoStart: true,
+                  loop: true,
+                }}
+              />
             </h1>
             <div className="my-10 flex flex-wrap justify-center gap-4">
               {books && books.length > 0 ? (
@@ -50,7 +125,9 @@ function AllBooks() {
                 ))
               ) : (
                 <div className="flex min-h-[250px] w-full items-center justify-center">
-                  <h1 className="text-4xl italic">No Books Found</h1>
+                  <h1 className="text-4xl italic text-gray-400 dark:text-gray-600">
+                    No Books Found
+                  </h1>
                 </div>
               )}
             </div>

@@ -5,22 +5,22 @@ import { Link } from "react-router-dom";
 function Footer() {
   return (
     <footer
-      className="body-font border-t-2 border-primary bg-gray-800 text-gray-400"
+      className="body-font border-t-2 border-gray-900 bg-gray-200 text-gray-400 dark:border-gray-200 dark:bg-gray-900"
       id="footer"
     >
-      <div className="container mx-auto flex flex-col items-center justify-center px-5 py-8 sm:flex-row">
-        <Link className="font flex cursor-pointer items-center justify-center font-medium text-primary md:justify-start">
+      <div className="container mx-auto flex flex-col items-center justify-center px-5 py-6 sm:flex-row">
+        <Link className="font flex cursor-pointer items-center justify-center font-medium text-gray-900 md:justify-start dark:text-gray-200">
           <img
             src={logo}
             className="hidden h-20 sm:block"
           />
-          <span className="ml-3 text-xl">AmmaRi</span>
+          <span className="ml-3 text-xl">.AmmaRi</span>
         </Link>
-        <p className="mt-4 text-sm text-gray-400 sm:ml-4 sm:mt-0 sm:border-l-2 sm:border-gray-800 sm:py-2 sm:pl-4">
+        <p className="mt-4 text-sm text-gray-900 sm:ml-4 sm:mt-0 sm:border-l-2 sm:border-gray-800 sm:py-2 sm:pl-4 dark:text-gray-200">
           © 2024 AmmaRi —
           <Link
             to="/"
-            className="ml-1 text-gray-500"
+            className="ml-1 text-gray-900 dark:text-gray-200"
             target="_blank"
             rel="noopener noreferrer"
           >
@@ -32,7 +32,7 @@ function Footer() {
             <Link
               to={"https://www.facebook.com/profile.php?id=100008523095118"}
             >
-              <button className="inline-flex items-center space-x-2 rounded bg-blue-500 p-2 font-semibold text-primary duration-700 hover:scale-125">
+              <button className="inline-flex items-center space-x-2 rounded bg-blue-500 p-2 font-semibold text-gray-900 duration-700 hover:scale-125 dark:text-gray-200">
                 <svg
                   className="h-5 w-5 fill-current"
                   role="img"
@@ -46,7 +46,7 @@ function Footer() {
 
             <Link to="/">
               {" "}
-              <button className="inline-flex items-center space-x-2 rounded bg-blue-400 p-2 font-semibold text-primary duration-700 hover:scale-125">
+              <button className="inline-flex items-center space-x-2 rounded bg-blue-400 p-2 font-semibold text-gray-900 duration-700 hover:scale-125 dark:text-gray-200">
                 <svg
                   className="h-5 w-5 fill-current"
                   role="img"
@@ -60,7 +60,7 @@ function Footer() {
 
             <Link to={"https://www.linkedin.com/in/ammar-afridi-045abc"}>
               {" "}
-              <button className="inline-flex items-center space-x-2 rounded bg-blue-600 p-2 font-semibold text-primary duration-700 hover:scale-125">
+              <button className="inline-flex items-center space-x-2 rounded bg-blue-600 p-2 font-semibold text-gray-900 duration-700 hover:scale-125 dark:text-gray-200">
                 <svg
                   className="h-5 w-5 fill-current"
                   role="img"
@@ -76,7 +76,7 @@ function Footer() {
 
             <Link to={"https://github.com/muhammadammar045"}>
               {" "}
-              <button className="inline-flex items-center space-x-2 rounded bg-gray-700 p-2 font-semibold text-primary duration-700 hover:scale-125">
+              <button className="inline-flex items-center space-x-2 rounded bg-gray-700 p-2 font-semibold text-gray-900 duration-700 hover:scale-125 dark:text-gray-200">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   xmlnsXlink="http://www.w3.org/1999/xlink"
@@ -100,7 +100,7 @@ function Footer() {
 
             <Link to={"mailto:ammardata122@gmail.com"}>
               {" "}
-              <button className="inline-flex items-center space-x-2 rounded bg-red-500 p-2 font-semibold text-primary duration-700 hover:scale-125">
+              <button className="inline-flex items-center space-x-2 rounded bg-red-500 p-2 font-semibold text-gray-900 duration-700 hover:scale-125 dark:text-gray-200">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   xmlnsXlink="http://www.w3.org/1999/xlink"

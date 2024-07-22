@@ -22,15 +22,9 @@
       }
     </script>
   </head>
-  <body
-    style="
-      background-image: url(&quot;src/assets/images/bgbook.jpg&quot;);
-      color: white;
-      font-family: barlow;
-      background-size: cover;
-    "
-  >
+  <body style="font-family: barlow">
     <div id="root"></div>
+    <div id="model-root"></div>
     <script>
       if (localStorage.getItem("sidebar-expanded") == "true") {
         document.querySelector("body").classList.add("sidebar-expanded");
