@@ -5,31 +5,54 @@ import {
   selectIsLoading,
 } from "../../store/book/bookSlice";
 import {
-  faCamera,
-  faCartShopping,
-  faEdit,
-  faTrash,
-} from "@fortawesome/free-solid-svg-icons";
+  openModal,
+  closeModal,
+  selectModalContext,
+} from "../../store/modal/modalSlice";
+import { faCamera, faEdit, faTrash } from "@fortawesome/free-solid-svg-icons";
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { PacmanLoader } from "react-spinners";
-import { Button } from "../AllComponents";
-import showToast from "../../toastAlert/toaster";
+import showToast from "../../utils/toastAlert/toaster";
+import Modal from "../../utils/modal/Modal";
 
 function Book() {
   const loading = useSelector(selectIsLoading);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const book = useSelector(selectBook);
+  const modalContext = useSelector(selectModalContext);
   const { bookId } = useParams();
+
+  const onDeleteClick = () => {
+    dispatch(openModal("delete"));
+  };
+
+  const onEditClick = () => {
+    dispatch(openModal("edit"));
+  };
+
+  const handleEditThumbnail = () => {
+    dispatch(openModal("editThumbnail"));
+  };
+
+  const handleThumbnail = () => {
+    navigate(`/edit-book-thumbnail/${bookId}`);
+    dispatch(closeModal());
+  };
+
+  const handleEdit = () => {
+    navigate(`/edit-book/${bookId}`);
+    dispatch(closeModal());
+  };
 
   const onDelete = async () => {
     try {
       const res = await dispatch(deleteBookThunk(book._id)).unwrap();
       showToast("success", `${res.message}`);
       navigate("/books");
+      dispatch(closeModal());
     } catch (error) {
       showToast("error", `${error.message}`);
     }
@@ -44,7 +67,7 @@ function Book() {
       {loading ? (
         <div
           role="status"
-          className="my-10 w-full animate-pulse rounded border border-gray-200 p-4 shadow md:p-6 dark:border-gray-700"
+          className="my-10 w-full animate-pulse rounded border border-gray-200 p-4 shadow dark:border-gray-700 md:p-6"
         >
           <div className="mb-4 flex h-80 items-center justify-center rounded bg-gray-300 dark:bg-gray-700">
             <svg
@@ -76,15 +99,13 @@ function Book() {
               />
             </div>
             <div className="absolute right-6 top-10 flex h-14 w-14 items-center justify-center rounded-full border-2 border-gray-800 bg-gray-400 duration-700 hover:scale-125 dark:border-gray-200 dark:bg-gray-900">
-              <Link to={`/edit-book-thumbnail/${bookId}`}>
-                <button>
-                  <FontAwesomeIcon
-                    icon={faCamera}
-                    size="2x"
-                    color="lightgreen"
-                  />
-                </button>
-              </Link>
+              <button onClick={handleEditThumbnail}>
+                <FontAwesomeIcon
+                  icon={faCamera}
+                  size="2x"
+                  color="lightgreen"
+                />
+              </button>
             </div>
           </div>
           <div>
@@ -95,7 +116,7 @@ function Book() {
               <span className="">
                 <button
                   className="duration-700 hover:scale-150"
-                  onClick={onDelete}
+                  onClick={onDeleteClick}
                 >
                   <span className="px-4">
                     <FontAwesomeIcon
@@ -106,17 +127,18 @@ function Book() {
                   </span>
                 </button>
 
-                <Link to={`/edit-book/${bookId}`}>
-                  <button className="duration-700 hover:scale-150">
-                    <span className="px-4">
-                      <FontAwesomeIcon
-                        icon={faEdit}
-                        size="2x"
-                        color="green"
-                      />
-                    </span>
-                  </button>
-                </Link>
+                <button
+                  onClick={onEditClick}
+                  className="duration-700 hover:scale-150"
+                >
+                  <span className="px-4">
+                    <FontAwesomeIcon
+                      icon={faEdit}
+                      size="2x"
+                      color="green"
+                    />
+                  </span>
+                </button>
               </span>
             </div>
             <h1 className="pt-4 text-4xl font-bold text-gray-900 dark:text-gray-200">
@@ -125,13 +147,26 @@ function Book() {
             <p className="pt-5 text-lg text-gray-900 dark:text-gray-200">
               {book?.description}
             </p>
-            {/* <div className="pt-5">
-              <Button className="w-full">
-                {` $${book?.price}`} <FontAwesomeIcon icon={faCartShopping} />
-              </Button>
-            </div> */}
           </div>
         </div>
+      )}
+      {modalContext === "delete" && (
+        <Modal
+          onConfirmFunction={onDelete}
+          message={"Are you sure you want to delete this Book?"}
+        />
+      )}
+      {modalContext === "edit" && (
+        <Modal
+          onConfirmFunction={handleEdit}
+          message={"Are you sure you want to edit this Book?"}
+        />
+      )}
+      {modalContext === "editThumbnail" && (
+        <Modal
+          onConfirmFunction={handleThumbnail}
+          message={"Are you sure you want to update the Thumbnail?"}
+        />
       )}
     </>
   );

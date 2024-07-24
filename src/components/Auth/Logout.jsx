@@ -5,7 +5,7 @@ import {
   logoutUserThunk,
   selectIsLoading,
 } from "../../store/user/userAuthSlice";
-import showToast from "../../toastAlert/toaster";
+import showToast from "../../utils/toastAlert/toaster";
 
 function Logout() {
   const dispatch = useDispatch();

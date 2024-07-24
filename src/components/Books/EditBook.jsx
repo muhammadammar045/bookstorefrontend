@@ -9,7 +9,7 @@ import { useForm } from "react-hook-form";
 import { useNavigate, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { Input, Button } from "../AllComponents";
-import showToast from "../../toastAlert/toaster";
+import showToast from "../../utils/toastAlert/toaster";
 
 function EditBook() {
   const {
@@ -58,7 +58,7 @@ function EditBook() {
         <>
           <div
             role="status"
-            className="my-10 w-full animate-pulse rounded border border-gray-200 p-4 shadow md:p-6 dark:border-gray-700"
+            className="my-10 w-full animate-pulse rounded border border-gray-200 p-4 shadow dark:border-gray-700 md:p-6"
           >
             <div className="mb-4 flex h-80 items-center justify-center rounded bg-gray-300 dark:bg-gray-700">
               <svg

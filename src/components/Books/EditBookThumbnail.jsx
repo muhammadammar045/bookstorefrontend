@@ -7,10 +7,9 @@ import {
 import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate, useParams } from "react-router-dom";
-import { PacmanLoader } from "react-spinners";
 import { useDispatch, useSelector } from "react-redux";
 import { Input, Button } from "../AllComponents";
-import showToast from "../../toastAlert/toaster";
+import showToast from "../../utils/toastAlert/toaster";
 
 function EditBookThumbnail() {
   const {

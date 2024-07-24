@@ -6,10 +6,8 @@ import {
 } from "../../store/book/bookSlice";
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { PacmanLoader } from "react-spinners";
 import { Pagination, BookCard } from "../AllComponents";
 import Typewriter from "typewriter-effect";
-import showToast from "../../toastAlert/toaster";
 
 function AllBooks() {
   const [currentPage, setCurrentPage] = useState(1);

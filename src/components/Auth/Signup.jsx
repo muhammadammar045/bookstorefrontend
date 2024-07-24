@@ -8,6 +8,7 @@ import {
   selectIsLoading,
   registerUserThunk,
 } from "../../store/user/userAuthSlice";
+import showToast from "../../utils/toastAlert/toaster";
 
 function Signup() {
   const {
@@ -22,11 +23,12 @@ function Signup() {
 
   const handleRegisterUser = async (data) => {
     try {
-      await dispatch(registerUserThunk(data)).unwrap();
+      const res = await dispatch(registerUserThunk(data)).unwrap();
+      showToast("success", `${res.message}`);
       navigate("/login");
       reset();
     } catch (error) {
-      console.error("Failed to register:", error);
+      showToast("error", `${error.message}`);
     }
   };
 
