@@ -17,6 +17,21 @@ const apiAddBooks = async (bookData, accessToken) => {
     }
 }
 
+const apiFetchAllUsersBooks = async (page, accessToken) => {
+    try {
+        const response = await axios
+            .get(`/books/get-all-books?page=${page}`,
+                {
+                    headers: {
+                        'Authorization': `Bearer ${accessToken}`
+                    }
+                });
+        return response.data;
+    } catch (error) {
+        throw error;
+    }
+}
+
 const apiFetchBooks = async (page, accessToken) => {
     try {
         const response = await axios
@@ -104,5 +119,6 @@ export {
     apiFetchBook,
     apiDeleteBook,
     apiUpdateBook,
-    apiUpdateBookThumbnail
+    apiUpdateBookThumbnail,
+    apiFetchAllUsersBooks,
 };

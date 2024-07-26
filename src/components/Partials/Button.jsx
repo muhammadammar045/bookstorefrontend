@@ -1,15 +1,15 @@
 import React from "react";
 
 function Button({
-  type,
-  children,
-  bgColor,
-  textColor,
-  padding,
-  margin,
-  rounded,
-  textSize,
-  duration = "duration-700",
+  type = "submit",
+  children = "Button",
+  bgColor = "bg-blue-500 hover:bg-blue-600 dark:bg-green-600 dark:hover:bg-green-300",
+  textColor = "text-white dark:hover:text-black",
+  padding = "px-8 py-2",
+  margin = "",
+  rounded = "rounded-lg",
+  textSize = "text-md",
+  duration = "duration-700 ease-in",
   className = "",
   onClick,
 }) {

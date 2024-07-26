@@ -5,45 +5,37 @@ import {
   logoutUserThunk,
   selectIsLoading,
 } from "../../store/user/userAuthSlice";
+import showToast from "../../utils/toastAlert/toaster";
 
 function Logout() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const isLoading = useSelector(selectIsLoading);
+  const loading = useSelector(selectIsLoading);
 
   const handleLogout = async () => {
     try {
-      await dispatch(logoutUserThunk()).unwrap();
+      const res = await dispatch(logoutUserThunk()).unwrap();
+      showToast("success", `${res.message}`);
       navigate("/login");
     } catch (error) {
-      console.error("Failed to logout:", error);
+      showToast("error", `${error.message}`);
     }
   };
 
   return (
-    <>
-      {isLoading ? (
-        <li className="cursor-pointer">
-          <button
-            onClick={handleLogout}
-            className="block rounded px-3 py-2 md:p-0 dark:hover:text-primary md:dark:text-primary"
-            aria-current="page"
-          >
-            Logging Out...
-          </button>
-        </li>
-      ) : (
-        <li className="cursor-pointer">
-          <button
-            onClick={handleLogout}
-            className="block rounded px-3 py-2 duration-700 hover:scale-125 md:p-0 dark:hover:text-primary md:dark:text-primary"
-            aria-current="page"
-          >
-            Logout
-          </button>
-        </li>
-      )}
-    </>
+    <li className="cursor-pointer">
+      <button
+        onClick={handleLogout}
+        className={`block rounded px-3 py-2 transition duration-300 md:p-0 ${
+          loading
+            ? "text-violet-300 dark:text-violet-300"
+            : "text-gray-900 dark:text-gray-200"
+        }`}
+        aria-current="page"
+      >
+        {loading ? "Logging Out..." : "Logout"}
+      </button>
+    </li>
   );
 }
 

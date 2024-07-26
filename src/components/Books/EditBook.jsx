@@ -7,9 +7,9 @@ import {
 import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate, useParams } from "react-router-dom";
-import { PacmanLoader } from "react-spinners";
 import { useDispatch, useSelector } from "react-redux";
 import { Input, Button } from "../AllComponents";
+import showToast from "../../utils/toastAlert/toaster";
 
 function EditBook() {
   const {
@@ -41,26 +41,48 @@ function EditBook() {
 
   const editForm = async (bookData) => {
     try {
-      await dispatch(updateBookThunk({ bookId, bookData })).unwrap();
+      const res = await dispatch(
+        updateBookThunk({ bookId, bookData })
+      ).unwrap();
+
+      showToast("success", `${res.message}`);
       navigate(`/book/${bookId}`);
     } catch (error) {
-      console.log("Edit Form Error ", error);
+      showToast("error", `${error.message}`);
     }
   };
 
   return (
     <>
       {loading ? (
-        <div className="border-primary bg-tertiary my-10 flex h-[350px] items-center justify-center rounded-3xl border-2">
-          <h2 className="text-3xl">Editing Book </h2>
-          <PacmanLoader
-            className="mx-5"
-            color="white"
-          />
-        </div>
+        <>
+          <div
+            role="status"
+            className="my-10 w-full animate-pulse rounded border border-gray-200 p-4 shadow dark:border-gray-700 md:p-6"
+          >
+            <div className="mb-4 flex h-80 items-center justify-center rounded bg-gray-300 dark:bg-gray-700">
+              <svg
+                className="h-10 w-10 text-gray-200 dark:text-gray-600"
+                aria-hidden="true"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="currentColor"
+                viewBox="0 0 16 20"
+              >
+                <path d="M14.066 0H7v5a2 2 0 0 1-2 2H0v11a1.97 1.97 0 0 0 1.934 2h12.132A1.97 1.97 0 0 0 16 18V2a1.97 1.97 0 0 0-1.934-2ZM10.5 6a1.5 1.5 0 1 1 0 2.999A1.5 1.5 0 0 1 10.5 6Zm2.221 10.515a1 1 0 0 1-.858.485h-8a1 1 0 0 1-.9-1.43L5.6 10.039a.978.978 0 0 1 .936-.57 1 1 0 0 1 .9.632l1.181 2.981.541-1a.945.945 0 0 1 .883-.522 1 1 0 0 1 .879.529l1.832 3.438a1 1 0 0 1-.031.988Z" />
+                <path d="M5 5V.13a2.96 2.96 0 0 0-1.293.749L.879 3.707A2.98 2.98 0 0 0 .13 5H5Z" />
+              </svg>
+            </div>
+            <div className="mb-4 h-2.5 w-48 rounded-full bg-gray-200 dark:bg-gray-700" />
+            <div className="mb-2.5 h-2 rounded-full bg-gray-200 dark:bg-gray-700" />
+            <div className="mb-2.5 h-2 rounded-full bg-gray-200 dark:bg-gray-700" />
+            <div className="h-2 rounded-full bg-gray-200 dark:bg-gray-700" />
+
+            <span className="sr-only">Loading...</span>
+          </div>
+        </>
       ) : book ? (
-        <div className="border-primary bg-tertiary mx-auto my-10 max-w-[900px] rounded-lg border-4 p-10">
-          <h1 className="text-primary mb-4 text-center text-3xl">
+        <div className="mx-auto my-10 max-w-[900px] rounded-lg border-4 border-blue-500 bg-gray-100 p-10 dark:bg-gray-900">
+          <h1 className="mb-4 text-center text-3xl text-white">
             Edit Book Details
           </h1>
           <form onSubmit={handleSubmit(editForm)}>
@@ -83,7 +105,9 @@ function EditBook() {
                   })}
                 />
                 {errors.title && (
-                  <span className="text-red-500">{errors.title.message}</span>
+                  <span className="text-red-500 dark:text-red-400">
+                    {errors.title.message}
+                  </span>
                 )}
               </div>
               <div className="mx-1 mb-4 w-4/12">
@@ -103,7 +127,7 @@ function EditBook() {
                   })}
                 />
                 {errors.category && (
-                  <span className="text-red-500">
+                  <span className="text-red-500 dark:text-red-400">
                     {errors.category.message}
                   </span>
                 )}
@@ -123,7 +147,9 @@ function EditBook() {
                   })}
                 />
                 {errors.price && (
-                  <span className="text-red-500">{errors.price.message}</span>
+                  <span className="text-red-500 dark:text-red-400">
+                    {errors.price.message}
+                  </span>
                 )}
               </div>
             </div>
@@ -138,7 +164,7 @@ function EditBook() {
                 })}
               />
               {errors.description && (
-                <span className="text-red-500">
+                <span className="text-red-500 dark:text-red-400">
                   {errors.description.message}
                 </span>
               )}
@@ -146,11 +172,11 @@ function EditBook() {
             <div className="mb-2">
               <Button
                 type="submit"
-                bgColor="outline-none hover:bg-primary"
+                bgColor="outline-none hover:bg-blue-600 dark:hover:bg-blue-700"
                 padding="px-5 py-2"
                 rounded="rounded-lg"
-                textColor="text-primary hover:text-black"
-                className="hover:shadow-primary shadow-lg outline outline-cyan-600"
+                textColor="text-blue-500 hover:text-white dark:text-blue-400 dark:hover:text-white"
+                className="shadow-lg outline outline-blue-600 hover:shadow-blue-500 dark:outline-blue-400 dark:hover:shadow-blue-300"
               >
                 Submit
               </Button>
@@ -158,7 +184,9 @@ function EditBook() {
           </form>
         </div>
       ) : (
-        <h1 className="text-center text-3xl">No Book Found For Editing</h1>
+        <h1 className="text-center text-3xl text-gray-400 dark:text-gray-300">
+          No Book Found For Editing
+        </h1>
       )}
     </>
   );

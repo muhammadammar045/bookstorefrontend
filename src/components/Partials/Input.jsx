@@ -3,15 +3,15 @@ import React, { useId } from "react";
 function Input(
   {
     type = "text",
-    labelColor = "text-primary",
-    bgColor = "bg-tertiary",
-    textColor = "text-primary",
+    labelColor = "text-gray-900 dark:text-gray-200",
+    bgColor = "bg-gray-100 dark:bg-gray-100",
+    textColor = "text-gray-900 dark:text-gray-900",
     padding = "px-3 py-2",
     width = "w-full",
     rounded = "rounded-lg",
-    shadow = "shadow-md shadow-primary focus:shadow-lg focus:shadow-primary",
-    outline = "outline outline-primary  focus:outline-primary",
-    className = "duration-700",
+    shadow = "hover:shadow-lg shadow-sky-500 dark:shadow-sky-400 focus:shadow-lg focus:shadow-sky-500 dark:focus:shadow-sky-400",
+    outline = "",
+    className = "ease-in duration-700",
     label = "",
     placeholder = "",
     border = "",
@@ -33,7 +33,7 @@ function Input(
     <div className="w-full text-left">
       {label && (
         <label
-          className={`mb-1 inline-block pl-1 ${labelColor}`}
+          className={`mb-2 inline-block pl-1 ${labelColor}`}
           htmlFor={id}
         >
           {`${label} :`}

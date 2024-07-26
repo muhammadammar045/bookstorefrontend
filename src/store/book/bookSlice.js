@@ -6,7 +6,8 @@ import {
     apiFetchBook,
     apiDeleteBook,
     apiUpdateBook,
-    apiUpdateBookThumbnail
+    apiUpdateBookThumbnail,
+    apiFetchAllUsersBooks
 } from "./booksApi";
 
 export const addBookThunk = createAsyncThunk(
@@ -23,6 +24,23 @@ export const addBookThunk = createAsyncThunk(
             formData.append("thumbnail", bookData.thumbnail[0]);
 
             const response = await apiAddBooks(formData, accessToken);
+            return response;
+        } catch (error) {
+            return rejectWithValue(error.response.data);
+        }
+    }
+);
+
+export const fetchAllUsersBooksThunk = createAsyncThunk(
+    "book/fetchAllUsersBooks",
+    async (
+        page = 1,
+        { getState, rejectWithValue }
+    ) => {
+        const state = getState();
+        const accessToken = selectAccessToken(state);
+        try {
+            const response = await apiFetchAllUsersBooks(page, accessToken);
             return response;
         } catch (error) {
             return rejectWithValue(error.response.data);
@@ -151,6 +169,23 @@ const booksSlice = createSlice({
             })
 
 
+            //=======================================================FETCH ALL USERS BOOK===============================================
+
+            .addCase(fetchAllUsersBooksThunk.pending, (state) => {
+                state.isLoading = true;
+                state.error = null;
+                state.status = "loading";
+            })
+            .addCase(fetchAllUsersBooksThunk.fulfilled, (state, action) => {
+                state.isLoading = false;
+                state.books = action.payload.data;
+                state.status = "succeeded";
+            })
+            .addCase(fetchAllUsersBooksThunk.rejected, (state, action) => {
+                state.isLoading = false;
+                state.error = action.payload;
+                state.status = "failed";
+            })
             //=======================================================FETCH ALL BOOK===============================================
 
             .addCase(fetchBooksThunk.pending, (state) => {
