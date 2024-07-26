@@ -22,7 +22,7 @@ function Navbar() {
     ["Home", "/"],
     ["My Books", "/books"],
     ["Add Book", "/add-book"],
-    ["Dashboard", "/admin/dashboard"],
+    // ["Dashboard", "/admin/dashboard"],
   ];
 
   const toggleMobileMenu = () => {
@@ -43,7 +43,7 @@ function Navbar() {
                 className="h-20 duration-700 group-hover:scale-125"
                 alt="Logo"
               />
-              <span className="xs:hidden self-center whitespace-nowrap text-2xl font-semibold text-gray-900 duration-700 group-hover:scale-125 sm:block dark:text-gray-200">
+              <span className="self-center whitespace-nowrap text-2xl font-semibold text-gray-900 duration-700 group-hover:scale-125 dark:text-gray-200 xs:hidden sm:block">
                 . AmmaRi
               </span>
             </NavLink>
@@ -52,7 +52,7 @@ function Navbar() {
               <button
                 onClick={toggleMobileMenu}
                 type="button"
-                className="text-primary-500 inline-flex h-10 w-10 items-center justify-center rounded-lg p-2 text-sm hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-300 md:hidden dark:text-primary dark:hover:bg-gray-700 dark:focus:ring-gray-400"
+                className="text-primary-500 dark:text-primary inline-flex h-10 w-10 items-center justify-center rounded-lg p-2 text-sm hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-300 dark:hover:bg-gray-700 dark:focus:ring-gray-400 md:hidden"
               >
                 <FontAwesomeIcon icon={faBars} />
               </button>

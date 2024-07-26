@@ -16,6 +16,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import showToast from "../../utils/toastAlert/toaster";
 import Modal from "../../utils/modal/Modal";
+import { selectUserPermissions } from "../../store/user/userAuthSlice";
 
 function Book() {
   const loading = useSelector(selectIsLoading);
@@ -23,6 +24,7 @@ function Book() {
   const navigate = useNavigate();
   const book = useSelector(selectBook);
   const modalContext = useSelector(selectModalContext);
+  const permissions = useSelector(selectUserPermissions);
   const { bookId } = useParams();
 
   const onDeleteClick = () => {
@@ -98,15 +100,17 @@ function Book() {
                 alt={book?.title || "Book Thumbnail"}
               />
             </div>
-            <div className="absolute right-6 top-10 flex h-14 w-14 items-center justify-center rounded-full border-2 border-gray-800 bg-gray-400 duration-700 hover:scale-125 dark:border-gray-200 dark:bg-gray-900">
-              <button onClick={handleEditThumbnail}>
-                <FontAwesomeIcon
-                  icon={faCamera}
-                  size="2x"
-                  color="lightgreen"
-                />
-              </button>
-            </div>
+            {permissions.includes("update") && (
+              <div className="absolute right-6 top-10 flex h-14 w-14 items-center justify-center rounded-full border-2 border-gray-800 bg-gray-400 duration-700 hover:scale-125 dark:border-gray-200 dark:bg-gray-900">
+                <button onClick={handleEditThumbnail}>
+                  <FontAwesomeIcon
+                    icon={faCamera}
+                    size="2x"
+                    color="lightgreen"
+                  />
+                </button>
+              </div>
+            )}
           </div>
           <div>
             <div className="mt-10 flex items-center justify-between">
@@ -114,31 +118,34 @@ function Book() {
                 {book?.category}
               </h5>
               <span className="">
-                <button
-                  className="duration-700 hover:scale-150"
-                  onClick={onDeleteClick}
-                >
-                  <span className="px-4">
-                    <FontAwesomeIcon
-                      icon={faTrash}
-                      size="2x"
-                      color="red"
-                    />
-                  </span>
-                </button>
-
-                <button
-                  onClick={onEditClick}
-                  className="duration-700 hover:scale-150"
-                >
-                  <span className="px-4">
-                    <FontAwesomeIcon
-                      icon={faEdit}
-                      size="2x"
-                      color="green"
-                    />
-                  </span>
-                </button>
+                {permissions.includes("delete") && (
+                  <button
+                    className="duration-700 hover:scale-150"
+                    onClick={onDeleteClick}
+                  >
+                    <span className="px-4">
+                      <FontAwesomeIcon
+                        icon={faTrash}
+                        size="2x"
+                        color="red"
+                      />
+                    </span>
+                  </button>
+                )}
+                {permissions.includes("update") && (
+                  <button
+                    onClick={onEditClick}
+                    className="duration-700 hover:scale-150"
+                  >
+                    <span className="px-4">
+                      <FontAwesomeIcon
+                        icon={faEdit}
+                        size="2x"
+                        color="green"
+                      />
+                    </span>
+                  </button>
+                )}
               </span>
             </div>
             <h1 className="pt-4 text-4xl font-bold text-gray-900 dark:text-gray-200">

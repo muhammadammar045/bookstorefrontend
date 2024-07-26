@@ -57,6 +57,7 @@ const initialState = {
     users: [],
     user: null,
     isLoading: false,
+    permissions: [],
     error: null,
 };
 
@@ -73,6 +74,7 @@ const userAuthSlice = createSlice({
             .addCase(loginUserThunk.fulfilled, (state, action) => {
                 state.isLoading = false;
                 state.user = action.payload.data;
+                state.permissions = action.payload.permissions;
                 state.error = null;
             })
             .addCase(loginUserThunk.rejected, (state, action) => {
@@ -122,6 +124,7 @@ export default userAuthSlice.reducer;
 export const selectUsers = (state) => state.userAuth?.users;
 export const selectUser = (state) => state.userAuth?.user;
 export const selectUserId = (state) => state.userAuth?.user?.user?._id;
+export const selectUserPermissions = (state) => state.userAuth?.user?.permissions;
 export const selectAccessToken = (state) => state.userAuth?.user?.accessToken;
 export const selectRefreshToken = (state) => state.userAuth?.user?.refreshToken;
 export const selectIsLoading = (state) => state.userAuth?.isLoading;
