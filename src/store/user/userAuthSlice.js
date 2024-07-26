@@ -123,6 +123,7 @@ export default userAuthSlice.reducer;
 
 export const selectUsers = (state) => state.userAuth?.users;
 export const selectUser = (state) => state.userAuth?.user;
+export const selectUserRole = (state) => state.userAuth?.user?.user?.role?.roleName;
 export const selectUserId = (state) => state.userAuth?.user?.user?._id;
 export const selectUserPermissions = (state) => state.userAuth?.user?.permissions;
 export const selectAccessToken = (state) => state.userAuth?.user?.accessToken;

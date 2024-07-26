@@ -49,7 +49,7 @@ function Book() {
     dispatch(closeModal());
   };
 
-  console.log(book)
+  // console.log(book)
   const onDelete = async () => {
     try {
       const res = await dispatch(deleteBookThunk(book._id)).unwrap();

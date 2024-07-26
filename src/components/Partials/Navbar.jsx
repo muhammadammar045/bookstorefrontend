@@ -4,14 +4,16 @@ import { faBars } from "@fortawesome/free-solid-svg-icons";
 import logo from "../../assets/images/ARlogo.png";
 import { NavLink } from "react-router-dom";
 import { useSelector } from "react-redux";
-import { selectUser } from "../../store/user/userAuthSlice";
+import { selectUser, selectUserRole } from "../../store/user/userAuthSlice";
 import { Logout } from "../AllComponents";
 import ThemeToggle from "../../admin/components/ThemeToggle";
 
 function Navbar() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const user = useSelector(selectUser);
-
+  const role = useSelector(selectUserRole);
+  // console.log(user.user.role.roleName);
+  // const role = user?.user?.role?.roleName;
   const links = [
     ["Home", "/"],
     ["Login", "/login"],
@@ -19,10 +21,10 @@ function Navbar() {
   ];
 
   const authenticatedLinks = [
+    ...(role === "admin" ? [["Dashboard", "/admin/dashboard"]] : []),
     ["Home", "/"],
     ["My Books", "/books"],
     ["Add Book", "/add-book"],
-    // ["Dashboard", "/admin/dashboard"],
   ];
 
   const toggleMobileMenu = () => {
