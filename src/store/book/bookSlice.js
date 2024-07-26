@@ -295,7 +295,7 @@ const booksSlice = createSlice({
 export default booksSlice.reducer;
 
 export const selectBooks = (state) => state.booksData?.books?.results;
-export const selectBook = (state) => state.booksData?.book;
+export const selectBook = (state) => state.booksData?.book?.book;
 export const selectTotalPages = (state) => state.booksData?.books?.meta?.totalPages;
 export const selectTotalDocuments = (state) => state.booksData?.books?.meta?.totalDocuments;
 export const selectCurrentPage = (state) => state.booksData?.books?.meta?.page;
