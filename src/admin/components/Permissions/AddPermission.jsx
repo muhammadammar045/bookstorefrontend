@@ -1,11 +1,11 @@
 import React from "react";
 import { Button, Input } from "../../../components/AllComponents";
 import { useForm } from "react-hook-form";
-import { addRoleThunk } from "../../../store/role/roleSlice";
-import showToast from "../../../utils/toastAlert/toaster";
 import { useDispatch } from "react-redux";
+import { addPermissionThunk } from "../../../store/permission/permissionSlice";
+import showToast from "../../../utils/toastAlert/toaster";
 
-function AddRole() {
+function AddPermission() {
   const {
     register,
     handleSubmit,
@@ -15,9 +15,9 @@ function AddRole() {
 
   const dispatch = useDispatch();
 
-  const handleRole = async (data) => {
+  const handlePermission = async (data) => {
     try {
-      const res = await dispatch(addRoleThunk(data)).unwrap();
+      const res = await dispatch(addPermissionThunk(data)).unwrap();
       showToast("success", `${res.message}`);
       console.log(data);
       reset();
@@ -30,23 +30,23 @@ function AddRole() {
     <>
       <div className="rounded-xl border bg-white p-4 shadow-sm dark:border-neutral-700 dark:bg-gray-800 dark:shadow-neutral-700/70 md:p-5">
         <h2 className="mb-4 text-lg font-semibold text-neutral-800 dark:text-neutral-200">
-          Add Role
+          Add Permission
         </h2>
-        <form onSubmit={handleSubmit(handleRole)}>
+        <form onSubmit={handleSubmit(handlePermission)}>
           <div className="flex w-full flex-col">
             <div className="mb-4">
               <Input
                 type="text"
                 label=""
-                placeholder="Enter Role Name"
-                {...register("roleName", {
-                  required: "Role Name is required",
+                placeholder="Enter Permission Name"
+                {...register("permissionName", {
+                  required: "Permission Name is required",
                 })}
                 className="text-gray-900 dark:text-gray-200"
               />
-              {errors.role && (
+              {errors.permission && (
                 <span className="text-red-500 dark:text-red-400">
-                  {errors.role.message}
+                  {errors.permission.message}
                 </span>
               )}
             </div>
@@ -61,4 +61,4 @@ function AddRole() {
   );
 }
 
-export default AddRole;
+export default AddPermission;

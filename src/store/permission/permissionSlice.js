@@ -25,7 +25,7 @@ export const fetchAllPermissionsThunk = createAsyncThunk(
 
 export const fetchPermissionThunk = createAsyncThunk(
     'permission/fetch',
-    async ({ permissionId }, { getState, rejectWithValue }) => {
+    async (permissionId, { getState, rejectWithValue }) => {
         const state = getState();
         const accessToken = selectAccessToken(state);
         try {
@@ -39,7 +39,7 @@ export const fetchPermissionThunk = createAsyncThunk(
 
 export const addPermissionThunk = createAsyncThunk(
     'permission/add',
-    async ({ permissionData }, { getState, rejectWithValue }) => {
+    async (permissionData, { getState, rejectWithValue }) => {
         const state = getState();
         const accessToken = selectAccessToken(state);
         try {
@@ -53,7 +53,7 @@ export const addPermissionThunk = createAsyncThunk(
 
 export const deletePermissionThunk = createAsyncThunk(
     'permission/delete',
-    async ({ permissionId }, { getState, rejectWithValue }) => {
+    async (permissionId, { getState, rejectWithValue }) => {
         const state = getState();
         const accessToken = selectAccessToken(state);
         try {
@@ -149,7 +149,7 @@ const permissionsSlice = createSlice({
             })
             .addCase(addPermissionThunk.fulfilled, (state, action) => {
                 state.isLoading = false;
-                state.permissions.push(action.payload);
+                state.permissions.push(action.payload.data);
                 state.status = 'succeeded';
             })
             .addCase(addPermissionThunk.rejected, (state, action) => {

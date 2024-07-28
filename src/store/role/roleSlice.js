@@ -22,7 +22,7 @@ export const fetchAllRolesThunk = createAsyncThunk(
 
 export const fetchRoleThunk = createAsyncThunk(
     'role/fetch',
-    async ({ roleId }, { getState, rejectWithValue }) => {
+    async (roleId, { getState, rejectWithValue }) => {
         const state = getState();
         const accessToken = selectAccessToken(state);
         try {
@@ -36,7 +36,7 @@ export const fetchRoleThunk = createAsyncThunk(
 
 export const addRoleThunk = createAsyncThunk(
     'role/add',
-    async ({ roleData }, { getState, rejectWithValue }) => {
+    async (roleData, { getState, rejectWithValue }) => {
         const state = getState();
         const accessToken = selectAccessToken(state);
         try {
@@ -50,7 +50,7 @@ export const addRoleThunk = createAsyncThunk(
 
 export const deleteRoleThunk = createAsyncThunk(
     'role/delete',
-    async ({ roleId }, { getState, rejectWithValue }) => {
+    async (roleId, { getState, rejectWithValue }) => {
         const state = getState();
         const accessToken = selectAccessToken(state);
         try {
@@ -148,7 +148,7 @@ const rolesSlice = createSlice({
             })
             .addCase(addRoleThunk.fulfilled, (state, action) => {
                 state.isLoading = false;
-                state.roles = action.payload;
+                state.roles.push(action.payload.data);
                 state.status = 'succeeded';
             })
             .addCase(addRoleThunk.rejected, (state, action) => {

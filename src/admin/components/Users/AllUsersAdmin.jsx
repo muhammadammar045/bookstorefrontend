@@ -3,33 +3,33 @@ import Table from "../Common/Table";
 import { useDispatch, useSelector } from "react-redux";
 import {
   fetchAllUserThunk,
+  selectIsLoading,
   selectUsers,
 } from "../../../store/user/userAuthSlice";
 
 function AllUsersAdmin() {
   const allUsers = useSelector(selectUsers);
   const dispatch = useDispatch();
+  const loading = useSelector(selectIsLoading);
 
   useEffect(() => {
     dispatch(fetchAllUserThunk());
   }, [dispatch]);
 
-  // Transform users data
   const transformedUsers =
     allUsers?.map((user) => ({
       name: user.fullname,
       email: user.email,
       role: user.roleName,
       permissions: user.permissions?.map((permission) => permission).join(", "),
-    })) || []; // Default to empty array if `allUsers` is undefined
+    })) || [];
 
-  // Ensure `transformedUsers` is not empty before accessing its keys
   const tableHeaders =
     transformedUsers.length > 0
       ? Object.keys(transformedUsers[0]).map(
           (header) => header.charAt(0).toUpperCase() + header.slice(1)
         )
-      : []; // Default to empty array if `transformedUsers` is empty
+      : [];
 
   return (
     <>
@@ -46,18 +46,55 @@ function AllUsersAdmin() {
           </div>
 
           {/* Content */}
-          <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
-            {transformedUsers.length > 0 ? (
-              <Table
-                tableHeaders={tableHeaders}
-                tableData={transformedUsers}
-              />
-            ) : (
-              <p className="text-center text-gray-500 dark:text-gray-400">
-                No users available.
-              </p>
-            )}
-          </div>
+          {loading ? (
+            <>
+              <table className="w-full text-left text-sm text-gray-500 dark:text-gray-400 rtl:text-right">
+                <thead>
+                  <tr className="bg-gray-200 text-xs uppercase text-gray-700 dark:bg-gray-700 dark:text-gray-400">
+                    {[...Array(5)].map((_, index) => (
+                      <th
+                        scope="col"
+                        className="px-6 py-3"
+                        key={index}
+                      >
+                        <div className="h-4 w-20 rounded-full bg-gray-100 dark:bg-gray-700"></div>
+                      </th>
+                    ))}
+                  </tr>
+                </thead>
+                <tbody>
+                  {[...Array(5)].map((_, rowIndex) => (
+                    <tr
+                      key={`loading-row-${rowIndex}`}
+                      className="animate-pulse border-b bg-gray-200 dark:border-gray-700 dark:bg-gray-800"
+                    >
+                      {[...Array(5)].map((_, colIndex) => (
+                        <td
+                          key={`${rowIndex}-${colIndex}`}
+                          className="px-6 py-4"
+                        >
+                          <div className="h-4 w-20 rounded-full bg-gray-100 dark:bg-gray-700"></div>
+                        </td>
+                      ))}
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </>
+          ) : (
+            <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
+              {transformedUsers.length > 0 ? (
+                <Table
+                  tableHeaders={tableHeaders}
+                  tableData={transformedUsers}
+                />
+              ) : (
+                <p className="text-center text-gray-500 dark:text-gray-400">
+                  No users available.
+                </p>
+              )}
+            </div>
+          )}
         </div>
       </main>
     </>
