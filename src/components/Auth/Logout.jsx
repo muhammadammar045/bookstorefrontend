@@ -6,6 +6,7 @@ import {
   selectIsLoading,
 } from "../../store/user/userAuthSlice";
 import showToast from "../../utils/toastAlert/toaster";
+import { LogoutSpinner } from "../AllComponents";
 
 function Logout() {
   const dispatch = useDispatch();
@@ -23,19 +24,22 @@ function Logout() {
   };
 
   return (
-    <li className="cursor-pointer">
-      <button
-        onClick={handleLogout}
-        className={`block rounded px-3 py-2 transition duration-300 md:p-0 ${
-          loading
-            ? "text-violet-300 dark:text-violet-300"
-            : "text-gray-900 dark:text-gray-200"
-        }`}
-        aria-current="page"
-      >
-        {loading ? "Logging Out..." : "Logout"}
-      </button>
-    </li>
+    <>
+      <li className="cursor-pointer">
+        <button
+          onClick={handleLogout}
+          className={`block rounded px-3 py-2 transition duration-300 md:p-0 ${
+            loading
+              ? "text-violet-300 dark:text-violet-300"
+              : "text-gray-900 dark:text-gray-200"
+          }`}
+          aria-current="page"
+        >
+          Logout
+        </button>
+      </li>
+      {loading && <LogoutSpinner />}
+    </>
   );
 }
 

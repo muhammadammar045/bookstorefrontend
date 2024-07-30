@@ -15,13 +15,13 @@ function Header({ sidebarOpen, setSidebarOpen, variant = "default" }) {
     >
       <div className="px-4 sm:px-6 lg:px-8">
         <div
-          className={`flex h-16 items-center justify-between ${variant === "v2" || variant === "v3" ? "" : "border-gray-200 lg:border-b dark:border-gray-700/60"}`}
+          className={`flex h-16 items-center justify-between ${variant === "v2" || variant === "v3" ? "" : "border-gray-200 dark:border-gray-700/60 lg:border-b"}`}
         >
           {/* Header: Left side */}
           <div className="flex">
             {/* Hamburger button */}
             <button
-              className="text-gray-500 hover:text-gray-600 lg:hidden dark:hover:text-gray-400"
+              className="text-gray-500 hover:text-gray-600 dark:hover:text-gray-400 lg:hidden"
               aria-controls="sidebar"
               aria-expanded={sidebarOpen}
               onClick={(e) => {
@@ -61,7 +61,7 @@ function Header({ sidebarOpen, setSidebarOpen, variant = "default" }) {
           <div className="flex items-center space-x-3">
             <div>
               <button
-                className={`ml-3 flex h-8 w-8 items-center justify-center rounded-full hover:bg-gray-100 lg:hover:bg-gray-200 dark:hover:bg-gray-700/50 dark:lg:hover:bg-gray-800 ${searchModalOpen && "bg-gray-200 dark:bg-gray-800"}`}
+                className={`ml-3 flex h-8 w-8 items-center justify-center rounded-full hover:bg-gray-100 dark:hover:bg-gray-700/50 lg:hover:bg-gray-200 dark:lg:hover:bg-gray-800 ${searchModalOpen && "bg-gray-200 dark:bg-gray-800"}`}
                 onClick={(e) => {
                   e.stopPropagation();
                   setSearchModalOpen(true);

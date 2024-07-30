@@ -5,9 +5,8 @@ import {
 import React from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
-import { PacmanLoader } from "react-spinners";
 import { useDispatch, useSelector } from "react-redux";
-import { Input, Button } from "../AllComponents";
+import { Input, Button, Spinner } from "../AllComponents";
 import showToast from "../../utils/toastAlert/toaster";
 
 function Login() {
@@ -36,17 +35,9 @@ function Login() {
   return (
     <>
       {isLoading ? (
-        <div className="mx-auto my-10 flex h-[350px] max-w-[500px] items-center justify-center rounded-3xl border-2 border-sky-500 bg-gray-100 dark:bg-gray-900">
-          <h2 className="text-3xl text-gray-900 dark:text-gray-200">
-            Logging In
-          </h2>
-          <PacmanLoader
-            className="mx-5"
-            color="white"
-          />
-        </div>
+        <Spinner />
       ) : (
-        <div className="mx-auto my-10 max-w-[600px] rounded-lg border-4 border-gray-900 bg-gray-100 p-14 dark:border-gray-200 dark:bg-gray-900">
+        <div className="mx-auto my-10 max-w-[600px] rounded-lg border-2 border-gray-900 bg-gray-100 p-10 dark:border-gray-200 dark:bg-gray-900">
           <h1 className="mb-4 text-center text-3xl text-gray-900 dark:text-gray-200">
             Login
           </h1>

@@ -8,7 +8,7 @@ import {
   Login,
   Signup,
 } from "./pages/Allpages";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Routes, Route, useLocation } from "react-router-dom";
 import { Layout, Protected } from "./components/AllComponents";
 import "./admin/charts/ChartjsConfig";
@@ -17,7 +17,8 @@ import AdminLayout from "./admin/partials/AdminLayout";
 import AllRolesAdmin from "./admin/components/Roles/AllRolesAdmin";
 import AllUsersAdmin from "./admin/components/Users/AllUsersAdmin";
 import AllPermissionsAdmin from "./admin/components/Permissions/AllPermissionsAdmin";
-
+import { Spinner } from "./components/AllComponents";
+import { AllBooksAdmin } from "./admin/components/AllAdminComponents";
 const App = () => {
   const location = useLocation();
 
@@ -27,7 +28,17 @@ const App = () => {
     document.querySelector("html").style.scrollBehavior = "";
   }, [location.pathname]);
 
-  return (
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    setTimeout(() => {
+      setLoading(false);
+    }, 3000);
+  }, []);
+
+  return loading ? (
+    <Spinner />
+  ) : (
     <Routes>
       <Route
         path="/"
@@ -119,6 +130,14 @@ const App = () => {
           element={
             <Protected>
               <AllPermissionsAdmin />
+            </Protected>
+          }
+        />
+        <Route
+          path="all-books"
+          element={
+            <Protected>
+              <AllBooksAdmin />
             </Protected>
           }
         />

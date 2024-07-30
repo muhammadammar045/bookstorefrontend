@@ -1,15 +1,13 @@
 import React from "react";
-import { useForm } from "react-hook-form";
-import { Input, Button, Spinner } from "../AllComponents";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  selectIsLoading,
-  registerUserThunk,
-} from "../../store/user/userAuthSlice";
-import showToast from "../../utils/toastAlert/toaster";
+import { useForm } from "react-hook-form";
+import showToast from "../../../utils/toastAlert/toaster";
+import { selectIsLoading } from "../../../store/user/userAuthSlice";
+import { Input, Button } from "../../../components/AllComponents";
+import { Spinner } from "../../../components/AllComponents";
 
-function Signup() {
+function AddUserAdmin() {
   const {
     register,
     handleSubmit,
@@ -36,9 +34,9 @@ function Signup() {
       {loading ? (
         <Spinner />
       ) : (
-        <div className="mx-auto my-10 max-w-[600px] rounded-lg border-2 border-gray-900 bg-gray-100 p-10 dark:border-gray-200 dark:bg-gray-900">
+        <div className="mx-auto rounded-lg border-2 border-gray-900 bg-gray-100 p-10 dark:border-gray-200 dark:bg-gray-900">
           <h1 className="mb-4 text-center text-3xl text-gray-900 dark:text-gray-200">
-            Register
+            Add User
           </h1>
           <form onSubmit={handleSubmit(handleRegisterUser)}>
             <div className="flex w-full flex-col">
@@ -112,7 +110,7 @@ function Signup() {
               </div>
             </div>
             <div className="my-2">
-              <Button>Register</Button>
+              <Button>Add User</Button>
             </div>
           </form>
         </div>
@@ -121,4 +119,4 @@ function Signup() {
   );
 }
 
-export default Signup;
+export default AddUserAdmin;

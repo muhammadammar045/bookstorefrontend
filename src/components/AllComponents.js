@@ -16,6 +16,11 @@ import Login from "./Auth/Login"
 import Logout from "./Auth/Logout"
 import Protected from "./Auth/Protected"
 import Signup from "./Auth/Signup"
+import BookSpinner from "./Spinners/BookSpinner"
+import BooksSpinner from "./Spinners/BooksSpinner"
+import LogoutSpinner from "./Spinners/LogoutSpinner"
+import Spinner from "./Spinners/Spinner"
+
 
 export {
     AddBook,
@@ -35,5 +40,9 @@ export {
     Navbar,
     Protected,
     Pagination,
-    Signup
+    Signup,
+    BookSpinner,
+    BooksSpinner,
+    LogoutSpinner,
+    Spinner
 }

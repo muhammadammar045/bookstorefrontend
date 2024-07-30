@@ -1,29 +1,101 @@
-import React, { useEffect } from "react";
-import Table from "../Common/Table";
+import React, { useEffect, useMemo } from "react";
+
 import { useDispatch, useSelector } from "react-redux";
 import {
+  deletePermissionThunk,
   fetchAllPermissionsThunk,
   selectAllPermissions,
   selectPermissionIsLoading,
 } from "../../../store/permission/permissionSlice";
 import AddPermission from "./AddPermission";
+import ReactTable from "../Common/ReactTable/ReactTable";
+import { faEdit, faTrash } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  closeModal,
+  openModal,
+  selectModalContext,
+} from "../../../store/modal/modalSlice";
+import showToast from "../../../utils/toastAlert/toaster";
+import Modal from "../../../utils/modal/Modal";
+import { SkeletonTable } from "../AllAdminComponents";
 
 function AllPermissionsAdmin() {
-  const allPermissions = useSelector(selectAllPermissions);
+  const permissions = useSelector(selectAllPermissions);
+  const modalContext = useSelector(selectModalContext);
+
   const dispatch = useDispatch();
   const loading = useSelector(selectPermissionIsLoading);
+
+  const onDeleteClick = (permissionId) => {
+    console.log(permissionId);
+    onDelete(permissionId);
+    dispatch(openModal("delete"));
+  };
+
+  const onEditClick = () => {
+    dispatch(openModal("edit"));
+  };
+
+  const handleEdit = () => {
+    navigate(`/edit-book/${bookId}`);
+    dispatch(closeModal());
+  };
+
+  // console.log(book)
+  const onDelete = async (permissionId) => {
+    try {
+      console.log(permissionId);
+      const res = await dispatch(deletePermissionThunk(permissionId)).unwrap();
+      showToast("success", `${res.message}`);
+      dispatch(closeModal());
+    } catch (error) {
+      showToast("error", `${error.message}`);
+    }
+  };
 
   useEffect(() => {
     dispatch(fetchAllPermissionsThunk());
   }, [dispatch]);
 
-  const transformedPermissions = allPermissions?.map((permission) => ({
-    permission: permission.permissionName,
-  }));
+  const allPermissions = useMemo(() => {
+    return (
+      permissions?.map((permission) => ({
+        id: permission._id,
+        Permission: permission.permissionName,
+        actions: (
+          <>
+            {" "}
+            <span className="">
+              <button
+                className="duration-700 hover:scale-150"
+                onClick={() => onDeleteClick(permission._id)}
+              >
+                <span className="px-2">
+                  <FontAwesomeIcon
+                    icon={faTrash}
+                    color="red"
+                  />
+                </span>
+              </button>
 
-  const tableHeaders = Object.keys(transformedPermissions[0] || {}).map(
-    (header) => header.charAt(0).toUpperCase() + header.slice(1)
-  );
+              <button
+                onClick={onEditClick}
+                className="duration-700 hover:scale-150"
+              >
+                <span className="px-2">
+                  <FontAwesomeIcon
+                    icon={faEdit}
+                    color="green"
+                  />
+                </span>
+              </button>
+            </span>
+          </>
+        ),
+      })) || []
+    );
+  }, [permissions]);
 
   return (
     <>
@@ -43,59 +115,36 @@ function AllPermissionsAdmin() {
           <div className="relative flex gap-6 overflow-x-auto shadow-md sm:rounded-lg">
             {loading ? (
               <>
-                <table className="w-full text-left text-sm text-gray-500 dark:text-gray-400 rtl:text-right">
-                  <thead>
-                    <tr className="bg-gray-200 text-xs uppercase text-gray-700 dark:bg-gray-700 dark:text-gray-400">
-                      {[...Array(3)].map((_, index) => (
-                        <th
-                          scope="col"
-                          className="px-6 py-3"
-                          key={index}
-                        >
-                          <div className="h-4 w-20 rounded-full bg-gray-100 dark:bg-gray-700"></div>
-                        </th>
-                      ))}
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {[...Array(3)].map((_, rowIndex) => (
-                      <tr
-                        key={`loading-row-${rowIndex}`}
-                        className="animate-pulse border-b bg-gray-200 dark:border-gray-700 dark:bg-gray-800"
-                      >
-                        {[...Array(3)].map((_, colIndex) => (
-                          <td
-                            key={`${rowIndex}-${colIndex}`}
-                            className="px-6 py-4"
-                          >
-                            <div className="h-4 w-20 rounded-full bg-gray-100 dark:bg-gray-700"></div>
-                          </td>
-                        ))}
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
+                <SkeletonTable
+                  rows={3}
+                  columns={3}
+                />
               </>
             ) : (
-              <div className="w-3/5">
-                {transformedPermissions?.length > 0 ? (
-                  <Table
-                    tableHeaders={tableHeaders}
-                    tableData={transformedPermissions}
-                  />
-                ) : (
-                  <p className="text-center text-gray-500 dark:text-gray-400">
-                    No permissions available.
-                  </p>
-                )}
-              </div>
+              <>
+                <div className="w-3/5">
+                  <ReactTable data={allPermissions} />
+                </div>
+                <div className="w-2/5">
+                  <AddPermission permission={"permission"} />
+                </div>
+              </>
             )}
-            <div className="w-2/5">
-              <AddPermission />
-            </div>
           </div>
         </div>
       </main>
+      {modalContext === "delete" && (
+        <Modal
+          onConfirmFunction={onDelete}
+          message={"Are you sure you want to delete this Permission?"}
+        />
+      )}
+      {modalContext === "edit" && (
+        <Modal
+          onConfirmFunction={handleEdit}
+          message={"Are you sure you want to edit this Permission?"}
+        />
+      )}
     </>
   );
 }

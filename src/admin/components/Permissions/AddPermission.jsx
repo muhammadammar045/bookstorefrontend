@@ -5,7 +5,7 @@ import { useDispatch } from "react-redux";
 import { addPermissionThunk } from "../../../store/permission/permissionSlice";
 import showToast from "../../../utils/toastAlert/toaster";
 
-function AddPermission() {
+function AddPermission({ permission }) {
   const {
     register,
     handleSubmit,

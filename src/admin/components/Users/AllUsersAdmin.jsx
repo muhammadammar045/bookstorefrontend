@@ -1,35 +1,38 @@
-import React, { useEffect } from "react";
-import Table from "../Common/Table";
+import React, { useEffect, useMemo } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   fetchAllUserThunk,
   selectIsLoading,
   selectUsers,
 } from "../../../store/user/userAuthSlice";
+import ReactTable from "../Common/ReactTable/ReactTable";
+import AddUserAdmin from "./AddUserAdmin";
+import { SkeletonTable } from "../AllAdminComponents";
 
 function AllUsersAdmin() {
-  const allUsers = useSelector(selectUsers);
+  const users = useSelector(selectUsers);
   const dispatch = useDispatch();
   const loading = useSelector(selectIsLoading);
 
   useEffect(() => {
-    dispatch(fetchAllUserThunk());
+    if (users.length === 0) {
+      dispatch(fetchAllUserThunk());
+    }
   }, [dispatch]);
 
-  const transformedUsers =
-    allUsers?.map((user) => ({
-      name: user.fullname,
-      email: user.email,
-      role: user.roleName,
-      permissions: user.permissions?.map((permission) => permission).join(", "),
-    })) || [];
-
-  const tableHeaders =
-    transformedUsers.length > 0
-      ? Object.keys(transformedUsers[0]).map(
-          (header) => header.charAt(0).toUpperCase() + header.slice(1)
-        )
-      : [];
+  const allUsers = useMemo(() => {
+    return (
+      users?.map((user) => ({
+        id: user._id,
+        name: user.fullname,
+        email: user.email,
+        role: user.roleName,
+        permissions: user.permissions
+          ?.map((permission) => permission)
+          .join(", "),
+      })) || []
+    );
+  }, [users]);
 
   return (
     <>
@@ -46,55 +49,23 @@ function AllUsersAdmin() {
           </div>
 
           {/* Content */}
-          {loading ? (
-            <>
-              <table className="w-full text-left text-sm text-gray-500 dark:text-gray-400 rtl:text-right">
-                <thead>
-                  <tr className="bg-gray-200 text-xs uppercase text-gray-700 dark:bg-gray-700 dark:text-gray-400">
-                    {[...Array(5)].map((_, index) => (
-                      <th
-                        scope="col"
-                        className="px-6 py-3"
-                        key={index}
-                      >
-                        <div className="h-4 w-20 rounded-full bg-gray-100 dark:bg-gray-700"></div>
-                      </th>
-                    ))}
-                  </tr>
-                </thead>
-                <tbody>
-                  {[...Array(5)].map((_, rowIndex) => (
-                    <tr
-                      key={`loading-row-${rowIndex}`}
-                      className="animate-pulse border-b bg-gray-200 dark:border-gray-700 dark:bg-gray-800"
-                    >
-                      {[...Array(5)].map((_, colIndex) => (
-                        <td
-                          key={`${rowIndex}-${colIndex}`}
-                          className="px-6 py-4"
-                        >
-                          <div className="h-4 w-20 rounded-full bg-gray-100 dark:bg-gray-700"></div>
-                        </td>
-                      ))}
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </>
-          ) : (
-            <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
-              {transformedUsers.length > 0 ? (
-                <Table
-                  tableHeaders={tableHeaders}
-                  tableData={transformedUsers}
+          <div className="relative flex gap-6 overflow-x-auto shadow-md sm:rounded-lg">
+            {loading ? (
+              <>
+                <SkeletonTable
+                  rows={4}
+                  columns={4}
                 />
-              ) : (
-                <p className="text-center text-gray-500 dark:text-gray-400">
-                  No users available.
-                </p>
-              )}
-            </div>
-          )}
+              </>
+            ) : (
+              <div className="w-full">
+                <ReactTable data={allUsers} />
+              </div>
+            )}
+            {/* <div className="w-2/5">
+              <AddUserAdmin />
+            </div> */}
+          </div>
         </div>
       </main>
     </>

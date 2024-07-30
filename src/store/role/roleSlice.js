@@ -104,116 +104,79 @@ const rolesSlice = createSlice({
     initialState,
     reducers: {},
     extraReducers: (builder) => {
-        builder
+        const handlePending = (state) => {
+            state.isLoading = true;
+            state.error = null;
+            state.status = 'loading';
+        };
 
+        const handleRejected = (state, action) => {
+            state.isLoading = false;
+            state.error = action.payload;
+            state.status = 'failed';
+        };
+
+        builder
             // Fetch All Roles
-            .addCase(fetchAllRolesThunk.pending, (state) => {
-                state.isLoading = true;
-                state.error = null;
-                state.status = 'loading';
-            })
+            .addCase(fetchAllRolesThunk.pending, handlePending)
             .addCase(fetchAllRolesThunk.fulfilled, (state, action) => {
                 state.isLoading = false;
                 state.roles = action.payload.data;
                 state.status = 'succeeded';
             })
-            .addCase(fetchAllRolesThunk.rejected, (state, action) => {
-                state.isLoading = false;
-                state.error = action.payload;
-                state.status = 'failed';
-            })
+            .addCase(fetchAllRolesThunk.rejected, handleRejected)
 
             // Fetch Role
-            .addCase(fetchRoleThunk.pending, (state) => {
-                state.isLoading = true;
-                state.error = null;
-                state.status = 'loading';
-            })
+            .addCase(fetchRoleThunk.pending, handlePending)
             .addCase(fetchRoleThunk.fulfilled, (state, action) => {
                 state.isLoading = false;
                 state.role = action.payload;
                 state.status = 'succeeded';
             })
-            .addCase(fetchRoleThunk.rejected, (state, action) => {
-                state.isLoading = false;
-                state.error = action.payload;
-                state.status = 'failed';
-            })
+            .addCase(fetchRoleThunk.rejected, handleRejected)
 
             // Add Role
-            .addCase(addRoleThunk.pending, (state) => {
-                state.isLoading = true;
-                state.error = null;
-                state.status = 'loading';
-            })
+            .addCase(addRoleThunk.pending, handlePending)
             .addCase(addRoleThunk.fulfilled, (state, action) => {
                 state.isLoading = false;
                 state.roles.push(action.payload.data);
                 state.status = 'succeeded';
             })
-            .addCase(addRoleThunk.rejected, (state, action) => {
-                state.isLoading = false;
-                state.error = action.payload;
-                state.status = 'failed';
-            })
+            .addCase(addRoleThunk.rejected, handleRejected)
 
             // Delete Role
-            .addCase(deleteRoleThunk.pending, (state) => {
-                state.isLoading = true;
-                state.error = null;
-                state.status = 'loading';
-            })
+            .addCase(deleteRoleThunk.pending, handlePending)
             .addCase(deleteRoleThunk.fulfilled, (state, action) => {
                 state.isLoading = false;
-                state.roles === action.payload;
+                state.roles = state.roles.filter(role => role._id !== action.payload._id);
                 state.status = 'succeeded';
             })
-            .addCase(deleteRoleThunk.rejected, (state, action) => {
-                state.isLoading = false;
-                state.error = action.payload;
-                state.status = 'failed';
-            })
+            .addCase(deleteRoleThunk.rejected, handleRejected)
 
             // Update Role
-            .addCase(updateRoleThunk.pending, (state) => {
-                state.isLoading = true;
-                state.error = null;
-                state.status = 'loading';
-            })
+            .addCase(updateRoleThunk.pending, handlePending)
             .addCase(updateRoleThunk.fulfilled, (state, action) => {
                 state.isLoading = false;
-                state.roles === action.payload;
+                const index = state.roles.findIndex(role => role._id === action.payload.data._id);
+                if (index !== -1) {
+                    state.roles[index] = action.payload.data;
+                }
                 state.status = 'succeeded';
             })
-            .addCase(updateRoleThunk.rejected, (state, action) => {
-                state.isLoading = false;
-                state.error = action.payload;
-                state.status = 'failed';
-            })
+            .addCase(updateRoleThunk.rejected, handleRejected)
 
             // Assign Role to User
-            .addCase(assignRoleToUserThunk.pending, (state) => {
-                state.isLoading = true;
-                state.error = null;
-                state.status = 'loading';
-            })
+            .addCase(assignRoleToUserThunk.pending, handlePending)
             .addCase(assignRoleToUserThunk.fulfilled, (state) => {
                 state.isLoading = false;
                 state.status = 'succeeded';
             })
-            .addCase(assignRoleToUserThunk.rejected, (state, action) => {
-                state.isLoading = false;
-                state.error = action.payload;
-                state.status = 'failed';
-            })
+            .addCase(assignRoleToUserThunk.rejected, handleRejected)
 
             // Handle Logout
-            .addCase(logoutUserThunk.fulfilled, () => {
-                return initialState;
-            });
+            .addCase(logoutUserThunk.fulfilled, () => initialState);
     },
 });
-
 export default rolesSlice.reducer;
 
 export const selectAllRoles = (state) => state.role.roles;
