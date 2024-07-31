@@ -1,7 +1,5 @@
 import React from "react";
 
-import DashboardCard01 from "../partials/dashboard/DashboardCard01";
-
 function Dashboard() {
   return (
     <>
@@ -18,12 +16,7 @@ function Dashboard() {
           </div>
 
           {/* Cards */}
-          <div className="grid grid-cols-12 gap-6">
-            {/* Line chart (Acme Plus) */}
-            <DashboardCard01 />
-            <DashboardCard01 />
-            <DashboardCard01 />
-          </div>
+          <div className="grid grid-cols-12 gap-6"></div>
         </div>
       </main>
     </>

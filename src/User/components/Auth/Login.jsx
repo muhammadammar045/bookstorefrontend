@@ -1,13 +1,15 @@
+import {
+  selectIsLoading,
+  loginUserThunk,
+} from "../../../store/user/userAuthSlice";
 import React from "react";
+import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { useForm } from "react-hook-form";
+import { Input, Button, Spinner } from "../AllComponents";
 import showToast from "../../../utils/toastAlert/toaster";
-import { selectIsLoading } from "../../../store/user/userAuthSlice";
-import { Input, Button } from "../../../User/components/AllComponents";
-import { Spinner } from "../../../User/components/AllComponents";
 
-function AddUserAdmin() {
+function Login() {
   const {
     register,
     handleSubmit,
@@ -16,54 +18,31 @@ function AddUserAdmin() {
   } = useForm();
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const loading = useSelector(selectIsLoading);
+  const isLoading = useSelector(selectIsLoading);
 
-  const handleRegisterUser = async (data) => {
+  const login = async (data) => {
     try {
-      const res = await dispatch(registerUserThunk(data)).unwrap();
+      const res = await dispatch(loginUserThunk(data)).unwrap();
       showToast("success", `${res.message}`);
-      navigate("/login");
+      navigate("/");
       reset();
     } catch (error) {
       showToast("error", `${error.message}`);
+      navigate("/login");
     }
   };
 
   return (
     <>
-      {loading ? (
+      {isLoading ? (
         <Spinner />
       ) : (
-        <div className="mx-auto rounded-lg border-2 border-gray-900 bg-gray-100 p-10 dark:border-gray-200 dark:bg-gray-900">
+        <div className="mx-auto my-10 max-w-[600px] rounded-lg border-2 border-gray-900 bg-gray-100 p-10 dark:border-gray-200 dark:bg-gray-900">
           <h1 className="mb-4 text-center text-3xl text-gray-900 dark:text-gray-200">
-            Add User
+            Login
           </h1>
-          <form onSubmit={handleSubmit(handleRegisterUser)}>
+          <form onSubmit={handleSubmit(login)}>
             <div className="flex w-full flex-col">
-              <div className="mb-4">
-                <Input
-                  type="text"
-                  label="Full Name"
-                  placeholder="Enter Full Name"
-                  {...register("fullname", {
-                    required: "Full Name is required",
-                    minLength: {
-                      value: 4,
-                      message: "Full Name must be at least 4 characters",
-                    },
-                    maxLength: {
-                      value: 30,
-                      message: "Full Name must be at most 30 characters",
-                    },
-                  })}
-                  className="text-gray-900 dark:text-gray-200"
-                />
-                {errors.fullname && (
-                  <span className="text-red-500 dark:text-red-400">
-                    {errors.fullname.message}
-                  </span>
-                )}
-              </div>
               <div className="mb-4">
                 <Input
                   type="text"
@@ -110,7 +89,7 @@ function AddUserAdmin() {
               </div>
             </div>
             <div className="my-2">
-              <Button>Add User</Button>
+              <Button>Login</Button>
             </div>
           </form>
         </div>
@@ -119,4 +98,4 @@ function AddUserAdmin() {
   );
 }
 
-export default AddUserAdmin;
+export default Login;

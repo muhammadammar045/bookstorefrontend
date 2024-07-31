@@ -7,18 +7,20 @@ import {
   Home,
   Login,
   Signup,
-} from "./pages/Allpages";
+} from "./User/pages/Allpages";
+import {
+  AllBooksAdmin,
+  AllPermissionsAdmin,
+  AllRolesAdmin,
+  AllUsersAdmin,
+  Dashboard,
+} from "./admin/pages/AllAdminPages";
+
 import React, { useEffect, useState } from "react";
 import { Routes, Route, useLocation } from "react-router-dom";
-import { Layout, Protected } from "./components/AllComponents";
-import "./admin/charts/ChartjsConfig";
-import Dashboard from "./admin/pages/Dashboard";
+import { Layout, Protected } from "./User/components/AllComponents";
 import AdminLayout from "./admin/partials/AdminLayout";
-import AllRolesAdmin from "./admin/components/Roles/AllRolesAdmin";
-import AllUsersAdmin from "./admin/components/Users/AllUsersAdmin";
-import AllPermissionsAdmin from "./admin/components/Permissions/AllPermissionsAdmin";
-import { Spinner } from "./components/AllComponents";
-import { AllBooksAdmin } from "./admin/components/AllAdminComponents";
+import { Spinner } from "./User/components/AllComponents";
 const App = () => {
   const location = useLocation();
 

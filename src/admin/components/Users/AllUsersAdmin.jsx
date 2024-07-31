@@ -6,8 +6,7 @@ import {
   selectUsers,
 } from "../../../store/user/userAuthSlice";
 import ReactTable from "../Common/ReactTable/ReactTable";
-import AddUserAdmin from "./AddUserAdmin";
-import { SkeletonTable } from "../AllAdminComponents";
+import { AddUsersAdmin, SkeletonTable } from "../AllAdminComponents";
 
 function AllUsersAdmin() {
   const users = useSelector(selectUsers);
@@ -63,7 +62,7 @@ function AllUsersAdmin() {
               </div>
             )}
             {/* <div className="w-2/5">
-              <AddUserAdmin />
+              <AddUsersAdmin />
             </div> */}
           </div>
         </div>

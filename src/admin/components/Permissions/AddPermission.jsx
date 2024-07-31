@@ -1,5 +1,5 @@
 import React from "react";
-import { Button, Input } from "../../../components/AllComponents";
+import { Button, Input } from "../../../User/components/AllComponents";
 import { useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
 import { addPermissionThunk } from "../../../store/permission/permissionSlice";
