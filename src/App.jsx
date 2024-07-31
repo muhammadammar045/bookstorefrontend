@@ -14,12 +14,12 @@ import {
   AllRolesAdmin,
   AllUsersAdmin,
   Dashboard,
-} from "./admin/pages/AllAdminPages";
+} from "./Admin/pages/AllAdminPages";
 
 import React, { useEffect, useState } from "react";
 import { Routes, Route, useLocation } from "react-router-dom";
 import { Layout, Protected } from "./User/components/AllComponents";
-import AdminLayout from "./admin/partials/AdminLayout";
+import AdminLayout from "./Admin/partials/AdminLayout";
 import { Spinner } from "./User/components/AllComponents";
 const App = () => {
   const location = useLocation();

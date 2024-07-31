@@ -6,7 +6,7 @@ import { NavLink } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { selectUser, selectUserRole } from "../../../store/user/userAuthSlice";
 import { Logout } from "../AllComponents";
-import ThemeToggle from "../../../admin/components/Common/ThemeToggle";
+import ThemeToggle from "../../../Admin/components/Common/ThemeToggle";
 
 function Navbar() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);

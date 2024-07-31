@@ -1,5 +1,5 @@
 import React from "react";
-import { AllRolesAdmin as AllRolesAdminComp } from "../../admin/components/AllAdminComponents";
+import { AllRolesAdmin as AllRolesAdminComp } from "../../Admin/components/AllAdminComponents";
 
 function AllRolesAdmin() {
   return (
