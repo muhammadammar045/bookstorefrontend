@@ -2,7 +2,7 @@ import React, { useEffect, useMemo } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   fetchAllUserThunk,
-  selectIsLoading,
+  selectUserIsLoading,
   selectUsers,
 } from "../../../store/user/userAuthSlice";
 import ReactTable from "../Common/ReactTable/ReactTable";
@@ -11,7 +11,7 @@ import { AddUsersAdmin, SkeletonTable } from "../AllAdminComponents";
 function AllUsersAdmin() {
   const users = useSelector(selectUsers);
   const dispatch = useDispatch();
-  const loading = useSelector(selectIsLoading);
+  const loading = useSelector(selectUserIsLoading);
 
   useEffect(() => {
     if (users.length === 0) {

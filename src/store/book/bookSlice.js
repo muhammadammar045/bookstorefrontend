@@ -301,6 +301,6 @@ export const selectTotalPages = (state) => state.booksData?.books?.meta?.totalPa
 export const selectTotalDocuments = (state) => state.booksData?.books?.meta?.totalDocuments;
 export const selectCurrentPage = (state) => state.booksData?.books?.meta?.page;
 export const selectLimit = (state) => state.booksData?.books?.meta?.limit;
-export const selectIsLoading = (state) => state.booksData?.isLoading;
+export const selectBookIsLoading = (state) => state.booksData?.isLoading;
 export const selectError = (state) => state.booksData?.error;
 export const selectStatus = (state) => state.booksData?.status;

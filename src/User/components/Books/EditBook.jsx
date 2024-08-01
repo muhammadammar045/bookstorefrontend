@@ -2,7 +2,7 @@ import {
   fetchBookThunk,
   updateBookThunk,
   selectBook,
-  selectIsLoading,
+  selectBookIsLoading,
 } from "../../../store/book/bookSlice";
 import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
@@ -21,7 +21,7 @@ function EditBook() {
   const navigate = useNavigate();
   const { bookId } = useParams();
   const book = useSelector(selectBook);
-  const loading = useSelector(selectIsLoading);
+  const loading = useSelector(selectBookIsLoading);
   const dispatch = useDispatch();
 
   useEffect(() => {

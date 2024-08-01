@@ -1,7 +1,7 @@
 import {
   fetchBookThunk,
   selectBook,
-  selectIsLoading,
+  selectBookIsLoading,
   updateBookThumbnailThunk,
 } from "../../../store/book/bookSlice";
 import React, { useEffect } from "react";
@@ -20,7 +20,7 @@ function EditBookThumbnail() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { bookId } = useParams();
-  const loading = useSelector(selectIsLoading);
+  const loading = useSelector(selectBookIsLoading);
   const book = useSelector(selectBook);
 
   useEffect(() => {

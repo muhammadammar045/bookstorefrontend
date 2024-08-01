@@ -2,7 +2,7 @@ import {
   deleteBookThunk,
   fetchBookThunk,
   selectBook,
-  selectIsLoading,
+  selectBookIsLoading,
 } from "../../../store/book/bookSlice";
 import {
   openModal,
@@ -20,7 +20,7 @@ import { selectUserPermissions } from "../../../store/user/userAuthSlice";
 import { BookSpinner } from "../AllComponents";
 
 function Book() {
-  const loading = useSelector(selectIsLoading);
+  const loading = useSelector(selectBookIsLoading);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const book = useSelector(selectBook);

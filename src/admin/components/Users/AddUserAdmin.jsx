@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { useForm } from "react-hook-form";
 import showToast from "../../../utils/toastAlert/toaster";
-import { selectIsLoading } from "../../../store/user/userAuthSlice";
+import { selectUserIsLoading } from "../../../store/user/userAuthSlice";
 import { Input, Button } from "../../../User/components/AllComponents";
 import { Spinner } from "../../../User/components/AllComponents";
 
@@ -16,7 +16,7 @@ function AddUserAdmin() {
   } = useForm();
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const loading = useSelector(selectIsLoading);
+  const loading = useSelector(selectUserIsLoading);
 
   const handleRegisterUser = async (data) => {
     try {

@@ -1,10 +1,10 @@
 import React, { useMemo } from "react";
 import { ReactTable } from "../AllAdminComponents";
 import { useSelector } from "react-redux";
-import { selectIsLoading } from "../../../store/book/bookSlice";
+import { selectBookIsLoading } from "../../../store/book/bookSlice";
 
 function AllBooksAdmin() {
-  const loading = useSelector(selectIsLoading);
+  const loading = useSelector(selectBookIsLoading);
   const data = useMemo(
     () => [
       { id: 1, name: "John Doe", age: 28, role: "Admin" },

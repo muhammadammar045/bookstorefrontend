@@ -1,5 +1,5 @@
 import {
-  selectIsLoading,
+  selectUserIsLoading,
   loginUserThunk,
 } from "../../../store/user/userAuthSlice";
 import React from "react";
@@ -18,7 +18,7 @@ function Login() {
   } = useForm();
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const isLoading = useSelector(selectIsLoading);
+  const isLoading = useSelector(selectUserIsLoading);
 
   const login = async (data) => {
     try {

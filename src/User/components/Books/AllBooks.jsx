@@ -1,6 +1,6 @@
 import {
   selectBooks,
-  selectIsLoading,
+  selectBookIsLoading,
   selectTotalPages,
   fetchAllUsersBooksThunk,
 } from "../../../store/book/bookSlice";
@@ -12,7 +12,7 @@ import Typewriter from "typewriter-effect";
 function AllBooks() {
   const [currentPage, setCurrentPage] = useState(1);
   const dispatch = useDispatch();
-  const loading = useSelector(selectIsLoading);
+  const loading = useSelector(selectBookIsLoading);
   const books = useSelector(selectBooks);
   const totalPages = useSelector(selectTotalPages);
 

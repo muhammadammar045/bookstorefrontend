@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import {
   logoutUserThunk,
-  selectIsLoading,
+  selectUserIsLoading,
 } from "../../../store/user/userAuthSlice";
 import showToast from "../../../utils/toastAlert/toaster";
 import { LogoutSpinner } from "../AllComponents";
@@ -11,7 +11,7 @@ import { LogoutSpinner } from "../AllComponents";
 function Logout() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const loading = useSelector(selectIsLoading);
+  const loading = useSelector(selectUserIsLoading);
 
   const handleLogout = async () => {
     try {

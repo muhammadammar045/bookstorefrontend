@@ -4,7 +4,7 @@ import { Input, Button, Spinner } from "../AllComponents";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import {
-  selectIsLoading,
+  selectUserIsLoading,
   registerUserThunk,
 } from "../../../store/user/userAuthSlice";
 import showToast from "../../../utils/toastAlert/toaster";
@@ -18,7 +18,7 @@ function Signup() {
   } = useForm();
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const loading = useSelector(selectIsLoading);
+  const loading = useSelector(selectUserIsLoading);
 
   const handleRegisterUser = async (data) => {
     try {
