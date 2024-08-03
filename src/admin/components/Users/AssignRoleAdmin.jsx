@@ -6,10 +6,13 @@ import showToast from "../../../utils/toastAlert/toaster";
 import {
   selectUserIsLoading,
   selectFetchedUser,
-  updateUserThunk,
 } from "../../../store/user/userAuthSlice";
-import { Input, Button } from "../../../User/components/AllComponents";
+import { Button, Select } from "../../../User/components/AllComponents";
 import { Spinner } from "../../../User/components/AllComponents";
+import {
+  assignRoleToUserThunk,
+  selectAllRoles,
+} from "../../../store/role/roleSlice";
 
 function AddUserAdmin() {
   const {
@@ -22,17 +25,24 @@ function AddUserAdmin() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const loading = useSelector(selectUserIsLoading);
+  const roles = useSelector(selectAllRoles);
   const fetchedUser = useSelector(selectFetchedUser);
   console.log(fetchedUser);
 
-  const handleUpdateUser = async (data) => {
+  const rolesOptions = roles.map((role) => ({
+    id: role._id,
+    name: role.roleName,
+  }));
+
+  const handleAssignRoleToUser = async (data) => {
+    console.log(data);
     try {
       let res;
       if (fetchedUser) {
         res = await dispatch(
-          updateUserThunk({
+          assignRoleToUserThunk({
             userId: fetchedUser?._id,
-            userData: data,
+            roleName: data.roleName,
           })
         ).unwrap();
         console.log(res);
@@ -47,8 +57,7 @@ function AddUserAdmin() {
 
   useEffect(() => {
     if (fetchedUser) {
-      setValue("fullname", fetchedUser.fullname);
-      setValue("email", fetchedUser.email);
+      setValue("roleName", fetchedUser.roleName);
     } else {
       reset();
     }
@@ -61,60 +70,27 @@ function AddUserAdmin() {
       ) : (
         <div className="mx-auto rounded-lg border-2 border-gray-900 bg-gray-100 p-10 dark:border-gray-200 dark:bg-gray-900">
           <h1 className="mb-4 text-center text-3xl text-gray-900 dark:text-gray-200">
-            Edit User
+            Assign Role
           </h1>
-          <form onSubmit={handleSubmit(handleUpdateUser)}>
+          <form onSubmit={handleSubmit(handleAssignRoleToUser)}>
             <div className="flex w-full flex-col">
-              {/* Full Name */}
+              {/* Role */}
               <div className="mb-4">
-                <Input
-                  type="text"
-                  label="Full Name"
-                  placeholder="Enter Full Name"
-                  {...register("fullname", {
-                    required: "Full Name is required",
-                    minLength: {
-                      value: 4,
-                      message: "Full Name must be at least 4 characters",
-                    },
-                    maxLength: {
-                      value: 30,
-                      message: "Full Name must be at most 30 characters",
-                    },
-                  })}
+                <Select
+                  label="Roles"
+                  options={rolesOptions}
+                  {...register("roleName", { required: "Role is required" })}
                   className="text-gray-900 dark:text-gray-200"
                 />
-                {errors.fullname && (
+                {errors.roleName && (
                   <span className="text-red-500 dark:text-red-400">
-                    {errors.fullname.message}
-                  </span>
-                )}
-              </div>
-
-              {/* Email */}
-              <div className="mb-4">
-                <Input
-                  type="text"
-                  label="Email"
-                  placeholder="Enter Email"
-                  {...register("email", {
-                    required: "Email is required",
-                    pattern: {
-                      value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
-                      message: "Invalid email address",
-                    },
-                  })}
-                  className="text-gray-900 dark:text-gray-200"
-                />
-                {errors.email && (
-                  <span className="text-red-500 dark:text-red-400">
-                    {errors.email.message}
+                    {errors.roleName.message}
                   </span>
                 )}
               </div>
             </div>
             <div className="my-2">
-              <Button>Edit User</Button>
+              <Button>Assign Role</Button>
             </div>
           </form>
         </div>

@@ -82,14 +82,14 @@ const apiUpdatePermission = async (permissionId, permissionData, accessToken) =>
     }
 }
 
-const apiAssignPermissionsToRole = async (roleId, permissionIds, accessToken) => {
+const apiAssignPermissionsToRole = async (roleId, permissionsName, accessToken) => {
     try {
         const response = await axios
-            .post(
+            .patch(
                 '/permissions/assign-permissions-to-role',
                 {
                     roleId,
-                    permissionIds
+                    permissionsName
                 },
                 {
                     headers: {

@@ -20,6 +20,8 @@ import BookSpinner from "./Spinners/BookSpinner"
 import BooksSpinner from "./Spinners/BooksSpinner"
 import LogoutSpinner from "./Spinners/LogoutSpinner"
 import Spinner from "./Spinners/Spinner"
+import Select from "./Partials/Select"
+import Checkbox from "./Partials/Checkbox"
 
 
 export {
@@ -44,5 +46,7 @@ export {
     BookSpinner,
     BooksSpinner,
     LogoutSpinner,
-    Spinner
+    Spinner,
+    Select,
+    Checkbox
 }

@@ -11,6 +11,7 @@ import SkeletonTable from "./LoadingTables/SkeletonTable.jsx"
 import SearchBox from "./Common/ReactTable/SearchBox.jsx"
 import SelectBox from "./Common/ReactTable/SelectBox.jsx"
 import TablePagination from "./Common/ReactTable/TablePagination.jsx"
+import AssignRoleAdmin from "./Users/AssignRoleAdmin.jsx"
 
 
 export {
@@ -26,6 +27,7 @@ export {
     SkeletonTable,
     SearchBox,
     SelectBox,
-    TablePagination
+    TablePagination,
+    AssignRoleAdmin
 
 }

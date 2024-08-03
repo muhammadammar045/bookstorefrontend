@@ -78,11 +78,11 @@ export const updateRoleThunk = createAsyncThunk(
 
 export const assignRoleToUserThunk = createAsyncThunk(
     'role/assignToUser',
-    async ({ userId, roleId }, { getState, rejectWithValue }) => {
+    async ({ userId, roleName }, { getState, rejectWithValue }) => {
         const state = getState();
         const accessToken = selectAccessToken(state);
         try {
-            const response = await apiAssignRoleToUser(userId, roleId, accessToken);
+            const response = await apiAssignRoleToUser(userId, roleName, accessToken);
             return response;
         } catch (error) {
             return rejectWithValue(error.response.data);
@@ -102,7 +102,11 @@ const initialState = {
 const rolesSlice = createSlice({
     name: 'role',
     initialState,
-    reducers: {},
+    reducers: {
+        resetSelectedRole: (state) => {
+            state.role = null;
+        },
+    },
     extraReducers: (builder) => {
         const handlePending = (state) => {
             state.isLoading = true;
@@ -130,7 +134,7 @@ const rolesSlice = createSlice({
             .addCase(fetchRoleThunk.pending, handlePending)
             .addCase(fetchRoleThunk.fulfilled, (state, action) => {
                 state.isLoading = false;
-                state.role = action.payload;
+                state.role = action.payload.data;
                 state.status = 'succeeded';
             })
             .addCase(fetchRoleThunk.rejected, handleRejected)
@@ -177,6 +181,8 @@ const rolesSlice = createSlice({
             .addCase(logoutUserThunk.fulfilled, () => initialState);
     },
 });
+export const { resetSelectedRole } = rolesSlice.actions;
+
 export default rolesSlice.reducer;
 
 export const selectAllRoles = (state) => state.role.roles;

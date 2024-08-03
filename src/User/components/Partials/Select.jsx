@@ -1,31 +1,33 @@
 import React, { useId } from "react";
 
-function Input(
+function Select(
   {
-    type = "text",
     labelColor = "text-gray-900 dark:text-gray-200",
     bgColor = "bg-gray-100 dark:bg-gray-800",
     textColor = "text-gray-900 dark:text-gray-100",
     padding = "px-3 py-2",
     width = "w-full",
     rounded = "rounded-lg",
-    shadow = "hover:shadow-lg dark:shadow-sky-400",
+    shadow = "hover:shadow-lg shadow-sky-500 dark:shadow-sky-400 focus:shadow-lg focus:shadow-sky-500 dark:focus:shadow-sky-400",
     outline = "",
     className = "ease-in duration-700",
     label = "",
-    placeholder = "",
     border = "",
+    options = [
+      { id: "option1", name: "Option 1" },
+      { id: "option2", name: "Option 2" },
+      { id: "option3", name: "Option 3" },
+    ],
     ...props
   },
   ref
 ) {
   const id = useId();
 
-  const inputProps = {
+  const selectProps = {
     id: id,
     ref: ref,
-    className: `${padding} ${width} ${border} ${rounded} ${textColor} ${bgColor} ${shadow} ${outline} ${className}`,
-    placeholder: placeholder,
+    className: `${className} ${padding} ${width} ${border} ${rounded} ${textColor} ${bgColor} ${shadow} ${outline}`,
     ...props,
   };
 
@@ -39,17 +41,16 @@ function Input(
           {`${label} :`}
         </label>
       )}
-
-      {type === "textarea" ? (
-        <textarea {...inputProps} />
-      ) : (
-        <input
-          type={type}
-          {...inputProps}
-        />
-      )}
+      <select {...selectProps}>
+        {options.map((option) => (
+          <option key={option.id}>
+            {option.name}
+            {/* {console.log(option)} */}
+          </option>
+        ))}
+      </select>
     </div>
   );
 }
 
-export default React.forwardRef(Input);
+export default React.forwardRef(Select);

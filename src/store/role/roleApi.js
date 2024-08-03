@@ -79,14 +79,14 @@ const apiUpdateRole = async (roleId, roleData, accessToken) => {
     }
 }
 
-const apiAssignRoleToUser = async (userId, roleId, accessToken) => {
+const apiAssignRoleToUser = async (userId, roleName, accessToken) => {
     try {
         const response = await axios
-            .post(
-                '/roles/assign-role',
+            .patch(
+                '/roles/assign-role-to-user',
                 {
                     userId,
-                    roleId
+                    roleName
                 },
                 {
                     headers: {

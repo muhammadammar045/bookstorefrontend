@@ -81,11 +81,11 @@ export const updatePermissionThunk = createAsyncThunk(
 
 export const assignPermissionsToRoleThunk = createAsyncThunk(
     'permission/assignToRole',
-    async ({ roleId, permissionIds }, { getState, rejectWithValue }) => {
+    async ({ roleId, permissionsName }, { getState, rejectWithValue }) => {
         const state = getState();
         const accessToken = selectAccessToken(state);
         try {
-            const response = await apiAssignPermissionsToRole(roleId, permissionIds, accessToken);
+            const response = await apiAssignPermissionsToRole(roleId, permissionsName, accessToken);
             return response;
         } catch (error) {
             return rejectWithValue(error.response.data);
@@ -104,7 +104,11 @@ const initialState = {
 const permissionsSlice = createSlice({
     name: 'permission',
     initialState,
-    reducers: {},
+    reducers: {
+        resetSelectedPermission: (state) => {
+            state.permission = null;
+        },
+    },
     extraReducers: (builder) => {
         const handlePending = (state) => {
             state.isLoading = true;
@@ -169,6 +173,7 @@ const permissionsSlice = createSlice({
                     state.permissions[index] = action.payload.data;
                 }
                 state.status = 'succeeded';
+                state.permission = null
             })
 
             // Assign Permission to Role
@@ -187,7 +192,7 @@ const permissionsSlice = createSlice({
 
 
 
-
+export const { resetSelectedPermission } = permissionsSlice.actions;
 export default permissionsSlice.reducer;
 
 export const selectAllPermissions = (state) => state.permission.permissions;
