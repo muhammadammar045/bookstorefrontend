@@ -155,7 +155,6 @@ const permissionsSlice = createSlice({
             .addCase(deletePermissionThunk.rejected, handleRejected)
             .addCase(deletePermissionThunk.fulfilled, (state, action) => {
                 const index = state.permissions.findIndex(permission => permission?._id === action.payload?.data?._id);
-                // console.log(index);
                 if (index !== -1) {
                     state.permissions.splice(index, 1);
                 }

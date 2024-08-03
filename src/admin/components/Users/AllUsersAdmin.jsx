@@ -22,13 +22,10 @@ function AllUsersAdmin() {
   const loading = useSelector(selectUserIsLoading);
 
   const handleEdit = async (userId) => {
-    // console.log(userId);
     await dispatch(fetchUserThunk(userId));
   };
 
-  const handleDelete = async (userId) => {
-    // console.log(userId);
-  };
+  const handleDelete = async (userId) => {};
 
   useEffect(() => {
     if (users.length === 0) {

@@ -12,8 +12,6 @@ function Navbar() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const user = useSelector(selectUser);
   const role = useSelector(selectUserRole);
-  // console.log(user.user.role.roleName);
-  // const role = user?.user?.role?.roleName;
   const links = [
     ["Home", "/"],
     ["Login", "/login"],

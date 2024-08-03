@@ -23,7 +23,6 @@ function AddUserAdmin() {
   const dispatch = useDispatch();
   const loading = useSelector(selectUserIsLoading);
   const fetchedUser = useSelector(selectFetchedUser);
-  console.log(fetchedUser);
 
   const handleUpdateUser = async (data) => {
     try {
@@ -35,7 +34,6 @@ function AddUserAdmin() {
             userData: data,
           })
         ).unwrap();
-        console.log(res);
         showToast("success", `${res.message}`);
         navigate("/admin/all-users");
         reset();

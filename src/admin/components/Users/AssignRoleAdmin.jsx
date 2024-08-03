@@ -27,7 +27,6 @@ function AddUserAdmin() {
   const loading = useSelector(selectUserIsLoading);
   const roles = useSelector(selectAllRoles);
   const fetchedUser = useSelector(selectFetchedUser);
-  console.log(fetchedUser);
 
   const rolesOptions = roles.map((role) => ({
     id: role._id,
@@ -35,7 +34,6 @@ function AddUserAdmin() {
   }));
 
   const handleAssignRoleToUser = async (data) => {
-    console.log(data);
     try {
       let res;
       if (fetchedUser) {
@@ -45,7 +43,6 @@ function AddUserAdmin() {
             roleName: data.roleName,
           })
         ).unwrap();
-        console.log(res);
         showToast("success", `${res.message}`);
         navigate("/admin/all-users");
         reset();

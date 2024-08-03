@@ -31,18 +31,13 @@ function AssignPermissionsToRole() {
   const loading = useSelector(selectRoleIsLoading);
   const permissions = useSelector(selectAllPermissions);
   const fetchedRole = useSelector(selectRole);
-  console.log("FETCHED ROLE:", fetchedRole);
-  console.log("PERMISSIONS :", permissions);
 
   const permissionsOptions = permissions.map((permission) => ({
     id: permission._id,
     name: permission.permissionName,
   }));
 
-  console.log("PERMISSIONS OPTIONS :", permissionsOptions);
-
   const handleAssignPermissionsToRole = async (data) => {
-    console.log(data);
     try {
       let res;
       if (fetchedRole) {
@@ -52,7 +47,6 @@ function AssignPermissionsToRole() {
             permissionsName: data.permissionsName,
           })
         ).unwrap();
-        console.log(res);
         showToast("success", `${res.message}`);
         navigate("/admin/all-roles");
         reset();

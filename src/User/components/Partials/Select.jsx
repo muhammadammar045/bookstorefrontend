@@ -43,10 +43,7 @@ function Select(
       )}
       <select {...selectProps}>
         {options.map((option) => (
-          <option key={option.id}>
-            {option.name}
-            {/* {console.log(option)} */}
-          </option>
+          <option key={option.id}>{option.name}</option>
         ))}
       </select>
     </div>

@@ -32,7 +32,6 @@ export const apiFetchUser = async (userId, accessToken) => {
 }
 
 export const apiUpdateUser = async (userId, userData, accessToken) => {
-    console.log(userId, userData)
     const config = {
         headers: {
             Authorization: `Bearer ${accessToken}`,

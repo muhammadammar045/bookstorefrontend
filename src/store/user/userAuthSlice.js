@@ -59,7 +59,6 @@ export const updateUserThunk = createAsyncThunk(
     "user/updateUser",
     async ({ userId, userData }, { getState, rejectWithValue }) => {
         try {
-            console.log(userId, userData)
             const state = getState();
             const accessToken = selectAccessToken(state);
             const data = await apiUpdateUser(userId, userData, accessToken);
