@@ -14,7 +14,7 @@ import {
   AllRolesAdmin,
   AllUsersAdmin,
   Dashboard,
-} from "@admin/pages/AllAdminPages";
+} from "./Admin/pages/AllAdminPages";
 
 import React, { useEffect, useState } from "react";
 import { Routes, Route, useLocation } from "react-router-dom";
