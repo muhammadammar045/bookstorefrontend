@@ -4,7 +4,7 @@ import { BrowserRouter as Router } from "react-router-dom";
 import { Provider } from "react-redux";
 import App from "./App";
 import store from "./store/store";
-import ThemeProvider from "./Admin/utils/ThemeContext.jsx";
+import ThemeProvider from "./Admin/utils/ThemeContext";
 import "./index.css";
 import "react-toastify/ReactToastify.css";
 import { ToastContainer } from "react-toastify";
