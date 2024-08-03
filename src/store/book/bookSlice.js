@@ -296,10 +296,11 @@ export default booksSlice.reducer;
 
 export const selectBooks = (state) => state.booksData?.books?.results;
 export const selectBook = (state) => state.booksData?.book?.book;
+export const selectBookIsOwner = (state) => state.booksData?.book?.isOwner;
 export const selectTotalPages = (state) => state.booksData?.books?.meta?.totalPages;
 export const selectTotalDocuments = (state) => state.booksData?.books?.meta?.totalDocuments;
 export const selectCurrentPage = (state) => state.booksData?.books?.meta?.page;
 export const selectLimit = (state) => state.booksData?.books?.meta?.limit;
-export const selectIsLoading = (state) => state.booksData?.isLoading;
+export const selectBookIsLoading = (state) => state.booksData?.isLoading;
 export const selectError = (state) => state.booksData?.error;
 export const selectStatus = (state) => state.booksData?.status;

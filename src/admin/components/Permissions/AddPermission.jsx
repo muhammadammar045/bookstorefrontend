@@ -3,16 +3,16 @@ import { Button, Input } from "../../../User/components/AllComponents";
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
 import {
-  addRoleThunk,
-  updateRoleThunk,
-  selectRole,
-  resetSelectedRole,
-} from "../../../store/role/roleSlice";
+  addPermissionThunk,
+  updatePermissionThunk,
+  selectPermission,
+  resetSelectedPermission,
+} from "../../../store/permission/permissionSlice";
 import showToast from "../../../utils/toastAlert/toaster";
 
-function AddRole() {
+function AddPermission() {
+  const permission = useSelector(selectPermission);
   const dispatch = useDispatch();
-  const role = useSelector(selectRole);
   const {
     register,
     handleSubmit,
@@ -21,39 +21,38 @@ function AddRole() {
     formState: { errors },
   } = useForm({
     defaultValues: {
-      roleName: "",
+      permissionName: "",
     },
   });
 
   const handleReset = () => {
-    dispatch(resetSelectedRole());
-    reset();
+    dispatch(resetSelectedPermission());
   };
 
   useEffect(() => {
-    if (role) {
-      setValue("roleName", role.roleName);
+    if (permission) {
+      setValue("permissionName", permission.permissionName);
     } else {
       reset();
     }
-  }, [role, setValue, reset]);
+  }, [permission, setValue, reset]);
 
-  const handleRole = async (data) => {
+  const handlePermission = async (data) => {
     try {
       let res;
-      if (role) {
+      if (permission) {
         res = await dispatch(
-          updateRoleThunk({
-            roleId: role._id,
-            roleData: data,
+          updatePermissionThunk({
+            permissionId: permission._id,
+            permissionData: data,
           })
         ).unwrap();
-        showToast("success", ` ${res.message}`);
+        showToast("success", `${res.message}`);
       } else {
-        res = await dispatch(addRoleThunk(data)).unwrap();
-        showToast("success", ` ${res.message}`);
+        res = await dispatch(addPermissionThunk(data)).unwrap();
+        showToast("success", `${res.message}`);
       }
-      handleReset();
+      reset();
     } catch (error) {
       showToast("error", `${error.message}`);
     }
@@ -62,23 +61,23 @@ function AddRole() {
   return (
     <div className="rounded-xl border bg-white p-4 shadow-sm dark:border-neutral-700 dark:bg-gray-800 dark:shadow-neutral-700/70 md:p-5">
       <h2 className="mb-4 text-lg font-semibold text-neutral-800 dark:text-neutral-200">
-        {role ? "Edit Role" : "Add Role"}
+        {permission ? "Edit Permission" : "Add Permission"}
       </h2>
-      <form onSubmit={handleSubmit(handleRole)}>
+      <form onSubmit={handleSubmit(handlePermission)}>
         <div className="flex w-full flex-col">
           <div className="mb-4">
             <Input
               type="text"
               label=""
-              placeholder="Enter Role Name"
-              {...register("roleName", {
-                required: "Role Name is required",
+              placeholder="Enter Permission Name"
+              {...register("permissionName", {
+                required: "Permission Name is required",
               })}
               className="text-gray-900 dark:text-gray-200"
             />
-            {errors.roleName && (
+            {errors.permissionName && (
               <span className="text-red-500 dark:text-red-400">
-                {errors.roleName.message}
+                {errors.permissionName.message}
               </span>
             )}
           </div>
@@ -98,4 +97,4 @@ function AddRole() {
   );
 }
 
-export default AddRole;
+export default AddPermission;

@@ -20,6 +20,28 @@ export const apiRegisterUser = async (credentials) => {
     return response.data;
 };
 
+export const apiFetchUser = async (userId, accessToken) => {
+    const config = {
+        headers: {
+            Authorization: `Bearer ${accessToken}`,
+        },
+    };
+    const response = await axios.get(`/user/get-user/${userId}`, config);
+    return response.data;
+
+}
+
+export const apiUpdateUser = async (userId, userData, accessToken) => {
+    const config = {
+        headers: {
+            Authorization: `Bearer ${accessToken}`,
+        },
+    };
+    const response = await axios.patch(`/user/update-user/${userId}`, userData, config);
+    return response.data;
+
+}
+
 export const apiFetchAllUsers = async (accessToken) => {
     const config = {
         headers: {
