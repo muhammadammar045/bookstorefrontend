@@ -9,6 +9,7 @@ export default defineConfig({
   resolve: {
     alias: {
       '@tailwindConfig': path.resolve(__dirname, 'tailwind.config.js'),
+      '@admin': path.resolve(__dirname, 'src/Admin'),
     },
   },
   optimizeDeps: {
