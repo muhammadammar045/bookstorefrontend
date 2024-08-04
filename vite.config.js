@@ -20,4 +20,24 @@ export default defineConfig({
       "@assets": path.resolve(__dirname, "src/assets"),
     },
   },
+  build: {
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          vendor: ['react', 'react-dom'],
+        },
+      },
+    },
+  },
+  // For debugging:
+  server: {
+    port: 3000,
+    fs: {
+      strict: true,
+      allow: ['<rootDir>/src'],
+    },
+    watch: {
+      usePolling: true,
+    },
+  },
 });
