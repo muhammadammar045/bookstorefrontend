@@ -6,7 +6,11 @@ import {
 } from "@store/book/bookSlice";
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { Pagination, BookCard, BooksSpinner } from "../AllComponents";
+import {
+  Pagination,
+  BookCard,
+  BooksSpinner,
+} from "@userComponents/AllComponents";
 import Typewriter from "typewriter-effect";
 
 function AllBooks() {

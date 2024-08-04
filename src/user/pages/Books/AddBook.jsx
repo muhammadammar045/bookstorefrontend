@@ -1,6 +1,6 @@
 import React from "react";
 import { AddBook as AddBookComp } from "@userComponents/AllComponents";
-import { Container } from "../Allpages";
+import { Container } from "@userPages/Allpages";
 
 function AddBook() {
   return (

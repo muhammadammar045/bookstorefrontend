@@ -3,7 +3,7 @@ import React from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { Input, Button, Spinner } from "../AllComponents";
+import { Input, Button, Spinner } from "@userComponents/AllComponents";
 import showToast from "@utils/toastAlert/toaster";
 
 function Login() {
@@ -34,7 +34,7 @@ function Login() {
       {isLoading ? (
         <Spinner />
       ) : (
-        <div className="mx-auto my-10 max-w-[600px] rounded-lg border-2 border-gray-900 bg-gray-100 p-10 dark:border-gray-200 dark:bg-gray-900">
+        <div className="mx-auto my-10 max-w-md rounded-lg border-2 border-gray-900 bg-gray-100 p-10 dark:border-gray-200 dark:bg-gray-900">
           <h1 className="mb-4 text-center text-3xl text-gray-900 dark:text-gray-200">
             Login
           </h1>

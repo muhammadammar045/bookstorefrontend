@@ -5,7 +5,7 @@ import logo from "@assets/images/ARlogo.png";
 import { NavLink } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { selectUser, selectUserRole } from "@store/user/userAuthSlice";
-import { Logout } from "../AllComponents";
+import { Logout } from "@userComponents/AllComponents";
 import ThemeToggle from "@adminComponents/Common/ThemeToggle";
 
 function Navbar() {

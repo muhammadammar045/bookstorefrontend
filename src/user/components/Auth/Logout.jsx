@@ -6,7 +6,7 @@ import {
   selectUserIsLoading,
 } from "@store/user/userAuthSlice";
 import showToast from "@utils/toastAlert/toaster";
-import { LogoutSpinner } from "../AllComponents";
+import { LogoutSpinner } from "@userComponents/AllComponents";
 
 function Logout() {
   const dispatch = useDispatch();

@@ -6,7 +6,7 @@ import {
   selectUserIsLoading,
   selectUsers,
 } from "@store/user/userAuthSlice";
-import ReactTable from "../Common/ReactTable/ReactTable";
+import ReactTable from "@adminComponents/Common/ReactTable/ReactTable";
 import {
   AddUsersAdmin,
   AssignRoleAdmin,

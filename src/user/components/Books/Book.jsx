@@ -17,7 +17,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import showToast from "@utils/toastAlert/toaster";
 import Modal from "@utils/modal/Modal";
 import { selectUserPermissions } from "@store/user/userAuthSlice";
-import { BookSpinner } from "../AllComponents";
+import { BookSpinner } from "@userComponents/AllComponents";
 
 function Book() {
   const loading = useSelector(selectBookIsLoading);
