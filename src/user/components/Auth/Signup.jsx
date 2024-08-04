@@ -70,7 +70,7 @@ function Signup() {
                 <Input
                   type="text"
                   label="Email"
-                  placeholder="Enter Email"
+                  placeholder="Enter Email "
                   {...register("email", {
                     required: "Email is required",
                     pattern: {
