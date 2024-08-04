@@ -20,6 +20,5 @@
     }
   ],
   "buildCommand": "npm run build",
-  "outputDirectory": "dist",
-  "cleanUrls": true
+  "outputDirectory": "dist"
 }
