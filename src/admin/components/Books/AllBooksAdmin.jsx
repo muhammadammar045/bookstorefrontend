@@ -1,7 +1,7 @@
 import React, { useMemo } from "react";
-import { ReactTable } from "../AllAdminComponents";
+import { ReactTable } from "@adminComponents/AllAdminComponents";
 import { useSelector } from "react-redux";
-import { selectBookIsLoading } from "../../../store/book/bookSlice";
+import { selectBookIsLoading } from "@store/book/bookSlice";
 
 function AllBooksAdmin() {
   const loading = useSelector(selectBookIsLoading);

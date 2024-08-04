@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import { Link, NavLink, useLocation } from "react-router-dom";
-import ARlogo from "../../assets/images/ARlogo.png";
+import ARlogo from "@assets/images/ARlogo.png";
 import SidebarLinkGroup from "./SidebarLinkGroup";
 
 function Sidebar({ sidebarOpen, setSidebarOpen, variant = "default" }) {

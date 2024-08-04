@@ -1,12 +1,12 @@
 import React, { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars } from "@fortawesome/free-solid-svg-icons";
-import logo from "../../../assets/images/ARlogo.png";
+import logo from "@assets/images/ARlogo.png";
 import { NavLink } from "react-router-dom";
 import { useSelector } from "react-redux";
-import { selectUser, selectUserRole } from "../../../store/user/userAuthSlice";
+import { selectUser, selectUserRole } from "@store/user/userAuthSlice";
 import { Logout } from "../AllComponents";
-import ThemeToggle from "../../../Admin/components/Common/ThemeToggle";
+import ThemeToggle from "@adminComponents/Common/ThemeToggle";
 
 function Navbar() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);

@@ -1,5 +1,5 @@
 import React from "react";
-import { EditBookThumbnail as EditBookThumbnailComp } from "../../components/AllComponents";
+import { EditBookThumbnail as EditBookThumbnailComp } from "@userComponents/AllComponents";
 import { Container } from "../Allpages";
 
 function EditBookThumbnail() {

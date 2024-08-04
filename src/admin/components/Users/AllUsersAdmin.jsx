@@ -5,16 +5,16 @@ import {
   fetchUserThunk,
   selectUserIsLoading,
   selectUsers,
-} from "../../../store/user/userAuthSlice";
+} from "@store/user/userAuthSlice";
 import ReactTable from "../Common/ReactTable/ReactTable";
 import {
   AddUsersAdmin,
   AssignRoleAdmin,
   SkeletonTable,
-} from "../AllAdminComponents";
+} from "@adminComponents/AllAdminComponents";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEdit, faTrash } from "@fortawesome/free-solid-svg-icons";
-import { fetchAllRolesThunk } from "../../../store/role/roleSlice";
+import { fetchAllRolesThunk } from "@store/role/roleSlice";
 
 function AllUsersAdmin() {
   const users = useSelector(selectUsers);

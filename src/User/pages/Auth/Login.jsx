@@ -1,5 +1,5 @@
 import React from "react";
-import { Login as LoginComp } from "../../components/AllComponents";
+import { Login as LoginComp } from "@userComponents/AllComponents";
 import { Container } from "../Allpages";
 
 function Login() {

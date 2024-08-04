@@ -2,14 +2,14 @@ import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { useForm } from "react-hook-form";
-import showToast from "../../../utils/toastAlert/toaster";
+import showToast from "@utils/toastAlert/toaster";
 import {
   selectUserIsLoading,
   selectFetchedUser,
   updateUserThunk,
-} from "../../../store/user/userAuthSlice";
-import { Input, Button } from "../../../User/components/AllComponents";
-import { Spinner } from "../../../User/components/AllComponents";
+} from "@store/user/userAuthSlice";
+import { Input, Button } from "@userComponents/AllComponents";
+import { Spinner } from "@userComponents/AllComponents";
 
 function AddUserAdmin() {
   const {

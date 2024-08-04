@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Button, Input } from "../../../User/components/AllComponents";
+import { Button, Input } from "@userComponents/AllComponents";
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -7,8 +7,8 @@ import {
   updatePermissionThunk,
   selectPermission,
   resetSelectedPermission,
-} from "../../../store/permission/permissionSlice";
-import showToast from "../../../utils/toastAlert/toaster";
+} from "@store/permission/permissionSlice";
+import showToast from "@utils/toastAlert/toaster";
 
 function AddPermission() {
   const permission = useSelector(selectPermission);

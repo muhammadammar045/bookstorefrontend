@@ -1,7 +1,7 @@
 import ReactDOM from "react-dom";
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { closeModal, selectShowModal } from "../../store/modal/modalSlice";
+import { closeModal, selectShowModal } from "@store/modal/modalSlice";
 
 function Modal({ onConfirmFunction, message }) {
   const showModal = useSelector(selectShowModal);

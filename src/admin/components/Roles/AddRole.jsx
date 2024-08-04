@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Button, Input } from "../../../User/components/AllComponents";
+import { Button, Input } from "@userComponents/AllComponents";
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -7,8 +7,8 @@ import {
   updateRoleThunk,
   selectRole,
   resetSelectedRole,
-} from "../../../store/role/roleSlice";
-import showToast from "../../../utils/toastAlert/toaster";
+} from "@store/role/roleSlice";
+import showToast from "@utils/toastAlert/toaster";
 
 function AddRole() {
   const dispatch = useDispatch();

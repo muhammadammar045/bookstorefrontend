@@ -1,5 +1,5 @@
 import React from "react";
-import { Input } from "../../../../User/components/AllComponents";
+import { Input } from "@userComponents/AllComponents";
 
 function SearchBox({ filter, setFilter }) {
   return (

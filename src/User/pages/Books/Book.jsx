@@ -1,5 +1,5 @@
 import React from "react";
-import { Book as BookComp } from "../../components/AllComponents";
+import { Book as BookComp } from "@userComponents/AllComponents";
 import { Container } from "../Allpages";
 
 function Book() {

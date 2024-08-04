@@ -1,13 +1,10 @@
-import {
-  selectUserIsLoading,
-  loginUserThunk,
-} from "../../../store/user/userAuthSlice";
+import { selectUserIsLoading, loginUserThunk } from "@store/user/userAuthSlice";
 import React from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { Input, Button, Spinner } from "../AllComponents";
-import showToast from "../../../utils/toastAlert/toaster";
+import showToast from "@utils/toastAlert/toaster";
 
 function Login() {
   const {

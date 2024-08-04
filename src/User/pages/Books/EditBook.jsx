@@ -1,5 +1,5 @@
 import React from "react";
-import { EditBook as EditBookComp } from "../../components/AllComponents";
+import { EditBook as EditBookComp } from "@userComponents/AllComponents";
 import { Container } from "../Allpages";
 
 function EditBook() {
