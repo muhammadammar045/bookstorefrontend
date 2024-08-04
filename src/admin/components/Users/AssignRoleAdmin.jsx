@@ -2,17 +2,13 @@ import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { useForm } from "react-hook-form";
-import showToast from "../../../utils/toastAlert/toaster";
+import showToast from "@utils/toastAlert/toaster";
 import {
   selectUserIsLoading,
   selectFetchedUser,
-} from "../../../store/user/userAuthSlice";
-import { Button, Select } from "../../../User/components/AllComponents";
-import { Spinner } from "../../../User/components/AllComponents";
-import {
-  assignRoleToUserThunk,
-  selectAllRoles,
-} from "../../../store/role/roleSlice";
+} from "@store/user/userAuthSlice";
+import { Button, Select, Spinner } from "@userComponents/AllComponents";
+import { assignRoleToUserThunk, selectAllRoles } from "@store/role/roleSlice";
 
 function AddUserAdmin() {
   const {

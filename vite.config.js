@@ -7,15 +7,17 @@ export default defineConfig({
   plugins: [react()],
   resolve: {
     alias: {
-      '@': path.resolve(__dirname, 'src'),
-    },
-  },
-  build: {
-    outDir: 'dist',
-    rollupOptions: {
-      input: {
-        main: path.resolve(__dirname, 'index.html'),
-      },
+      "@adminComponents": path.resolve(__dirname, "src/Admin/components"),
+      "@adminPages": path.resolve(__dirname, "src/Admin/pages"),
+      "@adminPartials": path.resolve(__dirname, "src/Admin/partials"),
+      "@adminUtils": path.resolve(__dirname, "src/Admin/utils"),
+
+      "@userPages": path.resolve(__dirname, "src/User/pages"),
+      "@userComponents": path.resolve(__dirname, "src/User/components"),
+
+      "@store": path.resolve(__dirname, "src/store"),
+      "@utils": path.resolve(__dirname, "src/utils"),
+      "@assets": path.resolve(__dirname, "src/assets"),
     },
   },
 });

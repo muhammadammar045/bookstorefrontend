@@ -6,8 +6,8 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   selectUserIsLoading,
   registerUserThunk,
-} from "../../../store/user/userAuthSlice";
-import showToast from "../../../utils/toastAlert/toaster";
+} from "@store/user/userAuthSlice";
+import showToast from "@utils/toastAlert/toaster";
 
 function Signup() {
   const {

@@ -1,5 +1,5 @@
 import React from "react";
-import logo from "../../../assets/images/ARlogo.png";
+import logo from "@assets/images/ARlogo.png";
 import { Link } from "react-router-dom";
 
 function Footer() {

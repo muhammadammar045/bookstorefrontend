@@ -5,16 +5,19 @@ import {
   fetchRoleThunk,
   deleteRoleThunk,
   selectAllRoles,
-  selectRole,
   selectRoleIsLoading,
   resetSelectedRole,
-} from "../../../store/role/roleSlice";
-import { AddRole, ReactTable, SkeletonTable } from "../AllAdminComponents";
+} from "@store/role/roleSlice";
+import {
+  AddRole,
+  ReactTable,
+  SkeletonTable,
+} from "@adminComponents/AllAdminComponents";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEdit, faTrash } from "@fortawesome/free-solid-svg-icons";
-import showToast from "../../../utils/toastAlert/toaster";
+import showToast from "@utils/toastAlert/toaster";
 import AssignPermissionsToRole from "./AssignPermissionToRole";
-import { fetchAllPermissionsThunk } from "../../../store/permission/permissionSlice";
+import { fetchAllPermissionsThunk } from "@store/permission/permissionSlice";
 
 function AllRolesAdmin() {
   const roles = useSelector(selectAllRoles);

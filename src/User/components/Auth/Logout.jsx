@@ -4,8 +4,8 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   logoutUserThunk,
   selectUserIsLoading,
-} from "../../../store/user/userAuthSlice";
-import showToast from "../../../utils/toastAlert/toaster";
+} from "@store/user/userAuthSlice";
+import showToast from "@utils/toastAlert/toaster";
 import { LogoutSpinner } from "../AllComponents";
 
 function Logout() {

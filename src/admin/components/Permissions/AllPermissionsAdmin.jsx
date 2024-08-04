@@ -8,13 +8,13 @@ import {
   selectPermission,
   selectPermissionIsLoading,
   resetSelectedPermission, // Added to reset permission state
-} from "../../../store/permission/permissionSlice";
+} from "@store/permission/permissionSlice";
 import AddPermission from "./AddPermission";
 import ReactTable from "../Common/ReactTable/ReactTable";
 import { faEdit, faTrash } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import showToast from "../../../utils/toastAlert/toaster";
-import { SkeletonTable } from "../AllAdminComponents";
+import showToast from "@utils/toastAlert/toaster";
+import { SkeletonTable } from "@adminComponents/AllAdminComponents";
 
 function AllPermissionsAdmin() {
   const permissions = useSelector(selectAllPermissions);

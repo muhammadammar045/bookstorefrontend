@@ -1,5 +1,5 @@
 import React from "react";
-import { selectUser } from "../../store/user/userAuthSlice";
+import { selectUser } from "@store/user/userAuthSlice";
 import { useSelector } from "react-redux";
 import Typewriter from "typewriter-effect";
 import { AllBooks } from "./AllComponents";

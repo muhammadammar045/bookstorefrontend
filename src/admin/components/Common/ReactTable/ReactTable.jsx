@@ -10,7 +10,7 @@ import {
   SearchBox,
   SelectBox,
   TablePagination,
-} from "../../AllAdminComponents";
+} from "@adminComponents/AllAdminComponents";
 
 function ReactTable({ data }) {
   const columns = useMemo(() => {

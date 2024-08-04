@@ -1,3 +1,5 @@
+import React, { useEffect, useState } from "react";
+import { Routes, Route, useLocation } from "react-router-dom";
 import {
   AddBook,
   AllBooks,
@@ -7,20 +9,16 @@ import {
   Home,
   Login,
   Signup,
-} from "./User/pages/Allpages";
+} from "@userPages/Allpages";
 import {
   AllBooksAdmin,
   AllPermissionsAdmin,
   AllRolesAdmin,
   AllUsersAdmin,
   Dashboard,
-} from "./Admin/pages/AllAdminPages";
-
-import React, { useEffect, useState } from "react";
-import { Routes, Route, useLocation } from "react-router-dom";
-import { Layout, Protected } from "./User/components/AllComponents";
-import AdminLayout from "./Admin/partials/AdminLayout";
-import { Spinner } from "./User/components/AllComponents";
+} from "@adminPages/AllAdminPages";
+import { Layout, Protected, Spinner } from "@userComponents/AllComponents";
+import AdminLayout from "@adminPartials/AdminLayout";
 const App = () => {
   const location = useLocation();
 

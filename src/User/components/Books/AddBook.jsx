@@ -2,12 +2,9 @@ import React from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  addBookThunk,
-  selectBookIsLoading,
-} from "../../../store/book/bookSlice";
+import { addBookThunk, selectBookIsLoading } from "@store/book/bookSlice";
 import { Input, Button, BookSpinner } from "../AllComponents";
-import showToast from "../../../utils/toastAlert/toaster";
+import showToast from "@utils/toastAlert/toaster";
 
 function AddBook() {
   const {

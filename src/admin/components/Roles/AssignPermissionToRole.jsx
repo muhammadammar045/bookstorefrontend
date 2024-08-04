@@ -2,17 +2,13 @@ import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { useForm, Controller } from "react-hook-form";
-import showToast from "../../../utils/toastAlert/toaster";
-import {
-  Button,
-  Checkbox,
-  Spinner,
-} from "../../../User/components/AllComponents";
-import { selectRole, selectRoleIsLoading } from "../../../store/role/roleSlice";
+import showToast from "@utils/toastAlert/toaster";
+import { Button, Checkbox, Spinner } from "@userComponents/AllComponents";
+import { selectRole, selectRoleIsLoading } from "@store/role/roleSlice";
 import {
   assignPermissionsToRoleThunk,
   selectAllPermissions,
-} from "../../../store/permission/permissionSlice";
+} from "@store/permission/permissionSlice";
 
 function AssignPermissionsToRole() {
   const {
