@@ -3,7 +3,7 @@ import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { addBookThunk, selectBookIsLoading } from "@store/book/bookSlice";
-import { Input, Button, BookSpinner } from "../AllComponents";
+import { Input, Button, BookSpinner } from "@userComponents/AllComponents";
 import showToast from "@utils/toastAlert/toaster";
 
 function AddBook() {

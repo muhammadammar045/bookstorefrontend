@@ -1,6 +1,6 @@
 import React from "react";
 import { BookShop as BookShopComp } from "@userComponents/AllComponents";
-import { Container } from "../Allpages";
+import { Container } from "@userPages/Allpages";
 
 function AllBooks() {
   return (

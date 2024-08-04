@@ -10,7 +10,7 @@ import {
   resetSelectedPermission, // Added to reset permission state
 } from "@store/permission/permissionSlice";
 import AddPermission from "./AddPermission";
-import ReactTable from "../Common/ReactTable/ReactTable";
+import ReactTable from "@adminComponents/Common/ReactTable/ReactTable";
 import { faEdit, faTrash } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import showToast from "@utils/toastAlert/toaster";
