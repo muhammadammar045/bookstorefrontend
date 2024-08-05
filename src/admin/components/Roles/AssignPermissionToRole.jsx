@@ -34,6 +34,7 @@ function AssignPermissionsToRole() {
   }));
 
   const handleAssignPermissionsToRole = async (data) => {
+    // console.log(data);
     try {
       let res;
       if (fetchedRole) {
@@ -56,9 +57,7 @@ function AssignPermissionsToRole() {
     if (fetchedRole) {
       setValue(
         "permissionsName",
-        fetchedRole.permissions.map(
-          (permission) => permission.permissionName
-        ) || []
+        fetchedRole.permissions.map((permission) => permission)
       );
     } else {
       reset();

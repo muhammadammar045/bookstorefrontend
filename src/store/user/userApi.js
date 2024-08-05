@@ -51,3 +51,13 @@ export const apiFetchAllUsers = async (accessToken) => {
     const response = await axios.get("/user/get-all-users", config)
     return response.data;
 }
+
+export const apiDeleteUser = async (userId, accessToken) => {
+    const config = {
+        headers: {
+            Authorization: `Bearer ${accessToken}`,
+        },
+    }
+    const response = await axios.delete(`/user/delete-user/${userId}`, config)
+    return response.data;
+}
