@@ -8,14 +8,16 @@ import {
     apiAssignPermissionsToRole
 } from './permissionApi';
 import { logoutUserThunk, selectAccessToken } from '../user/userAuthSlice';
+import { apiFetchRole } from '../role/roleApi';
 
-export const fetchAllPermissionsThunk = createAsyncThunk(
-    'permission/fetchAll',
-    async (_, { getState, rejectWithValue }) => {
+
+export const addPermissionThunk = createAsyncThunk(
+    'permission/add',
+    async (permissionData, { getState, rejectWithValue }) => {
         const state = getState();
         const accessToken = selectAccessToken(state);
         try {
-            const response = await apiFetchAllPermissions(accessToken);
+            const response = await apiAddPermission(permissionData, accessToken);
             return response;
         } catch (error) {
             return rejectWithValue(error.response.data);
@@ -37,27 +39,13 @@ export const fetchPermissionThunk = createAsyncThunk(
     }
 );
 
-export const addPermissionThunk = createAsyncThunk(
-    'permission/add',
-    async (permissionData, { getState, rejectWithValue }) => {
+export const fetchAllPermissionsThunk = createAsyncThunk(
+    'permission/fetchAll',
+    async (_, { getState, rejectWithValue }) => {
         const state = getState();
         const accessToken = selectAccessToken(state);
         try {
-            const response = await apiAddPermission(permissionData, accessToken);
-            return response;
-        } catch (error) {
-            return rejectWithValue(error.response.data);
-        }
-    }
-);
-
-export const deletePermissionThunk = createAsyncThunk(
-    'permission/delete',
-    async (permissionId, { getState, rejectWithValue }) => {
-        const state = getState();
-        const accessToken = selectAccessToken(state);
-        try {
-            const response = await apiDeletePermission(permissionId, accessToken);
+            const response = await apiFetchAllPermissions(accessToken);
             return response;
         } catch (error) {
             return rejectWithValue(error.response.data);
@@ -85,7 +73,24 @@ export const assignPermissionsToRoleThunk = createAsyncThunk(
         const state = getState();
         const accessToken = selectAccessToken(state);
         try {
-            const response = await apiAssignPermissionsToRole(roleId, permissionsName, accessToken);
+            await apiAssignPermissionsToRole(roleId, permissionsName, accessToken);
+
+            const response = await apiFetchRole(roleId, accessToken);
+
+            return response;
+        } catch (error) {
+            return rejectWithValue(error.response.data);
+        }
+    }
+);
+
+export const deletePermissionThunk = createAsyncThunk(
+    'permission/delete',
+    async (permissionId, { getState, rejectWithValue }) => {
+        const state = getState();
+        const accessToken = selectAccessToken(state);
+        try {
+            const response = await apiDeletePermission(permissionId, accessToken);
             return response;
         } catch (error) {
             return rejectWithValue(error.response.data);
@@ -123,12 +128,13 @@ const permissionsSlice = createSlice({
         };
 
         builder
-            // Fetch All Permissions
-            .addCase(fetchAllPermissionsThunk.pending, handlePending)
-            .addCase(fetchAllPermissionsThunk.rejected, handleRejected)
-            .addCase(fetchAllPermissionsThunk.fulfilled, (state, action) => {
+
+            // Add Permission
+            .addCase(addPermissionThunk.pending, handlePending)
+            .addCase(addPermissionThunk.rejected, handleRejected)
+            .addCase(addPermissionThunk.fulfilled, (state, action) => {
                 state.isLoading = false;
-                state.permissions = action.payload.data;
+                state.permissions.push(action.payload.data);
                 state.status = 'succeeded';
             })
 
@@ -141,24 +147,12 @@ const permissionsSlice = createSlice({
                 state.status = 'succeeded';
             })
 
-            // Add Permission
-            .addCase(addPermissionThunk.pending, handlePending)
-            .addCase(addPermissionThunk.rejected, handleRejected)
-            .addCase(addPermissionThunk.fulfilled, (state, action) => {
+            // Fetch All Permissions
+            .addCase(fetchAllPermissionsThunk.pending, handlePending)
+            .addCase(fetchAllPermissionsThunk.rejected, handleRejected)
+            .addCase(fetchAllPermissionsThunk.fulfilled, (state, action) => {
                 state.isLoading = false;
-                state.permissions.push(action.payload.data);
-                state.status = 'succeeded';
-            })
-
-            // Delete Permission
-            .addCase(deletePermissionThunk.pending, handlePending)
-            .addCase(deletePermissionThunk.rejected, handleRejected)
-            .addCase(deletePermissionThunk.fulfilled, (state, action) => {
-                const index = state.permissions.findIndex(permission => permission?._id === action.payload?.data?._id);
-                if (index !== -1) {
-                    state.permissions.splice(index, 1);
-                }
-                state.isLoading = false;
+                state.permissions = action.payload.data;
                 state.status = 'succeeded';
             })
 
@@ -175,20 +169,22 @@ const permissionsSlice = createSlice({
                 state.permission = null
             })
 
-            // Assign Permission to Role
-
-            .addCase(assignPermissionsToRoleThunk.pending, handlePending)
-            .addCase(assignPermissionsToRoleThunk.rejected, handleRejected)
-            .addCase(assignPermissionsToRoleThunk.fulfilled, (state, action) => {
+            // Delete Permission
+            .addCase(deletePermissionThunk.pending, handlePending)
+            .addCase(deletePermissionThunk.rejected, handleRejected)
+            .addCase(deletePermissionThunk.fulfilled, (state, action) => {
+                const index = state.permissions.findIndex(permission => permission?._id === action.payload?.data?._id);
+                if (index !== -1) {
+                    state.permissions.splice(index, 1);
+                }
                 state.isLoading = false;
                 state.status = 'succeeded';
             })
+
             // Handle Logout
             .addCase(logoutUserThunk.fulfilled, () => initialState);
     },
 });
-
-
 
 
 export const { resetSelectedPermission } = permissionsSlice.actions;

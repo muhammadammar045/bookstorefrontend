@@ -30,6 +30,7 @@ function AddUserAdmin() {
   }));
 
   const handleAssignRoleToUser = async (data) => {
+    console.log(data);
     try {
       let res;
       if (fetchedUser) {

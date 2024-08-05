@@ -1,18 +1,18 @@
-import { createSlice } from '@reduxjs/toolkit';
-import { createAsyncThunk } from '@reduxjs/toolkit';
+import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { logoutUserThunk, selectAccessToken } from '../user/userAuthSlice';
-
 import {
     apiFetchAllRoles, apiFetchRole, apiAddRole, apiDeleteRole, apiUpdateRole, apiAssignRoleToUser
 } from './roleApi';
+import { assignPermissionsToRoleThunk } from '../permission/permissionSlice';
+import { apiFetchUser } from '../user/userApi';
 
-export const fetchAllRolesThunk = createAsyncThunk(
-    'role/fetchAll',
-    async (_, { getState, rejectWithValue }) => {
+export const addRoleThunk = createAsyncThunk(
+    'role/add',
+    async (roleData, { getState, rejectWithValue }) => {
         const state = getState();
         const accessToken = selectAccessToken(state);
         try {
-            const response = await apiFetchAllRoles(accessToken);
+            const response = await apiAddRole(roleData, accessToken);
             return response;
         } catch (error) {
             return rejectWithValue(error.response.data);
@@ -34,27 +34,13 @@ export const fetchRoleThunk = createAsyncThunk(
     }
 );
 
-export const addRoleThunk = createAsyncThunk(
-    'role/add',
-    async (roleData, { getState, rejectWithValue }) => {
+export const fetchAllRolesThunk = createAsyncThunk(
+    'role/fetchAll',
+    async (_, { getState, rejectWithValue }) => {
         const state = getState();
         const accessToken = selectAccessToken(state);
         try {
-            const response = await apiAddRole(roleData, accessToken);
-            return response;
-        } catch (error) {
-            return rejectWithValue(error.response.data);
-        }
-    }
-);
-
-export const deleteRoleThunk = createAsyncThunk(
-    'role/delete',
-    async (roleId, { getState, rejectWithValue }) => {
-        const state = getState();
-        const accessToken = selectAccessToken(state);
-        try {
-            const response = await apiDeleteRole(roleId, accessToken);
+            const response = await apiFetchAllRoles(accessToken);
             return response;
         } catch (error) {
             return rejectWithValue(error.response.data);
@@ -82,7 +68,10 @@ export const assignRoleToUserThunk = createAsyncThunk(
         const state = getState();
         const accessToken = selectAccessToken(state);
         try {
-            const response = await apiAssignRoleToUser(userId, roleName, accessToken);
+            await apiAssignRoleToUser(userId, roleName, accessToken);
+
+            const response = await apiFetchUser(userId, accessToken);
+
             return response;
         } catch (error) {
             return rejectWithValue(error.response.data);
@@ -90,6 +79,19 @@ export const assignRoleToUserThunk = createAsyncThunk(
     }
 );
 
+export const deleteRoleThunk = createAsyncThunk(
+    'role/delete',
+    async (roleId, { getState, rejectWithValue }) => {
+        const state = getState();
+        const accessToken = selectAccessToken(state);
+        try {
+            const response = await apiDeleteRole(roleId, accessToken);
+            return response;
+        } catch (error) {
+            return rejectWithValue(error.response.data);
+        }
+    }
+);
 
 const initialState = {
     roles: [],
@@ -121,44 +123,37 @@ const rolesSlice = createSlice({
         };
 
         builder
-            // Fetch All Roles
-            .addCase(fetchAllRolesThunk.pending, handlePending)
-            .addCase(fetchAllRolesThunk.fulfilled, (state, action) => {
-                state.isLoading = false;
-                state.roles = action.payload.data;
-                state.status = 'succeeded';
-            })
-            .addCase(fetchAllRolesThunk.rejected, handleRejected)
-
-            // Fetch Role
-            .addCase(fetchRoleThunk.pending, handlePending)
-            .addCase(fetchRoleThunk.fulfilled, (state, action) => {
-                state.isLoading = false;
-                state.role = action.payload.data;
-                state.status = 'succeeded';
-            })
-            .addCase(fetchRoleThunk.rejected, handleRejected)
 
             // Add Role
             .addCase(addRoleThunk.pending, handlePending)
+            .addCase(addRoleThunk.rejected, handleRejected)
             .addCase(addRoleThunk.fulfilled, (state, action) => {
                 state.isLoading = false;
                 state.roles.push(action.payload.data);
                 state.status = 'succeeded';
             })
-            .addCase(addRoleThunk.rejected, handleRejected)
 
-            // Delete Role
-            .addCase(deleteRoleThunk.pending, handlePending)
-            .addCase(deleteRoleThunk.fulfilled, (state, action) => {
+            // Fetch Role
+            .addCase(fetchRoleThunk.pending, handlePending)
+            .addCase(fetchRoleThunk.rejected, handleRejected)
+            .addCase(fetchRoleThunk.fulfilled, (state, action) => {
                 state.isLoading = false;
-                state.roles = state.roles.filter(role => role._id !== action.payload._id);
+                state.role = action.payload.data;
                 state.status = 'succeeded';
             })
-            .addCase(deleteRoleThunk.rejected, handleRejected)
+
+            // Fetch All Roles
+            .addCase(fetchAllRolesThunk.pending, handlePending)
+            .addCase(fetchAllRolesThunk.rejected, handleRejected)
+            .addCase(fetchAllRolesThunk.fulfilled, (state, action) => {
+                state.isLoading = false;
+                state.roles = action.payload.data;
+                state.status = 'succeeded';
+            })
 
             // Update Role
             .addCase(updateRoleThunk.pending, handlePending)
+            .addCase(updateRoleThunk.rejected, handleRejected)
             .addCase(updateRoleThunk.fulfilled, (state, action) => {
                 state.isLoading = false;
                 const index = state.roles.findIndex(role => role._id === action.payload.data._id);
@@ -166,23 +161,41 @@ const rolesSlice = createSlice({
                     state.roles[index] = action.payload.data;
                 }
                 state.status = 'succeeded';
+                state.role = null;
             })
-            .addCase(updateRoleThunk.rejected, handleRejected)
 
-            // Assign Role to User
-            .addCase(assignRoleToUserThunk.pending, handlePending)
-            .addCase(assignRoleToUserThunk.fulfilled, (state) => {
+            // Assign Permissions to Role
+            .addCase(assignPermissionsToRoleThunk.pending, handlePending)
+            .addCase(assignPermissionsToRoleThunk.rejected, handleRejected)
+            .addCase(assignPermissionsToRoleThunk.fulfilled, (state, action) => {
                 state.isLoading = false;
+                const index = state.roles.findIndex(role => role._id === action.payload.data._id);
+                if (index !== -1) {
+                    state.roles[index] = action.payload.data;
+                    // console.log(action.payload.data)
+                }
+                state.status = 'succeeded';
+                state.role = null
+            })
+
+            // Delete Role
+            .addCase(deleteRoleThunk.pending, handlePending)
+            .addCase(deleteRoleThunk.rejected, handleRejected)
+            .addCase(deleteRoleThunk.fulfilled, (state, action) => {
+                state.isLoading = false;
+                const index = state.roles.findIndex(role => role._id === action.payload.data._id);
+                if (index !== -1) {
+                    state.roles.splice(index, 1);
+                }
                 state.status = 'succeeded';
             })
-            .addCase(assignRoleToUserThunk.rejected, handleRejected)
 
             // Handle Logout
             .addCase(logoutUserThunk.fulfilled, () => initialState);
     },
 });
-export const { resetSelectedRole } = rolesSlice.actions;
 
+export const { resetSelectedRole } = rolesSlice.actions;
 export default rolesSlice.reducer;
 
 export const selectAllRoles = (state) => state.role.roles;

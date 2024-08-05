@@ -5,6 +5,7 @@ import {
   fetchUserThunk,
   selectUserIsLoading,
   selectUsers,
+  deleteUserThunk,
 } from "@store/user/userAuthSlice";
 import ReactTable from "@adminComponents/Common/ReactTable/ReactTable";
 import {
@@ -15,6 +16,7 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEdit, faTrash } from "@fortawesome/free-solid-svg-icons";
 import { fetchAllRolesThunk } from "@store/role/roleSlice";
+import showToast from "@utils/toastAlert/toaster";
 
 function AllUsersAdmin() {
   const users = useSelector(selectUsers);
@@ -22,10 +24,22 @@ function AllUsersAdmin() {
   const loading = useSelector(selectUserIsLoading);
 
   const handleEdit = async (userId) => {
-    await dispatch(fetchUserThunk(userId));
+    try {
+      await dispatch(fetchUserThunk(userId)).unwrap();
+    } catch (error) {
+      showToast("error", `${error.message}`);
+    }
   };
 
-  const handleDelete = async (userId) => {};
+  const handleDelete = async (userId) => {
+    try {
+      await dispatch(deleteUserThunk(userId)).unwrap();
+      showToast("success", "User deleted successfully");
+      dispatch(resetSelectedUser());
+    } catch (error) {
+      showToast("error", `${error.message}`);
+    }
+  };
 
   useEffect(() => {
     if (users.length === 0) {
