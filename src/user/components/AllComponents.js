@@ -11,10 +11,8 @@ import Footer from "./Partials/Footer"
 import Input from "./Partials/Input"
 import Navbar from "./Partials/Navbar"
 import Pagination from "./Partials/Pagination"
-import Layout from "./Auth/Layout"
 import Login from "./Auth/Login"
 import Logout from "./Auth/Logout"
-import Protected from "./Auth/Protected"
 import Signup from "./Auth/Signup"
 import BookSpinner from "./Spinners/BookSpinner"
 import BooksSpinner from "./Spinners/BooksSpinner"
@@ -36,11 +34,9 @@ export {
     Footer,
     Home,
     Input,
-    Layout,
     Login,
     Logout,
     Navbar,
-    Protected,
     Pagination,
     Signup,
     BookSpinner,

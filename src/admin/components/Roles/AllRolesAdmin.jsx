@@ -16,17 +16,19 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEdit, faTrash } from "@fortawesome/free-solid-svg-icons";
 import showToast from "@utils/toastAlert/toaster";
-import AssignPermissionsToRole from "./AssignPermissionToRole";
 import { fetchAllPermissionsThunk } from "@store/permission/permissionSlice";
+import { useNavigate } from "react-router-dom";
 
 function AllRolesAdmin() {
   const roles = useSelector(selectAllRoles);
   const dispatch = useDispatch();
   const loading = useSelector(selectRoleIsLoading);
+  const navigate = useNavigate();
 
   const handleEdit = async (roleId) => {
     try {
       await dispatch(fetchRoleThunk(roleId)).unwrap();
+      navigate("/admin/roles/add-or-update-role");
     } catch (error) {
       showToast("error", `${error.message}`);
     }
@@ -43,8 +45,10 @@ function AllRolesAdmin() {
   };
 
   useEffect(() => {
-    dispatch(fetchAllRolesThunk());
-    dispatch(fetchAllPermissionsThunk());
+    if (roles.length === 0) {
+      dispatch(fetchAllRolesThunk());
+      dispatch(fetchAllPermissionsThunk());
+    }
   }, [dispatch]);
 
   const allRoles = useMemo(() => {
@@ -106,19 +110,11 @@ function AllRolesAdmin() {
               />
             ) : (
               <>
-                <div className="w-4/6">
+                <div className="w-full">
                   <ReactTable data={allRoles} />
                 </div>
               </>
             )}
-            <div className="w-2/6">
-              <div className="mb-2">
-                <AddRole />
-              </div>
-              <div className="mb-2">
-                <AssignPermissionsToRole />
-              </div>
-            </div>
           </div>
         </div>
       </main>

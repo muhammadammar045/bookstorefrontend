@@ -2,6 +2,14 @@ import React, { useState, useEffect, useRef } from "react";
 import { Link, NavLink, useLocation } from "react-router-dom";
 import ARlogo from "@assets/images/ARlogo.png";
 import SidebarLinkGroup from "./SidebarLinkGroup";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faBook,
+  faDashboard,
+  faGears,
+  faPager,
+  faUsers,
+} from "@fortawesome/free-solid-svg-icons";
 
 function Sidebar({ sidebarOpen, setSidebarOpen, variant = "default" }) {
   const location = useLocation();
@@ -141,16 +149,10 @@ function Sidebar({ sidebarOpen, setSidebarOpen, variant = "default" }) {
                       >
                         <div className="flex items-center justify-between">
                           <div className="flex items-center">
-                            <svg
-                              className={`shrink-0 fill-current ${pathname === "/" || pathname.includes("dashboard") ? "text-violet-500" : "text-gray-400 dark:text-gray-500"}`}
-                              xmlns="http://www.w3.org/2000/svg"
-                              width="16"
-                              height="16"
-                              viewBox="0 0 16 16"
-                            >
-                              <path d="M5.936.278A7.983 7.983 0 0 1 8 0a8 8 0 1 1-8 8c0-.722.104-1.413.278-2.064a1 1 0 1 1 1.932.516A5.99 5.99 0 0 0 2 8a6 6 0 1 0 6-6c-.53 0-1.045.076-1.548.21A1 1 0 1 1 5.936.278Z" />
-                              <path d="M6.068 7.482A2.003 2.003 0 0 0 8 10a2 2 0 1 0-.518-3.932L3.707 2.293a1 1 0 0 0-1.414 1.414l3.775 3.775Z" />
-                            </svg>
+                            <FontAwesomeIcon
+                              className={`w-6 shrink-0 fill-current ${pathname === "/admin/dashboard" || pathname.includes("dashboard") ? "text-violet-500" : "text-gray-400 dark:text-gray-500"}`}
+                              icon={faDashboard}
+                            />
                             <span className="lg:sidebar-expanded:opacity-100 ml-4 text-sm font-medium duration-200 lg:opacity-0 2xl:opacity-100">
                               Dashboard
                             </span>
@@ -167,11 +169,11 @@ function Sidebar({ sidebarOpen, setSidebarOpen, variant = "default" }) {
                         </div>
                       </Link>
                       <div className="lg:sidebar-expanded:block lg:hidden 2xl:block">
-                        <ul className={`mt-1 pl-8 ${!open && "hidden"}`}>
+                        <ul className={`mt-1 pl-11 ${!open && "hidden"}`}>
                           <li className="mb-1 last:mb-0">
                             <NavLink
                               end
-                              to="/admin/dashboard"
+                              to="dashboard/main"
                               className={({ isActive }) =>
                                 "block truncate transition duration-150 " +
                                 (isActive
@@ -194,8 +196,7 @@ function Sidebar({ sidebarOpen, setSidebarOpen, variant = "default" }) {
               {/* Users */}
               <SidebarLinkGroup
                 activecondition={
-                  pathname === "/admin/all-users" ||
-                  pathname.includes("all-users")
+                  pathname === "/admin/users" || pathname.includes("users")
                 }
               >
                 {(handleClick, open) => {
@@ -204,8 +205,8 @@ function Sidebar({ sidebarOpen, setSidebarOpen, variant = "default" }) {
                       <Link
                         to=""
                         className={`block truncate text-gray-800 transition duration-150 dark:text-gray-100 ${
-                          pathname === "/admin/all-users" ||
-                          pathname.includes("all-users")
+                          pathname === "/admin/users" ||
+                          pathname.includes("users")
                             ? ""
                             : "hover:text-gray-900 dark:hover:text-white"
                         }`}
@@ -217,18 +218,12 @@ function Sidebar({ sidebarOpen, setSidebarOpen, variant = "default" }) {
                       >
                         <div className="flex items-center justify-between">
                           <div className="flex items-center">
-                            <svg
-                              className={`shrink-0 fill-current ${pathname === "/admin/all-users" || pathname.includes("all-users") ? "text-violet-500" : "text-gray-400 dark:text-gray-500"}`}
-                              xmlns="http://www.w3.org/2000/svg"
-                              width="16"
-                              height="16"
-                              viewBox="0 0 16 16"
-                            >
-                              <path d="M5.936.278A7.983 7.983 0 0 1 8 0a8 8 0 1 1-8 8c0-.722.104-1.413.278-2.064a1 1 0 1 1 1.932.516A5.99 5.99 0 0 0 2 8a6 6 0 1 0 6-6c-.53 0-1.045.076-1.548.21A1 1 0 1 1 5.936.278Z" />
-                              <path d="M6.068 7.482A2.003 2.003 0 0 0 8 10a2 2 0 1 0-.518-3.932L3.707 2.293a1 1 0 0 0-1.414 1.414l3.775 3.775Z" />
-                            </svg>
+                            <FontAwesomeIcon
+                              className={`w-6 shrink-0 fill-current ${pathname === "/admin/users" || pathname.includes("users") ? "text-violet-500" : "text-gray-400 dark:text-gray-500"}`}
+                              icon={faUsers}
+                            />
                             <span className="lg:sidebar-expanded:opacity-100 ml-4 text-sm font-medium duration-200 lg:opacity-0 2xl:opacity-100">
-                              Users Management
+                              Users
                             </span>
                           </div>
                           {/* Icon */}
@@ -243,11 +238,12 @@ function Sidebar({ sidebarOpen, setSidebarOpen, variant = "default" }) {
                         </div>
                       </Link>
                       <div className="lg:sidebar-expanded:block lg:hidden 2xl:block">
-                        <ul className={`mt-1 pl-8 ${!open && "hidden"}`}>
+                        <ul className={`mt-1 pl-11 ${!open && "hidden"}`}>
+                          {/* ALL USERS */}
                           <li className="mb-1 last:mb-0">
                             <NavLink
                               end
-                              to="/admin/all-users"
+                              to="users/all-users"
                               className={({ isActive }) =>
                                 "block truncate transition duration-150 " +
                                 (isActive
@@ -257,6 +253,24 @@ function Sidebar({ sidebarOpen, setSidebarOpen, variant = "default" }) {
                             >
                               <span className="lg:sidebar-expanded:opacity-100 text-sm font-medium duration-200 lg:opacity-0 2xl:opacity-100">
                                 All Users
+                              </span>
+                            </NavLink>
+                          </li>
+
+                          {/* ADD OR UPDATE USER */}
+                          <li className="mb-1 last:mb-0">
+                            <NavLink
+                              end
+                              to="users/add-or-update-user"
+                              className={({ isActive }) =>
+                                "block truncate transition duration-150 " +
+                                (isActive
+                                  ? "text-violet-500"
+                                  : "text-gray-500/90 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200")
+                              }
+                            >
+                              <span className="lg:sidebar-expanded:opacity-100 text-sm font-medium duration-200 lg:opacity-0 2xl:opacity-100">
+                                Add Or Update Users
                               </span>
                             </NavLink>
                           </li>
@@ -270,8 +284,7 @@ function Sidebar({ sidebarOpen, setSidebarOpen, variant = "default" }) {
               {/* Roles */}
               <SidebarLinkGroup
                 activecondition={
-                  pathname === "/admin/all-roles" ||
-                  pathname.includes("all-roles")
+                  pathname === "/admin/roles" || pathname.includes("roles")
                 }
               >
                 {(handleClick, open) => {
@@ -280,8 +293,8 @@ function Sidebar({ sidebarOpen, setSidebarOpen, variant = "default" }) {
                       <Link
                         to=""
                         className={`block truncate text-gray-800 transition duration-150 dark:text-gray-100 ${
-                          pathname === "/admin/all-roles" ||
-                          pathname.includes("all-roles")
+                          pathname === "/admin/roles" ||
+                          pathname.includes("roles")
                             ? ""
                             : "hover:text-gray-900 dark:hover:text-white"
                         }`}
@@ -293,18 +306,13 @@ function Sidebar({ sidebarOpen, setSidebarOpen, variant = "default" }) {
                       >
                         <div className="flex items-center justify-between">
                           <div className="flex items-center">
-                            <svg
-                              className={`shrink-0 fill-current ${pathname === "/admin/all-roles" || pathname.includes("all-roles") ? "text-violet-500" : "text-gray-400 dark:text-gray-500"}`}
-                              xmlns="http://www.w3.org/2000/svg"
-                              width="16"
-                              height="16"
-                              viewBox="0 0 16 16"
-                            >
-                              <path d="M5.936.278A7.983 7.983 0 0 1 8 0a8 8 0 1 1-8 8c0-.722.104-1.413.278-2.064a1 1 0 1 1 1.932.516A5.99 5.99 0 0 0 2 8a6 6 0 1 0 6-6c-.53 0-1.045.076-1.548.21A1 1 0 1 1 5.936.278Z" />
-                              <path d="M6.068 7.482A2.003 2.003 0 0 0 8 10a2 2 0 1 0-.518-3.932L3.707 2.293a1 1 0 0 0-1.414 1.414l3.775 3.775Z" />
-                            </svg>
+                            <FontAwesomeIcon
+                              className={`w-6 shrink-0 fill-current ${pathname === "/admin/roles" || pathname.includes("roles") ? "text-violet-500" : "text-gray-400 dark:text-gray-500"}`}
+                              icon={faGears}
+                            />
+
                             <span className="lg:sidebar-expanded:opacity-100 ml-4 text-sm font-medium duration-200 lg:opacity-0 2xl:opacity-100">
-                              Roles Management
+                              Roles
                             </span>
                           </div>
                           {/* Icon */}
@@ -319,11 +327,12 @@ function Sidebar({ sidebarOpen, setSidebarOpen, variant = "default" }) {
                         </div>
                       </Link>
                       <div className="lg:sidebar-expanded:block lg:hidden 2xl:block">
-                        <ul className={`mt-1 pl-8 ${!open && "hidden"}`}>
+                        <ul className={`mt-1 pl-11 ${!open && "hidden"}`}>
+                          {/* ALL ROLES */}
                           <li className="mb-1 last:mb-0">
                             <NavLink
                               end
-                              to="/admin/all-roles"
+                              to="roles/all-roles"
                               className={({ isActive }) =>
                                 "block truncate transition duration-150 " +
                                 (isActive
@@ -333,6 +342,24 @@ function Sidebar({ sidebarOpen, setSidebarOpen, variant = "default" }) {
                             >
                               <span className="lg:sidebar-expanded:opacity-100 text-sm font-medium duration-200 lg:opacity-0 2xl:opacity-100">
                                 All Roles
+                              </span>
+                            </NavLink>
+                          </li>
+
+                          {/* ADD OR UPDATE ROLE */}
+                          <li className="mb-1 last:mb-0">
+                            <NavLink
+                              end
+                              to="roles/add-or-update-role"
+                              className={({ isActive }) =>
+                                "block truncate transition duration-150 " +
+                                (isActive
+                                  ? "text-violet-500"
+                                  : "text-gray-500/90 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200")
+                              }
+                            >
+                              <span className="lg:sidebar-expanded:opacity-100 text-sm font-medium duration-200 lg:opacity-0 2xl:opacity-100">
+                                Add Or Update Roles
                               </span>
                             </NavLink>
                           </li>
@@ -346,8 +373,8 @@ function Sidebar({ sidebarOpen, setSidebarOpen, variant = "default" }) {
               {/* Permissions */}
               <SidebarLinkGroup
                 activecondition={
-                  pathname === "/admin/all-permissions" ||
-                  pathname.includes("all-permissions")
+                  pathname === "/admin/permissions" ||
+                  pathname.includes("permissions")
                 }
               >
                 {(handleClick, open) => {
@@ -356,8 +383,8 @@ function Sidebar({ sidebarOpen, setSidebarOpen, variant = "default" }) {
                       <Link
                         to=""
                         className={`block truncate text-gray-800 transition duration-150 dark:text-gray-100 ${
-                          pathname === "/admin/all-permissions" ||
-                          pathname.includes("all-permissions")
+                          pathname === "/admin/permissions" ||
+                          pathname.includes("permissions")
                             ? ""
                             : "hover:text-gray-900 dark:hover:text-white"
                         }`}
@@ -369,18 +396,12 @@ function Sidebar({ sidebarOpen, setSidebarOpen, variant = "default" }) {
                       >
                         <div className="flex items-center justify-between">
                           <div className="flex items-center">
-                            <svg
-                              className={`shrink-0 fill-current ${pathname === "/admin/all-permission" || pathname.includes("all-permissions") ? "text-violet-500" : "text-gray-400 dark:text-gray-500"}`}
-                              xmlns="http://www.w3.org/2000/svg"
-                              width="16"
-                              height="16"
-                              viewBox="0 0 16 16"
-                            >
-                              <path d="M5.936.278A7.983 7.983 0 0 1 8 0a8 8 0 1 1-8 8c0-.722.104-1.413.278-2.064a1 1 0 1 1 1.932.516A5.99 5.99 0 0 0 2 8a6 6 0 1 0 6-6c-.53 0-1.045.076-1.548.21A1 1 0 1 1 5.936.278Z" />
-                              <path d="M6.068 7.482A2.003 2.003 0 0 0 8 10a2 2 0 1 0-.518-3.932L3.707 2.293a1 1 0 0 0-1.414 1.414l3.775 3.775Z" />
-                            </svg>
+                            <FontAwesomeIcon
+                              className={`w-6 shrink-0 fill-current ${pathname === "/admin/permissions" || pathname.includes("permissions") ? "text-violet-500" : "text-gray-400 dark:text-gray-500"}`}
+                              icon={faPager}
+                            />
                             <span className="lg:sidebar-expanded:opacity-100 ml-4 text-sm font-medium duration-200 lg:opacity-0 2xl:opacity-100">
-                              Permissions Management
+                              Permissions
                             </span>
                           </div>
                           {/* Icon */}
@@ -395,11 +416,12 @@ function Sidebar({ sidebarOpen, setSidebarOpen, variant = "default" }) {
                         </div>
                       </Link>
                       <div className="lg:sidebar-expanded:block lg:hidden 2xl:block">
-                        <ul className={`mt-1 pl-8 ${!open && "hidden"}`}>
+                        <ul className={`mt-1 pl-11 ${!open && "hidden"}`}>
+                          {/* ALL PERMISSIONS */}
                           <li className="mb-1 last:mb-0">
                             <NavLink
                               end
-                              to="/admin/all-permissions"
+                              to="permissions/all-permissions"
                               className={({ isActive }) =>
                                 "block truncate transition duration-150 " +
                                 (isActive
@@ -409,6 +431,24 @@ function Sidebar({ sidebarOpen, setSidebarOpen, variant = "default" }) {
                             >
                               <span className="lg:sidebar-expanded:opacity-100 text-sm font-medium duration-200 lg:opacity-0 2xl:opacity-100">
                                 All Permissions
+                              </span>
+                            </NavLink>
+                          </li>
+
+                          {/* ADD OR UPDATE PERMISSION */}
+                          <li className="mb-1 last:mb-0">
+                            <NavLink
+                              end
+                              to="permissions/add-or-update-permission"
+                              className={({ isActive }) =>
+                                "block truncate transition duration-150 " +
+                                (isActive
+                                  ? "text-violet-500"
+                                  : "text-gray-500/90 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200")
+                              }
+                            >
+                              <span className="lg:sidebar-expanded:opacity-100 text-sm font-medium duration-200 lg:opacity-0 2xl:opacity-100">
+                                Add Or Update Permission
                               </span>
                             </NavLink>
                           </li>
@@ -422,8 +462,7 @@ function Sidebar({ sidebarOpen, setSidebarOpen, variant = "default" }) {
               {/* Books */}
               <SidebarLinkGroup
                 activecondition={
-                  pathname === "/admin/all-books" ||
-                  pathname.includes("all-books")
+                  pathname === "/admin/books" || pathname.includes("books")
                 }
               >
                 {(handleClick, open) => {
@@ -432,8 +471,8 @@ function Sidebar({ sidebarOpen, setSidebarOpen, variant = "default" }) {
                       <Link
                         to=""
                         className={`block truncate text-gray-800 transition duration-150 dark:text-gray-100 ${
-                          pathname === "/admin/all-books" ||
-                          pathname.includes("all-books")
+                          pathname === "/admin/books" ||
+                          pathname.includes("books")
                             ? ""
                             : "hover:text-gray-900 dark:hover:text-white"
                         }`}
@@ -445,18 +484,12 @@ function Sidebar({ sidebarOpen, setSidebarOpen, variant = "default" }) {
                       >
                         <div className="flex items-center justify-between">
                           <div className="flex items-center">
-                            <svg
-                              className={`shrink-0 fill-current ${pathname === "/admin/all-books" || pathname.includes("all-books") ? "text-violet-500" : "text-gray-400 dark:text-gray-500"}`}
-                              xmlns="http://www.w3.org/2000/svg"
-                              width="16"
-                              height="16"
-                              viewBox="0 0 16 16"
-                            >
-                              <path d="M5.936.278A7.983 7.983 0 0 1 8 0a8 8 0 1 1-8 8c0-.722.104-1.413.278-2.064a1 1 0 1 1 1.932.516A5.99 5.99 0 0 0 2 8a6 6 0 1 0 6-6c-.53 0-1.045.076-1.548.21A1 1 0 1 1 5.936.278Z" />
-                              <path d="M6.068 7.482A2.003 2.003 0 0 0 8 10a2 2 0 1 0-.518-3.932L3.707 2.293a1 1 0 0 0-1.414 1.414l3.775 3.775Z" />
-                            </svg>
+                            <FontAwesomeIcon
+                              className={`w-6 shrink-0 fill-current ${pathname === "/admin/books" || pathname.includes("books") ? "text-violet-500" : "text-gray-400 dark:text-gray-500"}`}
+                              icon={faBook}
+                            />
                             <span className="lg:sidebar-expanded:opacity-100 ml-4 text-sm font-medium duration-200 lg:opacity-0 2xl:opacity-100">
-                              Books Management
+                              Books
                             </span>
                           </div>
                           {/* Icon */}
@@ -471,11 +504,12 @@ function Sidebar({ sidebarOpen, setSidebarOpen, variant = "default" }) {
                         </div>
                       </Link>
                       <div className="lg:sidebar-expanded:block lg:hidden 2xl:block">
-                        <ul className={`mt-1 pl-8 ${!open && "hidden"}`}>
+                        <ul className={`mt-1 pl-11 ${!open && "hidden"}`}>
+                          {/* ALL BOOKS */}
                           <li className="mb-1 last:mb-0">
                             <NavLink
                               end
-                              to="/admin/all-books"
+                              to="books/all-books"
                               className={({ isActive }) =>
                                 "block truncate transition duration-150 " +
                                 (isActive
@@ -485,6 +519,24 @@ function Sidebar({ sidebarOpen, setSidebarOpen, variant = "default" }) {
                             >
                               <span className="lg:sidebar-expanded:opacity-100 text-sm font-medium duration-200 lg:opacity-0 2xl:opacity-100">
                                 All Books
+                              </span>
+                            </NavLink>
+                          </li>
+
+                          {/* ADD OR UPDATE BOOK */}
+                          <li className="mb-1 last:mb-0">
+                            <NavLink
+                              end
+                              to="books/add-or-update-book"
+                              className={({ isActive }) =>
+                                "block truncate transition duration-150 " +
+                                (isActive
+                                  ? "text-violet-500"
+                                  : "text-gray-500/90 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200")
+                              }
+                            >
+                              <span className="lg:sidebar-expanded:opacity-100 text-sm font-medium duration-200 lg:opacity-0 2xl:opacity-100">
+                                Add Or Update Book
                               </span>
                             </NavLink>
                           </li>

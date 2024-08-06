@@ -35,7 +35,7 @@ function AddUserAdmin() {
           })
         ).unwrap();
         showToast("success", `${res.message}`);
-        navigate("/admin/all-users");
+        navigate("/admin/users/all-users");
         reset();
       }
     } catch (error) {

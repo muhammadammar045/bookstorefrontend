@@ -12,6 +12,7 @@ import SearchBox from "./Common/ReactTable/SearchBox.jsx"
 import SelectBox from "./Common/ReactTable/SelectBox.jsx"
 import TablePagination from "./Common/ReactTable/TablePagination.jsx"
 import AssignRoleAdmin from "./Users/AssignRoleAdmin.jsx"
+import AssignPermissionToRole from "./Roles/AssignPermissionToRole.jsx"
 
 
 export {
@@ -28,6 +29,7 @@ export {
     SearchBox,
     SelectBox,
     TablePagination,
-    AssignRoleAdmin
+    AssignRoleAdmin,
+    AssignPermissionToRole
 
 }

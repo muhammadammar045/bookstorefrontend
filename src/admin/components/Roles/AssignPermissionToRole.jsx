@@ -45,7 +45,7 @@ function AssignPermissionsToRole() {
           })
         ).unwrap();
         showToast("success", `${res.message}`);
-        navigate("/admin/all-roles");
+        navigate("/admin/roles/all-roles");
         reset();
       }
     } catch (error) {
