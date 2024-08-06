@@ -15,15 +15,18 @@ import { faEdit, faTrash } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import showToast from "@utils/toastAlert/toaster";
 import { SkeletonTable } from "@adminComponents/AllAdminComponents";
+import { useNavigate } from "react-router-dom";
 
 function AllPermissionsAdmin() {
   const permissions = useSelector(selectAllPermissions);
   const dispatch = useDispatch();
   const loading = useSelector(selectPermissionIsLoading);
+  const navigate = useNavigate();
 
   const handleEdit = async (permissionId) => {
     try {
       await dispatch(fetchPermissionThunk(permissionId)).unwrap();
+      navigate("/admin/permissions/add-or-update-permission");
     } catch (error) {
       showToast("error", `${error.message}`);
     }
@@ -40,7 +43,9 @@ function AllPermissionsAdmin() {
   };
 
   useEffect(() => {
-    dispatch(fetchAllPermissionsThunk());
+    if (permissions.length === 0) {
+      dispatch(fetchAllPermissionsThunk());
+    }
   }, [dispatch]);
 
   const allPermissions = useMemo(() => {
@@ -98,14 +103,11 @@ function AllPermissionsAdmin() {
             />
           ) : (
             <>
-              <div className="w-4/6">
+              <div className="w-full">
                 <ReactTable data={allPermissions} />
               </div>
             </>
           )}
-          <div className="w-2/6">
-            <AddPermission />
-          </div>
         </div>
       </div>
     </main>

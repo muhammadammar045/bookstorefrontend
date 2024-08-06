@@ -43,9 +43,6 @@ function AllBooksAdmin() {
                 <ReactTable data={data} />
               </div>
             )}
-            {/* <div className="w-2/5">
-          <AddUserAdmin />
-        </div> */}
           </div>
         </div>
       </main>

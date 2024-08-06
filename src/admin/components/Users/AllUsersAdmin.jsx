@@ -8,24 +8,23 @@ import {
   deleteUserThunk,
 } from "@store/user/userAuthSlice";
 import ReactTable from "@adminComponents/Common/ReactTable/ReactTable";
-import {
-  AddUsersAdmin,
-  AssignRoleAdmin,
-  SkeletonTable,
-} from "@adminComponents/AllAdminComponents";
+import { SkeletonTable } from "@adminComponents/AllAdminComponents";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEdit, faTrash } from "@fortawesome/free-solid-svg-icons";
 import { fetchAllRolesThunk } from "@store/role/roleSlice";
 import showToast from "@utils/toastAlert/toaster";
+import { useNavigate } from "react-router-dom";
 
 function AllUsersAdmin() {
   const users = useSelector(selectUsers);
   const dispatch = useDispatch();
   const loading = useSelector(selectUserIsLoading);
+  const navigate = useNavigate();
 
   const handleEdit = async (userId) => {
     try {
       await dispatch(fetchUserThunk(userId)).unwrap();
+      navigate("/admin/users/add-or-update-user");
     } catch (error) {
       showToast("error", `${error.message}`);
     }
@@ -50,9 +49,8 @@ function AllUsersAdmin() {
 
   const allUsers = useMemo(() => {
     return (
-      users?.map((user, index) => ({
+      users?.map((user) => ({
         id: user._id,
-        // id: index + 1,
         name: user.fullname,
         email: user.email,
         role: user.roleName,
@@ -103,16 +101,6 @@ function AllUsersAdmin() {
               <h1 className="text-2xl font-bold text-gray-800 dark:text-gray-100 md:text-3xl">
                 All Users
               </h1>
-            </div>
-          </div>
-
-          {/* Content */}
-          <div className="flex gap-10">
-            <div className="mb-5 w-3/5">
-              <AddUsersAdmin />
-            </div>
-            <div className="mb-5 w-2/5">
-              <AssignRoleAdmin />
             </div>
           </div>
 

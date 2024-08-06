@@ -15,10 +15,20 @@ import {
   AllPermissionsAdmin,
   AllRolesAdmin,
   AllUsersAdmin,
+  AddOrUpdateBook,
+  AddOrUpdatePermission,
+  AddOrUpdateRole,
+  AddOrUpdateUser,
   Dashboard,
 } from "@adminPages/AllAdminPages";
-import { Layout, Protected, Spinner } from "@userComponents/AllComponents";
-import AdminLayout from "@adminPartials/AdminLayout";
+import {
+  AdminLayout,
+  AdminProtected,
+  Protected,
+  Layout,
+} from "@layout/AllLayouts";
+import { Spinner } from "@userComponents/AllComponents";
+
 const App = () => {
   const location = useLocation();
 
@@ -33,13 +43,14 @@ const App = () => {
   useEffect(() => {
     setTimeout(() => {
       setLoading(false);
-    }, 3000);
+    }, 2000);
   }, []);
 
   return loading ? (
     <Spinner />
   ) : (
     <Routes>
+      {/* USER ROUTES */}
       <Route
         path="/"
         element={<Layout />}
@@ -97,50 +108,95 @@ const App = () => {
           }
         />
       </Route>
+
+      {/* ADMIN ROUTES */}
       <Route
         path="/admin"
         element={<AdminLayout />}
       >
-        <Route
-          path="dashboard"
-          element={
-            <Protected>
-              <Dashboard />
-            </Protected>
-          }
-        />
-        <Route
-          path="all-users"
-          element={
-            <Protected>
-              <AllUsersAdmin />
-            </Protected>
-          }
-        />
-        <Route
-          path="all-roles"
-          element={
-            <Protected>
-              <AllRolesAdmin />
-            </Protected>
-          }
-        />
-        <Route
-          path="all-permissions"
-          element={
-            <Protected>
-              <AllPermissionsAdmin />
-            </Protected>
-          }
-        />
-        <Route
-          path="all-books"
-          element={
-            <Protected>
-              <AllBooksAdmin />
-            </Protected>
-          }
-        />
+        <Route path="dashboard">
+          <Route
+            index
+            path="main"
+            element={
+              <Protected>
+                <Dashboard />
+              </Protected>
+            }
+          />
+        </Route>
+        <Route path="users">
+          <Route
+            path="all-users"
+            element={
+              <AdminProtected>
+                <AllUsersAdmin />
+              </AdminProtected>
+            }
+          />
+          <Route
+            path="add-or-update-user"
+            element={
+              <AdminProtected>
+                <AddOrUpdateUser />
+              </AdminProtected>
+            }
+          />
+        </Route>
+        <Route path="books">
+          <Route
+            path="all-books"
+            element={
+              <AdminProtected>
+                <AllBooksAdmin />
+              </AdminProtected>
+            }
+          />
+          <Route
+            path="add-or-update-book"
+            element={
+              <AdminProtected>
+                <AddOrUpdateBook />
+              </AdminProtected>
+            }
+          />
+        </Route>
+        <Route path="roles">
+          <Route
+            path="all-roles"
+            element={
+              <AdminProtected>
+                <AllRolesAdmin />
+              </AdminProtected>
+            }
+          />
+          <Route
+            path="add-or-update-role"
+            element={
+              <AdminProtected>
+                <AddOrUpdateRole />
+              </AdminProtected>
+            }
+          />
+        </Route>
+        <Route path="permissions">
+          <Route
+            path="all-permissions"
+            element={
+              <AdminProtected>
+                <AllPermissionsAdmin />
+              </AdminProtected>
+            }
+          />
+          <Route
+            path="add-or-update-permission"
+            element={
+              <AdminProtected>
+                <AddOrUpdatePermission />
+              </AdminProtected>
+            }
+          />
+        </Route>
       </Route>
     </Routes>
   );
