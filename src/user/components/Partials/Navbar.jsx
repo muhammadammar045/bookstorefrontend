@@ -4,7 +4,7 @@ import { faBars } from "@fortawesome/free-solid-svg-icons";
 import logo from "@assets/images/ARlogo.png";
 import { NavLink } from "react-router-dom";
 import { useSelector } from "react-redux";
-import { selectUser, selectUserRole } from "@store/user/userAuthSlice";
+import { selectUser, selectUserRole } from "@storeVars";
 import { Logout } from "@userComponents/AllComponents";
 import ThemeToggle from "@adminComponents/Common/ThemeToggle";
 

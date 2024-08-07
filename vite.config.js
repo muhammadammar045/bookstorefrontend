@@ -16,6 +16,7 @@ export default defineConfig({
       "@userComponents": path.resolve(__dirname, "src/user/components"),
 
       "@store": path.resolve(__dirname, "src/store"),
+      "@storeVars": path.resolve(__dirname, "src/store/storeVars.js"),
       "@layout": path.resolve(__dirname, "src/layout"),
       "@utils": path.resolve(__dirname, "src/utils"),
       "@assets": path.resolve(__dirname, "src/assets"),

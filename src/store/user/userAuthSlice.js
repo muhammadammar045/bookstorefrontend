@@ -225,4 +225,4 @@ export const selectUserPermissions = (state) => state.userAuth?.user?.user.permi
 export const selectAccessToken = (state) => state.userAuth?.user?.accessToken;
 export const selectRefreshToken = (state) => state.userAuth?.user?.refreshToken;
 export const selectUserIsLoading = (state) => state.userAuth?.isLoading;
-export const selectError = (state) => state.userAuth?.error;
+export const selectUserError = (state) => state.userAuth?.error;

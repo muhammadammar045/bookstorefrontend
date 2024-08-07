@@ -4,11 +4,12 @@ import { useDispatch, useSelector } from "react-redux";
 import { useForm, Controller } from "react-hook-form";
 import showToast from "@utils/toastAlert/toaster";
 import { Button, Checkbox, Spinner } from "@userComponents/AllComponents";
-import { selectRole, selectRoleIsLoading } from "@store/role/roleSlice";
 import {
+  selectRole,
+  selectRoleIsLoading,
   assignPermissionsToRoleThunk,
   selectAllPermissions,
-} from "@store/permission/permissionSlice";
+} from "@storeVars";
 
 function AssignPermissionsToRole() {
   const {

@@ -19,7 +19,7 @@ import {
   AddOrUpdatePermission,
   AddOrUpdateRole,
   AddOrUpdateUser,
-  Dashboard,
+  Main,
 } from "@adminPages/AllAdminPages";
 import {
   AdminLayout,
@@ -119,9 +119,9 @@ const App = () => {
             index
             path="main"
             element={
-              <Protected>
-                <Dashboard />
-              </Protected>
+              <AdminProtected>
+                <Main />
+              </AdminProtected>
             }
           />
         </Route>

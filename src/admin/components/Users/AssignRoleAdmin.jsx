@@ -3,12 +3,13 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { useForm } from "react-hook-form";
 import showToast from "@utils/toastAlert/toaster";
+import { Button, Select, Spinner } from "@userComponents/AllComponents";
 import {
+  assignRoleToUserThunk,
+  selectAllRoles,
   selectUserIsLoading,
   selectFetchedUser,
-} from "@store/user/userAuthSlice";
-import { Button, Select, Spinner } from "@userComponents/AllComponents";
-import { assignRoleToUserThunk, selectAllRoles } from "@store/role/roleSlice";
+} from "@storeVars";
 
 function AddUserAdmin() {
   const {

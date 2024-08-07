@@ -1,5 +1,5 @@
 import { useSelector } from "react-redux";
-import { selectUser } from "@store/user/userAuthSlice";
+import { selectUser } from "@storeVars";
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 

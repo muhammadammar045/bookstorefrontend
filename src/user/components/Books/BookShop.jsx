@@ -3,7 +3,7 @@ import {
   selectBookIsLoading,
   fetchBooksThunk,
   selectTotalPages,
-} from "@store/book/bookSlice";
+} from "@storeVars";
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import {

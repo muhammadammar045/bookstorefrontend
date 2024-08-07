@@ -3,10 +3,7 @@ import { useForm } from "react-hook-form";
 import { Input, Button, Spinner } from "@userComponents/AllComponents";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  selectUserIsLoading,
-  registerUserThunk,
-} from "@store/user/userAuthSlice";
+import { selectUserIsLoading, registerUserThunk } from "@storeVars";
 import showToast from "@utils/toastAlert/toaster";
 
 function Signup() {

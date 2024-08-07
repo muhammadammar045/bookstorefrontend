@@ -3,12 +3,11 @@ import {
   fetchBookThunk,
   selectBook,
   selectBookIsLoading,
-} from "@store/book/bookSlice";
-import {
   openModal,
   closeModal,
   selectModalContext,
-} from "@store/modal/modalSlice";
+  selectUserPermissions,
+} from "@storeVars";
 import { faCamera, faEdit, faTrash } from "@fortawesome/free-solid-svg-icons";
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -16,7 +15,6 @@ import { useNavigate, useParams } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import showToast from "@utils/toastAlert/toaster";
 import Modal from "@utils/modal/Modal";
-import { selectUserPermissions } from "@store/user/userAuthSlice";
 import { BookSpinner } from "@userComponents/AllComponents";
 
 function Book() {

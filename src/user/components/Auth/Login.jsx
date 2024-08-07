@@ -1,4 +1,4 @@
-import { selectUserIsLoading, loginUserThunk } from "@store/user/userAuthSlice";
+import { selectUserIsLoading, loginUserThunk } from "@storeVars";
 import React from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
