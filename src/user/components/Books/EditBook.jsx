@@ -3,7 +3,7 @@ import {
   updateBookThunk,
   selectBook,
   selectBookIsLoading,
-} from "@store/book/bookSlice";
+} from "@storeVars";
 import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate, useParams } from "react-router-dom";
@@ -57,8 +57,8 @@ function EditBook() {
       {loading ? (
         <BookSpinner />
       ) : book ? (
-        <div className="mx-auto my-10 max-w-[900px] rounded-lg border-4 border-blue-500 bg-gray-100 p-10 dark:bg-gray-900">
-          <h1 className="mb-4 text-center text-3xl text-white">
+        <div className="mx-auto my-10 max-w-3xl rounded-lg border-2 border-gray-900 bg-gray-200 p-10 dark:border-gray-500 dark:bg-gray-900">
+          <h1 className="mb-4 text-center text-3xl text-gray-900 dark:text-gray-200">
             Edit Book Details
           </h1>
           <form onSubmit={handleSubmit(editForm)}>
@@ -146,16 +146,7 @@ function EditBook() {
               )}
             </div>
             <div className="mb-2">
-              <Button
-                type="submit"
-                bgColor="outline-none hover:bg-blue-600 dark:hover:bg-blue-700"
-                padding="px-5 py-2"
-                rounded="rounded-lg"
-                textColor="text-blue-500 hover:text-white dark:text-blue-400 dark:hover:text-white"
-                className="shadow-lg outline outline-blue-600 hover:shadow-blue-500 dark:outline-blue-400 dark:hover:shadow-blue-300"
-              >
-                Submit
-              </Button>
+              <Button type="submit">Submit</Button>
             </div>
           </form>
         </div>

@@ -2,15 +2,15 @@ import React, { useEffect } from "react";
 import { Button, Input, Spinner } from "@userComponents/AllComponents";
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
+import showToast from "@utils/toastAlert/toaster";
+import { useNavigate } from "react-router-dom";
 import {
   addRoleThunk,
   updateRoleThunk,
   selectRole,
   selectRoleIsLoading,
   resetSelectedRole,
-} from "@store/role/roleSlice";
-import showToast from "@utils/toastAlert/toaster";
-import { useNavigate } from "react-router-dom";
+} from "@storeVars";
 
 function AddRole() {
   const dispatch = useDispatch();

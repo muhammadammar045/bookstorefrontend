@@ -3,13 +3,13 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { useForm } from "react-hook-form";
 import showToast from "@utils/toastAlert/toaster";
+import { Input, Button } from "@userComponents/AllComponents";
+import { Spinner } from "@userComponents/AllComponents";
 import {
   selectUserIsLoading,
   selectFetchedUser,
   updateUserThunk,
-} from "@store/user/userAuthSlice";
-import { Input, Button } from "@userComponents/AllComponents";
-import { Spinner } from "@userComponents/AllComponents";
+} from "@storeVars";
 
 function AddUserAdmin() {
   const {

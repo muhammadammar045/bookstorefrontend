@@ -2,7 +2,7 @@ import React from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { addBookThunk, selectBookIsLoading } from "@store/book/bookSlice";
+import { addBookThunk, selectBookIsLoading } from "@storeVars";
 import { Input, Button, BookSpinner } from "@userComponents/AllComponents";
 import showToast from "@utils/toastAlert/toaster";
 
@@ -33,7 +33,7 @@ function AddBook() {
       {loading ? (
         <BookSpinner />
       ) : (
-        <div className="mx-auto my-10 max-w-[900px] rounded-lg border-4 border-gray-900 bg-gray-200 p-10 dark:border-gray-200 dark:bg-gray-900">
+        <div className="mx-auto my-10 max-w-3xl rounded-lg border-2 border-gray-900 bg-gray-200 p-10 dark:border-gray-500 dark:bg-gray-900">
           <h1 className="mb-4 text-center text-3xl text-gray-900 dark:text-gray-200">
             Add Book
           </h1>

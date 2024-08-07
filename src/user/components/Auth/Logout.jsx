@@ -1,10 +1,7 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  logoutUserThunk,
-  selectUserIsLoading,
-} from "@store/user/userAuthSlice";
+import { logoutUserThunk, selectUserIsLoading } from "@storeVars";
 import showToast from "@utils/toastAlert/toaster";
 import { LogoutSpinner } from "@userComponents/AllComponents";
 

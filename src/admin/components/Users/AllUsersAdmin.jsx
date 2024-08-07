@@ -1,19 +1,19 @@
 import React, { useEffect, useMemo } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import ReactTable from "@adminComponents/Common/ReactTable/ReactTable";
+import { SkeletonTable } from "@adminComponents/AllAdminComponents";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faEdit, faTrash } from "@fortawesome/free-solid-svg-icons";
+import showToast from "@utils/toastAlert/toaster";
+import { useNavigate } from "react-router-dom";
 import {
   fetchAllUserThunk,
   fetchUserThunk,
   selectUserIsLoading,
   selectUsers,
   deleteUserThunk,
-} from "@store/user/userAuthSlice";
-import ReactTable from "@adminComponents/Common/ReactTable/ReactTable";
-import { SkeletonTable } from "@adminComponents/AllAdminComponents";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faEdit, faTrash } from "@fortawesome/free-solid-svg-icons";
-import { fetchAllRolesThunk } from "@store/role/roleSlice";
-import showToast from "@utils/toastAlert/toaster";
-import { useNavigate } from "react-router-dom";
+  fetchAllRolesThunk,
+} from "@storeVars";
 
 function AllUsersAdmin() {
   const users = useSelector(selectUsers);

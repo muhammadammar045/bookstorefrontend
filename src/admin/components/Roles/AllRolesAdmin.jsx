@@ -1,5 +1,10 @@
 import React, { useEffect, useMemo } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { ReactTable, SkeletonTable } from "@adminComponents/AllAdminComponents";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faEdit, faTrash } from "@fortawesome/free-solid-svg-icons";
+import showToast from "@utils/toastAlert/toaster";
+import { useNavigate } from "react-router-dom";
 import {
   fetchAllRolesThunk,
   fetchRoleThunk,
@@ -7,17 +12,8 @@ import {
   selectAllRoles,
   selectRoleIsLoading,
   resetSelectedRole,
-} from "@store/role/roleSlice";
-import {
-  AddRole,
-  ReactTable,
-  SkeletonTable,
-} from "@adminComponents/AllAdminComponents";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faEdit, faTrash } from "@fortawesome/free-solid-svg-icons";
-import showToast from "@utils/toastAlert/toaster";
-import { fetchAllPermissionsThunk } from "@store/permission/permissionSlice";
-import { useNavigate } from "react-router-dom";
+  fetchAllPermissionsThunk,
+} from "@storeVars";
 
 function AllRolesAdmin() {
   const roles = useSelector(selectAllRoles);

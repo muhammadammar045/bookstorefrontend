@@ -1,21 +1,19 @@
 import React, { useEffect, useMemo } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  deletePermissionThunk,
-  fetchAllPermissionsThunk,
-  fetchPermissionThunk,
-  selectAllPermissions,
-  selectPermission,
-  selectPermissionIsLoading,
-  resetSelectedPermission, // Added to reset permission state
-} from "@store/permission/permissionSlice";
-import AddPermission from "./AddPermission";
 import ReactTable from "@adminComponents/Common/ReactTable/ReactTable";
 import { faEdit, faTrash } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import showToast from "@utils/toastAlert/toaster";
 import { SkeletonTable } from "@adminComponents/AllAdminComponents";
 import { useNavigate } from "react-router-dom";
+import {
+  deletePermissionThunk,
+  fetchAllPermissionsThunk,
+  fetchPermissionThunk,
+  selectAllPermissions,
+  selectPermissionIsLoading,
+  resetSelectedPermission,
+} from "@storeVars";
 
 function AllPermissionsAdmin() {
   const permissions = useSelector(selectAllPermissions);

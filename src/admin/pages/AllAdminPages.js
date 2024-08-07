@@ -7,6 +7,7 @@ import AddOrUpdatePermission from "@adminPages/Permissions/AddOrUpdatePermission
 import AllRolesAdmin from "@adminPages/Roles/AllRolesAdmin";
 import AddOrUpdateRole from "@adminPages/Roles/AddOrUpdateRole";
 import Dashboard from "@adminPages/Dashboard/Dashboard";
+import Main from "@adminPages/Dashboard/Main";
 
 export {
     AllBooksAdmin,
@@ -17,5 +18,6 @@ export {
     AddOrUpdatePermission,
     AllRolesAdmin,
     AddOrUpdateRole,
-    Dashboard
+    Dashboard,
+    Main
 }

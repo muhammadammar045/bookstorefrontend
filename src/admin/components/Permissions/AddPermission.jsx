@@ -2,15 +2,15 @@ import React, { useEffect } from "react";
 import { Button, Input, Spinner } from "@userComponents/AllComponents";
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
+import showToast from "@utils/toastAlert/toaster";
+import { useNavigate } from "react-router-dom";
 import {
   addPermissionThunk,
   updatePermissionThunk,
   selectPermission,
   selectPermissionIsLoading,
   resetSelectedPermission,
-} from "@store/permission/permissionSlice";
-import showToast from "@utils/toastAlert/toaster";
-import { useNavigate } from "react-router-dom";
+} from "@storeVars";
 
 function AddPermission() {
   const dispatch = useDispatch();
