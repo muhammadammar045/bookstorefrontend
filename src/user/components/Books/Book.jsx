@@ -11,7 +11,7 @@ import {
 import { faCamera, faEdit, faTrash } from "@fortawesome/free-solid-svg-icons";
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import showToast from "@utils/toastAlert/toaster";
 import Modal from "@utils/modal/Modal";
@@ -60,7 +60,7 @@ function Book() {
   };
 
   useEffect(() => {
-    dispatch(fetchBookThunk(bookId));
+    if (book?._id !== bookId) dispatch(fetchBookThunk(bookId));
   }, [dispatch, bookId]);
 
   return (
@@ -68,11 +68,11 @@ function Book() {
       {loading ? (
         <BookSpinner />
       ) : (
-        <div className="my-10 rounded-lg border-2 border-gray-900 bg-gray-100 p-4 dark:border-gray-200 dark:bg-gray-900">
+        <div className="my-10 rounded-lg border-2 border-gray-400 bg-gray-200 p-3 dark:border-gray-600 dark:bg-gray-900">
           <div className="relative">
             <div>
               <img
-                className="max-h-[500px] w-full rounded-lg border-2 border-gray-900 bg-cover dark:border-gray-200"
+                className="max-h-[500px] w-full rounded-lg border-2 border-gray-400 bg-cover dark:border-gray-600"
                 src={book?.thumbnail}
                 alt={book?.title || "Book Thumbnail"}
               />
@@ -90,10 +90,12 @@ function Book() {
             )}
           </div>
           <div>
-            <div className="mt-10 flex items-center justify-between">
-              <h5 className="text-xl text-gray-900 duration-700 hover:text-red-600 dark:text-gray-200 dark:hover:text-red-300">
-                {book?.category}
-              </h5>
+            <div className="mt-8 flex items-center justify-between">
+              <Link>
+                <h5 className="ml-2 text-lg font-semibold text-gray-900 duration-700 hover:text-red-600 dark:text-gray-400 dark:hover:text-red-300">
+                  {book?.category}
+                </h5>
+              </Link>
               <span className="">
                 {permissions.includes("delete") && (
                   <button
@@ -125,10 +127,10 @@ function Book() {
                 )}
               </span>
             </div>
-            <h1 className="pt-4 text-4xl font-bold text-gray-900 dark:text-gray-200">
+            <h1 className="ml-1 pt-2 text-3xl font-bold text-gray-600 dark:text-gray-200">
               {book?.title}
             </h1>
-            <p className="pt-5 text-lg text-gray-900 dark:text-gray-200">
+            <p className="ml-2 pt-2 text-lg text-gray-700 dark:text-gray-400">
               {book?.description}
             </p>
           </div>

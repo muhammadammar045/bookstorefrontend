@@ -32,7 +32,7 @@ function Navbar() {
   return (
     <>
       <header>
-        <nav className="w-full border-b-2 border-gray-900 bg-cyan-200 dark:border-gray-200 dark:bg-gray-900">
+        <nav className="w-full border-b-2 border-gray-900 bg-gray-300 dark:border-gray-200 dark:bg-gray-900">
           <div className="mx-auto flex max-w-screen-xl flex-wrap items-center justify-between p-4">
             <NavLink
               to="/"
@@ -76,9 +76,9 @@ function Navbar() {
                             className={({ isActive }) =>
                               `block rounded px-3 py-2 md:p-0 ${
                                 isActive
-                                  ? "text-violet-300 dark:text-violet-300"
+                                  ? "font-semibold text-violet-700 dark:text-violet-300"
                                   : "text-gray-900 dark:text-gray-200"
-                              } duration-700 hover:scale-125 hover:text-violet-300 dark:hover:text-violet-300`
+                              } duration-700 hover:scale-125 hover:text-violet-700 dark:hover:text-violet-300`
                             }
                             aria-current="page"
                           >
@@ -96,7 +96,7 @@ function Navbar() {
                             className={({ isActive }) =>
                               `block rounded px-3 py-2 md:p-0 ${
                                 isActive
-                                  ? "text-violet-300 dark:text-violet-300"
+                                  ? "font-semibold text-violet-700 dark:text-violet-300"
                                   : "text-gray-900 dark:text-gray-200"
                               } duration-700 hover:scale-125 hover:text-violet-300 dark:hover:text-violet-300`
                             }
