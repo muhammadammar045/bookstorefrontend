@@ -6,7 +6,7 @@ import {
   openModal,
   closeModal,
   selectModalContext,
-  selectAllPermissions,
+  selectUserPermissions,
 } from "@storeVars";
 import { faCamera, faEdit, faTrash } from "@fortawesome/free-solid-svg-icons";
 import React, { useEffect } from "react";
@@ -23,7 +23,7 @@ function Book() {
   const navigate = useNavigate();
   const book = useSelector(selectBook);
   const modalContext = useSelector(selectModalContext);
-  const permissions = useSelector(selectAllPermissions);
+  const permissions = useSelector(selectUserPermissions);
   const { bookId } = useParams();
 
   const onDeleteClick = () => {
