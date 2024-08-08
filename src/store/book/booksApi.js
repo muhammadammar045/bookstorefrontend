@@ -17,10 +17,10 @@ const apiAddBooks = async (bookData, accessToken) => {
     }
 }
 
-const apiFetchAllUsersBooks = async (page, accessToken) => {
+const apiFetchAllUsersBooks = async (page, query, limit, accessToken) => {
     try {
         const response = await axios
-            .get(`/books/get-all-books?page=${page}`,
+            .get(`/books/get-all-books?page=${page}&q=${query}&limit=${limit}`,
                 {
                     headers: {
                         'Authorization': `Bearer ${accessToken}`
@@ -32,10 +32,11 @@ const apiFetchAllUsersBooks = async (page, accessToken) => {
     }
 }
 
-const apiFetchBooks = async (page, accessToken) => {
+const apiFetchBooks = async (page, query, limit, accessToken) => {
     try {
+        console.log(page, query, accessToken)
         const response = await axios
-            .get(`/books/get-current-user-books?page=${page}`,
+            .get(`/books/get-current-user-books?page=${page}&q=${query}&limit=${limit}`,
                 {
                     headers: {
                         'Authorization': `Bearer ${accessToken}`

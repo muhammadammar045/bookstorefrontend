@@ -34,13 +34,18 @@ export const addBookThunk = createAsyncThunk(
 export const fetchAllUsersBooksThunk = createAsyncThunk(
     "book/fetchAllUsersBooks",
     async (
-        page = 1,
+        {
+            page = 1,
+            query = "",
+            limit = 10
+
+        },
         { getState, rejectWithValue }
     ) => {
         const state = getState();
         const accessToken = selectAccessToken(state);
         try {
-            const response = await apiFetchAllUsersBooks(page, accessToken);
+            const response = await apiFetchAllUsersBooks(page, query, limit, accessToken);
             return response;
         } catch (error) {
             return rejectWithValue(error.response.data);
@@ -51,13 +56,17 @@ export const fetchAllUsersBooksThunk = createAsyncThunk(
 export const fetchBooksThunk = createAsyncThunk(
     "book/fetchBooks",
     async (
-        page = 1,
+        {
+            page = 1,
+            query = "",
+            limit = 10
+        },
         { getState, rejectWithValue }
     ) => {
         const state = getState();
         const accessToken = selectAccessToken(state);
         try {
-            const response = await apiFetchBooks(page, accessToken);
+            const response = await apiFetchBooks(page, query, limit, accessToken);
             return response;
         } catch (error) {
             return rejectWithValue(error.response.data);
@@ -135,9 +144,10 @@ export const updateBookThumbnailThunk = createAsyncThunk(
     }
 );
 
+
 const initialState = {
     books: [],
-    book: {},
+    book: null,
     isLoading: false,
     error: null,
     status: "idle",
@@ -146,160 +156,121 @@ const initialState = {
 const booksSlice = createSlice({
     name: "book",
     initialState,
-    reducers: {},
+    reducers: {
+        resetSelectedBook: (state) => {
+            state.book = null;
+        },
+        setSearchQuery: (state, action) => {
+            state.searchQuery = action.payload;
+            console.log(action.payload);
+        },
+    },
     extraReducers: (builder) => {
+        const handlePending = (state) => {
+            state.isLoading = true;
+            state.error = null;
+            state.status = 'loading';
+        };
+
+        const handleRejected = (state, action) => {
+            state.isLoading = false;
+            state.error = action.payload;
+            state.status = 'failed';
+        };
+
         builder
-
-            //=======================================================ADD A BOOK==================================================
-
-            .addCase(addBookThunk.pending, (state) => {
-                state.isLoading = true;
-                state.error = null;
-                state.status = "loading";
-            })
+            // ADD BOOK
+            .addCase(addBookThunk.pending, handlePending)
+            .addCase(addBookThunk.rejected, handleRejected)
             .addCase(addBookThunk.fulfilled, (state, action) => {
                 state.isLoading = false;
-                // state.books.push(action.payload);
-                state.status = "succeeded";
-            })
-            .addCase(addBookThunk.rejected, (state, action) => {
-                state.isLoading = false;
-                state.error = action.payload;
-                state.status = "failed";
+                state.books.books.push(action.payload.data);
+                state.status = 'succeeded';
             })
 
-
-            //=======================================================FETCH ALL USERS BOOK===============================================
-
-            .addCase(fetchAllUsersBooksThunk.pending, (state) => {
-                state.isLoading = true;
-                state.error = null;
-                state.status = "loading";
-            })
+            // FETCH ALL USERS' BOOKS
+            .addCase(fetchAllUsersBooksThunk.pending, handlePending)
+            .addCase(fetchAllUsersBooksThunk.rejected, handleRejected)
             .addCase(fetchAllUsersBooksThunk.fulfilled, (state, action) => {
                 state.isLoading = false;
                 state.books = action.payload.data;
-                state.status = "succeeded";
+                state.status = 'succeeded';
             })
-            .addCase(fetchAllUsersBooksThunk.rejected, (state, action) => {
-                state.isLoading = false;
-                state.error = action.payload;
-                state.status = "failed";
-            })
-            //=======================================================FETCH ALL BOOK===============================================
 
-            .addCase(fetchBooksThunk.pending, (state) => {
-                state.isLoading = true;
-                state.error = null;
-                state.status = "loading";
-            })
+            // FETCH ALL BOOKS
+            .addCase(fetchBooksThunk.pending, handlePending)
+            .addCase(fetchBooksThunk.rejected, handleRejected)
             .addCase(fetchBooksThunk.fulfilled, (state, action) => {
                 state.isLoading = false;
                 state.books = action.payload.data;
-                state.status = "succeeded";
-            })
-            .addCase(fetchBooksThunk.rejected, (state, action) => {
-                state.isLoading = false;
-                state.error = action.payload;
-                state.status = "failed";
+                state.status = 'succeeded';
             })
 
-
-            //=======================================================FETCH SINGLE BOOK============================================
-
-
-            .addCase(fetchBookThunk.pending, (state) => {
-                state.isLoading = true;
-                state.error = null;
-                state.status = "loading";
-            })
+            // FETCH SINGLE BOOK
+            .addCase(fetchBookThunk.pending, handlePending)
+            .addCase(fetchBookThunk.rejected, handleRejected)
             .addCase(fetchBookThunk.fulfilled, (state, action) => {
                 state.isLoading = false;
                 state.book = action.payload.data;
-                state.status = "succeeded";
-            })
-            .addCase(fetchBookThunk.rejected, (state, action) => {
-                state.isLoading = false;
-                state.error = action.payload;
-                state.status = "failed";
+                state.status = 'succeeded';
             })
 
-
-            //=======================================================DELETE BOOK==================================================
-
-
-            .addCase(deleteBookThunk.pending, (state) => {
-                state.isLoading = true;
-                state.error = null;
-                state.status = "loading";
-            })
-            .addCase(deleteBookThunk.fulfilled, (state, action) => {
-                state.isLoading = false;
-                state.status = "succeeded";
-            })
-            .addCase(deleteBookThunk.rejected, (state, action) => {
-                state.isLoading = false;
-                state.error = action.payload;
-                state.status = "failed";
-            })
-
-
-            //=======================================================UPDATE BOOK==================================================
-
-
-            .addCase(updateBookThunk.pending, (state) => {
-                state.isLoading = true;
-                state.error = null;
-                state.status = "loading";
-            })
+            // UPDATE BOOK
+            .addCase(updateBookThunk.pending, handlePending)
+            .addCase(updateBookThunk.rejected, handleRejected)
             .addCase(updateBookThunk.fulfilled, (state, action) => {
                 state.isLoading = false;
-                state.book = action.payload.data;
-                state.status = "succeeded";
+                const index = state.books.books.findIndex(book => book._id === action.payload.data._id);
+                if (index !== -1) {
+                    state.books.books[index] = action.payload.data;
+                }
+                state.status = 'succeeded';
+                state.book = null;
             })
-            .addCase(updateBookThunk.rejected, (state, action) => {
-                state.isLoading = false;
-                state.error = action.payload;
-                state.status = "failed";
-            })
 
-
-            //=======================================================UPDATE THUMBNAIL============================================
-
-
-            .addCase(updateBookThumbnailThunk.pending, (state) => {
-                state.isLoading = true;
-                state.error = null;
-                state.status = "loading";
-            })
+            // UPDATE BOOK THUMBNAIL
+            .addCase(updateBookThumbnailThunk.pending, handlePending)
+            .addCase(updateBookThumbnailThunk.rejected, handleRejected)
             .addCase(updateBookThumbnailThunk.fulfilled, (state, action) => {
                 state.isLoading = false;
-                state.book = action.payload.data;
-                state.status = "succeeded";
+                const index = state.books.books.findIndex(book => book._id === action.payload.data._id);
+                if (index !== -1) {
+                    state.books.books[index] = action.payload.data;
+                }
+                state.status = 'succeeded';
+                state.book = null;
             })
-            .addCase(updateBookThumbnailThunk.rejected, (state, action) => {
+
+            // DELETE BOOK
+            .addCase(deleteBookThunk.pending, handlePending)
+            .addCase(deleteBookThunk.rejected, handleRejected)
+            .addCase(deleteBookThunk.fulfilled, (state, action) => {
                 state.isLoading = false;
-                state.error = action.payload;
-                state.status = "failed";
+                state.books.books = state.books.books.filter(book => book._id !== action.payload.data._id);
+                // console.log(state.books)
+                // console.log(action.payload.data);
+                state.status = 'succeeded';
             })
 
-            //=======================================================Logout============================================
-            .addCase(logoutUserThunk.fulfilled, (state) => {
+            // LOGOUT USER
+            .addCase(logoutUserThunk.fulfilled, () => {
                 return initialState;
-            })
-
+            });
     },
 });
 
 
+
+export const { resetSelectedBook, setSearchQuery } = booksSlice.actions;
 export default booksSlice.reducer;
 
-export const selectBooks = (state) => state.booksData?.books?.results;
+export const selectSearchQuery = (state) => state.booksData.searchQuery;
+export const selectBooks = (state) => state.booksData?.books?.books;
 export const selectBook = (state) => state.booksData?.book?.book;
 export const selectBookIsOwner = (state) => state.booksData?.book?.isOwner;
-export const selectTotalPages = (state) => state.booksData?.books?.meta?.totalPages;
-export const selectTotalDocuments = (state) => state.booksData?.books?.meta?.totalDocuments;
-export const selectCurrentPage = (state) => state.booksData?.books?.meta?.page;
+export const selectTotalPages = (state) => state.booksData?.books?.totalPages;
+export const selectTotalDocuments = (state) => state.booksData?.books?.totalBooks;
+export const selectCurrentPage = (state) => state.booksData?.books?.meta?.currentPage;
 export const selectLimit = (state) => state.booksData?.books?.meta?.limit;
 export const selectBookIsLoading = (state) => state.booksData?.isLoading;
 export const selectBookError = (state) => state.booksData?.error;

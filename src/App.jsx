@@ -9,7 +9,7 @@ import {
   Home,
   Login,
   Signup,
-} from "@userPages/Allpages";
+} from "@userPages";
 import {
   AllBooksAdmin,
   AllPermissionsAdmin,
@@ -20,14 +20,9 @@ import {
   AddOrUpdateRole,
   AddOrUpdateUser,
   Main,
-} from "@adminPages/AllAdminPages";
-import {
-  AdminLayout,
-  AdminProtected,
-  Protected,
-  Layout,
-} from "@layout/AllLayouts";
-import { Spinner } from "@userComponents/AllComponents";
+} from "@adminPages";
+import { AdminLayout, AdminProtected, Protected, Layout } from "@layout";
+import { Spinner } from "@loadingState";
 
 const App = () => {
   const location = useLocation();

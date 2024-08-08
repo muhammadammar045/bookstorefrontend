@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
-import { Button, Input, Spinner } from "@userComponents/AllComponents";
+import { Button, Input } from "@commonPartials";
+import { Spinner } from "@loadingState";
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
 import showToast from "@utils/toastAlert/toaster";

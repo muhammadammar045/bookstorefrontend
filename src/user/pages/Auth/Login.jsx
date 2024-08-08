@@ -1,6 +1,6 @@
 import React from "react";
-import { Login as LoginComp } from "@userComponents/AllComponents";
-import { Container } from "@userPages/Allpages";
+import { Login as LoginComp } from "@userComponents";
+import { Container } from "@layout";
 
 function Login() {
   return (

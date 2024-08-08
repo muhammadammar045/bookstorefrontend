@@ -1,5 +1,5 @@
 import React from "react";
-import ThemeToggle from "@adminComponents/Common/ThemeToggle";
+import { ThemeToggle } from "@commonPartials";
 
 function Header({ sidebarOpen, setSidebarOpen, variant = "default" }) {
   return (

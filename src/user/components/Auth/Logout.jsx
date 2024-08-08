@@ -3,7 +3,9 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { logoutUserThunk, selectUserIsLoading } from "@storeVars";
 import showToast from "@utils/toastAlert/toaster";
-import { LogoutSpinner } from "@userComponents/AllComponents";
+import { LogoutSpinner } from "@loadingState";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faSignOut } from "@fortawesome/free-solid-svg-icons";
 
 function Logout() {
   const dispatch = useDispatch();
@@ -22,19 +24,13 @@ function Logout() {
 
   return (
     <>
-      <li className="cursor-pointer">
-        <button
+      <div className="flex items-center justify-center px-2">
+        <FontAwesomeIcon
           onClick={handleLogout}
-          className={`block rounded px-3 py-2 transition duration-300 md:p-0 ${
-            loading
-              ? "text-violet-300 dark:text-violet-300"
-              : "text-gray-900 dark:text-gray-200"
-          }`}
-          aria-current="page"
-        >
-          Logout
-        </button>
-      </li>
+          className="cursor-pointer text-gray-900 duration-700 hover:scale-125 hover:text-violet-700 dark:text-gray-200 dark:hover:text-violet-300"
+          icon={faSignOut}
+        />
+      </div>
       {loading && <LogoutSpinner />}
     </>
   );

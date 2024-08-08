@@ -1,29 +1,49 @@
-import React from "react";
+import {
+  fetchBookThunk,
+  updateBookThunk,
+  selectBook,
+  selectBookIsLoading,
+} from "@storeVars";
+import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { addBookThunk, selectBookIsLoading } from "@storeVars";
 import { Input, Button } from "@commonPartials";
-import showToast from "@utils/toastAlert/toaster";
 import { BookSpinner } from "@loadingState";
+import showToast from "@utils/toastAlert/toaster";
 
-function AddBook() {
+function AddOrUpdateBook() {
   const {
     register,
     handleSubmit,
-    reset,
+    setValue,
     formState: { errors },
   } = useForm();
   const navigate = useNavigate();
-  const dispatch = useDispatch();
+  const book = useSelector(selectBook);
   const loading = useSelector(selectBookIsLoading);
+  const dispatch = useDispatch();
 
-  const addBook = async (bookData) => {
+  useEffect(() => {
+    if (book) {
+      setValue("title", book.title);
+      setValue("category", book.category);
+      setValue("price", book.price);
+      setValue("description", book.description);
+    }
+  }, [book, setValue]);
+
+  const editForm = async (bookData) => {
     try {
-      const res = await dispatch(addBookThunk(bookData)).unwrap();
+      const res = await dispatch(
+        updateBookThunk({
+          bookId: book._id,
+          bookData,
+        })
+      ).unwrap();
+
       showToast("success", `${res.message}`);
-      navigate("/books");
-      reset();
+      navigate(`/admin/books/all-books`);
     } catch (error) {
       showToast("error", `${error.message}`);
     }
@@ -33,12 +53,12 @@ function AddBook() {
     <>
       {loading ? (
         <BookSpinner />
-      ) : (
+      ) : book ? (
         <div className="mx-auto my-10 max-w-3xl rounded-lg border-2 border-gray-900 bg-gray-200 p-10 dark:border-gray-500 dark:bg-gray-900">
           <h1 className="mb-4 text-center text-3xl text-gray-900 dark:text-gray-200">
-            Add Book
+            Edit Book Details
           </h1>
-          <form onSubmit={handleSubmit(addBook)}>
+          <form onSubmit={handleSubmit(editForm)}>
             <div className="flex w-full">
               <div className="mx-1 mb-4 w-4/12">
                 <Input
@@ -58,7 +78,7 @@ function AddBook() {
                   })}
                 />
                 {errors.title && (
-                  <span className="text-red-500 dark:text-red-300">
+                  <span className="text-red-500 dark:text-red-400">
                     {errors.title.message}
                   </span>
                 )}
@@ -80,7 +100,7 @@ function AddBook() {
                   })}
                 />
                 {errors.category && (
-                  <span className="text-red-500 dark:text-red-300">
+                  <span className="text-red-500 dark:text-red-400">
                     {errors.category.message}
                   </span>
                 )}
@@ -100,13 +120,13 @@ function AddBook() {
                   })}
                 />
                 {errors.price && (
-                  <span className="text-red-500 dark:text-red-300">
+                  <span className="text-red-500 dark:text-red-400">
                     {errors.price.message}
                   </span>
                 )}
               </div>
             </div>
-            <div className="mb-2">
+            <div className="mb-4">
               <Input
                 type="textarea"
                 className="min-h-32"
@@ -117,34 +137,23 @@ function AddBook() {
                 })}
               />
               {errors.description && (
-                <span className="text-red-500 dark:text-red-300">
+                <span className="text-red-500 dark:text-red-400">
                   {errors.description.message}
                 </span>
               )}
             </div>
-            <div className="mb-5">
-              <Input
-                type="file"
-                label="Book Thumbnail"
-                placeholder="Select Book Thumbnail"
-                {...register("thumbnail", {
-                  required: "Thumbnail is required",
-                })}
-              />
-              {errors.thumbnail && (
-                <span className="text-red-500 dark:text-red-300">
-                  {errors.thumbnail.message}
-                </span>
-              )}
-            </div>
             <div className="mb-2">
-              <Button>Add Book</Button>
+              <Button type="submit">Submit</Button>
             </div>
           </form>
         </div>
+      ) : (
+        <h1 className="text-center text-3xl text-gray-400 dark:text-gray-300">
+          No Book Found For Editing
+        </h1>
       )}
     </>
   );
 }
 
-export default AddBook;
+export default AddOrUpdateBook;

@@ -1,5 +1,5 @@
 import React from "react";
-import { AllBooksAdmin as AllBooksAdminComp } from "@adminComponents/AllAdminComponents";
+import { AllBooksAdmin as AllBooksAdminComp } from "@adminComponents";
 
 function AllBooksAdmin() {
   return (

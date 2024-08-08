@@ -1,10 +1,10 @@
 import React, { useEffect, useMemo } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import ReactTable from "@adminComponents/Common/ReactTable/ReactTable";
 import { faEdit, faTrash } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import showToast from "@utils/toastAlert/toaster";
-import { SkeletonTable } from "@adminComponents/AllAdminComponents";
+import { ReactTable } from "@commonPartials";
+import { SkeletonTable } from "@loadingState";
 import { useNavigate } from "react-router-dom";
 import {
   deletePermissionThunk,

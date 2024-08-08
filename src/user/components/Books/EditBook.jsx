@@ -8,7 +8,8 @@ import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { Input, Button, BookSpinner } from "@userComponents/AllComponents";
+import { Input, Button } from "@commonPartials";
+import { BookSpinner } from "@loadingState";
 import showToast from "@utils/toastAlert/toaster";
 
 function EditBook() {

@@ -1,6 +1,6 @@
 import React from "react";
-import { Signup as SignupComp } from "@userComponents/AllComponents";
-import { Container } from "@userPages/Allpages";
+import { Signup as SignupComp } from "@userComponents";
+import { Container } from "@layout";
 
 function Signup() {
   return (

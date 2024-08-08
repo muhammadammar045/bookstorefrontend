@@ -1,7 +1,7 @@
 import React, { useEffect, useMemo } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import ReactTable from "@adminComponents/Common/ReactTable/ReactTable";
-import { SkeletonTable } from "@adminComponents/AllAdminComponents";
+import { ReactTable } from "@commonPartials";
+import { SkeletonTable } from "@loadingState";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEdit, faTrash } from "@fortawesome/free-solid-svg-icons";
 import showToast from "@utils/toastAlert/toaster";
