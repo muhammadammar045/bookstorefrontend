@@ -195,7 +195,7 @@ const userAuthSlice = createSlice({
                 const index = state.users.findIndex(user => user._id === action.payload.data._id);
                 if (index !== -1) {
                     state.users[index] = action.payload.data;
-                    console.log(action.payload.data)
+                    // console.log(action.payload.data)
                 }
                 state.status = 'succeeded';
                 state.fetchedUser = null

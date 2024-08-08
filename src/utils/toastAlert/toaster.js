@@ -4,16 +4,16 @@ import { toast } from 'react-toastify';
 const showToast = (type, message) => {
     switch (type) {
         case 'success':
-            toast.success(message);
+            toast.success(message, { position: "top-right" });
             break;
         case 'error':
-            toast.error(message);
+            toast.error(message, { position: "top-right" });
             break;
         case 'info':
-            toast.info(message);
+            toast.info(message, { position: "top-right" });
             break;
         default:
-            toast(message);
+            toast(message, { position: "top-right" });
     }
 };
 

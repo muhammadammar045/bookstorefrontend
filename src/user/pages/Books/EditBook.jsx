@@ -1,6 +1,6 @@
 import React from "react";
-import { EditBook as EditBookComp } from "@userComponents/AllComponents";
-import { Container } from "@userPages/Allpages";
+import { EditBook as EditBookComp } from "@userComponents";
+import { Container } from "@layout";
 
 function EditBook() {
   return (

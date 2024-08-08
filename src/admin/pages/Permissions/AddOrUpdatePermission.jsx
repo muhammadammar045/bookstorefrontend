@@ -1,5 +1,5 @@
 import React from "react";
-import { AddPermission } from "@adminComponents/AllAdminComponents";
+import { AddPermission } from "@adminComponents";
 
 function AddOrUpdatePermission() {
   return (

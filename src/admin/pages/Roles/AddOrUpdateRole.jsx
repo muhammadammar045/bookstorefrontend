@@ -1,8 +1,5 @@
 import React from "react";
-import {
-  AddRole,
-  AssignPermissionToRole,
-} from "@adminComponents/AllAdminComponents";
+import { AddRole, AssignPermissionToRole } from "@adminComponents";
 
 function AddOrUpdateRole() {
   return (

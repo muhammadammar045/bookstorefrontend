@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import TotalCalculation from "./TotalCalculation";
 import { useDispatch, useSelector } from "react-redux";
-import { Spinner } from "@userComponents/AllComponents";
+import { Spinner } from "@loadingState";
 
 import {
   fetchAllUserThunk,
@@ -13,6 +13,8 @@ import {
   fetchAllPermissionsThunk,
   selectAllPermissions,
   selectPermissionIsLoading,
+  fetchAllUsersBooksThunk,
+  selectTotalDocuments,
 } from "@storeVars";
 
 function main() {
@@ -20,6 +22,7 @@ function main() {
   const users = useSelector(selectUsers);
   const roles = useSelector(selectAllRoles);
   const permissions = useSelector(selectAllPermissions);
+  const books = useSelector(selectTotalDocuments);
   const loadingU = useSelector(selectUserIsLoading);
   const loadingR = useSelector(selectRoleIsLoading);
   const loadingP = useSelector(selectPermissionIsLoading);
@@ -29,7 +32,7 @@ function main() {
     if (users.length === 0) dispatch(fetchAllUserThunk());
     if (roles.length === 0) dispatch(fetchAllRolesThunk());
     if (permissions.length === 0) dispatch(fetchAllPermissionsThunk());
-    // dispatch(fetchAllBooksThunk());
+    dispatch(fetchAllUsersBooksThunk());
   }, [dispatch]);
   return (
     <>
@@ -61,6 +64,10 @@ function main() {
               <TotalCalculation
                 name={"Total Permissions"}
                 value={permissions.length}
+              />
+              <TotalCalculation
+                name={"Total Books"}
+                value={books}
               />
             </div>
           )}

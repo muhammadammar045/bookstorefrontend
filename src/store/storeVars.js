@@ -1,3 +1,7 @@
+// STORE
+import store from "./store"
+
+// USER
 import {
     registerUserThunk,
     fetchUserThunk,
@@ -16,8 +20,9 @@ import {
     selectAccessToken,
     selectRefreshToken,
     selectUserId
-} from "@store/user/userAuthSlice";
+} from "./user/userAuthSlice";
 
+// ROLE
 import {
     addRoleThunk,
     fetchRoleThunk,
@@ -31,8 +36,10 @@ import {
     selectRoleError,
     selectRoleStatus,
     selectRoleIsLoading,
-} from "@store/role/roleSlice"
+} from "./role/roleSlice"
 
+
+// PERMISSION
 import {
     addPermissionThunk,
     fetchPermissionThunk,
@@ -46,9 +53,10 @@ import {
     selectPermissionError,
     selectPermissionStatus,
     selectPermissionIsLoading,
-} from "@store/permission/permissionSlice"
+} from "./permission/permissionSlice"
 
 
+// BOOK
 import {
     addBookThunk,
     fetchBooksThunk,
@@ -57,6 +65,9 @@ import {
     updateBookThunk,
     updateBookThumbnailThunk,
     deleteBookThunk,
+    resetSelectedBook,
+    setSearchQuery,
+    selectSearchQuery,
     selectBook,
     selectBooks,
     selectBookIsLoading,
@@ -66,16 +77,21 @@ import {
     selectLimit,
     selectTotalPages,
     selectTotalDocuments
-} from "@store/book/bookSlice"
+} from "./book/bookSlice"
 
+
+// MODEL
 import {
     selectShowModal,
     selectModalContext,
     openModal,
     closeModal,
-} from "@store/modal/modalSlice"
+} from "./modal/modalSlice"
 
 export {
+    //STORE
+    store,
+
     // USER SLICE
     registerUserThunk,
     fetchUserThunk,
@@ -131,6 +147,9 @@ export {
     updateBookThunk,
     updateBookThumbnailThunk,
     deleteBookThunk,
+    resetSelectedBook,
+    setSearchQuery,
+    selectSearchQuery,
     selectBook,
     selectBooks,
     selectBookIsLoading,

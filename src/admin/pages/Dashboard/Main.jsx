@@ -1,5 +1,5 @@
 import React from "react";
-import MainComp from "@adminComponents/Dashboard/Main";
+import { Main as MainComp } from "@adminComponents";
 
 function Main() {
   return (

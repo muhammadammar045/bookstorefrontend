@@ -3,7 +3,8 @@ import React from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { Input, Button, Spinner } from "@userComponents/AllComponents";
+import { Input, Button } from "@commonPartials";
+import { Spinner } from "@loadingState";
 import showToast from "@utils/toastAlert/toaster";
 
 function Login() {

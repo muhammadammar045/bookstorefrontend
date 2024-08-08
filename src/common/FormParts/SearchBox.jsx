@@ -1,5 +1,5 @@
 import React from "react";
-import { Input } from "@userComponents/AllComponents";
+import { Input } from "@commonPartials";
 
 function SearchBox({ filter, setFilter }) {
   return (

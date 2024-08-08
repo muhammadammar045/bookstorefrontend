@@ -1,6 +1,6 @@
 import React from "react";
-import { AddBook as AddBookComp } from "@userComponents/AllComponents";
-import { Container } from "@userPages/Allpages";
+import { AddBook as AddBookComp } from "@userComponents";
+import { Container } from "@layout";
 
 function AddBook() {
   return (

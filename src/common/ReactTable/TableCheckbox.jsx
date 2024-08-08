@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, forwardRef } from "react";
 
-const Checkbox = forwardRef(({ indeterminate, ...rest }, ref) => {
+const TableCheckbox = forwardRef(({ indeterminate, ...rest }, ref) => {
   const defaultRef = useRef();
   const resolvedRef = ref || defaultRef;
 
@@ -18,4 +18,4 @@ const Checkbox = forwardRef(({ indeterminate, ...rest }, ref) => {
   );
 });
 
-export default Checkbox;
+export default TableCheckbox;

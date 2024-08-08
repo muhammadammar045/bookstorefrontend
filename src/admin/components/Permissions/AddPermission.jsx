@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Button, Input, Spinner } from "@userComponents/AllComponents";
+import { Button, Input } from "@commonPartials";
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
 import showToast from "@utils/toastAlert/toaster";
@@ -11,6 +11,7 @@ import {
   selectPermissionIsLoading,
   resetSelectedPermission,
 } from "@storeVars";
+import { Spinner } from "@loadingState";
 
 function AddPermission() {
   const dispatch = useDispatch();

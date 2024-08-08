@@ -5,8 +5,8 @@ import logo from "@assets/images/ARlogo.png";
 import { NavLink } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { selectUser, selectUserRole } from "@storeVars";
-import { Logout } from "@userComponents/AllComponents";
-import ThemeToggle from "@adminComponents/Common/ThemeToggle";
+import { Logout } from "@userComponents";
+import { ThemeToggle } from "@commonPartials";
 
 function Navbar() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -19,10 +19,10 @@ function Navbar() {
   ];
 
   const authenticatedLinks = [
-    ...(role === "admin" ? [["Dashboard", "/admin/dashboard"]] : []),
     ["Home", "/"],
     ["My Books", "/books"],
     ["Add Book", "/add-book"],
+    ...(role === "admin" ? [["Dashboard", "/admin/dashboard/main"]] : []),
   ];
 
   const toggleMobileMenu = () => {
@@ -47,8 +47,9 @@ function Navbar() {
                 . AmmaRi
               </span>
             </NavLink>
-            <div className="flex space-x-3 md:order-2 md:space-x-0 rtl:space-x-reverse">
+            <div className="flex items-center space-x-3 md:order-2 md:space-x-0 rtl:space-x-reverse">
               <ThemeToggle />
+              {user && <Logout />}
               <button
                 onClick={toggleMobileMenu}
                 type="button"
@@ -106,7 +107,6 @@ function Navbar() {
                           </NavLink>
                         </li>
                       ))}
-                  {user && <Logout />}
                 </ul>
               </div>
             </div>

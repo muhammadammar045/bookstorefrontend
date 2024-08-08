@@ -15,7 +15,7 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import showToast from "@utils/toastAlert/toaster";
 import Modal from "@utils/modal/Modal";
-import { BookSpinner } from "@userComponents/AllComponents";
+import { BookSpinner } from "@loadingState";
 
 function Book() {
   const loading = useSelector(selectBookIsLoading);

@@ -7,17 +7,18 @@ export default defineConfig({
   plugins: [react()],
   resolve: {
     alias: {
-      "@adminComponents": path.resolve(__dirname, "src/admin/components"),
-      "@adminPages": path.resolve(__dirname, "src/admin/pages"),
+      "@adminPages": path.resolve(__dirname, "src/admin/pages/AllAdminPages.js"),
+      "@adminComponents": path.resolve(__dirname, "src/admin/components/AllAdminComponents.js"),
       "@adminPartials": path.resolve(__dirname, "src/admin/partials"),
-      "@adminUtils": path.resolve(__dirname, "src/admin/utils"),
 
-      "@userPages": path.resolve(__dirname, "src/user/pages"),
-      "@userComponents": path.resolve(__dirname, "src/user/components"),
+      "@userPages": path.resolve(__dirname, "src/user/pages/Allpages.js"),
+      "@userComponents": path.resolve(__dirname, "src/user/components/AllComponents.js"),
 
-      "@store": path.resolve(__dirname, "src/store"),
+      "@commonPartials": path.resolve(__dirname, "src/common/Common.js"),
       "@storeVars": path.resolve(__dirname, "src/store/storeVars.js"),
-      "@layout": path.resolve(__dirname, "src/layout"),
+      "@loadingState": path.resolve(__dirname, "src/common/Loading/AllLoadingStateComponents.js"),
+
+      "@layout": path.resolve(__dirname, "src/layout/AllLayouts.js"),
       "@utils": path.resolve(__dirname, "src/utils"),
       "@assets": path.resolve(__dirname, "src/assets"),
     },

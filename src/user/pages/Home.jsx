@@ -1,6 +1,6 @@
 import React from "react";
-import { Home as HomeComp } from "@userComponents/AllComponents";
-import { Container } from "./Allpages";
+import { Home as HomeComp } from "@userComponents";
+import { Container } from "@layout";
 
 function Home() {
   return (

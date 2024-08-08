@@ -1,13 +1,13 @@
-import AllBooksAdmin from "@adminPages/Books/AllBooksAdmin";
-import AddOrUpdateBook from "@adminPages/Books/AddOrUpdateBook";
-import AllUsersAdmin from "@adminPages/Users/AllUsersAdmin";
-import AddOrUpdateUser from "@adminPages/Users/AddOrUpdateUser";
-import AllPermissionsAdmin from "@adminPages/Permissions/AllPermissionsAdmin";
-import AddOrUpdatePermission from "@adminPages/Permissions/AddOrUpdatePermission";
-import AllRolesAdmin from "@adminPages/Roles/AllRolesAdmin";
-import AddOrUpdateRole from "@adminPages/Roles/AddOrUpdateRole";
-import Dashboard from "@adminPages/Dashboard/Dashboard";
-import Main from "@adminPages/Dashboard/Main";
+import AllBooksAdmin from "./Books/AllBooksAdmin";
+import AddOrUpdateBook from "./Books/AddOrUpdateBook";
+import AllUsersAdmin from "./Users/AllUsersAdmin";
+import AddOrUpdateUser from "./Users/AddOrUpdateUser";
+import AllPermissionsAdmin from "./Permissions/AllPermissionsAdmin";
+import AddOrUpdatePermission from "./Permissions/AddOrUpdatePermission";
+import AllRolesAdmin from "./Roles/AllRolesAdmin";
+import AddOrUpdateRole from "./Roles/AddOrUpdateRole";
+import Dashboard from "./Dashboard/Dashboard";
+import Main from "./Dashboard/Main";
 
 export {
     AllBooksAdmin,

@@ -1,10 +1,10 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { Button } from "@userComponents/AllComponents";
+import { Button } from "@commonPartials";
 
 function BookCard({ book }) {
   return (
-    <div className="group max-w-sm rounded-lg border-2 border-gray-300 bg-gray-200 hover:border-gray-900 dark:border-gray-700 dark:bg-gray-900">
+    <div className="group min-w-[384px] max-w-sm rounded-lg border-2 border-gray-300 bg-gray-200 hover:border-gray-900 dark:border-gray-700 dark:bg-gray-900">
       <Link to={`/book/${book?._id}`}>
         <div className="relative p-2">
           <div className="overflow-hidden border-2 border-gray-200 dark:border-gray-700">

@@ -1,7 +1,14 @@
 import React from "react";
+import { AddOrUpdateBook as AddOrUpdateBookComp } from "@adminComponents";
 
 function AddOrUpdateBook() {
-  return <div>AddOrUpdateBook</div>;
+  return (
+    <>
+      <div>
+        <AddOrUpdateBookComp />
+      </div>
+    </>
+  );
 }
 
 export default AddOrUpdateBook;

@@ -2,7 +2,7 @@ import React from "react";
 import { selectUser } from "@storeVars";
 import { useSelector } from "react-redux";
 import Typewriter from "typewriter-effect";
-import { AllBooks } from "./AllComponents";
+import { AllBooks } from "@userComponents";
 
 function Home() {
   const user = useSelector(selectUser);
