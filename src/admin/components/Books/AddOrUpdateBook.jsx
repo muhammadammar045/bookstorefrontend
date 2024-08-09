@@ -1,8 +1,10 @@
 import {
-  fetchBookThunk,
   updateBookThunk,
   selectBook,
   selectBookIsLoading,
+  updateBookThumbnailThunk,
+  addBookThunk,
+  resetSelectedBook,
 } from "@storeVars";
 import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
@@ -33,16 +35,45 @@ function AddOrUpdateBook() {
     }
   }, [book, setValue]);
 
-  const editForm = async (bookData) => {
+  const onSubmit = async (bookData) => {
+    console.log(bookData);
     try {
-      const res = await dispatch(
-        updateBookThunk({
-          bookId: book._id,
-          bookData,
-        })
-      ).unwrap();
+      if (book) {
+        if (bookData.thumbnail.length > 0) {
+          console.log("Thumbnail");
+          const thumbnailRes = await dispatch(
+            updateBookThumbnailThunk({
+              bookId: book._id,
+              bookData,
+            })
+          ).unwrap();
+          console.log(thumbnailRes);
+          showToast("success", `${thumbnailRes.message}`);
+        }
 
-      showToast("success", `${res.message}`);
+        const contentUpdated = [
+          "title",
+          "category",
+          "price",
+          "description",
+        ].some((key) => bookData[key] && bookData[key] !== book[key]);
+
+        if (contentUpdated) {
+          console.log("Content");
+          const contentRes = await dispatch(
+            updateBookThunk({
+              bookId: book._id,
+              bookData,
+            })
+          ).unwrap();
+          showToast("success", `${contentRes.message}`);
+          navigate(`/admin/books/all-books`);
+        }
+      } else {
+        const res = await dispatch(addBookThunk(bookData)).unwrap();
+        showToast("success", `${res.message}`);
+        dispatch(resetSelectedBook());
+      }
       navigate(`/admin/books/all-books`);
     } catch (error) {
       showToast("error", `${error.message}`);
@@ -53,12 +84,12 @@ function AddOrUpdateBook() {
     <>
       {loading ? (
         <BookSpinner />
-      ) : book ? (
+      ) : (
         <div className="mx-auto my-10 max-w-3xl rounded-lg border-2 border-gray-900 bg-gray-200 p-10 dark:border-gray-500 dark:bg-gray-900">
           <h1 className="mb-4 text-center text-3xl text-gray-900 dark:text-gray-200">
-            Edit Book Details
+            {book ? "Edit Book Details" : "Add New Book"}
           </h1>
-          <form onSubmit={handleSubmit(editForm)}>
+          <form onSubmit={handleSubmit(onSubmit)}>
             <div className="flex w-full">
               <div className="mx-1 mb-4 w-4/12">
                 <Input
@@ -142,15 +173,25 @@ function AddOrUpdateBook() {
                 </span>
               )}
             </div>
+            <div className="mb-4">
+              <Input
+                type="file"
+                label="Book Thumbnail"
+                placeholder="Select Book Thumbnail"
+                {...register("thumbnail")}
+                className="text-gray-900 dark:text-gray-200"
+              />
+              {errors.thumbnail && (
+                <span className="text-red-500 dark:text-red-400">
+                  {errors.thumbnail.message}
+                </span>
+              )}
+            </div>
             <div className="mb-2">
-              <Button type="submit">Submit</Button>
+              <Button type="submit">{book ? "Update Book" : "Add Book"}</Button>
             </div>
           </form>
         </div>
-      ) : (
-        <h1 className="text-center text-3xl text-gray-400 dark:text-gray-300">
-          No Book Found For Editing
-        </h1>
       )}
     </>
   );

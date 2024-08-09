@@ -72,16 +72,7 @@ function EditBookThumbnail() {
                     )}
                   </div>
                   <div className="mb-2">
-                    <Button
-                      type="submit"
-                      bgColor="outline-none hover:bg-blue-600 dark:hover:bg-blue-700"
-                      padding="px-5 py-2"
-                      rounded="rounded-lg"
-                      textColor="text-blue-500 hover:text-white dark:text-blue-400 dark:hover:text-white"
-                      className="shadow-lg outline outline-blue-600 hover:shadow-blue-500 dark:outline-blue-400 dark:hover:shadow-blue-300"
-                    >
-                      Submit
-                    </Button>
+                    <Button type="submit">Submit</Button>
                   </div>
                 </div>
               </form>

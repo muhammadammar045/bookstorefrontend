@@ -34,7 +34,6 @@ const apiFetchAllUsersBooks = async (page, query, limit, accessToken) => {
 
 const apiFetchBooks = async (page, query, limit, accessToken) => {
     try {
-        console.log(page, query, accessToken)
         const response = await axios
             .get(`/books/get-current-user-books?page=${page}&q=${query}&limit=${limit}`,
                 {

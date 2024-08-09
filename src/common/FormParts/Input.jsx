@@ -4,7 +4,7 @@ function Input(
   {
     type = "text",
     labelColor = "text-gray-900 dark:text-gray-200",
-    bgColor = "bg-gray-100 dark:bg-gray-800",
+    bgColor = "bg-gray-100 dark:bg-neutral-900",
     textColor = "text-gray-900 dark:text-gray-100",
     padding = "px-3 py-2",
     width = "w-full",
@@ -14,7 +14,7 @@ function Input(
     className = "ease-in duration-700",
     label = "",
     placeholder = "",
-    border = "",
+    border = "border-gray-200 dark:border-neutral-700",
     ...props
   },
   ref
