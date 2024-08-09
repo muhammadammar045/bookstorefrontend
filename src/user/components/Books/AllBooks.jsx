@@ -55,7 +55,7 @@ function AllBooks() {
             }}
           />
         </h1>
-        <div className="flex justify-between">
+        <div className="flex justify-between rounded-md bg-gray-300 p-4 dark:bg-gray-900">
           <div className="w-3/12">
             <SearchBox onSearch={handleSearch} />
           </div>

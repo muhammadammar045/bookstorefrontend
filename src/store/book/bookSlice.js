@@ -162,7 +162,7 @@ const booksSlice = createSlice({
         },
         setSearchQuery: (state, action) => {
             state.searchQuery = action.payload;
-            console.log(action.payload);
+            // console.log(action.payload);
         },
     },
     extraReducers: (builder) => {
