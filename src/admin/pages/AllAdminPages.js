@@ -1,5 +1,7 @@
-import AllBooksAdmin from "./Books/AllBooksAdmin";
-import AddOrUpdateBook from "./Books/AddOrUpdateBook";
+// import AllBooksAdmin from "./Books/AllBooksAdmin";
+// import AddOrUpdateBook from "./Books/AddOrUpdateBook";
+import AllProductsAdmin from "./Products/AllProductsAdmin";
+import AddOrUpdateProduct from "./Products/AddOrUpdateProduct";
 import AllUsersAdmin from "./Users/AllUsersAdmin";
 import AddOrUpdateUser from "./Users/AddOrUpdateUser";
 import AllPermissionsAdmin from "./Permissions/AllPermissionsAdmin";
@@ -10,8 +12,10 @@ import Dashboard from "./Dashboard/Dashboard";
 import Main from "./Dashboard/Main";
 
 export {
-    AllBooksAdmin,
-    AddOrUpdateBook,
+    // AllBooksAdmin,
+    // AddOrUpdateBook,
+    AllProductsAdmin,
+    AddOrUpdateProduct,
     AllUsersAdmin,
     AddOrUpdateUser,
     AllPermissionsAdmin,

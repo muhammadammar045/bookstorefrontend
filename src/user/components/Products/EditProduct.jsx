@@ -1,20 +1,18 @@
 import {
-  updateBookThunk,
-  selectBook,
-  selectBookIsLoading,
-  updateBookThumbnailThunk,
-  addBookThunk,
-  resetSelectedBook,
+  fetchProductThunk,
+  updateProductThunk,
+  selectProduct,
+  selectProductIsLoading,
 } from "@storeVars";
 import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { Input, Button } from "@commonPartials";
-import { BookSpinner } from "@loadingState";
+import { ProductSpinner } from "@loadingState";
 import showToast from "@utils/toastAlert/toaster";
 
-function AddOrUpdateBook() {
+function EditProduct() {
   const {
     register,
     handleSubmit,
@@ -22,59 +20,34 @@ function AddOrUpdateBook() {
     formState: { errors },
   } = useForm();
   const navigate = useNavigate();
-  const book = useSelector(selectBook);
-  const loading = useSelector(selectBookIsLoading);
+  const { productId } = useParams();
+  const product = useSelector(selectProduct);
+  const loading = useSelector(selectProductIsLoading);
   const dispatch = useDispatch();
 
   useEffect(() => {
-    if (book) {
-      setValue("title", book.title);
-      setValue("category", book.category);
-      setValue("price", book.price);
-      setValue("description", book.description);
+    if (productId) {
+      dispatch(fetchProductThunk(productId));
     }
-  }, [book, setValue]);
+  }, [dispatch, productId]);
 
-  const onSubmit = async (bookData) => {
-    console.log(bookData);
+  useEffect(() => {
+    if (product) {
+      setValue("title", product.title);
+      setValue("category", product.category);
+      setValue("price", product.price);
+      setValue("description", product.description);
+    }
+  }, [product, setValue]);
+
+  const editForm = async (productData) => {
     try {
-      if (book) {
-        if (bookData.thumbnail.length > 0) {
-          console.log("Thumbnail");
-          const thumbnailRes = await dispatch(
-            updateBookThumbnailThunk({
-              bookId: book._id,
-              bookData,
-            })
-          ).unwrap();
-          console.log(thumbnailRes);
-          showToast("success", `${thumbnailRes.message}`);
-        }
+      const res = await dispatch(
+        updateProductThunk({ productId, productData })
+      ).unwrap();
 
-        const contentUpdated = [
-          "title",
-          "category",
-          "price",
-          "description",
-        ].some((key) => bookData[key] && bookData[key] !== book[key]);
-
-        if (contentUpdated) {
-          console.log("Content");
-          const contentRes = await dispatch(
-            updateBookThunk({
-              bookId: book._id,
-              bookData,
-            })
-          ).unwrap();
-          showToast("success", `${contentRes.message}`);
-          navigate(`/admin/books/all-books`);
-        }
-      } else {
-        const res = await dispatch(addBookThunk(bookData)).unwrap();
-        showToast("success", `${res.message}`);
-        dispatch(resetSelectedBook());
-      }
-      navigate(`/admin/books/all-books`);
+      showToast("success", `${res.message}`);
+      navigate(`/product/${productId}`);
     } catch (error) {
       showToast("error", `${error.message}`);
     }
@@ -83,19 +56,19 @@ function AddOrUpdateBook() {
   return (
     <>
       {loading ? (
-        <BookSpinner />
-      ) : (
+        <ProductSpinner />
+      ) : product ? (
         <div className="mx-auto my-10 max-w-3xl rounded-lg border-2 border-gray-900 bg-gray-200 p-10 dark:border-gray-500 dark:bg-gray-900">
           <h1 className="mb-4 text-center text-3xl text-gray-900 dark:text-gray-200">
-            {book ? "Edit Book Details" : "Add New Book"}
+            Edit Product Details
           </h1>
-          <form onSubmit={handleSubmit(onSubmit)}>
+          <form onSubmit={handleSubmit(editForm)}>
             <div className="flex w-full">
               <div className="mx-1 mb-4 w-4/12">
                 <Input
                   type="text"
                   label="Title"
-                  placeholder="Enter Book Title"
+                  placeholder="Enter Product Title"
                   {...register("title", {
                     required: "Title is required",
                     minLength: {
@@ -118,7 +91,7 @@ function AddOrUpdateBook() {
                 <Input
                   type="text"
                   label="Category"
-                  placeholder="Enter Book Category"
+                  placeholder="Enter Product Category"
                   {...register("category", {
                     minLength: {
                       value: 4,
@@ -140,7 +113,7 @@ function AddOrUpdateBook() {
                 <Input
                   type="text"
                   label="Price"
-                  placeholder="Enter Book Price"
+                  placeholder="Enter Product Price"
                   {...register("price", {
                     required: "Price is required",
                     min: { value: 1, message: "Price should be at least 1" },
@@ -162,7 +135,7 @@ function AddOrUpdateBook() {
                 type="textarea"
                 className="min-h-32"
                 label="Description"
-                placeholder="Enter Book Description"
+                placeholder="Enter Product Description"
                 {...register("description", {
                   required: "Description is required",
                 })}
@@ -173,28 +146,18 @@ function AddOrUpdateBook() {
                 </span>
               )}
             </div>
-            <div className="mb-4">
-              <Input
-                type="file"
-                label="Book Thumbnail"
-                placeholder="Select Book Thumbnail"
-                {...register("thumbnail")}
-                className="text-gray-900 dark:text-gray-200"
-              />
-              {errors.thumbnail && (
-                <span className="text-red-500 dark:text-red-400">
-                  {errors.thumbnail.message}
-                </span>
-              )}
-            </div>
             <div className="mb-2">
-              <Button type="submit">{book ? "Update Book" : "Add Book"}</Button>
+              <Button type="submit">Submit</Button>
             </div>
           </form>
         </div>
+      ) : (
+        <h1 className="text-center text-3xl text-gray-400 dark:text-gray-300">
+          No Product Found For Editing
+        </h1>
       )}
     </>
   );
 }
 
-export default AddOrUpdateBook;
+export default EditProduct;

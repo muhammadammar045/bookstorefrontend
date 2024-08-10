@@ -1,8 +1,8 @@
 import {
-  deleteBookThunk,
-  fetchBookThunk,
-  selectBook,
-  selectBookIsLoading,
+  deleteProductThunk,
+  fetchProductThunk,
+  selectProduct,
+  selectProductIsLoading,
   openModal,
   closeModal,
   selectModalContext,
@@ -15,16 +15,16 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import showToast from "@utils/toastAlert/toaster";
 import Modal from "@utils/modal/Modal";
-import { BookSpinner } from "@loadingState";
+import { ProductSpinner } from "@loadingState";
 
-function Book() {
-  const loading = useSelector(selectBookIsLoading);
+function Product() {
+  const loading = useSelector(selectProductIsLoading);
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const book = useSelector(selectBook);
+  const product = useSelector(selectProduct);
   const modalContext = useSelector(selectModalContext);
   const permissions = useSelector(selectUserPermissions);
-  const { bookId } = useParams();
+  const { productId } = useParams();
 
   const onDeleteClick = () => {
     dispatch(openModal("delete"));
@@ -39,20 +39,20 @@ function Book() {
   };
 
   const handleThumbnail = () => {
-    navigate(`/edit-book-thumbnail/${bookId}`);
+    navigate(`/edit-product-thumbnail/${productId}`);
     dispatch(closeModal());
   };
 
   const handleEdit = () => {
-    navigate(`/edit-book/${bookId}`);
+    navigate(`/edit-product/${productId}`);
     dispatch(closeModal());
   };
 
   const onDelete = async () => {
     try {
-      const res = await dispatch(deleteBookThunk(book._id)).unwrap();
+      const res = await dispatch(deleteProductThunk(product._id)).unwrap();
       showToast("success", `${res.message}`);
-      navigate("/books");
+      navigate("/products");
       dispatch(closeModal());
     } catch (error) {
       showToast("error", `${error.message}`);
@@ -60,21 +60,21 @@ function Book() {
   };
 
   useEffect(() => {
-    if (book?._id !== bookId) dispatch(fetchBookThunk(bookId));
-  }, [dispatch, bookId]);
+    if (product?._id !== productId) dispatch(fetchProductThunk(productId));
+  }, [dispatch, productId]);
 
   return (
     <>
       {loading ? (
-        <BookSpinner />
+        <ProductSpinner />
       ) : (
         <div className="my-10 rounded-lg border-2 border-gray-400 bg-gray-200 p-3 dark:border-gray-600 dark:bg-gray-900">
           <div className="relative">
             <div>
               <img
                 className="max-h-[500px] w-full rounded-lg border-2 border-gray-400 bg-cover dark:border-gray-600"
-                src={book?.thumbnail}
-                alt={book?.title || "Book Thumbnail"}
+                src={product?.thumbnail}
+                alt={product?.title || "Product Thumbnail"}
               />
             </div>
             {permissions.includes("update") && (
@@ -93,7 +93,7 @@ function Book() {
             <div className="mt-8 flex items-center justify-between">
               <Link>
                 <h5 className="ml-2 text-lg font-semibold text-gray-900 duration-700 hover:text-red-600 dark:text-gray-400 dark:hover:text-red-300">
-                  {book?.category}
+                  {product?.category}
                 </h5>
               </Link>
               <span className="">
@@ -128,10 +128,10 @@ function Book() {
               </span>
             </div>
             <h1 className="ml-1 pt-2 text-3xl font-bold text-gray-600 dark:text-gray-200">
-              {book?.title}
+              {product?.title}
             </h1>
             <p className="ml-2 pt-2 text-lg text-gray-700 dark:text-gray-400">
-              {book?.description}
+              {product?.description}
             </p>
           </div>
         </div>
@@ -139,13 +139,13 @@ function Book() {
       {modalContext === "delete" && (
         <Modal
           onConfirmFunction={onDelete}
-          message={"Are you sure you want to delete this Book?"}
+          message={"Are you sure you want to delete this Product?"}
         />
       )}
       {modalContext === "edit" && (
         <Modal
           onConfirmFunction={handleEdit}
-          message={"Are you sure you want to edit this Book?"}
+          message={"Are you sure you want to edit this Product?"}
         />
       )}
       {modalContext === "editThumbnail" && (
@@ -158,4 +158,4 @@ function Book() {
   );
 }
 
-export default Book;
+export default Product;

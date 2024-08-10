@@ -459,10 +459,11 @@ function Sidebar({ sidebarOpen, setSidebarOpen, variant = "default" }) {
                 }}
               </SidebarLinkGroup>
 
-              {/* Books */}
+              {/* Products */}
               <SidebarLinkGroup
                 activecondition={
-                  pathname === "/admin/books" || pathname.includes("books")
+                  pathname === "/admin/products" ||
+                  pathname.includes("products")
                 }
               >
                 {(handleClick, open) => {
@@ -471,8 +472,8 @@ function Sidebar({ sidebarOpen, setSidebarOpen, variant = "default" }) {
                       <Link
                         to=""
                         className={`block truncate text-gray-800 transition duration-150 dark:text-gray-100 ${
-                          pathname === "/admin/books" ||
-                          pathname.includes("books")
+                          pathname === "/admin/products" ||
+                          pathname.includes("products")
                             ? ""
                             : "hover:text-gray-900 dark:hover:text-white"
                         }`}
@@ -485,11 +486,11 @@ function Sidebar({ sidebarOpen, setSidebarOpen, variant = "default" }) {
                         <div className="flex items-center justify-between">
                           <div className="flex items-center">
                             <FontAwesomeIcon
-                              className={`w-6 shrink-0 fill-current ${pathname === "/admin/books" || pathname.includes("books") ? "text-violet-500" : "text-gray-400 dark:text-gray-500"}`}
+                              className={`w-6 shrink-0 fill-current ${pathname === "/admin/products" || pathname.includes("products") ? "text-violet-500" : "text-gray-400 dark:text-gray-500"}`}
                               icon={faBook}
                             />
                             <span className="lg:sidebar-expanded:opacity-100 ml-4 text-sm font-medium duration-200 lg:opacity-0 2xl:opacity-100">
-                              Books
+                              Products
                             </span>
                           </div>
                           {/* Icon */}
@@ -509,7 +510,7 @@ function Sidebar({ sidebarOpen, setSidebarOpen, variant = "default" }) {
                           <li className="mb-1 last:mb-0">
                             <NavLink
                               end
-                              to="books/all-books"
+                              to="products/all-products"
                               className={({ isActive }) =>
                                 "block truncate transition duration-150 " +
                                 (isActive
@@ -518,7 +519,7 @@ function Sidebar({ sidebarOpen, setSidebarOpen, variant = "default" }) {
                               }
                             >
                               <span className="lg:sidebar-expanded:opacity-100 text-sm font-medium duration-200 lg:opacity-0 2xl:opacity-100">
-                                All Books
+                                All Products
                               </span>
                             </NavLink>
                           </li>
@@ -527,7 +528,7 @@ function Sidebar({ sidebarOpen, setSidebarOpen, variant = "default" }) {
                           <li className="mb-1 last:mb-0">
                             <NavLink
                               end
-                              to="books/add-or-update-book"
+                              to="products/add-or-update-product"
                               className={({ isActive }) =>
                                 "block truncate transition duration-150 " +
                                 (isActive
@@ -536,7 +537,7 @@ function Sidebar({ sidebarOpen, setSidebarOpen, variant = "default" }) {
                               }
                             >
                               <span className="lg:sidebar-expanded:opacity-100 text-sm font-medium duration-200 lg:opacity-0 2xl:opacity-100">
-                                Add Or Update Book
+                                Add Or Update Product
                               </span>
                             </NavLink>
                           </li>

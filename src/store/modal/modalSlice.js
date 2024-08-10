@@ -21,7 +21,7 @@ const modalSlice = createSlice({
 });
 
 export const { openModal, closeModal } = modalSlice.actions;
-export const selectShowModal = (state) => state.modal.showModal;
-export const selectModalContext = (state) => state.modal.context;
+export const selectShowModal = (state) => state.ModalSLice.showModal;
+export const selectModalContext = (state) => state.ModalSLice.context;
 
 export default modalSlice.reducer;

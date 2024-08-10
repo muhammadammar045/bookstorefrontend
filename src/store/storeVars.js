@@ -1,6 +1,7 @@
 // STORE
 import store from "./store"
 
+
 // USER
 import {
     registerUserThunk,
@@ -21,6 +22,7 @@ import {
     selectRefreshToken,
     selectUserId
 } from "./user/userAuthSlice";
+
 
 // ROLE
 import {
@@ -56,28 +58,28 @@ import {
 } from "./permission/permissionSlice"
 
 
-// BOOK
+// PRODUCT
 import {
-    addBookThunk,
-    fetchBooksThunk,
-    fetchAllUsersBooksThunk,
-    fetchBookThunk,
-    updateBookThunk,
-    updateBookThumbnailThunk,
-    deleteBookThunk,
-    resetSelectedBook,
+    addProductThunk,
+    fetchProductsThunk,
+    fetchAllUsersProductsThunk,
+    fetchProductThunk,
+    updateProductThunk,
+    updateProductThumbnailThunk,
+    deleteProductThunk,
+    resetSelectedProduct,
     setSearchQuery,
     selectSearchQuery,
-    selectBook,
-    selectBooks,
-    selectBookIsLoading,
+    selectProduct,
+    selectProducts,
+    selectProductIsLoading,
+    selectProductError,
     selectCurrentPage,
-    selectBookError,
     selectStatus,
     selectLimit,
     selectTotalPages,
-    selectTotalDocuments
-} from "./book/bookSlice"
+    selectTotalDocuments,
+} from "./products/productSlice"
 
 
 // MODEL
@@ -139,26 +141,27 @@ export {
     selectPermissionStatus,
     selectPermissionIsLoading,
 
-    // BOOK SLICE
-    addBookThunk,
-    fetchBooksThunk,
-    fetchAllUsersBooksThunk,
-    fetchBookThunk,
-    updateBookThunk,
-    updateBookThumbnailThunk,
-    deleteBookThunk,
-    resetSelectedBook,
+    // PRODUCT SLICE
+    addProductThunk,
+    fetchProductsThunk,
+    fetchAllUsersProductsThunk,
+    fetchProductThunk,
+    updateProductThunk,
+    updateProductThumbnailThunk,
+    deleteProductThunk,
+    resetSelectedProduct,
     setSearchQuery,
     selectSearchQuery,
-    selectBook,
-    selectBooks,
-    selectBookIsLoading,
+    selectProduct,
+    selectProducts,
+    selectProductIsLoading,
+    selectProductError,
     selectCurrentPage,
-    selectBookError,
     selectStatus,
     selectLimit,
     selectTotalPages,
     selectTotalDocuments,
+
 
     // MODAL SLICE
     selectShowModal,

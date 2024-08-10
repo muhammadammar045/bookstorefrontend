@@ -1,23 +1,23 @@
 import React, { useEffect, useState } from "react";
 import { Routes, Route, useLocation } from "react-router-dom";
 import {
-  AddBook,
-  AllBooks,
-  Book,
-  EditBook,
-  EditBookThumbnail,
+  AddProduct,
+  AllProducts,
+  Product,
+  EditProduct,
+  EditProductThumbnail,
   Home,
   Login,
   Signup,
 } from "@userPages";
 import {
-  AllBooksAdmin,
   AllPermissionsAdmin,
-  AllRolesAdmin,
-  AllUsersAdmin,
-  AddOrUpdateBook,
   AddOrUpdatePermission,
+  AllRolesAdmin,
   AddOrUpdateRole,
+  AllProductsAdmin,
+  AddOrUpdateProduct,
+  AllUsersAdmin,
   AddOrUpdateUser,
   Main,
 } from "@adminPages";
@@ -63,42 +63,42 @@ const App = () => {
           element={<Signup />}
         />
         <Route
-          path="book/:bookId"
+          path="product/:productId"
           element={
             <Protected>
-              <Book />
+              <Product />
             </Protected>
           }
         />
         <Route
-          path="books"
+          path="products"
           element={
             <Protected>
-              <AllBooks />
+              <AllProducts />
             </Protected>
           }
         />
         <Route
-          path="add-book"
+          path="add-product"
           element={
             <Protected>
-              <AddBook />
+              <AddProduct />
             </Protected>
           }
         />
         <Route
-          path="edit-book/:bookId"
+          path="edit-product/:productId"
           element={
             <Protected>
-              <EditBook />
+              <EditProduct />
             </Protected>
           }
         />
         <Route
-          path="edit-book-thumbnail/:bookId"
+          path="edit-product-thumbnail/:productId"
           element={
             <Protected>
-              <EditBookThumbnail />
+              <EditProductThumbnail />
             </Protected>
           }
         />
@@ -138,20 +138,20 @@ const App = () => {
             }
           />
         </Route>
-        <Route path="books">
+        <Route path="products">
           <Route
-            path="all-books"
+            path="all-products"
             element={
               <AdminProtected>
-                <AllBooksAdmin />
+                <AllProductsAdmin />
               </AdminProtected>
             }
           />
           <Route
-            path="add-or-update-book"
+            path="add-or-update-product"
             element={
               <AdminProtected>
-                <AddOrUpdateBook />
+                <AddOrUpdateProduct />
               </AdminProtected>
             }
           />

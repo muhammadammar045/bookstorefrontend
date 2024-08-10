@@ -13,7 +13,8 @@ import {
   fetchAllPermissionsThunk,
   selectAllPermissions,
   selectPermissionIsLoading,
-  fetchAllUsersBooksThunk,
+  // fetchAllUsersBooksThunk,
+  fetchAllUsersProductsThunk,
   selectTotalDocuments,
 } from "@storeVars";
 
@@ -22,7 +23,7 @@ function main() {
   const users = useSelector(selectUsers);
   const roles = useSelector(selectAllRoles);
   const permissions = useSelector(selectAllPermissions);
-  const books = useSelector(selectTotalDocuments);
+  const products = useSelector(selectTotalDocuments);
   const loadingU = useSelector(selectUserIsLoading);
   const loadingR = useSelector(selectRoleIsLoading);
   const loadingP = useSelector(selectPermissionIsLoading);
@@ -32,7 +33,7 @@ function main() {
     if (users.length === 0) dispatch(fetchAllUserThunk());
     if (roles.length === 0) dispatch(fetchAllRolesThunk());
     if (permissions.length === 0) dispatch(fetchAllPermissionsThunk());
-    dispatch(fetchAllUsersBooksThunk());
+    dispatch(fetchAllUsersProductsThunk());
   }, [dispatch]);
   return (
     <>
@@ -66,8 +67,8 @@ function main() {
                 value={permissions.length}
               />
               <TotalCalculation
-                name={"Total Books"}
-                value={books}
+                name={"Total Products"}
+                value={products}
               />
             </div>
           )}

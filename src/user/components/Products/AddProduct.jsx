@@ -1,53 +1,29 @@
-import {
-  fetchBookThunk,
-  updateBookThunk,
-  selectBook,
-  selectBookIsLoading,
-} from "@storeVars";
-import React, { useEffect } from "react";
+import React from "react";
 import { useForm } from "react-hook-form";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
+import { addProductThunk, selectProductIsLoading } from "@storeVars";
 import { Input, Button } from "@commonPartials";
-import { BookSpinner } from "@loadingState";
 import showToast from "@utils/toastAlert/toaster";
+import { ProductSpinner } from "@loadingState";
 
-function EditBook() {
+function AddProduct() {
   const {
     register,
     handleSubmit,
-    setValue,
+    reset,
     formState: { errors },
   } = useForm();
   const navigate = useNavigate();
-  const { bookId } = useParams();
-  const book = useSelector(selectBook);
-  const loading = useSelector(selectBookIsLoading);
   const dispatch = useDispatch();
+  const loading = useSelector(selectProductIsLoading);
 
-  useEffect(() => {
-    if (bookId) {
-      dispatch(fetchBookThunk(bookId));
-    }
-  }, [dispatch, bookId]);
-
-  useEffect(() => {
-    if (book) {
-      setValue("title", book.title);
-      setValue("category", book.category);
-      setValue("price", book.price);
-      setValue("description", book.description);
-    }
-  }, [book, setValue]);
-
-  const editForm = async (bookData) => {
+  const addProduct = async (productData) => {
     try {
-      const res = await dispatch(
-        updateBookThunk({ bookId, bookData })
-      ).unwrap();
-
+      const res = await dispatch(addProductThunk(productData)).unwrap();
       showToast("success", `${res.message}`);
-      navigate(`/book/${bookId}`);
+      navigate("/products");
+      reset();
     } catch (error) {
       showToast("error", `${error.message}`);
     }
@@ -56,19 +32,19 @@ function EditBook() {
   return (
     <>
       {loading ? (
-        <BookSpinner />
-      ) : book ? (
+        <ProductSpinner />
+      ) : (
         <div className="mx-auto my-10 max-w-3xl rounded-lg border-2 border-gray-900 bg-gray-200 p-10 dark:border-gray-500 dark:bg-gray-900">
           <h1 className="mb-4 text-center text-3xl text-gray-900 dark:text-gray-200">
-            Edit Book Details
+            Add Product
           </h1>
-          <form onSubmit={handleSubmit(editForm)}>
+          <form onSubmit={handleSubmit(addProduct)}>
             <div className="flex w-full">
               <div className="mx-1 mb-4 w-4/12">
                 <Input
                   type="text"
                   label="Title"
-                  placeholder="Enter Book Title"
+                  placeholder="Enter Product Title"
                   {...register("title", {
                     required: "Title is required",
                     minLength: {
@@ -82,7 +58,7 @@ function EditBook() {
                   })}
                 />
                 {errors.title && (
-                  <span className="text-red-500 dark:text-red-400">
+                  <span className="text-red-500 dark:text-red-300">
                     {errors.title.message}
                   </span>
                 )}
@@ -91,7 +67,7 @@ function EditBook() {
                 <Input
                   type="text"
                   label="Category"
-                  placeholder="Enter Book Category"
+                  placeholder="Enter Product Category"
                   {...register("category", {
                     minLength: {
                       value: 4,
@@ -104,7 +80,7 @@ function EditBook() {
                   })}
                 />
                 {errors.category && (
-                  <span className="text-red-500 dark:text-red-400">
+                  <span className="text-red-500 dark:text-red-300">
                     {errors.category.message}
                   </span>
                 )}
@@ -113,7 +89,7 @@ function EditBook() {
                 <Input
                   type="text"
                   label="Price"
-                  placeholder="Enter Book Price"
+                  placeholder="Enter Product Price"
                   {...register("price", {
                     required: "Price is required",
                     min: { value: 1, message: "Price should be at least 1" },
@@ -124,40 +100,51 @@ function EditBook() {
                   })}
                 />
                 {errors.price && (
-                  <span className="text-red-500 dark:text-red-400">
+                  <span className="text-red-500 dark:text-red-300">
                     {errors.price.message}
                   </span>
                 )}
               </div>
             </div>
-            <div className="mb-4">
+            <div className="mb-2">
               <Input
                 type="textarea"
                 className="min-h-32"
                 label="Description"
-                placeholder="Enter Book Description"
+                placeholder="Enter Product Description"
                 {...register("description", {
                   required: "Description is required",
                 })}
               />
               {errors.description && (
-                <span className="text-red-500 dark:text-red-400">
+                <span className="text-red-500 dark:text-red-300">
                   {errors.description.message}
                 </span>
               )}
             </div>
+            <div className="mb-5">
+              <Input
+                type="file"
+                label="Product Thumbnail"
+                placeholder="Select Product Thumbnail"
+                {...register("thumbnail", {
+                  required: "Thumbnail is required",
+                })}
+              />
+              {errors.thumbnail && (
+                <span className="text-red-500 dark:text-red-300">
+                  {errors.thumbnail.message}
+                </span>
+              )}
+            </div>
             <div className="mb-2">
-              <Button type="submit">Submit</Button>
+              <Button>Add Product</Button>
             </div>
           </form>
         </div>
-      ) : (
-        <h1 className="text-center text-3xl text-gray-400 dark:text-gray-300">
-          No Book Found For Editing
-        </h1>
       )}
     </>
   );
 }
 
-export default EditBook;
+export default AddProduct;

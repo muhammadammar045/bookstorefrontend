@@ -190,8 +190,8 @@ const permissionsSlice = createSlice({
 export const { resetSelectedPermission } = permissionsSlice.actions;
 export default permissionsSlice.reducer;
 
-export const selectAllPermissions = (state) => state.permission.permissions;
-export const selectPermission = (state) => state.permission.permission;
-export const selectPermissionIsLoading = (state) => state.permission.isLoading;
-export const selectPermissionError = (state) => state.permission.error;
-export const selectPermissionStatus = (state) => state.permission.status;
+export const selectAllPermissions = (state) => state.PermissionSlice.permissions;
+export const selectPermission = (state) => state.PermissionSlice.permission;
+export const selectPermissionIsLoading = (state) => state.PermissionSlice.isLoading;
+export const selectPermissionError = (state) => state.PermissionSlice.error;
+export const selectPermissionStatus = (state) => state.PermissionSlice.status;
