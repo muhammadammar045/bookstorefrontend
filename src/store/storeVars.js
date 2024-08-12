@@ -11,6 +11,7 @@ import {
     logoutUserThunk,
     updateUserThunk,
     deleteUserThunk,
+    resetSelectedUser,
     selectUser,
     selectUsers,
     selectFetchedUser,
@@ -61,8 +62,9 @@ import {
 // PRODUCT
 import {
     addProductThunk,
-    fetchProductsThunk,
+    fetchCurrentUserProductsThunk,
     fetchAllUsersProductsThunk,
+    fetchAllUsersProductsAdminThunk,
     fetchProductThunk,
     updateProductThunk,
     updateProductThumbnailThunk,
@@ -72,6 +74,7 @@ import {
     selectSearchQuery,
     selectProduct,
     selectProducts,
+    selectAdminProducts,
     selectProductIsLoading,
     selectProductError,
     selectCurrentPage,
@@ -81,6 +84,20 @@ import {
     selectTotalDocuments,
 } from "./products/productSlice"
 
+// PERMISSION
+import {
+    addCategoryThunk,
+    fetchCategoryThunk,
+    fetchAllCategoriesThunk,
+    updateCategoryThunk,
+    deleteCategoryThunk,
+    resetSelectedCategory,
+    selectCategory,
+    selectAllCategories,
+    selectCategoryError,
+    selectCategoryStatus,
+    selectCategoryIsLoading,
+} from "./category/categorySlice"
 
 // MODEL
 import {
@@ -102,6 +119,7 @@ export {
     logoutUserThunk,
     updateUserThunk,
     deleteUserThunk,
+    resetSelectedUser,
     selectUser,
     selectUsers,
     selectFetchedUser,
@@ -143,8 +161,9 @@ export {
 
     // PRODUCT SLICE
     addProductThunk,
-    fetchProductsThunk,
+    fetchCurrentUserProductsThunk,
     fetchAllUsersProductsThunk,
+    fetchAllUsersProductsAdminThunk,
     fetchProductThunk,
     updateProductThunk,
     updateProductThumbnailThunk,
@@ -154,6 +173,7 @@ export {
     selectSearchQuery,
     selectProduct,
     selectProducts,
+    selectAdminProducts,
     selectProductIsLoading,
     selectProductError,
     selectCurrentPage,
@@ -162,6 +182,18 @@ export {
     selectTotalPages,
     selectTotalDocuments,
 
+    // CATEGORY SLICE
+    addCategoryThunk,
+    fetchCategoryThunk,
+    fetchAllCategoriesThunk,
+    updateCategoryThunk,
+    deleteCategoryThunk,
+    resetSelectedCategory,
+    selectCategory,
+    selectAllCategories,
+    selectCategoryError,
+    selectCategoryStatus,
+    selectCategoryIsLoading,
 
     // MODAL SLICE
     selectShowModal,

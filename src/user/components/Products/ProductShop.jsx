@@ -1,7 +1,7 @@
 import {
   selectProducts,
   selectProductIsLoading,
-  fetchProductsThunk,
+  fetchCurrentUserProductsThunk,
   selectTotalPages,
   setSearchQuery,
   selectSearchQuery,
@@ -25,7 +25,7 @@ function ProductShop() {
 
   useEffect(() => {
     dispatch(
-      fetchProductsThunk({
+      fetchCurrentUserProductsThunk({
         page: currentPage,
         query: searchQuery,
         limit: pageSize,

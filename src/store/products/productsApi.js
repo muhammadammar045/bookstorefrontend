@@ -32,7 +32,22 @@ const apiFetchAllUsersProducts = async (page, query, limit, accessToken) => {
     }
 }
 
-const apiFetchProducts = async (page, query, limit, accessToken) => {
+const apiFetchAllUsersProductsAdmin = async (accessToken) => {
+    try {
+        const response = await axios
+            .get(`/products/get-all-products-admin`,
+                {
+                    headers: {
+                        'Authorization': `Bearer ${accessToken}`
+                    }
+                });
+        return response.data;
+    } catch (error) {
+        throw error;
+    }
+}
+
+const apiFetchCurrentUserProducts = async (page, query, limit, accessToken) => {
     try {
         const response = await axios
             .get(`/products/get-current-user-products?page=${page}&q=${query}&limit=${limit}`,
@@ -115,10 +130,11 @@ const apiUpdateProductThumbnail = async (productId, thumbnailFile, accessToken) 
 
 export {
     apiAddProducts,
-    apiFetchProducts,
+    apiFetchCurrentUserProducts,
     apiFetchProduct,
     apiDeleteProduct,
     apiUpdateProduct,
     apiUpdateProductThumbnail,
     apiFetchAllUsersProducts,
+    apiFetchAllUsersProductsAdmin
 };

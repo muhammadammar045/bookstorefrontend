@@ -156,10 +156,7 @@ const rolesSlice = createSlice({
             .addCase(updateRoleThunk.rejected, handleRejected)
             .addCase(updateRoleThunk.fulfilled, (state, action) => {
                 state.isLoading = false;
-                const index = state.roles.findIndex(role => role._id === action.payload.data._id);
-                if (index !== -1) {
-                    state.roles[index] = action.payload.data;
-                }
+                state.roles = state.roles.map(role => role._id === action.payload.data._id ? action.payload.data : role);
                 state.status = 'succeeded';
                 state.role = null;
             })
@@ -169,11 +166,7 @@ const rolesSlice = createSlice({
             .addCase(assignPermissionsToRoleThunk.rejected, handleRejected)
             .addCase(assignPermissionsToRoleThunk.fulfilled, (state, action) => {
                 state.isLoading = false;
-                const index = state.roles.findIndex(role => role._id === action.payload.data._id);
-                if (index !== -1) {
-                    state.roles[index] = action.payload.data;
-                    // console.log(action.payload.data)
-                }
+                state.roles = state.roles.map(role => role._id === action.payload.data._id ? action.payload.data : role);
                 state.status = 'succeeded';
                 state.role = null
             })
@@ -182,11 +175,8 @@ const rolesSlice = createSlice({
             .addCase(deleteRoleThunk.pending, handlePending)
             .addCase(deleteRoleThunk.rejected, handleRejected)
             .addCase(deleteRoleThunk.fulfilled, (state, action) => {
+                state.roles = state.roles.filter(role => role._id !== action.payload.data._id);
                 state.isLoading = false;
-                const index = state.roles.findIndex(role => role._id === action.payload.data._id);
-                if (index !== -1) {
-                    state.roles.splice(index, 1);
-                }
                 state.status = 'succeeded';
             })
 

@@ -3,8 +3,8 @@ import { ReactTable } from "@commonPartials";
 import { useDispatch, useSelector } from "react-redux";
 import {
   selectProductIsLoading,
-  selectProducts,
-  fetchAllUsersProductsThunk,
+  selectAdminProducts,
+  fetchAllUsersProductsAdminThunk,
   fetchProductThunk,
   deleteProductThunk,
   resetSelectedProduct,
@@ -16,11 +16,12 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEdit, faTrash } from "@fortawesome/free-solid-svg-icons";
 
 function AllProductsAdmin() {
-  const products = useSelector(selectProducts);
+  const products = useSelector(selectAdminProducts);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const loading = useSelector(selectProductIsLoading);
 
+  console.log(products);
   const handleEdit = async (productId) => {
     try {
       await dispatch(fetchProductThunk(productId)).unwrap();
@@ -41,15 +42,22 @@ function AllProductsAdmin() {
   };
 
   useEffect(() => {
-    if (products.length === 0) dispatch(fetchAllUsersProductsThunk());
+    dispatch(fetchAllUsersProductsAdminThunk());
   }, [dispatch]);
 
   const allProducts = useMemo(() => {
     return (
       products?.map((product) => ({
         id: product._id,
+        PImage: (
+          <img
+            className="w-16 rounded-lg"
+            src={product.thumbnail}
+            alt={product.title}
+          />
+        ),
         title: product.title,
-        category: product.category,
+        category: product.category.name,
         author: product.author.fullname,
         createdAt: product.createdAt.slice(0, 10),
         updatedAt: product.updatedAt.slice(0, 10),

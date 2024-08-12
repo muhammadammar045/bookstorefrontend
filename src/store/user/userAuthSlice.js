@@ -112,7 +112,11 @@ const initialState = {
 const userAuthSlice = createSlice({
     name: "userAuth",
     initialState,
-    reducers: {},
+    reducers: {
+        resetSelectedUser: (state) => {
+            state.fetchedUser = null;
+        }
+    },
     extraReducers: (builder) => {
         const handlePending = (state) => {
             state.isLoading = true;
@@ -125,6 +129,8 @@ const userAuthSlice = createSlice({
             state.error = action.payload;
             state.status = 'failed';
         };
+
+
 
         builder
             // REGISTER USER
@@ -179,10 +185,7 @@ const userAuthSlice = createSlice({
             .addCase(updateUserThunk.rejected, handleRejected)
             .addCase(updateUserThunk.fulfilled, (state, action) => {
                 state.isLoading = false;
-                const index = state.users.findIndex(user => user._id === action.payload.data._id);
-                if (index !== -1) {
-                    state.users[index] = action.payload.data;
-                }
+                state.users = state.users.map(user => user._id === action.payload.data._id ? action.payload.data : user);
                 state.status = 'succeeded';
                 state.fetchedUser = null;
             })
@@ -192,11 +195,7 @@ const userAuthSlice = createSlice({
             .addCase(assignRoleToUserThunk.rejected, handleRejected)
             .addCase(assignRoleToUserThunk.fulfilled, (state, action) => {
                 state.isLoading = false;
-                const index = state.users.findIndex(user => user._id === action.payload.data._id);
-                if (index !== -1) {
-                    state.users[index] = action.payload.data;
-                    // console.log(action.payload.data)
-                }
+                state.users = state.users.map(user => user._id === action.payload.data._id ? action.payload.data : user);
                 state.status = 'succeeded';
                 state.fetchedUser = null
             })
@@ -213,6 +212,8 @@ const userAuthSlice = createSlice({
 
     },
 });
+
+export const { resetSelectedUser } = userAuthSlice.actions;
 
 export default userAuthSlice.reducer;
 

@@ -547,6 +547,95 @@ function Sidebar({ sidebarOpen, setSidebarOpen, variant = "default" }) {
                   );
                 }}
               </SidebarLinkGroup>
+
+              {/* Category */}
+              <SidebarLinkGroup
+                activecondition={
+                  pathname === "/admin/categories" ||
+                  pathname.includes("categories")
+                }
+              >
+                {(handleClick, open) => {
+                  return (
+                    <>
+                      <Link
+                        to=""
+                        className={`block truncate text-gray-800 transition duration-150 dark:text-gray-100 ${
+                          pathname === "/admin/categories" ||
+                          pathname.includes("categories")
+                            ? ""
+                            : "hover:text-gray-900 dark:hover:text-white"
+                        }`}
+                        onClick={(e) => {
+                          e.preventDefault();
+                          handleClick();
+                          setSidebarExpanded(true);
+                        }}
+                      >
+                        <div className="flex items-center justify-between">
+                          <div className="flex items-center">
+                            <FontAwesomeIcon
+                              className={`w-6 shrink-0 fill-current ${pathname === "/admin/categories" || pathname.includes("categories") ? "text-violet-500" : "text-gray-400 dark:text-gray-500"}`}
+                              icon={faBook}
+                            />
+                            <span className="lg:sidebar-expanded:opacity-100 ml-4 text-sm font-medium duration-200 lg:opacity-0 2xl:opacity-100">
+                              Category
+                            </span>
+                          </div>
+                          {/* Icon */}
+                          <div className="ml-2 flex shrink-0">
+                            <svg
+                              className={`ml-1 h-3 w-3 shrink-0 fill-current text-gray-400 dark:text-gray-500 ${open && "rotate-180"}`}
+                              viewBox="0 0 12 12"
+                            >
+                              <path d="M5.9 11.4L.5 6l1.4-1.4 4 4 4-4L11.3 6z" />
+                            </svg>
+                          </div>
+                        </div>
+                      </Link>
+                      <div className="lg:sidebar-expanded:block lg:hidden 2xl:block">
+                        <ul className={`mt-1 pl-11 ${!open && "hidden"}`}>
+                          {/* ALL CATEGORIES */}
+                          <li className="mb-1 last:mb-0">
+                            <NavLink
+                              end
+                              to="categories/all-categories"
+                              className={({ isActive }) =>
+                                "block truncate transition duration-150 " +
+                                (isActive
+                                  ? "text-violet-500"
+                                  : "text-gray-500/90 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200")
+                              }
+                            >
+                              <span className="lg:sidebar-expanded:opacity-100 text-sm font-medium duration-200 lg:opacity-0 2xl:opacity-100">
+                                All Categories
+                              </span>
+                            </NavLink>
+                          </li>
+
+                          {/* ADD OR UPDATE CATEGORY */}
+                          <li className="mb-1 last:mb-0">
+                            <NavLink
+                              end
+                              to="categories/add-or-update-category"
+                              className={({ isActive }) =>
+                                "block truncate transition duration-150 " +
+                                (isActive
+                                  ? "text-violet-500"
+                                  : "text-gray-500/90 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200")
+                              }
+                            >
+                              <span className="lg:sidebar-expanded:opacity-100 text-sm font-medium duration-200 lg:opacity-0 2xl:opacity-100">
+                                Add Or Update Category
+                              </span>
+                            </NavLink>
+                          </li>
+                        </ul>
+                      </div>
+                    </>
+                  );
+                }}
+              </SidebarLinkGroup>
             </ul>
           </div>
         </div>

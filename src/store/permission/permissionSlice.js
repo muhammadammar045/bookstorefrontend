@@ -161,10 +161,7 @@ const permissionsSlice = createSlice({
             .addCase(updatePermissionThunk.rejected, handleRejected)
             .addCase(updatePermissionThunk.fulfilled, (state, action) => {
                 state.isLoading = false;
-                const index = state.permissions.findIndex(permission => permission._id === action.payload.data._id);
-                if (index !== -1) {
-                    state.permissions[index] = action.payload.data;
-                }
+                state.permissions = state.permissions.map(permission => permission._id === action.payload.data._id ? action.payload.data : permission);
                 state.status = 'succeeded';
                 state.permission = null
             })
@@ -173,10 +170,7 @@ const permissionsSlice = createSlice({
             .addCase(deletePermissionThunk.pending, handlePending)
             .addCase(deletePermissionThunk.rejected, handleRejected)
             .addCase(deletePermissionThunk.fulfilled, (state, action) => {
-                const index = state.permissions.findIndex(permission => permission?._id === action.payload?.data?._id);
-                if (index !== -1) {
-                    state.permissions.splice(index, 1);
-                }
+                state.permissions = state.permissions.filter(permission => permission?._id !== action.payload?.data?._id);
                 state.isLoading = false;
                 state.status = 'succeeded';
             })

@@ -13,6 +13,8 @@ import {
 import {
   AllPermissionsAdmin,
   AddOrUpdatePermission,
+  AllCategoriesAdmin,
+  AddOrUpdateCategory,
   AllRolesAdmin,
   AddOrUpdateRole,
   AllProductsAdmin,
@@ -109,6 +111,7 @@ const App = () => {
         path="/admin"
         element={<AdminLayout />}
       >
+        {/* DASHBOARD */}
         <Route path="dashboard">
           <Route
             index
@@ -120,6 +123,8 @@ const App = () => {
             }
           />
         </Route>
+
+        {/* USERS */}
         <Route path="users">
           <Route
             path="all-users"
@@ -138,6 +143,8 @@ const App = () => {
             }
           />
         </Route>
+
+        {/* PRODUCTS */}
         <Route path="products">
           <Route
             path="all-products"
@@ -156,6 +163,8 @@ const App = () => {
             }
           />
         </Route>
+
+        {/* ROLES */}
         <Route path="roles">
           <Route
             path="all-roles"
@@ -174,6 +183,8 @@ const App = () => {
             }
           />
         </Route>
+
+        {/* PERMISSIONS */}
         <Route path="permissions">
           <Route
             path="all-permissions"
@@ -188,6 +199,26 @@ const App = () => {
             element={
               <AdminProtected>
                 <AddOrUpdatePermission />
+              </AdminProtected>
+            }
+          />
+        </Route>
+
+        {/* CATEGORIES */}
+        <Route path="categories">
+          <Route
+            path="all-categories"
+            element={
+              <AdminProtected>
+                <AllCategoriesAdmin />
+              </AdminProtected>
+            }
+          />
+          <Route
+            path="add-or-update-category"
+            element={
+              <AdminProtected>
+                <AddOrUpdateCategory />
               </AdminProtected>
             }
           />

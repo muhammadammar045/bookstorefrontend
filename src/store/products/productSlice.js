@@ -2,7 +2,8 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { logoutUserThunk, selectAccessToken } from "../user/userAuthSlice"
 import {
     apiAddProducts,
-    apiFetchProducts,
+    apiFetchCurrentUserProducts,
+    apiFetchAllUsersProductsAdmin,
     apiFetchProduct,
     apiDeleteProduct,
     apiUpdateProduct,
@@ -53,8 +54,24 @@ export const fetchAllUsersProductsThunk = createAsyncThunk(
     }
 );
 
-export const fetchProductsThunk = createAsyncThunk(
-    "product/fetchProducts",
+export const fetchAllUsersProductsAdminThunk = createAsyncThunk(
+    "product/fetchAllUsersProductsAdmin",
+    async (_,
+        { getState, rejectWithValue }
+    ) => {
+        const state = getState();
+        const accessToken = selectAccessToken(state);
+        try {
+            const response = await apiFetchAllUsersProductsAdmin(accessToken);
+            return response;
+        } catch (error) {
+            return rejectWithValue(error.response.data);
+        }
+    }
+);
+
+export const fetchCurrentUserProductsThunk = createAsyncThunk(
+    "product/fetchCurrentUserProducts",
     async (
         {
             page = 1,
@@ -66,7 +83,7 @@ export const fetchProductsThunk = createAsyncThunk(
         const state = getState();
         const accessToken = selectAccessToken(state);
         try {
-            const response = await apiFetchProducts(page, query, limit, accessToken);
+            const response = await apiFetchCurrentUserProducts(page, query, limit, accessToken);
             return response;
         } catch (error) {
             return rejectWithValue(error.response.data);
@@ -162,7 +179,6 @@ const productsSlice = createSlice({
         },
         setSearchQuery: (state, action) => {
             state.searchQuery = action.payload;
-            // console.log(action.payload);
         },
     },
     extraReducers: (builder) => {
@@ -179,7 +195,7 @@ const productsSlice = createSlice({
         };
 
         builder
-            // ADD BOOK
+            // ADD PRODUCT
             .addCase(addProductThunk.pending, handlePending)
             .addCase(addProductThunk.rejected, handleRejected)
             .addCase(addProductThunk.fulfilled, (state, action) => {
@@ -188,7 +204,7 @@ const productsSlice = createSlice({
                 state.status = 'succeeded';
             })
 
-            // FETCH ALL USERS' BOOKS
+            // FETCH ALL USERS' PRODUCTS
             .addCase(fetchAllUsersProductsThunk.pending, handlePending)
             .addCase(fetchAllUsersProductsThunk.rejected, handleRejected)
             .addCase(fetchAllUsersProductsThunk.fulfilled, (state, action) => {
@@ -197,16 +213,25 @@ const productsSlice = createSlice({
                 state.status = 'succeeded';
             })
 
-            // FETCH ALL BOOKS
-            .addCase(fetchProductsThunk.pending, handlePending)
-            .addCase(fetchProductsThunk.rejected, handleRejected)
-            .addCase(fetchProductsThunk.fulfilled, (state, action) => {
+            // FETCH ALL USERS ADMIN PRODUCTS
+            .addCase(fetchAllUsersProductsAdminThunk.pending, handlePending)
+            .addCase(fetchAllUsersProductsAdminThunk.rejected, handleRejected)
+            .addCase(fetchAllUsersProductsAdminThunk.fulfilled, (state, action) => {
                 state.isLoading = false;
                 state.products = action.payload.data;
                 state.status = 'succeeded';
             })
 
-            // FETCH SINGLE BOOK
+            // FETCH ALL PRODUCTS
+            .addCase(fetchCurrentUserProductsThunk.pending, handlePending)
+            .addCase(fetchCurrentUserProductsThunk.rejected, handleRejected)
+            .addCase(fetchCurrentUserProductsThunk.fulfilled, (state, action) => {
+                state.isLoading = false;
+                state.products = action.payload.data;
+                state.status = 'succeeded';
+            })
+
+            // FETCH SINGLE PRODUCT
             .addCase(fetchProductThunk.pending, handlePending)
             .addCase(fetchProductThunk.rejected, handleRejected)
             .addCase(fetchProductThunk.fulfilled, (state, action) => {
@@ -215,40 +240,32 @@ const productsSlice = createSlice({
                 state.status = 'succeeded';
             })
 
-            // UPDATE BOOK
+            // UPDATE PRODUCT
             .addCase(updateProductThunk.pending, handlePending)
             .addCase(updateProductThunk.rejected, handleRejected)
             .addCase(updateProductThunk.fulfilled, (state, action) => {
                 state.isLoading = false;
-                const index = state.products.products.findIndex(product => product._id === action.payload.data._id);
-                if (index !== -1) {
-                    state.products.products[index] = action.payload.data;
-                }
+                state.products = state.products.products.map(product => product._id === action.payload.data._id ? action.payload.data : product);
                 state.status = 'succeeded';
                 state.product = null;
             })
 
-            // UPDATE BOOK THUMBNAIL
+            // UPDATE PRODUCT THUMBNAIL
             .addCase(updateProductThumbnailThunk.pending, handlePending)
             .addCase(updateProductThumbnailThunk.rejected, handleRejected)
             .addCase(updateProductThumbnailThunk.fulfilled, (state, action) => {
                 state.isLoading = false;
-                const index = state.products.products.findIndex(product => product._id === action.payload.data._id);
-                if (index !== -1) {
-                    state.products.products[index] = action.payload.data;
-                }
+                state.products = state.products.products.map(product => product._id === action.payload.data._id ? action.payload.data : product);
                 state.status = 'succeeded';
                 state.product = null;
             })
 
-            // DELETE BOOK
+            // DELETE PRODUCT
             .addCase(deleteProductThunk.pending, handlePending)
             .addCase(deleteProductThunk.rejected, handleRejected)
             .addCase(deleteProductThunk.fulfilled, (state, action) => {
                 state.isLoading = false;
                 state.products.products = state.products.products.filter(product => product._id !== action.payload.data._id);
-                // console.log(state.products)
-                // console.log(action.payload.data);
                 state.status = 'succeeded';
             })
 
@@ -266,6 +283,7 @@ export default productsSlice.reducer;
 
 export const selectSearchQuery = (state) => state.ProductSlice.searchQuery;
 export const selectProducts = (state) => state.ProductSlice?.products?.products;
+export const selectAdminProducts = (state) => state.ProductSlice?.products.products;
 export const selectProduct = (state) => state.ProductSlice?.product?.product;
 export const selectProductIsOwner = (state) => state.ProductSlice?.product?.isOwner;
 export const selectTotalPages = (state) => state.ProductSlice?.products?.totalPages;

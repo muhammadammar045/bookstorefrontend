@@ -17,7 +17,11 @@ function ProductCard({ product }) {
         </div>
 
         <div className="p-5">
-          <div className="mt-1">
+          <p className="text-sm text-gray-700 dark:text-gray-400">
+            {product?.category?.name}
+          </p>
+
+          <div className="mt-1 flex justify-between">
             <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-700 dark:text-gray-200">
               {product?.title}
             </h5>
@@ -26,6 +30,15 @@ function ProductCard({ product }) {
           <p className="mb-3 font-normal text-gray-800 dark:text-gray-400">
             {`${product?.description.slice(0, 80)}..... `}
           </p>
+
+          <div className="flex items-center justify-between">
+            <p className="mb-3 text-sm text-gray-700 dark:text-gray-400">
+              By : {product?.author?.fullname}
+            </p>
+            <p className="mb-3 text-sm text-gray-700 dark:text-gray-400">
+              Published : {product?.createdAt.slice(0, 10)}
+            </p>
+          </div>
 
           <div className="pt-2">
             <Button className="w-full">Read more</Button>
