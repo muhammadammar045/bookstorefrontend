@@ -5,6 +5,7 @@ import modalReducer from "./modal/modalSlice";
 import roleReducer from "./role/roleSlice";
 import permissionReducer from "./permission/permissionSlice";
 import categoryReducer from "./category/categorySlice";
+import dashboardReducer from "./dashboard/dashboardSlice";
 
 const store = configureStore({
     reducer: {
@@ -14,6 +15,7 @@ const store = configureStore({
         RoleSlice: roleReducer,
         PermissionSlice: permissionReducer,
         CategorySlice: categoryReducer,
+        dashboardSlice: dashboardReducer,
     },
 });
 
