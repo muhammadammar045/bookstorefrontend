@@ -1,6 +1,14 @@
 // STORE
 import store from "./store"
 
+//DASHBOARD
+import {
+    fetchDashboardStatsThunk,
+    selectDashboardStats,
+    selectDashboardIsLoading,
+    selectDashboardError,
+} from "./dashboard/dashboardSlice"
+
 
 // USER
 import {
@@ -84,6 +92,7 @@ import {
     selectTotalDocuments,
 } from "./products/productSlice"
 
+
 // PERMISSION
 import {
     addCategoryThunk,
@@ -99,6 +108,7 @@ import {
     selectCategoryIsLoading,
 } from "./category/categorySlice"
 
+
 // MODEL
 import {
     selectShowModal,
@@ -110,6 +120,12 @@ import {
 export {
     //STORE
     store,
+
+    // DASHBOARD SLICE
+    fetchDashboardStatsThunk,
+    selectDashboardStats,
+    selectDashboardIsLoading,
+    selectDashboardError,
 
     // USER SLICE
     registerUserThunk,

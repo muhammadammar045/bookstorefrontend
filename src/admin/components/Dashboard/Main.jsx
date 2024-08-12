@@ -1,42 +1,32 @@
 import React, { useEffect } from "react";
-import TotalCalculation from "./TotalCalculation";
 import { useDispatch, useSelector } from "react-redux";
 import { Spinner } from "@loadingState";
 
 import {
-  fetchAllUserThunk,
-  selectUsers,
-  selectUserIsLoading,
-  fetchAllRolesThunk,
-  selectAllRoles,
-  selectRoleIsLoading,
-  fetchAllPermissionsThunk,
-  selectAllPermissions,
-  selectPermissionIsLoading,
-  // fetchAllUsersBooksThunk,
-  fetchAllUsersProductsThunk,
-  selectTotalDocuments,
+  fetchDashboardStatsThunk,
+  selectDashboardStats,
+  selectDashboardIsLoading,
 } from "@storeVars";
+import DashboardStatCard from "./TotalCalculation";
+import {
+  faBox,
+  faTag,
+  faTags,
+  faUsers,
+  faUserShield,
+} from "@fortawesome/free-solid-svg-icons";
 
-function main() {
+function Main() {
   const dispatch = useDispatch();
-  const users = useSelector(selectUsers);
-  const roles = useSelector(selectAllRoles);
-  const permissions = useSelector(selectAllPermissions);
-  const products = useSelector(selectTotalDocuments);
-  const loadingU = useSelector(selectUserIsLoading);
-  const loadingR = useSelector(selectRoleIsLoading);
-  const loadingP = useSelector(selectPermissionIsLoading);
-  //   const books = useSelector(selectBooks);
+  const stats = useSelector(selectDashboardStats);
+  const loading = useSelector(selectDashboardIsLoading);
 
   useEffect(() => {
-    if (users.length === 0) dispatch(fetchAllUserThunk());
-    if (roles.length === 0) dispatch(fetchAllRolesThunk());
-    if (permissions.length === 0) dispatch(fetchAllPermissionsThunk());
-    dispatch(fetchAllUsersProductsThunk());
+    dispatch(fetchDashboardStatsThunk());
   }, [dispatch]);
   return (
     <>
+      {console.log(stats)}
       <main className="grow">
         <div className="mx-auto w-full max-w-9xl px-4 py-8 sm:px-6 lg:px-8">
           {/* Dashboard actions */}
@@ -50,25 +40,44 @@ function main() {
           </div>
 
           {/* Cards */}
-          {loadingU || loadingR || loadingP ? (
+          {loading ? (
             <Spinner />
           ) : (
             <div className="grid grid-cols-3 gap-6">
-              <TotalCalculation
-                name={"Total Users"}
-                value={users.length}
+              <DashboardStatCard
+                name="Total Users"
+                value={stats.users}
+                icon={faUsers}
+                bgColor="bg-blue-500 dark:bg-blue-600 hover:bg-blue-600 dark:hover:bg-blue-700"
+                textColor="text-white"
               />
-              <TotalCalculation
-                name={"Total Roles"}
-                value={roles.length}
+              <DashboardStatCard
+                name="Total Roles"
+                value={stats.roles}
+                icon={faUserShield}
+                bgColor="bg-green-500 dark:bg-green-600 hover:bg-green-600 dark:hover:bg-green-700"
+                textColor="text-white"
               />
-              <TotalCalculation
-                name={"Total Permissions"}
-                value={permissions.length}
+              <DashboardStatCard
+                name="Total Permissions"
+                value={stats.permissions}
+                icon={faTag}
+                bgColor="bg-red-500 dark:bg-red-600 hover:bg-red-600 dark:hover:bg-red-700"
+                textColor="text-white"
               />
-              <TotalCalculation
-                name={"Total Products"}
-                value={products}
+              <DashboardStatCard
+                name="Total Products"
+                value={stats.products}
+                icon={faBox}
+                bgColor="bg-yellow-500 dark:bg-yellow-600 hover:bg-yellow-600 dark:hover:bg-yellow-700"
+                textColor="text-white"
+              />
+              <DashboardStatCard
+                name="Total Categories"
+                value={stats.categories}
+                icon={faTags}
+                bgColor="bg-violet-500 dark:bg-violet-600 hover:bg-violet-600 dark:hover:bg-violet-700"
+                textColor="text-white"
               />
             </div>
           )}
@@ -78,4 +87,4 @@ function main() {
   );
 }
 
-export default main;
+export default Main;
