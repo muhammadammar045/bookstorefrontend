@@ -156,10 +156,7 @@ const rolesSlice = createSlice({
             .addCase(updateRoleThunk.rejected, handleRejected)
             .addCase(updateRoleThunk.fulfilled, (state, action) => {
                 state.isLoading = false;
-                const index = state.roles.findIndex(role => role._id === action.payload.data._id);
-                if (index !== -1) {
-                    state.roles[index] = action.payload.data;
-                }
+                state.roles = state.roles.map(role => role._id === action.payload.data._id ? action.payload.data : role);
                 state.status = 'succeeded';
                 state.role = null;
             })
@@ -169,11 +166,7 @@ const rolesSlice = createSlice({
             .addCase(assignPermissionsToRoleThunk.rejected, handleRejected)
             .addCase(assignPermissionsToRoleThunk.fulfilled, (state, action) => {
                 state.isLoading = false;
-                const index = state.roles.findIndex(role => role._id === action.payload.data._id);
-                if (index !== -1) {
-                    state.roles[index] = action.payload.data;
-                    // console.log(action.payload.data)
-                }
+                state.roles = state.roles.map(role => role._id === action.payload.data._id ? action.payload.data : role);
                 state.status = 'succeeded';
                 state.role = null
             })
@@ -182,11 +175,8 @@ const rolesSlice = createSlice({
             .addCase(deleteRoleThunk.pending, handlePending)
             .addCase(deleteRoleThunk.rejected, handleRejected)
             .addCase(deleteRoleThunk.fulfilled, (state, action) => {
+                state.roles = state.roles.filter(role => role._id !== action.payload.data._id);
                 state.isLoading = false;
-                const index = state.roles.findIndex(role => role._id === action.payload.data._id);
-                if (index !== -1) {
-                    state.roles.splice(index, 1);
-                }
                 state.status = 'succeeded';
             })
 
@@ -198,8 +188,8 @@ const rolesSlice = createSlice({
 export const { resetSelectedRole } = rolesSlice.actions;
 export default rolesSlice.reducer;
 
-export const selectAllRoles = (state) => state.role.roles;
-export const selectRole = (state) => state.role.role;
-export const selectRoleIsLoading = (state) => state.role.isLoading;
-export const selectRoleError = (state) => state.role.error;
-export const selectRoleStatus = (state) => state.role.status;
+export const selectAllRoles = (state) => state.RoleSlice.roles;
+export const selectRole = (state) => state.RoleSlice.role;
+export const selectRoleIsLoading = (state) => state.RoleSlice.isLoading;
+export const selectRoleError = (state) => state.RoleSlice.error;
+export const selectRoleStatus = (state) => state.RoleSlice.status;

@@ -2,12 +2,12 @@ import React, { useEffect, useMemo } from "react";
 import { ReactTable } from "@commonPartials";
 import { useDispatch, useSelector } from "react-redux";
 import {
-  selectBookIsLoading,
-  selectBooks,
-  fetchAllUsersBooksThunk,
-  fetchBookThunk,
-  deleteBookThunk,
-  resetSelectedBook,
+  selectProductIsLoading,
+  selectAdminProducts,
+  fetchAllUsersProductsAdminThunk,
+  fetchProductThunk,
+  deleteProductThunk,
+  resetSelectedProduct,
 } from "@storeVars";
 import showToast from "@utils/toastAlert/toaster";
 import { SkeletonTable } from "@loadingState";
@@ -15,49 +15,57 @@ import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEdit, faTrash } from "@fortawesome/free-solid-svg-icons";
 
-function AllBooksAdmin() {
-  const books = useSelector(selectBooks);
+function AllProductsAdmin() {
+  const products = useSelector(selectAdminProducts);
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const loading = useSelector(selectBookIsLoading);
+  const loading = useSelector(selectProductIsLoading);
 
-  const handleEdit = async (bookId) => {
+  console.log(products);
+  const handleEdit = async (productId) => {
     try {
-      await dispatch(fetchBookThunk(bookId)).unwrap();
-      navigate("/admin/books/add-or-update-book");
+      await dispatch(fetchProductThunk(productId)).unwrap();
+      navigate("/admin/products/add-or-update-product");
     } catch (error) {
       showToast("error", `${error.message}`);
     }
   };
 
-  const handleDelete = async (bookId) => {
+  const handleDelete = async (productId) => {
     try {
-      await dispatch(deleteBookThunk(bookId)).unwrap();
-      showToast("success", "Book deleted successfully");
-      dispatch(resetSelectedBook());
+      await dispatch(deleteProductThunk(productId)).unwrap();
+      showToast("success", "Product deleted successfully");
+      dispatch(resetSelectedProduct());
     } catch (error) {
       showToast("error", `${error.message}`);
     }
   };
 
   useEffect(() => {
-    if (books.length === 0) dispatch(fetchAllUsersBooksThunk());
+    dispatch(fetchAllUsersProductsAdminThunk());
   }, [dispatch]);
 
-  const allBooks = useMemo(() => {
+  const allProducts = useMemo(() => {
     return (
-      books?.map((book) => ({
-        id: book._id,
-        title: book.title,
-        category: book.category,
-        author: book.author.fullname,
-        createdAt: book.createdAt.slice(0, 10),
-        updatedAt: book.updatedAt.slice(0, 10),
+      products?.map((product) => ({
+        id: product._id,
+        PImage: (
+          <img
+            className="w-16 rounded-lg"
+            src={product.thumbnail}
+            alt={product.title}
+          />
+        ),
+        title: product.title,
+        category: product.category.name,
+        author: product.author.fullname,
+        createdAt: product.createdAt.slice(0, 10),
+        updatedAt: product.updatedAt.slice(0, 10),
         actions: (
           <>
             <button
               className="duration-700 hover:scale-150"
-              onClick={() => handleDelete(book._id)}
+              onClick={() => handleDelete(product._id)}
             >
               <span className="px-2">
                 <FontAwesomeIcon
@@ -68,7 +76,7 @@ function AllBooksAdmin() {
             </button>
 
             <button
-              onClick={() => handleEdit(book._id)}
+              onClick={() => handleEdit(product._id)}
               className="duration-700 hover:scale-150"
             >
               <span className="px-2">
@@ -82,7 +90,7 @@ function AllBooksAdmin() {
         ),
       })) || []
     );
-  }, [books]);
+  }, [products]);
 
   return (
     <>
@@ -93,7 +101,7 @@ function AllBooksAdmin() {
             {/* Left: Title */}
             <div className="mb-4 sm:mb-0">
               <h1 className="text-2xl font-bold text-gray-800 dark:text-gray-100 md:text-3xl">
-                All Books
+                All Products
               </h1>
             </div>
           </div>
@@ -109,7 +117,7 @@ function AllBooksAdmin() {
               </>
             ) : (
               <div className="w-full">
-                <ReactTable data={allBooks} />
+                <ReactTable data={allProducts} />
               </div>
             )}
           </div>
@@ -119,4 +127,4 @@ function AllBooksAdmin() {
   );
 }
 
-export default AllBooksAdmin;
+export default AllProductsAdmin;

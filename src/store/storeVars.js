@@ -1,6 +1,7 @@
 // STORE
 import store from "./store"
 
+
 // USER
 import {
     registerUserThunk,
@@ -10,6 +11,7 @@ import {
     logoutUserThunk,
     updateUserThunk,
     deleteUserThunk,
+    resetSelectedUser,
     selectUser,
     selectUsers,
     selectFetchedUser,
@@ -21,6 +23,7 @@ import {
     selectRefreshToken,
     selectUserId
 } from "./user/userAuthSlice";
+
 
 // ROLE
 import {
@@ -56,29 +59,45 @@ import {
 } from "./permission/permissionSlice"
 
 
-// BOOK
+// PRODUCT
 import {
-    addBookThunk,
-    fetchBooksThunk,
-    fetchAllUsersBooksThunk,
-    fetchBookThunk,
-    updateBookThunk,
-    updateBookThumbnailThunk,
-    deleteBookThunk,
-    resetSelectedBook,
+    addProductThunk,
+    fetchCurrentUserProductsThunk,
+    fetchAllUsersProductsThunk,
+    fetchAllUsersProductsAdminThunk,
+    fetchProductThunk,
+    updateProductThunk,
+    updateProductThumbnailThunk,
+    deleteProductThunk,
+    resetSelectedProduct,
     setSearchQuery,
     selectSearchQuery,
-    selectBook,
-    selectBooks,
-    selectBookIsLoading,
+    selectProduct,
+    selectProducts,
+    selectAdminProducts,
+    selectProductIsLoading,
+    selectProductError,
     selectCurrentPage,
-    selectBookError,
     selectStatus,
     selectLimit,
     selectTotalPages,
-    selectTotalDocuments
-} from "./book/bookSlice"
+    selectTotalDocuments,
+} from "./products/productSlice"
 
+// PERMISSION
+import {
+    addCategoryThunk,
+    fetchCategoryThunk,
+    fetchAllCategoriesThunk,
+    updateCategoryThunk,
+    deleteCategoryThunk,
+    resetSelectedCategory,
+    selectCategory,
+    selectAllCategories,
+    selectCategoryError,
+    selectCategoryStatus,
+    selectCategoryIsLoading,
+} from "./category/categorySlice"
 
 // MODEL
 import {
@@ -100,6 +119,7 @@ export {
     logoutUserThunk,
     updateUserThunk,
     deleteUserThunk,
+    resetSelectedUser,
     selectUser,
     selectUsers,
     selectFetchedUser,
@@ -139,26 +159,41 @@ export {
     selectPermissionStatus,
     selectPermissionIsLoading,
 
-    // BOOK SLICE
-    addBookThunk,
-    fetchBooksThunk,
-    fetchAllUsersBooksThunk,
-    fetchBookThunk,
-    updateBookThunk,
-    updateBookThumbnailThunk,
-    deleteBookThunk,
-    resetSelectedBook,
+    // PRODUCT SLICE
+    addProductThunk,
+    fetchCurrentUserProductsThunk,
+    fetchAllUsersProductsThunk,
+    fetchAllUsersProductsAdminThunk,
+    fetchProductThunk,
+    updateProductThunk,
+    updateProductThumbnailThunk,
+    deleteProductThunk,
+    resetSelectedProduct,
     setSearchQuery,
     selectSearchQuery,
-    selectBook,
-    selectBooks,
-    selectBookIsLoading,
+    selectProduct,
+    selectProducts,
+    selectAdminProducts,
+    selectProductIsLoading,
+    selectProductError,
     selectCurrentPage,
-    selectBookError,
     selectStatus,
     selectLimit,
     selectTotalPages,
     selectTotalDocuments,
+
+    // CATEGORY SLICE
+    addCategoryThunk,
+    fetchCategoryThunk,
+    fetchAllCategoriesThunk,
+    updateCategoryThunk,
+    deleteCategoryThunk,
+    resetSelectedCategory,
+    selectCategory,
+    selectAllCategories,
+    selectCategoryError,
+    selectCategoryStatus,
+    selectCategoryIsLoading,
 
     // MODAL SLICE
     selectShowModal,

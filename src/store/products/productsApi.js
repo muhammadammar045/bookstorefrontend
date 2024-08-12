@@ -1,11 +1,11 @@
 import axios from "../axiosInstance";
 
-const apiAddBooks = async (bookData, accessToken) => {
+const apiAddProducts = async (productData, accessToken) => {
     try {
         const response = await axios
             .post(
-                '/books/add-book',
-                bookData, {
+                '/products/add-product',
+                productData, {
                 headers: {
                     "Content-Type": "multipart/form-data",
                     'Authorization': `Bearer ${accessToken}`
@@ -17,10 +17,10 @@ const apiAddBooks = async (bookData, accessToken) => {
     }
 }
 
-const apiFetchAllUsersBooks = async (page, query, limit, accessToken) => {
+const apiFetchAllUsersProducts = async (page, query, limit, accessToken) => {
     try {
         const response = await axios
-            .get(`/books/get-all-books?page=${page}&q=${query}&limit=${limit}`,
+            .get(`/products/get-all-products?page=${page}&q=${query}&limit=${limit}`,
                 {
                     headers: {
                         'Authorization': `Bearer ${accessToken}`
@@ -32,10 +32,10 @@ const apiFetchAllUsersBooks = async (page, query, limit, accessToken) => {
     }
 }
 
-const apiFetchBooks = async (page, query, limit, accessToken) => {
+const apiFetchAllUsersProductsAdmin = async (accessToken) => {
     try {
         const response = await axios
-            .get(`/books/get-current-user-books?page=${page}&q=${query}&limit=${limit}`,
+            .get(`/products/get-all-products-admin`,
                 {
                     headers: {
                         'Authorization': `Bearer ${accessToken}`
@@ -47,10 +47,10 @@ const apiFetchBooks = async (page, query, limit, accessToken) => {
     }
 }
 
-const apiFetchBook = async (bookId, accessToken) => {
+const apiFetchCurrentUserProducts = async (page, query, limit, accessToken) => {
     try {
         const response = await axios
-            .get(`/books/get-book/${bookId}`,
+            .get(`/products/get-current-user-products?page=${page}&q=${query}&limit=${limit}`,
                 {
                     headers: {
                         'Authorization': `Bearer ${accessToken}`
@@ -62,11 +62,26 @@ const apiFetchBook = async (bookId, accessToken) => {
     }
 }
 
-const apiDeleteBook = async (bookId, accessToken) => {
+const apiFetchProduct = async (productId, accessToken) => {
+    try {
+        const response = await axios
+            .get(`/products/get-product/${productId}`,
+                {
+                    headers: {
+                        'Authorization': `Bearer ${accessToken}`
+                    }
+                });
+        return response.data;
+    } catch (error) {
+        throw error;
+    }
+}
+
+const apiDeleteProduct = async (productId, accessToken) => {
     try {
         const response = await axios
             .delete(
-                `/books/delete-book/${bookId}`,
+                `/products/delete-product/${productId}`,
                 {
                     headers: {
                         'Authorization': `Bearer ${accessToken}`
@@ -78,12 +93,12 @@ const apiDeleteBook = async (bookId, accessToken) => {
     }
 }
 
-const apiUpdateBook = async (bookId, bookData, accessToken) => {
+const apiUpdateProduct = async (productId, productData, accessToken) => {
     try {
         const response = await axios
             .patch(
-                `/books/update-book/${bookId}`,
-                bookData,
+                `/products/update-product/${productId}`,
+                productData,
                 {
                     headers: {
                         'Authorization': `Bearer ${accessToken}`
@@ -95,11 +110,11 @@ const apiUpdateBook = async (bookId, bookData, accessToken) => {
     }
 }
 
-const apiUpdateBookThumbnail = async (bookId, thumbnailFile, accessToken) => {
+const apiUpdateProductThumbnail = async (productId, thumbnailFile, accessToken) => {
     try {
         const response = await axios
             .patch(
-                `/books/update-book-thumbnail/${bookId}`,
+                `/products/update-product-thumbnail/${productId}`,
                 thumbnailFile,
                 {
                     headers: {
@@ -114,11 +129,12 @@ const apiUpdateBookThumbnail = async (bookId, thumbnailFile, accessToken) => {
 }
 
 export {
-    apiAddBooks,
-    apiFetchBooks,
-    apiFetchBook,
-    apiDeleteBook,
-    apiUpdateBook,
-    apiUpdateBookThumbnail,
-    apiFetchAllUsersBooks,
+    apiAddProducts,
+    apiFetchCurrentUserProducts,
+    apiFetchProduct,
+    apiDeleteProduct,
+    apiUpdateProduct,
+    apiUpdateProductThumbnail,
+    apiFetchAllUsersProducts,
+    apiFetchAllUsersProductsAdmin
 };

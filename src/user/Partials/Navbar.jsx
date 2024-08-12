@@ -20,8 +20,8 @@ function Navbar() {
 
   const authenticatedLinks = [
     ["Home", "/"],
-    ["My Books", "/books"],
-    ["Add Book", "/add-book"],
+    ["My Products", "/products"],
+    ["Add Product", "/add-product"],
     ...(role === "admin" ? [["Dashboard", "/admin/dashboard/main"]] : []),
   ];
 

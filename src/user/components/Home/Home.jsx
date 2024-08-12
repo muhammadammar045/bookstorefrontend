@@ -2,7 +2,7 @@ import React from "react";
 import { selectUser } from "@storeVars";
 import { useSelector } from "react-redux";
 import Typewriter from "typewriter-effect";
-import { AllBooks } from "@userComponents";
+import { AllProducts } from "@userComponents";
 
 function Home() {
   const user = useSelector(selectUser);
@@ -11,7 +11,7 @@ function Home() {
     <>
       {user ? (
         <div>
-          <AllBooks />
+          <AllProducts />
         </div>
       ) : (
         <div className="bg-gray-200dark:bg-gray-900 mt-10 flex h-[412px] items-center justify-center rounded-lg">
@@ -22,10 +22,10 @@ function Home() {
                 options={{
                   wrapperClassName: "text-red-400 ml-4 dark:text-red-300",
                   strings: [
-                    "Read Books ",
-                    "Add Books",
-                    "Update Books",
-                    "Delete Books",
+                    "Read Products ",
+                    "Add Products",
+                    "Update Products",
+                    "Delete Products",
                   ],
                   autoStart: true,
                   loop: true,

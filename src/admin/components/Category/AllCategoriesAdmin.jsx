@@ -7,55 +7,56 @@ import { ReactTable } from "@commonPartials";
 import { SkeletonTable } from "@loadingState";
 import { useNavigate } from "react-router-dom";
 import {
-  deletePermissionThunk,
-  fetchAllPermissionsThunk,
-  fetchPermissionThunk,
-  selectAllPermissions,
-  selectPermissionIsLoading,
-  resetSelectedPermission,
+  deleteCategoryThunk,
+  fetchAllCategoriesThunk,
+  fetchCategoryThunk,
+  selectAllCategories,
+  selectCategoryIsLoading,
+  resetSelectedCategory,
 } from "@storeVars";
 
-function AllPermissionsAdmin() {
-  const permissions = useSelector(selectAllPermissions);
+function AllCategoriesAdmin() {
+  const categories = useSelector(selectAllCategories);
   const dispatch = useDispatch();
-  const loading = useSelector(selectPermissionIsLoading);
+  const loading = useSelector(selectCategoryIsLoading);
   const navigate = useNavigate();
 
-  const handleEdit = async (permissionId) => {
+  const handleEdit = async (categoryId) => {
     try {
-      await dispatch(fetchPermissionThunk(permissionId)).unwrap();
-      navigate("/admin/permissions/add-or-update-permission");
+      await dispatch(fetchCategoryThunk(categoryId)).unwrap();
+      navigate("/admin/categories/add-or-update-category");
     } catch (error) {
       showToast("error", `${error.message}`);
     }
   };
 
-  const handleDelete = async (permissionId) => {
+  const handleDelete = async (categoryId) => {
     try {
-      const res = await dispatch(deletePermissionThunk(permissionId)).unwrap();
+      const res = await dispatch(deleteCategoryThunk(categoryId)).unwrap();
       showToast("success", `${res.message}`);
-      // dispatch(resetSelectedPermission());
+      dispatch(resetSelectedCategory());
     } catch (error) {
       showToast("error", `${error.message}`);
     }
   };
 
   useEffect(() => {
-    if (permissions.length === 0) {
-      dispatch(fetchAllPermissionsThunk());
-    }
+    dispatch(fetchAllCategoriesThunk());
   }, [dispatch]);
 
-  const allPermissions = useMemo(() => {
+  const allCategories = useMemo(() => {
     return (
-      permissions?.map((permission) => ({
-        id: permission._id,
-        Permission: permission.permissionName,
+      categories?.map((category) => ({
+        id: category._id,
+        category: category.categoryName,
+        description: category.description,
+        parent_category:
+          category.parentCategory === null ? "_" : category.parentCategoryName,
         actions: (
           <>
             <button
               className="duration-700 hover:scale-150"
-              onClick={() => handleDelete(permission._id)}
+              onClick={() => handleDelete(category._id)}
             >
               <span className="px-2">
                 <FontAwesomeIcon
@@ -66,7 +67,7 @@ function AllPermissionsAdmin() {
             </button>
 
             <button
-              onClick={() => handleEdit(permission._id)}
+              onClick={() => handleEdit(category._id)}
               className="duration-700 hover:scale-150"
             >
               <span className="px-2">
@@ -80,7 +81,7 @@ function AllPermissionsAdmin() {
         ),
       })) || []
     );
-  }, [permissions]);
+  }, [categories]);
 
   return (
     <main className="grow">
@@ -88,7 +89,7 @@ function AllPermissionsAdmin() {
         <div className="mb-8 sm:flex sm:items-center sm:justify-between">
           <div className="mb-4 sm:mb-0">
             <h1 className="text-2xl font-bold text-gray-800 dark:text-gray-100 md:text-3xl">
-              All Permissions
+              All Categories
             </h1>
           </div>
         </div>
@@ -102,7 +103,7 @@ function AllPermissionsAdmin() {
           ) : (
             <>
               <div className="w-full">
-                <ReactTable data={allPermissions} />
+                <ReactTable data={allCategories} />
               </div>
             </>
           )}
@@ -112,4 +113,4 @@ function AllPermissionsAdmin() {
   );
 }
 
-export default AllPermissionsAdmin;
+export default AllCategoriesAdmin;

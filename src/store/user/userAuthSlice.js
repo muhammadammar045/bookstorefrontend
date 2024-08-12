@@ -112,7 +112,11 @@ const initialState = {
 const userAuthSlice = createSlice({
     name: "userAuth",
     initialState,
-    reducers: {},
+    reducers: {
+        resetSelectedUser: (state) => {
+            state.fetchedUser = null;
+        }
+    },
     extraReducers: (builder) => {
         const handlePending = (state) => {
             state.isLoading = true;
@@ -125,6 +129,8 @@ const userAuthSlice = createSlice({
             state.error = action.payload;
             state.status = 'failed';
         };
+
+
 
         builder
             // REGISTER USER
@@ -179,10 +185,7 @@ const userAuthSlice = createSlice({
             .addCase(updateUserThunk.rejected, handleRejected)
             .addCase(updateUserThunk.fulfilled, (state, action) => {
                 state.isLoading = false;
-                const index = state.users.findIndex(user => user._id === action.payload.data._id);
-                if (index !== -1) {
-                    state.users[index] = action.payload.data;
-                }
+                state.users = state.users.map(user => user._id === action.payload.data._id ? action.payload.data : user);
                 state.status = 'succeeded';
                 state.fetchedUser = null;
             })
@@ -192,11 +195,7 @@ const userAuthSlice = createSlice({
             .addCase(assignRoleToUserThunk.rejected, handleRejected)
             .addCase(assignRoleToUserThunk.fulfilled, (state, action) => {
                 state.isLoading = false;
-                const index = state.users.findIndex(user => user._id === action.payload.data._id);
-                if (index !== -1) {
-                    state.users[index] = action.payload.data;
-                    // console.log(action.payload.data)
-                }
+                state.users = state.users.map(user => user._id === action.payload.data._id ? action.payload.data : user);
                 state.status = 'succeeded';
                 state.fetchedUser = null
             })
@@ -214,15 +213,17 @@ const userAuthSlice = createSlice({
     },
 });
 
+export const { resetSelectedUser } = userAuthSlice.actions;
+
 export default userAuthSlice.reducer;
 
-export const selectUsers = (state) => state.userAuth?.users;
-export const selectUser = (state) => state.userAuth?.user?.user;
-export const selectFetchedUser = (state) => state.userAuth?.fetchedUser;
-export const selectUserRole = (state) => state.userAuth?.user?.user?.roleName;
-export const selectUserId = (state) => state.userAuth?.user?.user?._id;
-export const selectUserPermissions = (state) => state.userAuth?.user?.user.permissions;
-export const selectAccessToken = (state) => state.userAuth?.user?.accessToken;
-export const selectRefreshToken = (state) => state.userAuth?.user?.refreshToken;
-export const selectUserIsLoading = (state) => state.userAuth?.isLoading;
-export const selectUserError = (state) => state.userAuth?.error;
+export const selectUsers = (state) => state.UserSlice?.users;
+export const selectUser = (state) => state.UserSlice?.user?.user;
+export const selectFetchedUser = (state) => state.UserSlice?.fetchedUser;
+export const selectUserRole = (state) => state.UserSlice?.user?.user?.roleName;
+export const selectUserId = (state) => state.UserSlice?.user?.user?._id;
+export const selectUserPermissions = (state) => state.UserSlice?.user?.user.permissions;
+export const selectAccessToken = (state) => state.UserSlice?.user?.accessToken;
+export const selectRefreshToken = (state) => state.UserSlice?.user?.refreshToken;
+export const selectUserIsLoading = (state) => state.UserSlice?.isLoading;
+export const selectUserError = (state) => state.UserSlice?.error;

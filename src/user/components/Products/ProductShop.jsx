@@ -1,31 +1,31 @@
 import {
-  selectBooks,
-  selectBookIsLoading,
+  selectProducts,
+  selectProductIsLoading,
+  fetchCurrentUserProductsThunk,
   selectTotalPages,
-  fetchAllUsersBooksThunk,
-  selectSearchQuery,
   setSearchQuery,
+  selectSearchQuery,
 } from "@storeVars";
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Pagination, SearchBox, SelectBox } from "@commonPartials";
-import { BooksSpinner } from "@loadingState";
-
-import { BookCard } from "@userComponents";
+import { ProductCard } from "@userComponents";
+import { ProductsSpinner } from "@loadingState";
 import Typewriter from "typewriter-effect";
 
-function AllBooks() {
+function ProductShop() {
   const [currentPage, setCurrentPage] = useState(1);
   const [pageSize, setPageSize] = useState(10);
+
   const dispatch = useDispatch();
-  const loading = useSelector(selectBookIsLoading);
-  const books = useSelector(selectBooks);
+  const loading = useSelector(selectProductIsLoading);
+  const products = useSelector(selectProducts);
   const totalPages = useSelector(selectTotalPages);
   const searchQuery = useSelector(selectSearchQuery);
 
   useEffect(() => {
     dispatch(
-      fetchAllUsersBooksThunk({
+      fetchCurrentUserProductsThunk({
         page: currentPage,
         query: searchQuery,
         limit: pageSize,
@@ -49,7 +49,7 @@ function AllBooks() {
           <Typewriter
             options={{
               wrapperClassName: "text-gray-900 dark:text-gray-200 ml-4 ",
-              strings: ["Available Books"],
+              strings: ["My Products"],
               autoStart: true,
               loop: true,
             }}
@@ -70,28 +70,28 @@ function AllBooks() {
           </div>
         </div>
         {loading ? (
-          <BooksSpinner count={12} />
+          <ProductsSpinner count={12} />
         ) : (
           <>
             <div className="my-10 flex flex-wrap gap-4">
-              {books && books.length > 0 ? (
+              {products && products.length > 0 ? (
                 <>
-                  {books.map((book) => (
-                    <BookCard
-                      book={book}
-                      key={book._id}
+                  {products.map((product) => (
+                    <ProductCard
+                      product={product}
+                      key={product._id}
                     />
                   ))}
                 </>
               ) : (
                 <div className="flex min-h-[250px] w-full items-center justify-center">
                   <h1 className="text-4xl italic text-gray-400 dark:text-gray-600">
-                    No Books Found
+                    No Products Found
                   </h1>
                 </div>
               )}
             </div>
-            {books && books.length > 0 && (
+            {products && products.length > 0 && (
               <div className="mt-4 flex items-center justify-center">
                 <Pagination
                   currentPage={currentPage}
@@ -107,4 +107,4 @@ function AllBooks() {
   );
 }
 
-export default AllBooks;
+export default ProductShop;

@@ -1,11 +1,8 @@
 import {
-  deleteBookThunk,
-  fetchBookThunk,
-  selectBook,
-  selectBookIsLoading,
-  openModal,
-  closeModal,
-  selectModalContext,
+  deleteProductThunk,
+  fetchProductThunk,
+  selectProduct,
+  selectProductIsLoading,
   selectUserPermissions,
 } from "@storeVars";
 import { faCamera, faEdit, faTrash } from "@fortawesome/free-solid-svg-icons";
@@ -14,67 +11,51 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import showToast from "@utils/toastAlert/toaster";
-import Modal from "@utils/modal/Modal";
-import { BookSpinner } from "@loadingState";
+import { ProductSpinner } from "@loadingState";
 
-function Book() {
-  const loading = useSelector(selectBookIsLoading);
+function Product() {
+  const loading = useSelector(selectProductIsLoading);
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const book = useSelector(selectBook);
-  const modalContext = useSelector(selectModalContext);
+  const product = useSelector(selectProduct);
+  const { productId } = useParams();
   const permissions = useSelector(selectUserPermissions);
-  const { bookId } = useParams();
-
-  const onDeleteClick = () => {
-    dispatch(openModal("delete"));
-  };
-
-  const onEditClick = () => {
-    dispatch(openModal("edit"));
-  };
 
   const handleEditThumbnail = () => {
-    dispatch(openModal("editThumbnail"));
-  };
-
-  const handleThumbnail = () => {
-    navigate(`/edit-book-thumbnail/${bookId}`);
-    dispatch(closeModal());
+    navigate(`/edit-product-thumbnail/${productId}`);
   };
 
   const handleEdit = () => {
-    navigate(`/edit-book/${bookId}`);
-    dispatch(closeModal());
+    navigate(`/edit-product/${productId}`);
   };
 
-  const onDelete = async () => {
+  const handleDelete = async () => {
     try {
-      const res = await dispatch(deleteBookThunk(book._id)).unwrap();
+      const res = await dispatch(deleteProductThunk(productId)).unwrap();
       showToast("success", `${res.message}`);
-      navigate("/books");
-      dispatch(closeModal());
+      navigate("/products");
     } catch (error) {
       showToast("error", `${error.message}`);
     }
   };
 
   useEffect(() => {
-    if (book?._id !== bookId) dispatch(fetchBookThunk(bookId));
-  }, [dispatch, bookId]);
+    dispatch(fetchProductThunk(productId));
+  }, [dispatch]);
 
   return (
     <>
       {loading ? (
-        <BookSpinner />
+        <ProductSpinner />
       ) : (
         <div className="my-10 rounded-lg border-2 border-gray-400 bg-gray-200 p-3 dark:border-gray-600 dark:bg-gray-900">
+          {/* THUMBNAIL AND CHANGE THUMBNAIL BUTTON */}
           <div className="relative">
             <div>
               <img
                 className="max-h-[500px] w-full rounded-lg border-2 border-gray-400 bg-cover dark:border-gray-600"
-                src={book?.thumbnail}
-                alt={book?.title || "Book Thumbnail"}
+                src={product?.thumbnail}
+                alt={product?.title || "Product Thumbnail"}
               />
             </div>
             {permissions.includes("update") && (
@@ -89,18 +70,21 @@ function Book() {
               </div>
             )}
           </div>
+
+          {/* PRODUCT DETAILS */}
           <div>
+            {/*PRODUCT CATEGORY AND ACTION BUTTONS */}
             <div className="mt-8 flex items-center justify-between">
               <Link>
                 <h5 className="ml-2 text-lg font-semibold text-gray-900 duration-700 hover:text-red-600 dark:text-gray-400 dark:hover:text-red-300">
-                  {book?.category}
+                  {product?.category?.name}
                 </h5>
               </Link>
               <span className="">
                 {permissions.includes("delete") && (
                   <button
                     className="duration-700 hover:scale-150"
-                    onClick={onDeleteClick}
+                    onClick={handleDelete}
                   >
                     <span className="px-4">
                       <FontAwesomeIcon
@@ -113,7 +97,7 @@ function Book() {
                 )}
                 {permissions.includes("update") && (
                   <button
-                    onClick={onEditClick}
+                    onClick={handleEdit}
                     className="duration-700 hover:scale-150"
                   >
                     <span className="px-4">
@@ -127,35 +111,21 @@ function Book() {
                 )}
               </span>
             </div>
+
+            {/* PRODUCT TITLE */}
             <h1 className="ml-1 pt-2 text-3xl font-bold text-gray-600 dark:text-gray-200">
-              {book?.title}
+              {product?.title}
             </h1>
+
+            {/* PRODUCT DESCRIPTION */}
             <p className="ml-2 pt-2 text-lg text-gray-700 dark:text-gray-400">
-              {book?.description}
+              {product?.description}
             </p>
           </div>
         </div>
-      )}
-      {modalContext === "delete" && (
-        <Modal
-          onConfirmFunction={onDelete}
-          message={"Are you sure you want to delete this Book?"}
-        />
-      )}
-      {modalContext === "edit" && (
-        <Modal
-          onConfirmFunction={handleEdit}
-          message={"Are you sure you want to edit this Book?"}
-        />
-      )}
-      {modalContext === "editThumbnail" && (
-        <Modal
-          onConfirmFunction={handleThumbnail}
-          message={"Are you sure you want to update the Thumbnail?"}
-        />
       )}
     </>
   );
 }
 
-export default Book;
+export default Product;

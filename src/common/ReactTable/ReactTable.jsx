@@ -7,7 +7,7 @@ import {
 } from "react-table";
 import {
   Checkbox,
-  SearchBox,
+  TableSearchBox,
   SelectBox,
   TablePagination,
 } from "@commonPartials";
@@ -79,7 +79,7 @@ function ReactTable({ data }) {
         <div className="flex items-center justify-between">
           {/* SEARCH BOX */}
           <div className="mb-2 flex w-[300px] p-3">
-            <SearchBox
+            <TableSearchBox
               filter={globalFilter}
               setFilter={setGlobalFilter}
             />

@@ -13,6 +13,7 @@ import {
   selectUsers,
   deleteUserThunk,
   fetchAllRolesThunk,
+  resetSelectedUser,
 } from "@storeVars";
 
 function AllUsersAdmin() {
@@ -51,6 +52,12 @@ function AllUsersAdmin() {
     return (
       users?.map((user) => ({
         id: user._id,
+        avatar: (
+          <img
+            src={user.profileImage}
+            alt={user.title}
+          />
+        ),
         name: user.fullname,
         email: user.email,
         role: user.roleName,

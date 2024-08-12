@@ -1,15 +1,15 @@
 import React from "react";
-import { AddBook as AddBookComp } from "@userComponents";
+import { Product as ProductComp } from "@userComponents";
 import { Container } from "@layout";
 
-function AddBook() {
+function Product() {
   return (
     <>
       <Container>
-        <AddBookComp />
+        <ProductComp />
       </Container>
     </>
   );
 }
 
-export default AddBook;
+export default Product;

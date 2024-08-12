@@ -1,18 +1,19 @@
 import { configureStore } from "@reduxjs/toolkit";
 import userAuthReducer from "./user/userAuthSlice";
-import booksReducer from "./book/bookSlice";
+import productsReducer from "./products/productSlice";
 import modalReducer from "./modal/modalSlice";
 import roleReducer from "./role/roleSlice";
 import permissionReducer from "./permission/permissionSlice";
+import categoryReducer from "./category/categorySlice";
 
 const store = configureStore({
     reducer: {
-        userAuth: userAuthReducer,
-        booksData: booksReducer,
-        modal: modalReducer,
-        role: roleReducer,
-        permission: permissionReducer,
-
+        UserSlice: userAuthReducer,
+        ProductSlice: productsReducer,
+        ModalSlice: modalReducer,
+        RoleSlice: roleReducer,
+        PermissionSlice: permissionReducer,
+        CategorySlice: categoryReducer,
     },
 });
 
