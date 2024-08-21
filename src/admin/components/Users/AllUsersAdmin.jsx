@@ -58,8 +58,10 @@ function AllUsersAdmin() {
             alt={user.title}
           />
         ),
-        name: user.fullname,
+        name: user.fullName,
+        username: user.userName,
         email: user.email,
+        address: user.address,
         role: user.roleName,
         permissions: user.permissions
           ?.map((permission) => permission)

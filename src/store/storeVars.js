@@ -112,7 +112,6 @@ import {
 // MODEL
 import {
     selectShowModal,
-    selectModalContext,
     openModal,
     closeModal,
 } from "./modal/modalSlice"
@@ -213,7 +212,6 @@ export {
 
     // MODAL SLICE
     selectShowModal,
-    selectModalContext,
     openModal,
     closeModal,
 }

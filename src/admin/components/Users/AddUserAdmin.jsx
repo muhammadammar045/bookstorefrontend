@@ -45,7 +45,9 @@ function AddUserAdmin() {
 
   useEffect(() => {
     if (fetchedUser) {
-      setValue("fullname", fetchedUser.fullname);
+      setValue("firstName", fetchedUser.firstName);
+      setValue("lastName", fetchedUser.lastName);
+      setValue("userName", fetchedUser.userName);
       setValue("email", fetchedUser.email);
     } else {
       reset();
@@ -63,28 +65,85 @@ function AddUserAdmin() {
           </h1>
           <form onSubmit={handleSubmit(handleUpdateUser)}>
             <div className="flex w-full flex-col">
-              {/* Full Name */}
+              {/* First Name */}
               <div className="mb-4">
                 <Input
                   type="text"
-                  label="Full Name"
-                  placeholder="Enter Full Name"
-                  {...register("fullname", {
-                    required: "Full Name is required",
+                  label="First Name"
+                  placeholder="Enter First Name"
+                  {...register("firstName", {
+                    required: "First Name is required",
                     minLength: {
-                      value: 4,
-                      message: "Full Name must be at least 4 characters",
+                      value: 3,
+                      message: "First Name must be at least 4 characters",
                     },
                     maxLength: {
                       value: 30,
-                      message: "Full Name must be at most 30 characters",
+                      message: "First Name must be at most 30 characters",
                     },
                   })}
                   className="text-gray-900 dark:text-gray-200"
                 />
-                {errors.fullname && (
+                {errors.firstName && (
                   <span className="text-red-500 dark:text-red-400">
-                    {errors.fullname.message}
+                    {errors.firstName.message}
+                  </span>
+                )}
+              </div>
+
+              {/* Last Name */}
+              <div className="mb-4">
+                <Input
+                  type="text"
+                  label="Last Name"
+                  placeholder="Enter Last Name"
+                  {...register("lastName", {
+                    required: "Last Name is required",
+                    minLength: {
+                      value: 3,
+                      message: "Last Name must be at least 4 characters",
+                    },
+                    maxLength: {
+                      value: 30,
+                      message: "Last Name must be at most 30 characters",
+                    },
+                  })}
+                  className="text-gray-900 dark:text-gray-200"
+                />
+                {errors.lastName && (
+                  <span className="text-red-500 dark:text-red-400">
+                    {errors.lastName.message}
+                  </span>
+                )}
+              </div>
+
+              {/* User Name */}
+              <div className="mb-4">
+                <Input
+                  type="text"
+                  label="User Name"
+                  placeholder="Enter Unique Username"
+                  {...register("userName", {
+                    required: "Username is required",
+                    minLength: {
+                      value: 3,
+                      message: "Username must be at least 3 characters",
+                    },
+                    maxLength: {
+                      value: 30,
+                      message: "Username must be at most 30 characters",
+                    },
+                    pattern: {
+                      value: /^[a-zA-Z0-9_]+$/,
+                      message:
+                        "Username can only contain letters, numbers, and underscores",
+                    },
+                  })}
+                  className="text-gray-900 dark:text-gray-200"
+                />
+                {errors.userName && (
+                  <span className="text-red-500 dark:text-red-400">
+                    {errors.userName.message}
                   </span>
                 )}
               </div>

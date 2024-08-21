@@ -9,6 +9,9 @@ import Checkbox from "./ReactTable/TableCheckbox"
 import ReactTable from "./ReactTable/ReactTable"
 import Pagination from "./Pagination/Pagination"
 import ThemeToggle from "./Theme/ThemeToggle"
+import Error404 from "./Errors/Error404"
+import ErrorBoundary from "./Errors/ErrorBoundary"
+import SomethingWrong from "./Errors/SomethingWrong"
 
 
 export {
@@ -23,4 +26,7 @@ export {
     TablePagination,
     TableSearchBox,
     ThemeToggle,
+    Error404,
+    ErrorBoundary,
+    SomethingWrong,
 }

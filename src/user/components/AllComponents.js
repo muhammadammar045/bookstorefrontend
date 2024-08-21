@@ -3,15 +3,13 @@ import Product from "./Products/Product"
 import AddProduct from "./Products/AddProduct"
 import ProductCard from "./Products/ProductCard"
 import ProductShop from "./Products/ProductShop"
-import EditProduct from "./Products/EditProduct"
 import AllProducts from "./Products/AllProducts"
-import EditProductThumbnail from "./Products/EditProductThumbnail"
-// import AddBook from "./Books/AddBook"
-// import BookCard from "./Books/BookCard"
-// import BookShop from "./Books/BookShop"
-// import EditBook from "./Books/EditBook"
-// import AllBooks from "./Books/AllBooks"
-// import EditBookThumbnail from "./Books/EditBookThumbnail"
+import EditProductDetails from "./Products/EditProductDetails"
+import ProductComments from "./Products/ProductComments"
+import Like from "./Like/Like"
+import Rating from "./Rating/Rating"
+import ProductIndividualStarRating from "./Rating/ProductIndividualStarRating"
+
 import Login from "./Auth/Login"
 import Logout from "./Auth/Logout"
 import Signup from "./Auth/Signup"
@@ -25,14 +23,11 @@ export {
     AllProducts,
     ProductCard,
     ProductShop,
-    EditProduct,
-    EditProductThumbnail,
-    // AddBook,
-    // BookCard,
-    // BookShop,
-    // EditBook,
-    // AllBooks,
-    // EditBookThumbnail,
+    EditProductDetails,
+    ProductComments,
+    ProductIndividualStarRating,
+    Like,
+    Rating,
     Footer,
     Home,
     Login,

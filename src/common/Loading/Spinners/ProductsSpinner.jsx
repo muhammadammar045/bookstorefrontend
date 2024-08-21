@@ -9,7 +9,7 @@ function ProductsSpinner({ count = 6 }) {
           .map((_, i) => (
             <div
               key={i}
-              className="group min-w-[384px] animate-pulse rounded-lg border-2 border-gray-300 bg-gray-200 dark:border-gray-700 dark:bg-gray-800"
+              className="group min-w-[370px] animate-pulse rounded-lg border-2 border-gray-300 bg-gray-200 dark:border-gray-700 dark:bg-gray-800"
             >
               <div className="relative p-2">
                 <div className="overflow-hidden border-2 border-gray-200 dark:border-gray-700">

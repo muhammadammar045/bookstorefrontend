@@ -1,22 +1,17 @@
 import React from "react";
-import logo from "@assets/images/ARlogo.png";
 import { Link } from "react-router-dom";
 
 function Footer() {
   return (
     <footer
-      className="body-font border-t-2 border-gray-900 bg-gray-300 text-gray-400 dark:border-gray-200 dark:bg-gray-900"
+      className="body-font border-t-3 border-gray-400 bg-gray-300 text-gray-400 dark:border-gray-700 dark:bg-gray-800"
       id="footer"
     >
-      <div className="container mx-auto flex flex-col items-center justify-center px-5 py-6 sm:flex-row">
-        <Link className="font flex cursor-pointer items-center justify-center font-medium text-gray-900 dark:text-gray-200 md:justify-start">
-          <img
-            src={logo}
-            className="hidden h-20 sm:block"
-          />
-          <span className="ml-3 text-xl">.AmmaRi</span>
-        </Link>
-        <p className="mt-4 text-sm text-gray-900 dark:text-gray-200 sm:ml-4 sm:mt-0 sm:border-l-2 sm:border-gray-800 sm:py-2 sm:pl-4">
+      <div className="container mx-auto flex flex-col items-center justify-center gap-6 p-6 sm:flex-row">
+        <p className="text-lg text-gray-900 dark:text-gray-200 sm:border-l-2 sm:border-gray-800">
+          All Rights Reserved{" "}
+        </p>
+        <p className="text-sm text-gray-900 dark:text-gray-200 sm:border-l-2 sm:border-gray-800">
           © 2024 AmmaRi —
           <Link
             to="/"
@@ -27,7 +22,7 @@ function Footer() {
             @Ammari045
           </Link>
         </p>
-        <div className="my-4 md:mx-5 md:my-0">
+        <div className="">
           <div className="flex flex-wrap gap-2">
             <Link
               to={"https://www.facebook.com/profile.php?id=100008523095118"}

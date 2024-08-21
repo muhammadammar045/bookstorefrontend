@@ -27,7 +27,7 @@ function Logout() {
       <div className="flex items-center justify-center px-2">
         <FontAwesomeIcon
           onClick={handleLogout}
-          className="cursor-pointer text-gray-900 duration-700 hover:scale-125 hover:text-violet-700 dark:text-gray-200 dark:hover:text-violet-300"
+          className="cursor-pointer text-2xl text-red-600 duration-700 hover:scale-125 hover:text-violet-700 dark:text-red-600 dark:hover:text-violet-300"
           icon={faSignOut}
         />
       </div>

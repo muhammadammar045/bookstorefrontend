@@ -94,7 +94,7 @@ function ReactTable({ data }) {
 
         {/* TABLE */}
         <table
-          className="w-full text-left text-sm text-gray-500 dark:text-gray-400 rtl:text-right"
+          className="w-full overflow-x-scroll text-left text-sm text-gray-500 dark:text-gray-400 rtl:text-right"
           {...getTableProps()}
         >
           <thead className="bg-gray-50 text-xs uppercase text-gray-700 dark:bg-gray-700 dark:text-gray-400">

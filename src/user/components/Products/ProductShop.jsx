@@ -55,7 +55,7 @@ function ProductShop() {
             }}
           />
         </h1>
-        <div className="flex justify-between rounded-md bg-gray-300 p-4 dark:bg-gray-900">
+        <div className="mb-4 flex items-center justify-between rounded-lg border border-gray-300 bg-gradient-to-r from-gray-100 to-gray-200 p-4 shadow-lg dark:border-gray-600 dark:bg-gradient-to-r dark:from-gray-800 dark:to-gray-900">
           <div className="w-3/12">
             <SearchBox onSearch={handleSearch} />
           </div>
