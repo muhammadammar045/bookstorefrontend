@@ -3,11 +3,12 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { closeModal, selectShowModal } from "@storeVars";
 
-function Modal({ onConfirmFunction, message }) {
+function Modal({ onConfirmFunction, message, onClose }) {
   const showModal = useSelector(selectShowModal);
   const dispatch = useDispatch();
 
   const handleClose = () => {
+    onClose();
     dispatch(closeModal());
   };
 
@@ -20,6 +21,10 @@ function Modal({ onConfirmFunction, message }) {
 
   return ReactDOM.createPortal(
     <>
+      <div
+        className="fixed inset-0 bg-gray-900/50"
+        aria-hidden="true"
+      />
       <div className="fixed inset-0 z-50 flex items-center justify-center">
         <div className="relative w-full max-w-md p-4 md:h-auto">
           <div className="relative rounded-lg bg-white shadow dark:bg-gray-700">
@@ -80,10 +85,6 @@ function Modal({ onConfirmFunction, message }) {
           </div>
         </div>
       </div>
-      <div
-        className="fixed inset-0 bg-gray-900/50"
-        aria-hidden="true"
-      />
     </>,
     document.getElementById("modal-root")
   );

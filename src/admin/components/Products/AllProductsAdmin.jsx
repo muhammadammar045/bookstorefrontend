@@ -52,13 +52,14 @@ function AllProductsAdmin() {
         PImage: (
           <img
             className="w-16 rounded-lg"
-            src={product.thumbnail}
-            alt={product.title}
+            src={product.productThumbnail}
+            alt={product.productTitle}
           />
         ),
-        title: product.title,
-        category: product.category.name,
-        author: product.author.fullname,
+        title: product.productTitle,
+        category: product.categoryDetails.categoryName,
+        author: product.ownerDetails.userName,
+        total_reviews: product.productReviewsCount,
         createdAt: product.createdAt.slice(0, 10),
         updatedAt: product.updatedAt.slice(0, 10),
         actions: (

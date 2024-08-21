@@ -32,7 +32,7 @@ function Navbar() {
   return (
     <>
       <header>
-        <nav className="w-full border-b-2 border-gray-900 bg-gray-300 dark:border-gray-200 dark:bg-gray-900">
+        <nav className="w-full border-b-3 border-gray-400 bg-gray-300 dark:border-gray-700 dark:bg-gray-800">
           <div className="mx-auto flex max-w-screen-xl flex-wrap items-center justify-between p-4">
             <NavLink
               to="/"

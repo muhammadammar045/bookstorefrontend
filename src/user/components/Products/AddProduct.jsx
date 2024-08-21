@@ -1,9 +1,14 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { addProductThunk, selectProductIsLoading } from "@storeVars";
-import { Input, Button } from "@commonPartials";
+import {
+  addProductThunk,
+  selectProductIsLoading,
+  selectAllCategories,
+  fetchAllCategoriesThunk,
+} from "@storeVars";
+import { Input, Button, Select } from "@commonPartials";
 import showToast from "@utils/toastAlert/toaster";
 import { ProductSpinner } from "@loadingState";
 
@@ -17,6 +22,14 @@ function AddProduct() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const loading = useSelector(selectProductIsLoading);
+  const categories = useSelector(selectAllCategories);
+  const parentCategories = categories.filter(
+    (cat) => cat.parentCategory === null
+  );
+  const p = parentCategories.map((cat) => ({
+    id: cat._id,
+    name: cat.categoryName,
+  }));
 
   const addProduct = async (productData) => {
     try {
@@ -29,6 +42,10 @@ function AddProduct() {
     }
   };
 
+  useEffect(() => {
+    dispatch(fetchAllCategoriesThunk());
+  }, [dispatch]);
+
   return (
     <>
       {loading ? (
@@ -40,6 +57,7 @@ function AddProduct() {
           </h1>
           <form onSubmit={handleSubmit(addProduct)}>
             <div className="flex w-full">
+              {/* TITLE */}
               <div className="mx-1 mb-4 w-4/12">
                 <Input
                   type="text"
@@ -63,29 +81,23 @@ function AddProduct() {
                   </span>
                 )}
               </div>
+
+              {/* CATEGORY */}
               <div className="mx-1 mb-4 w-4/12">
-                <Input
-                  type="text"
+                <Select
                   label="Category"
-                  placeholder="Enter Product Category"
-                  {...register("category", {
-                    minLength: {
-                      value: 4,
-                      message: "Category should be at least 4 characters",
-                    },
-                    maxLength: {
-                      value: 30,
-                      message: "Category should not exceed 30 characters",
-                    },
-                  })}
+                  options={p}
+                  {...register("category")}
                 />
                 {errors.category && (
-                  <span className="text-red-500 dark:text-red-300">
+                  <span className="text-red-500 dark:text-red-400">
                     {errors.category.message}
                   </span>
                 )}
               </div>
-              <div className="mx-1 mb-4 w-4/12">
+
+              {/* PRICE */}
+              <div className="w-/12 mx-1 mb-4">
                 <Input
                   type="text"
                   label="Price"
@@ -106,6 +118,8 @@ function AddProduct() {
                 )}
               </div>
             </div>
+
+            {/* DESCRIPTION */}
             <div className="mb-2">
               <Input
                 type="textarea"
@@ -122,6 +136,8 @@ function AddProduct() {
                 </span>
               )}
             </div>
+
+            {/* THUMBNAIL */}
             <div className="mb-5">
               <Input
                 type="file"
@@ -137,6 +153,8 @@ function AddProduct() {
                 </span>
               )}
             </div>
+
+            {/* SUBMIT */}
             <div className="mb-2">
               <Button>Add Product</Button>
             </div>
