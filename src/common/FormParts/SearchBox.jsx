@@ -1,30 +1,59 @@
-import React, { useState, useDeferredValue, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { Input } from "@commonPartials";
+import { useDispatch, useSelector } from "react-redux";
+import { setSearchValue, selectSearchValue } from "@storeVars";
+import debounce from "lodash/debounce";
+import { FaSearch, FaTimes } from "react-icons/fa"; // Importing search and cross icons
 
-function SearchBox({ onSearch }) {
-  const [filter, setFilter] = useState("");
-  const deferredFilter = useDeferredValue(filter);
+function SearchBox() {
+  const dispatch = useDispatch();
+  const searchValue = useSelector(selectSearchValue);
+  const [searchTerm, setSearchTerm] = useState(searchValue);
+  const [isInputVisible, setIsInputVisible] = useState(false); // State to toggle input visibility
+
+  const debouncedDispatch = debounce((value) => {
+    dispatch(setSearchValue(value));
+  }, 700);
 
   useEffect(() => {
-    const handler = setTimeout(() => {
-      onSearch(deferredFilter);
-    }, 500);
-
-    return () => {
-      clearTimeout(handler);
-    };
-  }, [deferredFilter, onSearch]);
+    debouncedDispatch(searchTerm);
+  }, [searchTerm, debouncedDispatch]);
 
   const handleChange = (e) => {
-    setFilter(e.target.value);
+    setSearchTerm(e.target.value);
+  };
+
+  const toggleInputVisibility = () => {
+    setIsInputVisible((prev) => !prev); // Toggle the visibility of the input box
+    setSearchTerm(""); // Clear the search term when toggling
   };
 
   return (
-    <Input
-      placeholder="Search ..."
-      value={filter}
-      onChange={handleChange}
-    />
+    <div className="flex items-center">
+      {isInputVisible ? (
+        <div className="relative flex items-center">
+          <Input
+            placeholder="Search ..."
+            value={searchTerm}
+            onChange={handleChange}
+            className="mr-2" // Adding some margin to separate input and cross button
+          />
+          <button
+            onClick={toggleInputVisibility}
+            className="absolute right-3 text-gray-500"
+          >
+            <FaTimes size={20} /> {/* Cross icon */}
+          </button>
+        </div>
+      ) : (
+        <button
+          onClick={toggleInputVisibility}
+          className="text-gray-500"
+        >
+          <FaSearch size={20} /> {/* Search icon */}
+        </button>
+      )}
+    </div>
   );
 }
 

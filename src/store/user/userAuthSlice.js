@@ -217,13 +217,13 @@ export const { resetSelectedUser } = userAuthSlice.actions;
 
 export default userAuthSlice.reducer;
 
-export const selectUsers = (state) => state.UserSlice?.users;
-export const selectUser = (state) => state.UserSlice?.user?.user;
-export const selectFetchedUser = (state) => state.UserSlice?.fetchedUser;
-export const selectUserRole = (state) => state.UserSlice?.user?.user?.roleName;
-export const selectUserId = (state) => state.UserSlice?.user?.user?._id;
-export const selectUserPermissions = (state) => state.UserSlice?.user?.user.permissions;
-export const selectAccessToken = (state) => state.UserSlice?.user?.accessToken;
-export const selectRefreshToken = (state) => state.UserSlice?.user?.refreshToken;
-export const selectUserIsLoading = (state) => state.UserSlice?.isLoading;
-export const selectUserError = (state) => state.UserSlice?.error;
+export const selectUsers = (state) => state.users?.users;
+export const selectUser = (state) => state.users?.user?.user;
+export const selectFetchedUser = (state) => state.users?.fetchedUser;
+export const selectUserRole = (state) => state.users?.user?.user?.roleName;
+export const selectUserId = (state) => state.users?.user?.user?._id;
+export const selectUserPermissions = (state) => state.users?.user?.user.permissions;
+export const selectAccessToken = (state) => state.users?.user?.accessToken;
+export const selectRefreshToken = (state) => state.users?.user?.refreshToken;
+export const selectUserIsLoading = (state) => state.users?.isLoading;
+export const selectUserError = (state) => state.users?.error;

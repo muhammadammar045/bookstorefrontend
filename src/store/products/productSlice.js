@@ -281,15 +281,15 @@ const productsSlice = createSlice({
 export const { resetSelectedProduct, setSearchQuery } = productsSlice.actions;
 export default productsSlice.reducer;
 
-export const selectSearchQuery = (state) => state.ProductSlice.searchQuery;
-export const selectProducts = (state) => state.ProductSlice?.products?.products;
-export const selectAdminProducts = (state) => state.ProductSlice?.products.products;
-export const selectProduct = (state) => state.ProductSlice?.product?.product;
-export const selectProductIsOwner = (state) => state.ProductSlice?.product?.isOwner;
-export const selectTotalPages = (state) => state.ProductSlice?.products?.totalPages;
-export const selectTotalDocuments = (state) => state.ProductSlice?.products?.totalProducts;
-export const selectCurrentPage = (state) => state.ProductSlice?.products?.meta?.currentPage;
-export const selectLimit = (state) => state.ProductSlice?.products?.meta?.limit;
-export const selectProductIsLoading = (state) => state.ProductSlice?.isLoading;
-export const selectProductError = (state) => state.ProductSlice?.error;
-export const selectStatus = (state) => state.ProductSlice?.status;
+export const selectSearchQuery = (state) => state.products.searchQuery;
+export const selectProducts = (state) => state.products?.products?.products;
+export const selectAdminProducts = (state) => state.products?.products.products;
+export const selectProduct = (state) => state.products?.product?.product;
+export const selectProductIsOwner = (state) => state.products?.product?.isOwner;
+export const selectTotalPages = (state) => state.products?.products?.totalPages;
+export const selectTotalDocuments = (state) => state.products?.products?.totalProducts;
+export const selectCurrentPage = (state) => state.products?.products?.meta?.currentPage;
+export const selectLimit = (state) => state.products?.products?.meta?.limit;
+export const selectProductIsLoading = (state) => state.products?.isLoading;
+export const selectProductError = (state) => state.products?.error;
+export const selectStatus = (state) => state.products?.status;

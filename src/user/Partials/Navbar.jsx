@@ -1,12 +1,12 @@
 import React, { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faBars } from "@fortawesome/free-solid-svg-icons";
+import { faBars, faShoppingBag } from "@fortawesome/free-solid-svg-icons";
 import logo from "@assets/images/ARlogo.png";
 import { NavLink } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { selectUser, selectUserRole } from "@storeVars";
 import { Logout } from "@userComponents";
-import { ThemeToggle } from "@commonPartials";
+import { ThemeToggle, SearchBox } from "@commonPartials";
 
 function Navbar() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -22,7 +22,7 @@ function Navbar() {
     ["Home", "/"],
     ["My Products", "/products"],
     ["Add Product", "/add-product"],
-    ...(role === "admin" ? [["Dashboard", "/admin/dashboard/main"]] : []),
+    ...(role === "admin" ? [["Admin", "/admin/dashboard/main"]] : []),
   ];
 
   const toggleMobileMenu = () => {
@@ -31,12 +31,13 @@ function Navbar() {
 
   return (
     <>
-      <header>
-        <nav className="w-full border-b-3 border-gray-400 bg-gray-300 dark:border-gray-700 dark:bg-gray-800">
+      <header className="border-b-2 border-b-violet-700">
+        <nav className="w-full bg-gray-300 dark:border-gray-700 dark:bg-gray-950">
           <div className="mx-auto flex max-w-screen-xl flex-wrap items-center justify-between p-4">
+            {/* LOGO */}
             <NavLink
               to="/"
-              className="group flex cursor-pointer items-center space-x-1 rtl:space-x-reverse"
+              className="group flex cursor-pointer items-center rtl:space-x-reverse"
             >
               <img
                 src={logo}
@@ -44,11 +45,16 @@ function Navbar() {
                 alt="Logo"
               />
               <span className="self-center whitespace-nowrap text-2xl font-semibold text-gray-900 duration-700 group-hover:scale-125 dark:text-gray-200 xs:hidden sm:block">
-                . AmmaRi
+                . STORE
               </span>
             </NavLink>
-            <div className="flex items-center space-x-3 md:order-2 md:space-x-0 rtl:space-x-reverse">
-              <ThemeToggle />
+
+            {/* LAST PART ICONS */}
+            <div className="flex items-center gap-4 space-x-3 md:order-2 md:space-x-0 rtl:space-x-reverse">
+              <div className="flex items-center justify-center gap-2">
+                <ThemeToggle />
+                {user && <FontAwesomeIcon icon={faShoppingBag} />}
+              </div>
               {user && <Logout />}
               <button
                 onClick={toggleMobileMenu}
@@ -58,6 +64,8 @@ function Navbar() {
                 <FontAwesomeIcon icon={faBars} />
               </button>
             </div>
+
+            {/* LINKS */}
             <div
               className={`w-full items-center justify-between md:order-1 md:flex md:w-auto ${
                 isMobileMenuOpen ? "block" : "hidden"
@@ -65,7 +73,13 @@ function Navbar() {
               id="navbar-sticky"
             >
               <div>
-                <ul className="mt-4 flex flex-col rounded-lg border p-4 font-medium md:mt-0 md:flex-row md:space-x-8 md:border-0 md:bg-transparent md:p-0 rtl:space-x-reverse">
+                <ul className="mt-4 flex flex-col items-center rounded-lg border p-4 font-medium md:mt-0 md:flex-row md:space-x-8 md:border-0 md:bg-transparent md:p-0 rtl:space-x-reverse">
+                  {user && (
+                    <li>
+                      <SearchBox />
+                    </li>
+                  )}
+
                   {user
                     ? authenticatedLinks.map(([label, path]) => (
                         <li

@@ -30,27 +30,25 @@ function Input(
   };
 
   return (
-    <>
-      <div>
-        {label && (
-          <label
-            className={`mb-2 inline-block pl-1 ${labelColor}`}
-            htmlFor={id}
-          >
-            {`${label} :`}
-          </label>
-        )}
+    <div>
+      {label && (
+        <label
+          className={`mb-2 inline-block pl-1 ${labelColor}`}
+          htmlFor={id}
+        >
+          {`${label} :`}
+        </label>
+      )}
 
-        {type === "textarea" ? (
-          <textarea {...inputProps} />
-        ) : (
-          <input
-            type={type}
-            {...inputProps}
-          />
-        )}
-      </div>
-    </>
+      {type === "textarea" ? (
+        <textarea {...inputProps} />
+      ) : (
+        <input
+          type={type}
+          {...inputProps}
+        />
+      )}
+    </div>
   );
 }
 
