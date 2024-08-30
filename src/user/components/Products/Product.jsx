@@ -80,7 +80,7 @@ function Product() {
                         alt=""
                       />
                     </div>
-                    <div className="grid grid-cols-5 gap-4">
+                    <div className="grid grid-cols-5 gap-4 p-5">
                       {/* PRODUCT SMALL IMAGES */}
                       {product?.productImages?.map((image) => (
                         <div key={image}>
@@ -142,9 +142,9 @@ function Product() {
                     </div>
                     <hr className="my-6 border-gray-200 dark:border-gray-800 md:my-8" />
                     {/* PRODUCT DESCRIPTION */}
-                    <p className="mb-6 text-gray-500 dark:text-gray-400">
-                      {product.productDescription}
-                    </p>
+                    {/* <p className="mb-6 text-gray-500 dark:text-gray-400"> */}
+                    {product.productDescription}
+                    {/* </p> */}
                   </div>
                 </div>
               </div>

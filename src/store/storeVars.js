@@ -1,7 +1,7 @@
-// STORE
+//!================================================================== STORE===========================================================
 import store from "./store"
 
-//DASHBOARD
+//!==================================================================DASHBOARD=====================================================
 import {
     fetchDashboardStatsThunk,
     selectDashboardStats,
@@ -10,7 +10,28 @@ import {
 } from "./dashboard/dashboardSlice"
 
 
-// USER
+//!===================================================================Search=============================================================
+import {
+    selectSearchValue,
+    setSearchValue
+} from "./search/searchSlice"
+
+
+//!=====================================================================FILTERS=========================================================
+import {
+
+    setPageSize,
+    setSort,
+    setTotalItems,
+    selectPageSize,
+    selectSort,
+    selectTotalItems,
+    setCurrentPage,
+    selectPaginationCurrentPage
+
+} from "./filter/filterSlice"
+
+//!======================================================================USER============================================================
 import {
     registerUserThunk,
     fetchUserThunk,
@@ -33,7 +54,7 @@ import {
 } from "./user/userAuthSlice";
 
 
-// ROLE
+//!=================================================================ROLE=================================================================
 import {
     addRoleThunk,
     fetchRoleThunk,
@@ -50,7 +71,7 @@ import {
 } from "./role/roleSlice"
 
 
-// PERMISSION
+//!==============================================================PERMISSION======================================================
 import {
     addPermissionThunk,
     fetchPermissionThunk,
@@ -67,7 +88,7 @@ import {
 } from "./permission/permissionSlice"
 
 
-// PRODUCT
+//!=========================================================PRODUCT===========================================================
 import {
     addProductThunk,
     fetchCurrentUserProductsThunk,
@@ -93,7 +114,7 @@ import {
 } from "./products/productSlice"
 
 
-// PERMISSION
+//!===========================================================PERMISSION=====================================================
 import {
     addCategoryThunk,
     fetchCategoryThunk,
@@ -109,7 +130,7 @@ import {
 } from "./category/categorySlice"
 
 
-// MODEL
+//!==========================================================MODEL===============================================================
 import {
     selectShowModal,
     openModal,
@@ -117,16 +138,34 @@ import {
 } from "./modal/modalSlice"
 
 export {
-    //STORE
+    //!=======================================================================STORE===========================================
     store,
 
-    // DASHBOARD SLICE
+    //!======================================================================= DASHBOARD SLICE===========================================
     fetchDashboardStatsThunk,
     selectDashboardStats,
     selectDashboardIsLoading,
     selectDashboardError,
 
-    // USER SLICE
+    //!======================================================================= SEARCH SLICE===========================================
+    selectSearchValue,
+    setSearchValue,
+
+
+    //!======================================================================= FILTER SLICE===========================================
+    selectPageSize,
+    selectPaginationCurrentPage,
+    selectTotalItems,
+    selectSort,
+    setCurrentPage,
+    setPageSize,
+    setTotalItems,
+    setSort,
+
+
+
+
+    //!======================================================================= USER SLICE=========================
     registerUserThunk,
     fetchUserThunk,
     fetchAllUserThunk,
@@ -146,7 +185,7 @@ export {
     selectRefreshToken,
     selectUserId,
 
-    // ROLE SLICE
+    //!======================================================================= ROLE SLICE======================
     addRoleThunk,
     fetchRoleThunk,
     fetchAllRolesThunk,
@@ -160,7 +199,7 @@ export {
     selectRoleStatus,
     selectRoleIsLoading,
 
-    // PERMISSION SLICE
+    //!======================================================================= PERMISSION SLICE===================
     addPermissionThunk,
     fetchPermissionThunk,
     fetchAllPermissionsThunk,
@@ -174,7 +213,7 @@ export {
     selectPermissionStatus,
     selectPermissionIsLoading,
 
-    // PRODUCT SLICE
+    //!======================================================================= PRODUCT SLICE===================
     addProductThunk,
     fetchCurrentUserProductsThunk,
     fetchAllUsersProductsThunk,
@@ -197,7 +236,7 @@ export {
     selectTotalPages,
     selectTotalDocuments,
 
-    // CATEGORY SLICE
+    //!================================================================= CATEGORY SLICE===============================
     addCategoryThunk,
     fetchCategoryThunk,
     fetchAllCategoriesThunk,
@@ -210,7 +249,7 @@ export {
     selectCategoryStatus,
     selectCategoryIsLoading,
 
-    // MODAL SLICE
+    //!================================================================= MODAL SLICE===================================
     selectShowModal,
     openModal,
     closeModal,

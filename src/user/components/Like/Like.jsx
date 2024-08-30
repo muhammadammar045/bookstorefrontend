@@ -6,18 +6,19 @@ function Like({ isLiked }) {
   return (
     <button
       to="#"
-      title=""
-      className={`flex items-center justify-center rounded-lg py-2 text-sm font-medium focus:z-10 focus:outline-none focus:ring-4 ${
+      title={isLiked ? "Unlike" : "Like"}
+      className={`group flex items-center justify-center rounded-lg py-2 text-sm font-medium focus:z-10 focus:outline-none focus:ring-4 ${
         isLiked
-          ? "border-red-500 bg-red-100 px-4 text-red-500 hover:bg-red-200 hover:text-red-600 focus:ring-red-300 dark:border-red-400 dark:bg-red-900 dark:text-red-400 dark:hover:bg-red-800 dark:hover:text-red-300 dark:focus:ring-red-800"
-          : "hover:text-primary-700 border-gray-200 bg-white px-3 text-gray-900 hover:bg-gray-100 focus:ring-gray-100 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white dark:focus:ring-gray-700"
+          ? "border-blue-500 bg-blue-100 px-4 text-blue-500 hover:bg-blue-200 hover:text-blue-600 focus:ring-blue-300 dark:border-blue-400 dark:bg-blue-900 dark:text-blue-400 dark:hover:bg-blue-800 dark:hover:text-blue-300 dark:focus:ring-blue-800"
+          : "border-gray-200 bg-white px-3 text-gray-900 hover:bg-gray-100 hover:text-red-600 focus:ring-gray-100 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-400 dark:hover:bg-blue-900 dark:hover:text-red-600 dark:focus:ring-red-700"
       }`}
       role="button"
     >
-      <span className={`mx-2 ${isLiked ? "text-red-500" : "text-gray-500"}`}>
+      <span
+        className={`mx-1 ${isLiked ? "text-red-600 group-hover:text-red-700" : "text-gray-600 group-hover:text-red-600"}`}
+      >
         <FontAwesomeIcon icon={faHeart} />
       </span>
-      {isLiked ? "Liked" : "Favorite"}
     </button>
   );
 }

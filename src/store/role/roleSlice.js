@@ -188,8 +188,8 @@ const rolesSlice = createSlice({
 export const { resetSelectedRole } = rolesSlice.actions;
 export default rolesSlice.reducer;
 
-export const selectAllRoles = (state) => state.RoleSlice.roles;
-export const selectRole = (state) => state.RoleSlice.role;
-export const selectRoleIsLoading = (state) => state.RoleSlice.isLoading;
-export const selectRoleError = (state) => state.RoleSlice.error;
-export const selectRoleStatus = (state) => state.RoleSlice.status;
+export const selectAllRoles = (state) => state.roles.roles;
+export const selectRole = (state) => state.roles.role;
+export const selectRoleIsLoading = (state) => state.roles.isLoading;
+export const selectRoleError = (state) => state.roles.error;
+export const selectRoleStatus = (state) => state.roles.status;

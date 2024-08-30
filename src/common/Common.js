@@ -1,4 +1,5 @@
 import Input from "./FormParts/Input"
+import FileInput from "./FormParts/FileInput"
 import Button from "./FormParts/Button"
 import Select from "./FormParts/Select"
 import SearchBox from "./FormParts/SearchBox"
@@ -12,12 +13,14 @@ import ThemeToggle from "./Theme/ThemeToggle"
 import Error404 from "./Errors/Error404"
 import ErrorBoundary from "./Errors/ErrorBoundary"
 import SomethingWrong from "./Errors/SomethingWrong"
+import FilterSideBar from "./SideBars/FilterSideBar"
 
 
 export {
     Button,
     Checkbox,
     Input,
+    FileInput,
     Pagination,
     ReactTable,
     SearchBox,
@@ -29,4 +32,5 @@ export {
     Error404,
     ErrorBoundary,
     SomethingWrong,
+    FilterSideBar
 }

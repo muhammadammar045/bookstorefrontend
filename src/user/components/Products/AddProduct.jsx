@@ -8,17 +8,28 @@ import {
   selectAllCategories,
   fetchAllCategoriesThunk,
 } from "@storeVars";
-import { Input, Button, Select } from "@commonPartials";
+import { Input, FileInput, Button, Select } from "@commonPartials";
 import showToast from "@utils/toastAlert/toaster";
 import { ProductSpinner } from "@loadingState";
+import TextEditor from "./TextEditor";
 
 function AddProduct() {
   const {
     register,
     handleSubmit,
     reset,
+    control,
+    getValues,
     formState: { errors },
-  } = useForm();
+  } = useForm({
+    defaultValues: {
+      title: "",
+      price: 0,
+      description: "",
+      category: "General",
+      thumbnail: "",
+    },
+  });
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const loading = useSelector(selectProductIsLoading);
@@ -32,14 +43,15 @@ function AddProduct() {
   }));
 
   const addProduct = async (productData) => {
-    try {
-      const res = await dispatch(addProductThunk(productData)).unwrap();
-      showToast("success", `${res.message}`);
-      navigate("/products");
-      reset();
-    } catch (error) {
-      showToast("error", `${error.message}`);
-    }
+    console.log(productData);
+    // try {
+    //   const res = await dispatch(addProductThunk(productData)).unwrap();
+    //   showToast("success", `${res.message}`);
+    //   navigate("/products");
+    //   reset();
+    // } catch (error) {
+    //   showToast("error", `${error.message}`);
+    // }
   };
 
   useEffect(() => {
@@ -119,40 +131,21 @@ function AddProduct() {
               </div>
             </div>
 
-            {/* DESCRIPTION */}
-            <div className="mb-2">
-              <Input
-                type="textarea"
-                className="min-h-32"
-                label="Description"
-                placeholder="Enter Product Description"
-                {...register("description", {
-                  required: "Description is required",
-                })}
-              />
-              {errors.description && (
-                <span className="text-red-500 dark:text-red-300">
-                  {errors.description.message}
-                </span>
-              )}
-            </div>
-
-            {/* THUMBNAIL */}
             <div className="mb-5">
-              <Input
-                type="file"
-                label="Product Thumbnail"
-                placeholder="Select Product Thumbnail"
+              <FileInput
                 {...register("thumbnail", {
                   required: "Thumbnail is required",
                 })}
               />
-              {errors.thumbnail && (
-                <span className="text-red-500 dark:text-red-300">
-                  {errors.thumbnail.message}
-                </span>
-              )}
             </div>
+
+            {/* DESCRIPTION */}
+            <TextEditor
+              name={"description"}
+              label={"Description : "}
+              defaultValues={getValues("description")}
+              control={control}
+            />
 
             {/* SUBMIT */}
             <div className="mb-2">
