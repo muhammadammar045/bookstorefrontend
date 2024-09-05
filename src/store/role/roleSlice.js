@@ -122,62 +122,73 @@ const rolesSlice = createSlice({
             state.status = 'failed';
         };
 
-        builder
+        const handleFulfilled = (state, action, successCallback) => {
+            state.isLoading = false;
+            successCallback(state, action);
+            state.status = 'succeeded';
+        };
 
+        builder
             // Add Role
             .addCase(addRoleThunk.pending, handlePending)
             .addCase(addRoleThunk.rejected, handleRejected)
             .addCase(addRoleThunk.fulfilled, (state, action) => {
-                state.isLoading = false;
-                state.roles.push(action.payload.data);
-                state.status = 'succeeded';
+                handleFulfilled(state, action, (state) => {
+                    state.roles.push(action.payload.data);
+                });
             })
 
             // Fetch Role
             .addCase(fetchRoleThunk.pending, handlePending)
             .addCase(fetchRoleThunk.rejected, handleRejected)
             .addCase(fetchRoleThunk.fulfilled, (state, action) => {
-                state.isLoading = false;
-                state.role = action.payload.data;
-                state.status = 'succeeded';
+                handleFulfilled(state, action, (state) => {
+                    state.role = action.payload.data;
+                });
             })
 
             // Fetch All Roles
             .addCase(fetchAllRolesThunk.pending, handlePending)
             .addCase(fetchAllRolesThunk.rejected, handleRejected)
             .addCase(fetchAllRolesThunk.fulfilled, (state, action) => {
-                state.isLoading = false;
-                state.roles = action.payload.data;
-                state.status = 'succeeded';
+                handleFulfilled(state, action, (state) => {
+                    state.roles = action.payload.data;
+                });
             })
 
             // Update Role
             .addCase(updateRoleThunk.pending, handlePending)
             .addCase(updateRoleThunk.rejected, handleRejected)
             .addCase(updateRoleThunk.fulfilled, (state, action) => {
-                state.isLoading = false;
-                state.roles = state.roles.map(role => role._id === action.payload.data._id ? action.payload.data : role);
-                state.status = 'succeeded';
-                state.role = null;
+                handleFulfilled(state, action, (state) => {
+                    state.roles = state.roles.map(role =>
+                        role._id === action.payload.data._id ? action.payload.data : role
+                    );
+                    state.role = null;
+                });
             })
 
             // Assign Permissions to Role
             .addCase(assignPermissionsToRoleThunk.pending, handlePending)
             .addCase(assignPermissionsToRoleThunk.rejected, handleRejected)
             .addCase(assignPermissionsToRoleThunk.fulfilled, (state, action) => {
-                state.isLoading = false;
-                state.roles = state.roles.map(role => role._id === action.payload.data._id ? action.payload.data : role);
-                state.status = 'succeeded';
-                state.role = null
+                handleFulfilled(state, action, (state) => {
+                    state.roles = state.roles.map(role =>
+                        role._id === action.payload.data._id ? action.payload.data : role
+                    );
+                    state.role = null;
+                });
             })
 
             // Delete Role
             .addCase(deleteRoleThunk.pending, handlePending)
             .addCase(deleteRoleThunk.rejected, handleRejected)
             .addCase(deleteRoleThunk.fulfilled, (state, action) => {
-                state.roles = state.roles.filter(role => role._id !== action.payload.data._id);
-                state.isLoading = false;
-                state.status = 'succeeded';
+                handleFulfilled(state, action, (state) => {
+                    state.roles = state.roles.filter(role =>
+                        role._id !== action.payload.data._id
+                    );
+                });
             })
 
             // Handle Logout
@@ -185,11 +196,14 @@ const rolesSlice = createSlice({
     },
 });
 
+
 export const { resetSelectedRole } = rolesSlice.actions;
 export default rolesSlice.reducer;
 
-export const selectAllRoles = (state) => state.roles.roles;
-export const selectRole = (state) => state.roles.role;
-export const selectRoleIsLoading = (state) => state.roles.isLoading;
-export const selectRoleError = (state) => state.roles.error;
-export const selectRoleStatus = (state) => state.roles.status;
+const getRolesState = (state) => state.roles
+
+export const selectAllRoles = (state) => getRolesState(state)?.roles;
+export const selectRole = (state) => getRolesState(state)?.role;
+export const selectRoleIsLoading = (state) => getRolesState(state)?.isLoading;
+export const selectRoleError = (state) => getRolesState(state)?.error;
+export const selectRoleStatus = (state) => getRolesState(state)?.status;

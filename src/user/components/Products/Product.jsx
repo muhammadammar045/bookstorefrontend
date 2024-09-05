@@ -1,64 +1,27 @@
 import {
-  deleteProductThunk,
   fetchProductThunk,
   selectProduct,
   selectProductIsLoading,
-  selectUserPermissions,
-  openModal,
-  closeModal,
+  fetchAllProductReviewsThunk,
 } from "@storeVars";
-import {
-  faShoppingCart,
-  faEdit,
-  faTrash,
-  faCartShopping,
-  faHeart,
-} from "@fortawesome/free-solid-svg-icons";
-import React, { useEffect, useState } from "react";
+import { faCartShopping } from "@fortawesome/free-solid-svg-icons";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import showToast from "@utils/toastAlert/toaster";
 import { ProductSpinner } from "@loadingState";
-import Modal from "@utils/modal/Modal";
-import { selectShowModal } from "../../../store/storeVars";
-import { Rating, Like, ProductComments } from "@userComponents";
+import { Like, ProductComments } from "@userComponents";
 
 function Product() {
-  const [modalMessage, setModalMessage] = useState("");
-  const [onConfirmFunction, setOnConfirmFunction] = useState(() => () => {});
   const loading = useSelector(selectProductIsLoading);
   const dispatch = useDispatch();
-  const navigate = useNavigate();
   const product = useSelector(selectProduct);
   const { productId } = useParams();
-  const permissions = useSelector(selectUserPermissions);
-  const showModal = useSelector(selectShowModal);
-
-  const handleEdit = () => {
-    navigate(`/edit-product/${productId}`);
-  };
-
-  const handleDelete = () => {
-    setModalMessage("Are you sure you want to delete this product?");
-    setOnConfirmFunction(() => async () => {
-      try {
-        const res = await dispatch(deleteProductThunk(productId)).unwrap();
-        showToast("success", `${res.message}`);
-        navigate("/products");
-      } catch (error) {
-        showToast("error", `${error.message}`);
-      }
-    });
-    dispatch(openModal());
-  };
-
-  const handleModalClose = () => {
-    dispatch(closeModal());
-  };
+  console.log(productId);
 
   useEffect(() => {
     dispatch(fetchProductThunk(productId));
+    dispatch(fetchAllProductReviewsThunk(productId));
   }, [dispatch, productId]);
 
   return (
@@ -97,35 +60,38 @@ function Product() {
                   {/* PRODUCT DETAILS */}
                   <div className="mt-6 sm:mt-8 lg:mt-0">
                     {/* PRODUCT TITLE */}
-                    <h1 className="text-xl font-semibold text-gray-900 dark:text-white sm:text-2xl">
+                    <h1 className="text-3xl font-bold text-gray-900 dark:text-white">
                       {product.productTitle}
                     </h1>
                     <div className="mt-4 sm:flex sm:items-center sm:gap-4">
                       {/* PRODUCT PRICE */}
-                      <p className="text-2xl font-extrabold text-gray-900 dark:text-white sm:text-3xl">
-                        $ {product.productPrice}
+                      <p className="text-xl font-bold text-gray-900 dark:text-white sm:text-3xl">
+                        Rs {product.productPrice}
                       </p>
-                      <div className="mt-2 flex items-center gap-2 sm:mt-0">
-                        {/* PRODUCT RATING */}
-                        <div className="flex items-center gap-1">
+                      {/* <div className="mt-2 flex items-center gap-2 sm:mt-0"> */}
+                      {/* PRODUCT RATING */}
+                      {/* <div className="flex items-center gap-1">
                           <Rating reviewRating={product.productAverageRating} />
                         </div>
                         <p className="text-sm font-medium leading-none text-gray-500 dark:text-gray-400">
                           ({product.productAverageRating})
-                        </p>
+                        </p> */}
 
-                        {/* PRODUCT REVIEWS COUNT */}
-                        <Link
+                      {/* PRODUCT REVIEWS COUNT */}
+                      {/* <Link
                           to="#"
                           className="text-sm font-medium leading-none text-gray-900 underline hover:no-underline dark:text-white"
                         >
                           {product.productReviewsCount} Reviews
-                        </Link>
-                      </div>
+                        </Link> */}
+                      {/* </div> */}
                     </div>
                     <div className="mt-6 sm:mt-8 sm:flex sm:items-center sm:gap-4">
                       {/* ADD TO FAVORITE */}
-                      <Like isLiked={product?.isLiked} />
+                      <Like
+                        productId={product._id}
+                        isLiked={product?.isLiked}
+                      />
 
                       {/* ADD TO CART */}
                       <Link
@@ -150,13 +116,7 @@ function Product() {
               </div>
             </section>
 
-            {/* PRODUCT COMMENTS SECTION */}
-            <ProductComments
-              reviews={product?.productReviews}
-              productReviewsCount={product?.productReviewsCount}
-              productAverageRating={product?.productAverageRating}
-              individualStarCounts={product?.individualStarCounts}
-            />
+            <ProductComments />
           </>
         )
       )}

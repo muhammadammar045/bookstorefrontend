@@ -8,7 +8,7 @@ import {
   selectAllCategories,
   fetchAllCategoriesThunk,
 } from "@storeVars";
-import { Input, FileInput, Button, Select } from "@commonPartials";
+import { Input, FileInput, Button, Select, Heading } from "@commonPartials";
 import showToast from "@utils/toastAlert/toaster";
 import { ProductSpinner } from "@loadingState";
 import TextEditor from "./TextEditor";
@@ -64,9 +64,7 @@ function AddProduct() {
         <ProductSpinner />
       ) : (
         <div className="mx-auto my-10 max-w-3xl rounded-lg border-2 border-gray-900 bg-gray-200 p-10 dark:border-gray-500 dark:bg-gray-900">
-          <h1 className="mb-4 text-center text-3xl text-gray-900 dark:text-gray-200">
-            Add Product
-          </h1>
+          <Heading>Add Product</Heading>
           <form onSubmit={handleSubmit(addProduct)}>
             <div className="flex w-full">
               {/* TITLE */}

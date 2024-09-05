@@ -3,6 +3,7 @@ import { selectUser } from "@storeVars";
 import { useSelector } from "react-redux";
 import Typewriter from "typewriter-effect";
 import { AllProducts } from "@userComponents";
+import { Heading } from "@commonPartials";
 
 function Home() {
   const user = useSelector(selectUser);
@@ -15,14 +16,14 @@ function Home() {
         </div>
       ) : (
         <div className="flex h-[71dvh] items-center justify-center rounded-lg bg-white dark:bg-gray-900">
-          <h1 className="px-12 py-2 text-7xl font-bold text-gray-900 shadow-md shadow-sky-500 outline outline-sky-500 dark:text-sky-400 dark:shadow-sky-400 dark:outline-sky-400">
+          <Heading>
             <span className="flex items-center justify-center italic">
               <span> Login To </span>
               <Typewriter
                 options={{
                   wrapperClassName: "text-red-400 ml-4 dark:text-red-300",
                   strings: [
-                    "Read Products ",
+                    "View Products ",
                     "Add Products",
                     "Update Products",
                     "Delete Products",
@@ -32,7 +33,7 @@ function Home() {
                 }}
               />{" "}
             </span>
-          </h1>
+          </Heading>
         </div>
       )}
     </>

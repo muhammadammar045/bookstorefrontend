@@ -36,17 +36,25 @@ export const fetchAllUsersProductsThunk = createAsyncThunk(
     "product/fetchAllUsersProducts",
     async (
         {
-            page = 1,
-            query = "",
-            limit = 10
-
+            page,
+            searchQuery,
+            sort,
+            sortOrder,
+            limit,
         },
         { getState, rejectWithValue }
     ) => {
         const state = getState();
         const accessToken = selectAccessToken(state);
         try {
-            const response = await apiFetchAllUsersProducts(page, query, limit, accessToken);
+            const response = await apiFetchAllUsersProducts(
+                page,
+                searchQuery,
+                sort,
+                sortOrder,
+                limit,
+                accessToken
+            );
             return response;
         } catch (error) {
             return rejectWithValue(error.response.data);
@@ -74,16 +82,25 @@ export const fetchCurrentUserProductsThunk = createAsyncThunk(
     "product/fetchCurrentUserProducts",
     async (
         {
-            page = 1,
-            query = "",
-            limit = 10
+            page,
+            searchQuery,
+            sort,
+            sortOrder,
+            limit,
         },
         { getState, rejectWithValue }
     ) => {
         const state = getState();
         const accessToken = selectAccessToken(state);
         try {
-            const response = await apiFetchCurrentUserProducts(page, query, limit, accessToken);
+            const response = await apiFetchCurrentUserProducts(
+                page,
+                searchQuery,
+                sort,
+                sortOrder,
+                limit,
+                accessToken
+            );
             return response;
         } catch (error) {
             return rejectWithValue(error.response.data);
@@ -171,14 +188,11 @@ const initialState = {
 };
 
 const productsSlice = createSlice({
-    name: "product",
+    name: 'product',
     initialState,
     reducers: {
         resetSelectedProduct: (state) => {
             state.product = null;
-        },
-        setSearchQuery: (state, action) => {
-            state.searchQuery = action.payload;
         },
     },
     extraReducers: (builder) => {
@@ -194,85 +208,95 @@ const productsSlice = createSlice({
             state.status = 'failed';
         };
 
+        const handleFulfilled = (state, action, updateCallback) => {
+            state.isLoading = false;
+            updateCallback(state, action);
+            state.status = 'succeeded';
+        };
+
         builder
-            // ADD PRODUCT
+            // Add Product
             .addCase(addProductThunk.pending, handlePending)
             .addCase(addProductThunk.rejected, handleRejected)
             .addCase(addProductThunk.fulfilled, (state, action) => {
-                state.isLoading = false;
-                state.products.products.push(action.payload.data);
-                state.status = 'succeeded';
+                handleFulfilled(state, action, (state) => {
+                    state.products.products.push(action.payload.data);
+                });
             })
 
-            // FETCH ALL USERS' PRODUCTS
+            // Fetch All Users' Products
             .addCase(fetchAllUsersProductsThunk.pending, handlePending)
             .addCase(fetchAllUsersProductsThunk.rejected, handleRejected)
             .addCase(fetchAllUsersProductsThunk.fulfilled, (state, action) => {
-                state.isLoading = false;
-                state.products = action.payload.data;
-                state.status = 'succeeded';
+                handleFulfilled(state, action, (state) => {
+                    state.products = action.payload.data;
+                });
             })
 
-            // FETCH ALL USERS ADMIN PRODUCTS
+            // Fetch All Users Admin Products
             .addCase(fetchAllUsersProductsAdminThunk.pending, handlePending)
             .addCase(fetchAllUsersProductsAdminThunk.rejected, handleRejected)
             .addCase(fetchAllUsersProductsAdminThunk.fulfilled, (state, action) => {
-                state.isLoading = false;
-                state.products = action.payload.data;
-                state.status = 'succeeded';
+                handleFulfilled(state, action, (state) => {
+                    state.products = action.payload.data;
+                });
             })
 
-            // FETCH ALL PRODUCTS
+            // Fetch Current User Products
             .addCase(fetchCurrentUserProductsThunk.pending, handlePending)
             .addCase(fetchCurrentUserProductsThunk.rejected, handleRejected)
             .addCase(fetchCurrentUserProductsThunk.fulfilled, (state, action) => {
-                state.isLoading = false;
-                state.products = action.payload.data;
-                state.status = 'succeeded';
+                handleFulfilled(state, action, (state) => {
+                    state.products = action.payload.data;
+                });
             })
 
-            // FETCH SINGLE PRODUCT
+            // Fetch Single Product
             .addCase(fetchProductThunk.pending, handlePending)
             .addCase(fetchProductThunk.rejected, handleRejected)
             .addCase(fetchProductThunk.fulfilled, (state, action) => {
-                state.isLoading = false;
-                state.product = action.payload.data;
-                state.status = 'succeeded';
+                handleFulfilled(state, action, (state) => {
+                    state.product = action.payload.data;
+                });
             })
 
-            // UPDATE PRODUCT
+            // Update Product
             .addCase(updateProductThunk.pending, handlePending)
             .addCase(updateProductThunk.rejected, handleRejected)
             .addCase(updateProductThunk.fulfilled, (state, action) => {
-                state.isLoading = false;
-                state.products = state.products.products.map(product => product._id === action.payload.data._id ? action.payload.data : product);
-                state.status = 'succeeded';
-                state.product = null;
+                handleFulfilled(state, action, (state) => {
+                    state.products.products = state.products.products.map(product =>
+                        product._id === action.payload.data._id ? action.payload.data : product
+                    );
+                    state.product = null;
+                });
             })
 
-            // UPDATE PRODUCT THUMBNAIL
+            // Update Product Thumbnail
             .addCase(updateProductThumbnailThunk.pending, handlePending)
             .addCase(updateProductThumbnailThunk.rejected, handleRejected)
             .addCase(updateProductThumbnailThunk.fulfilled, (state, action) => {
-                state.isLoading = false;
-                state.products = state.products.products.map(product => product._id === action.payload.data._id ? action.payload.data : product);
-                state.status = 'succeeded';
-                state.product = null;
+                handleFulfilled(state, action, (state) => {
+                    state.products.products = state.products.products.map(product =>
+                        product._id === action.payload.data._id ? action.payload.data : product
+                    );
+                    state.product = null;
+                });
             })
 
-            // DELETE PRODUCT
+            // Delete Product
             .addCase(deleteProductThunk.pending, handlePending)
             .addCase(deleteProductThunk.rejected, handleRejected)
             .addCase(deleteProductThunk.fulfilled, (state, action) => {
-                state.isLoading = false;
-                state.products.products = state.products.products.filter(product => product._id !== action.payload.data._id);
-                state.status = 'succeeded';
+                handleFulfilled(state, action, (state) => {
+                    state.products.products = state.products.products.filter(product =>
+                        product._id !== action.payload.data._id
+                    );
+                });
             })
 
-            // LOGOUT USER
-            .addCase(logoutUserThunk.fulfilled, () => {
-                return initialState;
-            });
+            // Handle Logout
+            .addCase(logoutUserThunk.fulfilled, () => initialState);
     },
 });
 
@@ -281,15 +305,16 @@ const productsSlice = createSlice({
 export const { resetSelectedProduct, setSearchQuery } = productsSlice.actions;
 export default productsSlice.reducer;
 
-export const selectSearchQuery = (state) => state.products.searchQuery;
-export const selectProducts = (state) => state.products?.products?.products;
-export const selectAdminProducts = (state) => state.products?.products.products;
-export const selectProduct = (state) => state.products?.product?.product;
-export const selectProductIsOwner = (state) => state.products?.product?.isOwner;
-export const selectTotalPages = (state) => state.products?.products?.totalPages;
-export const selectTotalDocuments = (state) => state.products?.products?.totalProducts;
-export const selectCurrentPage = (state) => state.products?.products?.meta?.currentPage;
-export const selectLimit = (state) => state.products?.products?.meta?.limit;
-export const selectProductIsLoading = (state) => state.products?.isLoading;
-export const selectProductError = (state) => state.products?.error;
-export const selectStatus = (state) => state.products?.status;
+const getProductsState = (state) => state.products;
+
+export const selectProducts = (state) => getProductsState(state)?.products?.products;
+export const selectAdminProducts = (state) => getProductsState(state)?.products?.products;
+export const selectProduct = (state) => getProductsState(state)?.product?.product;
+export const selectProductId = (state) => getProductsState(state)?.product?.product._id;
+export const selectProductIsOwner = (state) => getProductsState(state)?.product?.isOwner;
+export const selectTotalPages = (state) => getProductsState(state)?.products?.totalPages;
+export const selectTotalDocuments = (state) => getProductsState(state)?.products?.totalProducts;
+export const selectCurrentPage = (state) => getProductsState(state)?.products?.meta?.currentPage;
+export const selectProductIsLoading = (state) => getProductsState(state)?.isLoading;
+export const selectProductError = (state) => getProductsState(state)?.error;
+export const selectStatus = (state) => getProductsState(state)?.status;

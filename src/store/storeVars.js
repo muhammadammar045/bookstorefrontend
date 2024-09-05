@@ -1,256 +1,132 @@
-//!================================================================== STORE===========================================================
-import store from "./store"
+//=============================================================== STORE ===============================================================
+import store from "./store";
 
-//!==================================================================DASHBOARD=====================================================
+
+//============================================================= DASHBOARD ==========================================================
 import {
-    fetchDashboardStatsThunk,
-    selectDashboardStats,
-    selectDashboardIsLoading,
-    selectDashboardError,
-} from "./dashboard/dashboardSlice"
+    fetchDashboardStatsThunk, selectDashboardStats, selectDashboardIsLoading, selectDashboardError
+} from "./dashboard/dashboardSlice";
 
 
-//!===================================================================Search=============================================================
+
+//================================================================= LIKES =============================================================
 import {
-    selectSearchValue,
-    setSearchValue
-} from "./search/searchSlice"
+    toggleProductLikeThunk, toggleReviewLikeThunk, fetchAllLikedProductsThunk, selectIsLiked, selectLikedProducts, selectLikeError, selectLikeIsLoading
+} from "./like/likeSlice";
 
 
-//!=====================================================================FILTERS=========================================================
+
+//=============================================================== ORDERS =============================================================
 import {
+    createOrderThunk, fetchAllOrdersAdminThunk, fetchCurrentUserOrdersThunk, cancelOrderThunk, fetchOrderThunk, resetSelectedOrder, selectAllOrders, selectOrder, selectOrderError, selectOrderIsLoading, selectOrderStatus, updateOrderStatusThunk
+} from "./order/orderSlice";
 
-    setPageSize,
-    setSort,
-    setTotalItems,
-    selectPageSize,
-    selectSort,
-    selectTotalItems,
-    setCurrentPage,
-    selectPaginationCurrentPage
 
-} from "./filter/filterSlice"
 
-//!======================================================================USER============================================================
+//============================================================= PAYMENTS =============================================================
 import {
-    registerUserThunk,
-    fetchUserThunk,
-    fetchAllUserThunk,
-    loginUserThunk,
-    logoutUserThunk,
-    updateUserThunk,
-    deleteUserThunk,
-    resetSelectedUser,
-    selectUser,
-    selectUsers,
-    selectFetchedUser,
-    selectUserRole,
-    selectUserPermissions,
-    selectUserIsLoading,
-    selectUserError,
-    selectAccessToken,
-    selectRefreshToken,
-    selectUserId
+    createStripePaymentThunk, selectStripePayment
+} from "./payment/paymentSlice";
+
+
+
+//================================================================= CART =============================================================
+import {
+    addProductToCartThunk, fetchUserCartThunk, removeProductFromCartThunk, resetSelectedCart, selectedCartIsLoading, selectedCartItem, selectedCartItems, selectedCartStatus, selectedCartTotal
+} from "./cart/cartSlice";
+
+
+
+//============================================================= FILTERS =============================================================
+import {
+    setCurrentPage, setPageSize, setSort, setSortOrder, setPriceRange, setSelectedCategory, setSearchQuery, selectPaginationCurrentPage, selectPageSize, selectSort, selectSortOrder, selectPriceRange, selectSelectedCategory, selectSearchQuery
+} from "./filter/filterSlice";
+
+
+
+//=============================================================== USER ==============================================================
+import {
+    registerUserThunk, fetchUserThunk, fetchAllUserThunk, loginUserThunk, logoutUserThunk, updateUserThunk, deleteUserThunk, resetSelectedUser, selectUser, selectUsers, selectFetchedUser, selectUserRole, selectUserPermissions, selectUserIsLoading, selectUserError, selectAccessToken, selectRefreshToken, selectUserId
 } from "./user/userAuthSlice";
 
 
-//!=================================================================ROLE=================================================================
+
+//================================================================ ROLE ==============================================================
 import {
-    addRoleThunk,
-    fetchRoleThunk,
-    fetchAllRolesThunk,
-    updateRoleThunk,
-    deleteRoleThunk,
-    assignRoleToUserThunk,
-    resetSelectedRole,
-    selectRole,
-    selectAllRoles,
-    selectRoleError,
-    selectRoleStatus,
-    selectRoleIsLoading,
-} from "./role/roleSlice"
+    addRoleThunk, fetchRoleThunk, fetchAllRolesThunk, updateRoleThunk, deleteRoleThunk, assignRoleToUserThunk, resetSelectedRole, selectRole, selectAllRoles, selectRoleError, selectRoleStatus, selectRoleIsLoading
+} from "./role/roleSlice";
 
 
-//!==============================================================PERMISSION======================================================
+
+//============================================================ PERMISSION ============================================================
 import {
-    addPermissionThunk,
-    fetchPermissionThunk,
-    fetchAllPermissionsThunk,
-    updatePermissionThunk,
-    deletePermissionThunk,
-    assignPermissionsToRoleThunk,
-    resetSelectedPermission,
-    selectPermission,
-    selectAllPermissions,
-    selectPermissionError,
-    selectPermissionStatus,
-    selectPermissionIsLoading,
-} from "./permission/permissionSlice"
+    addPermissionThunk, fetchPermissionThunk, fetchAllPermissionsThunk, updatePermissionThunk, deletePermissionThunk, assignPermissionsToRoleThunk, resetSelectedPermission, selectPermission, selectAllPermissions, selectPermissionError, selectPermissionStatus, selectPermissionIsLoading
+} from "./permission/permissionSlice";
 
 
-//!=========================================================PRODUCT===========================================================
+
+//============================================================= PRODUCT =============================================================
 import {
-    addProductThunk,
-    fetchCurrentUserProductsThunk,
-    fetchAllUsersProductsThunk,
-    fetchAllUsersProductsAdminThunk,
-    fetchProductThunk,
-    updateProductThunk,
-    updateProductThumbnailThunk,
-    deleteProductThunk,
-    resetSelectedProduct,
-    setSearchQuery,
-    selectSearchQuery,
-    selectProduct,
-    selectProducts,
-    selectAdminProducts,
-    selectProductIsLoading,
-    selectProductError,
-    selectCurrentPage,
-    selectStatus,
-    selectLimit,
-    selectTotalPages,
-    selectTotalDocuments,
-} from "./products/productSlice"
+    addProductThunk, fetchCurrentUserProductsThunk, fetchAllUsersProductsThunk, fetchAllUsersProductsAdminThunk, fetchProductThunk, updateProductThunk, updateProductThumbnailThunk, deleteProductThunk, resetSelectedProduct, selectProduct, selectProductId, selectProducts, selectAdminProducts, selectProductIsLoading, selectProductError, selectCurrentPage, selectStatus, selectTotalPages, selectTotalDocuments
+} from "./products/productSlice";
 
 
-//!===========================================================PERMISSION=====================================================
+
+//============================================================== CATEGORY ===========================================================
 import {
-    addCategoryThunk,
-    fetchCategoryThunk,
-    fetchAllCategoriesThunk,
-    updateCategoryThunk,
-    deleteCategoryThunk,
-    resetSelectedCategory,
-    selectCategory,
-    selectAllCategories,
-    selectCategoryError,
-    selectCategoryStatus,
-    selectCategoryIsLoading,
-} from "./category/categorySlice"
+    addCategoryThunk, fetchCategoryThunk, fetchCategoryProductsThunk, fetchAllCategoriesThunk, updateCategoryThunk, deleteCategoryThunk, resetSelectedCategory, selectCategory, selectCategoryProducts, selectAllCategories, selectCategoryError, selectCategoryStatus, selectCategoryIsLoading
+} from "./category/categorySlice";
 
 
-//!==========================================================MODEL===============================================================
+
+//=============================================================== MODAL =============================================================
 import {
-    selectShowModal,
-    openModal,
-    closeModal,
-} from "./modal/modalSlice"
+    selectShowModal, openModal, closeModal
+} from "./modal/modalSlice";
 
+import { fetchAllProductReviewsThunk, addReviewThunk, fetchReviewThunk, updateReviewThunk, deleteReviewThunk, resetSelectedReview, selectAllReviews, selectAllProductReviews, selectReview, selectReviewIsLoading, selectReviewError, selectReviewStatus }
+    from "./review/reviewSlice"
+
+//=============================================================== EXPORTS ============================================================
 export {
-    //!=======================================================================STORE===========================================
     store,
 
-    //!======================================================================= DASHBOARD SLICE===========================================
-    fetchDashboardStatsThunk,
-    selectDashboardStats,
-    selectDashboardIsLoading,
-    selectDashboardError,
+    // Dashboard
+    fetchDashboardStatsThunk, selectDashboardStats, selectDashboardIsLoading, selectDashboardError,
 
-    //!======================================================================= SEARCH SLICE===========================================
-    selectSearchValue,
-    setSearchValue,
+    // Likes
+    toggleProductLikeThunk, toggleReviewLikeThunk, fetchAllLikedProductsThunk, selectIsLiked, selectLikedProducts, selectLikeError, selectLikeIsLoading,
 
+    // Orders
+    createOrderThunk, fetchAllOrdersAdminThunk, fetchCurrentUserOrdersThunk, cancelOrderThunk, fetchOrderThunk, resetSelectedOrder, selectAllOrders, selectOrder, selectOrderError, selectOrderIsLoading, selectOrderStatus, updateOrderStatusThunk,
 
-    //!======================================================================= FILTER SLICE===========================================
-    selectPageSize,
-    selectPaginationCurrentPage,
-    selectTotalItems,
-    selectSort,
-    setCurrentPage,
-    setPageSize,
-    setTotalItems,
-    setSort,
+    // Payments
+    createStripePaymentThunk, selectStripePayment,
 
+    // Cart
+    addProductToCartThunk, fetchUserCartThunk, removeProductFromCartThunk, resetSelectedCart, selectedCartIsLoading, selectedCartItem, selectedCartItems, selectedCartStatus, selectedCartTotal,
 
+    // Filters
+    setCurrentPage, setPageSize, setSort, setSortOrder, setPriceRange, setSelectedCategory, setSearchQuery, selectPaginationCurrentPage, selectPageSize, selectSort, selectSortOrder, selectPriceRange, selectSelectedCategory, selectSearchQuery,
 
+    // User
+    registerUserThunk, fetchUserThunk, fetchAllUserThunk, loginUserThunk, logoutUserThunk, updateUserThunk, deleteUserThunk, resetSelectedUser, selectUser, selectUsers, selectFetchedUser, selectUserRole, selectUserPermissions, selectUserIsLoading, selectUserError, selectAccessToken, selectRefreshToken, selectUserId,
 
-    //!======================================================================= USER SLICE=========================
-    registerUserThunk,
-    fetchUserThunk,
-    fetchAllUserThunk,
-    loginUserThunk,
-    logoutUserThunk,
-    updateUserThunk,
-    deleteUserThunk,
-    resetSelectedUser,
-    selectUser,
-    selectUsers,
-    selectFetchedUser,
-    selectUserRole,
-    selectUserPermissions,
-    selectUserIsLoading,
-    selectUserError,
-    selectAccessToken,
-    selectRefreshToken,
-    selectUserId,
+    // Role
+    addRoleThunk, fetchRoleThunk, fetchAllRolesThunk, updateRoleThunk, deleteRoleThunk, assignRoleToUserThunk, resetSelectedRole, selectRole, selectAllRoles, selectRoleError, selectRoleStatus, selectRoleIsLoading,
 
-    //!======================================================================= ROLE SLICE======================
-    addRoleThunk,
-    fetchRoleThunk,
-    fetchAllRolesThunk,
-    updateRoleThunk,
-    deleteRoleThunk,
-    assignRoleToUserThunk,
-    resetSelectedRole,
-    selectRole,
-    selectAllRoles,
-    selectRoleError,
-    selectRoleStatus,
-    selectRoleIsLoading,
+    // Permission
+    addPermissionThunk, fetchPermissionThunk, fetchAllPermissionsThunk, updatePermissionThunk, deletePermissionThunk, assignPermissionsToRoleThunk, resetSelectedPermission, selectPermission, selectAllPermissions, selectPermissionError, selectPermissionStatus, selectPermissionIsLoading,
 
-    //!======================================================================= PERMISSION SLICE===================
-    addPermissionThunk,
-    fetchPermissionThunk,
-    fetchAllPermissionsThunk,
-    updatePermissionThunk,
-    deletePermissionThunk,
-    assignPermissionsToRoleThunk,
-    resetSelectedPermission,
-    selectPermission,
-    selectAllPermissions,
-    selectPermissionError,
-    selectPermissionStatus,
-    selectPermissionIsLoading,
+    // Product
+    addProductThunk, fetchCurrentUserProductsThunk, fetchAllUsersProductsThunk, fetchAllUsersProductsAdminThunk, fetchProductThunk, updateProductThunk, updateProductThumbnailThunk, deleteProductThunk, resetSelectedProduct, selectProduct, selectProductId, selectProducts, selectAdminProducts, selectProductIsLoading, selectProductError, selectCurrentPage, selectStatus, selectTotalPages, selectTotalDocuments,
 
-    //!======================================================================= PRODUCT SLICE===================
-    addProductThunk,
-    fetchCurrentUserProductsThunk,
-    fetchAllUsersProductsThunk,
-    fetchAllUsersProductsAdminThunk,
-    fetchProductThunk,
-    updateProductThunk,
-    updateProductThumbnailThunk,
-    deleteProductThunk,
-    resetSelectedProduct,
-    setSearchQuery,
-    selectSearchQuery,
-    selectProduct,
-    selectProducts,
-    selectAdminProducts,
-    selectProductIsLoading,
-    selectProductError,
-    selectCurrentPage,
-    selectStatus,
-    selectLimit,
-    selectTotalPages,
-    selectTotalDocuments,
+    // Category
+    addCategoryThunk, fetchCategoryThunk, fetchCategoryProductsThunk, fetchAllCategoriesThunk, updateCategoryThunk, deleteCategoryThunk, resetSelectedCategory, selectCategory, selectCategoryProducts, selectAllCategories, selectCategoryError, selectCategoryStatus, selectCategoryIsLoading,
 
-    //!================================================================= CATEGORY SLICE===============================
-    addCategoryThunk,
-    fetchCategoryThunk,
-    fetchAllCategoriesThunk,
-    updateCategoryThunk,
-    deleteCategoryThunk,
-    resetSelectedCategory,
-    selectCategory,
-    selectAllCategories,
-    selectCategoryError,
-    selectCategoryStatus,
-    selectCategoryIsLoading,
+    // Modal
+    selectShowModal, openModal, closeModal,
 
-    //!================================================================= MODAL SLICE===================================
-    selectShowModal,
-    openModal,
-    closeModal,
-}
+    //Reviews
+    fetchAllProductReviewsThunk, addReviewThunk, fetchReviewThunk, updateReviewThunk, deleteReviewThunk, resetSelectedReview, selectAllReviews, selectAllProductReviews, selectReview, selectReviewIsLoading, selectReviewError, selectReviewStatus
+};

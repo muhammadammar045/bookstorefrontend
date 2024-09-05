@@ -3,82 +3,77 @@ import {
   selectProductIsLoading,
   selectTotalDocuments,
   fetchCurrentUserProductsThunk,
-  selectSearchValue,
   selectPageSize,
   selectPaginationCurrentPage,
+  selectSearchQuery,
+  selectSort,
+  selectSortOrder,
 } from "@storeVars";
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { Pagination } from "@commonPartials";
+import { Pagination, FilterSideBar, Heading } from "@commonPartials";
 import { ProductsSpinner } from "@loadingState";
 import { ProductCard } from "@userComponents";
-import Typewriter from "typewriter-effect";
 
-function ProductShop() {
+function AllProducts() {
   const dispatch = useDispatch();
   const loading = useSelector(selectProductIsLoading);
-  const products = useSelector(selectProducts);
-  const searchValue = useSelector(selectSearchValue);
-  const currentPage = useSelector(selectPaginationCurrentPage);
+  const products = useSelector(selectProducts) || [];
   const totalProducts = useSelector(selectTotalDocuments);
+  const currentPage = useSelector(selectPaginationCurrentPage);
+  const searchQuery = useSelector(selectSearchQuery);
+  const sort = useSelector(selectSort);
+  const sortOrder = useSelector(selectSortOrder);
   const limit = useSelector(selectPageSize);
 
   useEffect(() => {
     dispatch(
       fetchCurrentUserProductsThunk({
         page: currentPage,
-        query: searchValue,
-        limit: limit,
+        searchQuery,
+        sort,
+        sortOrder,
+        limit,
       })
     );
-  }, [dispatch, currentPage, searchValue, limit]);
+  }, [dispatch, currentPage, searchQuery, sort, sortOrder, limit]);
 
   return (
-    <>
-      <div className="p-8">
-        <h1 className="mb-3 py-2 text-center text-3xl font-bold italic tracking-wider text-gray-900 dark:text-gray-200">
-          <Typewriter
-            options={{
-              wrapperClassName: "text-gray-900 dark:text-gray-200 ml-4 ",
-              strings: ["Available Products"],
-              autoStart: true,
-              loop: true,
-            }}
-          />
-        </h1>
+    <div className="flex">
+      <div className="w-2/12 border-e-2 border-gray-300 p-4 dark:border-violet-700 dark:bg-gray-950">
+        <FilterSideBar />
+      </div>
+      <div className="w-10/12 p-8">
+        <Heading>Latest Products</Heading>
         {loading ? (
           <ProductsSpinner count={12} />
         ) : (
           <>
             <div className="mb-4 grid gap-4 sm:grid-cols-2 md:mb-8 lg:grid-cols-3 xl:grid-cols-4">
-              {products && products.length > 0 ? (
-                <>
-                  {products.map((product) => (
-                    <ProductCard
-                      product={product}
-                      key={product._id}
-                    />
-                  ))}
-                </>
+              {products.length > 0 ? (
+                products.map((product) => (
+                  <ProductCard
+                    product={product}
+                    key={product._id}
+                  />
+                ))
               ) : (
-                <div className="flex min-h-[250px] w-full items-center justify-center">
-                  <h1 className="text-4xl italic text-gray-400 dark:text-gray-600">
-                    No Products Found
-                  </h1>
+                <div className="flex w-full items-center justify-center">
+                  <Heading>No Products Found</Heading>
                 </div>
               )}
             </div>
 
-            {totalProducts > limit && (
+            {totalProducts > 0 && (
               <div className="mt-4 flex items-center justify-center">
-                <Pagination />
+                <Pagination totalItems={totalProducts} />
               </div>
             )}
           </>
         )}
       </div>
-    </>
+    </div>
   );
 }
 
-export default ProductShop;
+export default AllProducts;

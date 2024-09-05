@@ -1,17 +1,20 @@
 import React from "react";
 
-function ProductIndividualStarRating({ individualStarCounts }) {
-  // Calculate the total number of reviews
-  const totalReviews = individualStarCounts.reduce(
-    (sum, item) => sum + item.count,
-    0
-  );
+function ProductIndividualStarRating({ reviews }) {
+  const starRatings = [
+    { star: 5, count: reviews?.individualStarCount?.fiveStar },
+    { star: 4, count: reviews?.individualStarCount?.fourStar },
+    { star: 3, count: reviews?.individualStarCount?.threeStar },
+    { star: 2, count: reviews?.individualStarCount?.twoStar },
+    { star: 1, count: reviews?.individualStarCount?.oneStar },
+  ];
+  const totalReviews = starRatings.reduce((sum, item) => sum + item?.count, 0);
 
   return (
     <div className="my-6 gap-8 sm:flex sm:items-start md:my-8">
       <div className="shrink-0 space-y-4">
         <p className="text-2xl font-semibold leading-none text-gray-900 dark:text-white">
-          {/* You can calculate the average rating here if needed */}3 out of 5
+          {reviews.averageRating} out of 5
         </p>
         <button
           type="button"
@@ -23,10 +26,9 @@ function ProductIndividualStarRating({ individualStarCounts }) {
         </button>
       </div>
       <div className="mt-6 min-w-0 flex-1 space-y-3 sm:mt-0">
-        {individualStarCounts.map((item) => {
-          // Calculate the percentage width based on the total reviews
+        {starRatings.map((item) => {
           const percentage =
-            totalReviews > 0 ? (item.count / totalReviews) * 100 : 0;
+            totalReviews > 0 ? (item?.count / totalReviews) * 100 : 0;
 
           return (
             <div

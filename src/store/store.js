@@ -6,8 +6,11 @@ import roleReducer from "./role/roleSlice";
 import permissionReducer from "./permission/permissionSlice";
 import categoryReducer from "./category/categorySlice";
 import dashboardReducer from "./dashboard/dashboardSlice";
-import searchReducer from "./search/searchSlice";
 import filterReducer from "./filter/filterSlice";
+import orderReducer from "./order/orderSlice";
+import cartReducer from "./cart/cartSlice";
+import likeReducer from "./like/likeSlice";
+import reviewReducer from "./review/reviewSlice";
 
 const store = configureStore({
     reducer: {
@@ -18,8 +21,11 @@ const store = configureStore({
         permissions: permissionReducer,
         categories: categoryReducer,
         dashboard: dashboardReducer,
-        search: searchReducer,
-        filters: filterReducer,
+        filter: filterReducer,
+        likes: likeReducer,
+        cart: cartReducer,
+        orders: orderReducer,
+        reviews: reviewReducer
     },
 });
 

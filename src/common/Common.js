@@ -14,6 +14,7 @@ import Error404 from "./Errors/Error404"
 import ErrorBoundary from "./Errors/ErrorBoundary"
 import SomethingWrong from "./Errors/SomethingWrong"
 import FilterSideBar from "./SideBars/FilterSideBar"
+import Heading from "./Text/Heading"
 
 
 export {
@@ -32,5 +33,6 @@ export {
     Error404,
     ErrorBoundary,
     SomethingWrong,
-    FilterSideBar
+    FilterSideBar,
+    Heading
 }

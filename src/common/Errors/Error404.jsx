@@ -1,12 +1,11 @@
 // ErrorPage.jsx
 import React from "react";
+import { Heading } from "@commonPartials";
 
 const Error404 = () => (
   <div className="flex h-screen items-center justify-center bg-gray-100 text-gray-900 dark:bg-gray-900 dark:text-white">
     <div className="text-center">
-      <h1 className="text-6xl font-extrabold text-gray-800 dark:text-gray-100">
-        404
-      </h1>
+      <Heading>404</Heading>
       <p className="mt-4 text-lg text-gray-600 dark:text-gray-300">
         Oops! The page you’re looking for doesn’t exist.
       </p>

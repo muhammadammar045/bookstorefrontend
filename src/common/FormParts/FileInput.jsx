@@ -4,8 +4,8 @@ const FileInput = React.forwardRef(
   (
     {
       label = "Click to upload",
-      subLabel = "or drag and drop",
-      helperText = "SVG, PNG, JPG or GIF (MAX. 800x400px)",
+      subLabel = "",
+      helperText = "",
       labelColor = "text-gray-500 dark:text-gray-400",
       bgColor = "bg-gray-50 dark:bg-gray-700",
       hoverBgColor = "hover:bg-gray-100 dark:hover:bg-gray-800",

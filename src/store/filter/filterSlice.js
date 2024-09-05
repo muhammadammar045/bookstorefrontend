@@ -2,12 +2,14 @@ import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
     currentPage: 1,
-    pageSize: 10,
-    totalItems: 0,
+    pageSize: 12,
     sort: {
         field: 'createdAt',
         order: 'asc',
     },
+    priceRange: '',
+    selectedCategory: '',
+    searchQuery: '',
 };
 
 const filterSlice = createSlice({
@@ -19,13 +21,22 @@ const filterSlice = createSlice({
         },
         setPageSize: (state, action) => {
             state.pageSize = action.payload;
-            state.currentPage = 1; // Reset page on size change
-        },
-        setTotalItems: (state, action) => {
-            state.totalItems = action.payload;
+            state.currentPage = 1;
         },
         setSort: (state, action) => {
-            state.sort = action.payload;
+            state.sort.field = action.payload;
+        },
+        setSortOrder: (state, action) => {
+            state.sort.order = action.payload;
+        },
+        setPriceRange: (state, action) => {
+            state.priceRange = action.payload;
+        },
+        setSelectedCategory: (state, action) => {
+            state.selectedCategory = action.payload;
+        },
+        setSearchQuery: (state, action) => {
+            state.searchQuery = action.payload;
         },
     },
 });
@@ -33,13 +44,23 @@ const filterSlice = createSlice({
 export const {
     setCurrentPage,
     setPageSize,
-    setTotalItems,
     setSort,
+    setSortOrder,
+    setPriceRange,
+    setSelectedCategory,
+    setSearchQuery,
 } = filterSlice.actions;
 
-export const selectPaginationCurrentPage = (state) => state.filters.currentPage;
-export const selectPageSize = (state) => state.filters.pageSize;
-export const selectTotalItems = (state) => state.filters.totalItems;
-export const selectSort = (state) => state.filters.sort;
+
+const getFilterState = (state) => state.filter;
+
+export const selectPaginationCurrentPage = (state) => getFilterState(state)?.currentPage;
+export const selectPageSize = (state) => getFilterState(state)?.pageSize;
+export const selectSort = (state) => getFilterState(state)?.sort?.field;
+export const selectSortOrder = (state) => getFilterState(state)?.sort?.order;
+export const selectPriceRange = (state) => getFilterState(state)?.priceRange;
+export const selectSelectedCategory = (state) => getFilterState(state)?.selectedCategory;
+export const selectSearchQuery = (state) => getFilterState(state)?.searchQuery;
+
 
 export default filterSlice.reducer;

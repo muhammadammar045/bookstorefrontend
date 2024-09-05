@@ -7,10 +7,26 @@ export const registerUserThunk = createAsyncThunk(
     "user/register",
     async (credentials, { rejectWithValue }) => {
         try {
-            const data = await apiRegisterUser(credentials);
+            const formData = new FormData();
+            formData.append("firstName", credentials.firstName);
+            formData.append("lastName", credentials.lastName);
+            formData.append("userName", credentials.userName);
+            formData.append("email", credentials.email);
+            formData.append("password", credentials.password);
+            formData.append("address", credentials.address);
+            if (credentials.profileImage && credentials.profileImage.length > 0) {
+                formData.append("profileImage", credentials.profileImage[0]);
+            }
+            if (credentials.coverImage && credentials.coverImage.length > 0) {
+                formData.append("coverImage", credentials.coverImage[0]);
+            }
+
+            const data = await apiRegisterUser(formData);
+
             return data;
         } catch (err) {
-            return rejectWithValue(err.response.data);
+            console.error('Error in registration:', err);
+            return rejectWithValue(err.response ? err.response.data : 'An error occurred');
         }
     }
 );
@@ -115,7 +131,7 @@ const userAuthSlice = createSlice({
     reducers: {
         resetSelectedUser: (state) => {
             state.fetchedUser = null;
-        }
+        },
     },
     extraReducers: (builder) => {
         const handlePending = (state) => {
@@ -130,100 +146,111 @@ const userAuthSlice = createSlice({
             state.status = 'failed';
         };
 
-
+        const handleFulfilled = (state, action, successCallback) => {
+            state.isLoading = false;
+            successCallback(state, action);
+            state.status = 'succeeded';
+        };
 
         builder
             // REGISTER USER
             .addCase(registerUserThunk.pending, handlePending)
             .addCase(registerUserThunk.rejected, handleRejected)
             .addCase(registerUserThunk.fulfilled, (state) => {
-                state.isLoading = false;
-                state.error = null;
-                state.status = 'succeeded';
+                handleFulfilled(state, null, () => {
+                    state.error = null;
+                });
             })
 
             // LOGIN USER
             .addCase(loginUserThunk.pending, handlePending)
             .addCase(loginUserThunk.rejected, handleRejected)
             .addCase(loginUserThunk.fulfilled, (state, action) => {
-                state.isLoading = false;
-                state.user = action.payload.data;
-                state.permissions = action.payload.permissions;
-                state.error = null;
-                state.status = 'succeeded';
+                handleFulfilled(state, action, () => {
+                    state.user = action.payload.data;
+                    state.permissions = action.payload.permissions;
+                });
             })
 
             // LOGOUT USER
             .addCase(logoutUserThunk.pending, handlePending)
             .addCase(logoutUserThunk.rejected, handleRejected)
             .addCase(logoutUserThunk.fulfilled, (state) => {
-                state.isLoading = false;
-                state.user = null;
-                state.status = 'succeeded';
+                handleFulfilled(state, null, () => {
+                    state.user = null;
+                });
             })
 
             // FETCH USER
             .addCase(fetchUserThunk.pending, handlePending)
             .addCase(fetchUserThunk.rejected, handleRejected)
             .addCase(fetchUserThunk.fulfilled, (state, action) => {
-                state.isLoading = false;
-                state.fetchedUser = action.payload.data;
-                state.status = 'succeeded';
+                handleFulfilled(state, action, () => {
+                    state.fetchedUser = action.payload.data;
+                });
             })
 
-            // FETCH ALL USER
+            // FETCH ALL USERS
             .addCase(fetchAllUserThunk.pending, handlePending)
             .addCase(fetchAllUserThunk.rejected, handleRejected)
             .addCase(fetchAllUserThunk.fulfilled, (state, action) => {
-                state.isLoading = false;
-                state.users = action.payload.data;
-                state.status = 'succeeded';
+                handleFulfilled(state, action, () => {
+                    state.users = action.payload.data;
+                });
             })
 
             // UPDATE USER
             .addCase(updateUserThunk.pending, handlePending)
             .addCase(updateUserThunk.rejected, handleRejected)
             .addCase(updateUserThunk.fulfilled, (state, action) => {
-                state.isLoading = false;
-                state.users = state.users.map(user => user._id === action.payload.data._id ? action.payload.data : user);
-                state.status = 'succeeded';
-                state.fetchedUser = null;
+                handleFulfilled(state, action, () => {
+                    state.users = state.users.map(user =>
+                        user._id === action.payload.data._id ? action.payload.data : user
+                    );
+                    state.fetchedUser = null;
+                });
             })
 
             // Assign Role to User
             .addCase(assignRoleToUserThunk.pending, handlePending)
             .addCase(assignRoleToUserThunk.rejected, handleRejected)
             .addCase(assignRoleToUserThunk.fulfilled, (state, action) => {
-                state.isLoading = false;
-                state.users = state.users.map(user => user._id === action.payload.data._id ? action.payload.data : user);
-                state.status = 'succeeded';
-                state.fetchedUser = null
+                handleFulfilled(state, action, () => {
+                    state.users = state.users.map(user =>
+                        user._id === action.payload.data._id ? action.payload.data : user
+                    );
+                    state.fetchedUser = null;
+                });
             })
 
             // DELETE USER
             .addCase(deleteUserThunk.pending, handlePending)
             .addCase(deleteUserThunk.rejected, handleRejected)
             .addCase(deleteUserThunk.fulfilled, (state, action) => {
-                state.isLoading = false;
-                state.users = state.users.filter(user => user._id !== action.payload.data._id);
-                state.status = 'succeeded';
-                state.fetchedUser = null;
-            })
-
+                handleFulfilled(state, action, () => {
+                    state.users = state.users.filter(user =>
+                        user._id !== action.payload.data._id
+                    );
+                    state.fetchedUser = null;
+                });
+            });
     },
 });
+
 
 export const { resetSelectedUser } = userAuthSlice.actions;
 
 export default userAuthSlice.reducer;
 
-export const selectUsers = (state) => state.users?.users;
-export const selectUser = (state) => state.users?.user?.user;
-export const selectFetchedUser = (state) => state.users?.fetchedUser;
-export const selectUserRole = (state) => state.users?.user?.user?.roleName;
-export const selectUserId = (state) => state.users?.user?.user?._id;
-export const selectUserPermissions = (state) => state.users?.user?.user.permissions;
-export const selectAccessToken = (state) => state.users?.user?.accessToken;
-export const selectRefreshToken = (state) => state.users?.user?.refreshToken;
-export const selectUserIsLoading = (state) => state.users?.isLoading;
-export const selectUserError = (state) => state.users?.error;
+const getUsersState = (state) => state.users;
+
+export const selectUsers = (state) => getUsersState(state)?.users;
+export const selectUser = (state) => getUsersState(state)?.user?.user;
+export const selectFetchedUser = (state) => getUsersState(state)?.fetchedUser;
+export const selectUserRole = (state) => getUsersState(state)?.user?.user?.roleName;
+export const selectUserId = (state) => getUsersState(state)?.user?.user?._id;
+export const selectUserPermissions = (state) => getUsersState(state)?.user?.user.permissions;
+export const selectAccessToken = (state) => getUsersState(state)?.user?.accessToken;
+export const selectRefreshToken = (state) => getUsersState(state)?.user?.refreshToken;
+export const selectUserIsLoading = (state) => getUsersState(state)?.isLoading;
+export const selectUserError = (state) => getUsersState(state)?.error;
