@@ -2,16 +2,17 @@ import React, { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars, faShoppingBag } from "@fortawesome/free-solid-svg-icons";
 import logo from "@assets/images/ARlogo.png";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { selectUser, selectUserRole } from "@storeVars";
 import { Logout } from "@userComponents";
-import { ThemeToggle, SearchBox } from "@commonPartials";
+import { ThemeToggle } from "@commonPartials";
 
 function Navbar() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const user = useSelector(selectUser);
   const role = useSelector(selectUserRole);
+  const navigate = useNavigate();
   const links = [
     ["Home", "/"],
     ["Login", "/login"],
@@ -27,6 +28,10 @@ function Navbar() {
 
   const toggleMobileMenu = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen);
+  };
+
+  const handleClick = () => {
+    navigate("/cart");
   };
 
   return (
@@ -53,7 +58,13 @@ function Navbar() {
             <div className="flex items-center gap-4 space-x-3 md:order-2 md:space-x-0 rtl:space-x-reverse">
               <div className="flex items-center justify-center gap-2">
                 <ThemeToggle />
-                {user && <FontAwesomeIcon icon={faShoppingBag} />}
+                {user && (
+                  <FontAwesomeIcon
+                    icon={faShoppingBag}
+                    className="hover:cursor-pointer"
+                    onClick={handleClick}
+                  />
+                )}
               </div>
               {user && <Logout />}
               <button
@@ -74,11 +85,11 @@ function Navbar() {
             >
               <div>
                 <ul className="mt-4 flex flex-col items-center rounded-lg border p-4 font-medium md:mt-0 md:flex-row md:space-x-8 md:border-0 md:bg-transparent md:p-0 rtl:space-x-reverse">
-                  {user && (
+                  {/* {user && (
                     <li>
                       <SearchBox />
                     </li>
-                  )}
+                  )} */}
 
                   {user
                     ? authenticatedLinks.map(([label, path]) => (

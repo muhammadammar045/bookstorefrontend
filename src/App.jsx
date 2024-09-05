@@ -26,6 +26,12 @@ import {
 import { Error404, SomethingWrong } from "@commonPartials";
 import { AdminLayout, AdminProtected, Protected, Layout } from "@layout";
 import { Spinner } from "@loadingState";
+import CategoryProducts from "./user/components/Category/CategoryProducts";
+import Checkout from "./user/components/Cart/Checkout";
+import Cart from "./user/components/Cart/Cart";
+import PaymentCancelPage from "./utils/payment/Stripe/PaymentCancel";
+import PaymentSuccessPage from "./utils/payment/Stripe/PaymentSuccessPage";
+import AllOrders from "./user/components/Orders/AllOrders";
 
 const App = () => {
   const location = useLocation();
@@ -95,6 +101,46 @@ const App = () => {
             element={
               <Protected>
                 <EditProduct />
+              </Protected>
+            }
+          />
+          <Route
+            path="category-products/:categoryId"
+            element={
+              <Protected>
+                <CategoryProducts />
+              </Protected>
+            }
+          />
+          <Route
+            path="/cart"
+            element={
+              <Protected>
+                <Cart />
+              </Protected>
+            }
+          />
+          <Route
+            path="/checkout"
+            element={
+              <Protected>
+                <Checkout />
+              </Protected>
+            }
+          />
+          <Route
+            path="/payment-success"
+            element={<PaymentSuccessPage />}
+          />
+          <Route
+            path="/payment-cancel"
+            element={<PaymentCancelPage />}
+          />
+          <Route
+            path="/user/orders"
+            element={
+              <Protected>
+                <AllOrders />
               </Protected>
             }
           />

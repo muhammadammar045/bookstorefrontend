@@ -33,6 +33,7 @@ const dashboardSlice = createSlice({
     initialState,
     reducers: {},
     extraReducers: (builder) => {
+        // Common handlers
         const handlePending = (state) => {
             state.isLoading = true;
             state.error = null;
@@ -45,17 +46,20 @@ const dashboardSlice = createSlice({
             state.status = 'failed';
         };
 
-
+        const handleFulfilled = (state, action, successCallback) => {
+            state.isLoading = false;
+            successCallback(state, action);
+            state.status = 'succeeded';
+        };
 
         builder
-
             // FETCH DASHBOARD STATS
             .addCase(fetchDashboardStatsThunk.pending, handlePending)
             .addCase(fetchDashboardStatsThunk.rejected, handleRejected)
             .addCase(fetchDashboardStatsThunk.fulfilled, (state, action) => {
-                state.isLoading = false;
-                state.stats = action.payload.data;
-                state.status = 'succeeded';
+                handleFulfilled(state, action, (state) => {
+                    state.stats = action.payload;
+                });
             })
 
             // Handle Logout
@@ -63,8 +67,14 @@ const dashboardSlice = createSlice({
     },
 });
 
+
+
 export default dashboardSlice.reducer;
 
-export const selectDashboardStats = (state) => state.dashboardSlice?.stats;
-export const selectDashboardIsLoading = (state) => state.dashboardSlice?.isLoading;
-export const selectDashboardError = (state) => state.dashboardSlice?.error;
+
+const getDashboardState = (state) => state.dashboardSlice;
+
+export const selectDashboardStats = (state) => getDashboardState(state)?.stats;
+export const selectDashboardIsLoading = (state) => getDashboardState(state)?.isLoading;
+export const selectDashboardError = (state) => getDashboardState(state)?.error;
+

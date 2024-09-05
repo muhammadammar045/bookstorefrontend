@@ -1,81 +1,83 @@
 import React from "react";
 import { Rating, ProductIndividualStarRating } from "@userComponents";
+import { selectAllProductReviews, selectReviewIsLoading } from "@storeVars";
+import { useSelector } from "react-redux";
 
-function ProductComments({
-  reviews,
-  productReviewsCount,
-  productAverageRating,
-  individualStarCounts,
-}) {
+function ProductComments() {
+  const reviews = useSelector(selectAllProductReviews);
+  const isLoading = useSelector(selectReviewIsLoading);
+
+  if (isLoading) return <div>Loading...</div>;
+
   return (
     <>
       <section className="bg-white p-8 antialiased dark:bg-gray-900 md:py-16">
         <div className="mx-auto max-w-screen-xl px-4 2xl:px-0">
-          <div className="flex items-center gap-2">
-            <h2 className="text-2xl font-semibold text-gray-900 dark:text-white">
-              Reviews
-            </h2>
-            <div className="mt-2 flex items-center gap-2 sm:mt-0">
-              <Rating reviewRating={productAverageRating} />
-              <p className="text-sm font-medium leading-none text-gray-500 dark:text-gray-400">
-                ({productAverageRating})
-              </p>
-              <a
-                href="#"
-                className="text-sm font-medium leading-none text-gray-900 underline hover:no-underline dark:text-white"
-              >
-                {" "}
-                {productReviewsCount} Reviews
-              </a>
-            </div>
-          </div>
-
-          <ProductIndividualStarRating
-            individualStarCounts={individualStarCounts}
-          />
-
-          <div className="mt-20 divide-y divide-gray-200 dark:divide-gray-700">
-            {reviews.map((review) => (
-              <div
-                key={review._id}
-                className="gap-3 py-6 sm:flex sm:items-start"
-              >
-                <div className="shrink-0 space-y-2 sm:w-48 md:w-72">
-                  <div className="flex items-center gap-0.5">
-                    <Rating reviewRating={review.reviewRating} />
-                  </div>
-                  <div className="space-y-0.5">
-                    <p className="text-base font-semibold text-gray-900 dark:text-white">
-                      {review?.reviewAuthor.userName}
-                    </p>
-                    <p className="text-sm font-normal text-gray-500 dark:text-gray-400">
-                      {(() => {
-                        const date = new Date(review.createdAt);
-                        const formattedDate = date.toLocaleDateString("en-PK");
-                        const formattedTime = date.toLocaleTimeString("en-PK");
-                        return `${formattedDate} ${formattedTime}`;
-                      })()}
-                    </p>
-                  </div>
-                </div>
-                <div className="mt-4 min-w-0 flex-1 space-y-4 sm:mt-0">
-                  <p className="text-base font-normal text-gray-500 dark:text-gray-400">
-                    {review.reviewBody}
+          <h2 className="text-2xl font-semibold text-gray-900 dark:text-white">
+            Reviews
+          </h2>
+          {reviews ? (
+            <>
+              {" "}
+              <div className="flex items-center gap-2">
+                <div className="mt-2 flex items-center gap-2 sm:mt-0">
+                  <Rating reviewRating={reviews?.averageRating} />
+                  <p className="text-sm font-medium leading-none text-gray-500 dark:text-gray-400">
+                    ({reviews?.averageRating})
                   </p>
+                  {reviews?.reviewCount} Ratings
                 </div>
               </div>
-            ))}
-          </div>
-          <div className="mt-6 text-center">
-            <button
-              type="button"
-              className="hover:text-primary-700 mb-2 me-2 rounded-lg border border-gray-200 bg-white px-5 py-2.5 text-sm font-medium text-gray-900 hover:bg-gray-100 focus:z-10 focus:outline-none focus:ring-4 focus:ring-gray-100 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white dark:focus:ring-gray-700"
-            >
-              View more reviews
-            </button>
-          </div>
+              <ProductIndividualStarRating reviews={reviews} />
+              <div className="mt-20 divide-y divide-gray-200 dark:divide-gray-700">
+                {reviews.reviews?.map((review) => (
+                  <div
+                    key={review._id}
+                    className="gap-3 py-6 sm:flex sm:items-start"
+                  >
+                    <div className="shrink-0 space-y-2 sm:w-48 md:w-72">
+                      <div className="flex items-center gap-0.5">
+                        <Rating reviewRating={review?.reviewRating} />
+                      </div>
+                      <div className="space-y-0.5">
+                        <p className="text-base font-semibold text-gray-900 dark:text-white">
+                          {review?.ownerDetails?.userName}
+                        </p>
+                        <p className="text-sm font-normal text-gray-500 dark:text-gray-400">
+                          {(() => {
+                            const date = new Date(review?.createdAt);
+                            const formattedDate =
+                              date.toLocaleDateString("en-PK");
+                            const formattedTime =
+                              date.toLocaleTimeString("en-PK");
+                            return `${formattedDate} ${formattedTime}`;
+                          })()}
+                        </p>
+                      </div>
+                    </div>
+                    <div className="mt-4 min-w-0 flex-1 space-y-4 sm:mt-0">
+                      <p className="text-base font-normal text-gray-500 dark:text-gray-400">
+                        {review?.reviewBody}
+                      </p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+              <div className="mt-6 text-center">
+                <button
+                  type="button"
+                  className="hover:text-primary-700 mb-2 me-2 rounded-lg border border-gray-200 bg-white px-5 py-2.5 text-sm font-medium text-gray-900 hover:bg-gray-100 focus:z-10 focus:outline-none focus:ring-4 focus:ring-gray-100 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white dark:focus:ring-gray-700"
+                >
+                  View more reviews
+                </button>
+              </div>
+            </>
+          ) : (
+            <div>No reviews yet</div>
+          )}
         </div>
       </section>
+
       {/* Add review modal */}
       <div
         id="review-modal"

@@ -1,19 +1,10 @@
-import axios from "../axiosInstance";
-
-
+import { axiosInstance as axios, getAuthConfig } from "../axiosInstance";
 
 export const apiGetDashboardStats = async (accessToken) => {
-    console.log("apiGetDashboardStats")
-    const config = {
-        headers: {
-            Authorization: `Bearer ${accessToken}`,
-        },
-    };
-    const response = await axios.get(`/dashboard/get-dashboard-stats`, config);
-    return response.data;
-
-}
-
-
-
-
+    try {
+        const { data } = await axios.get('/dashboard/get-dashboard-stats', getAuthConfig(accessToken));
+        return data;
+    } catch (error) {
+        throw error;
+    }
+};

@@ -2,21 +2,21 @@ import React, { useId } from "react";
 
 function Select(
   {
-    labelColor = "text-gray-900 dark:text-gray-200",
-    bgColor = "bg-gray-100 dark:bg-gray-800",
-    textColor = "text-gray-900 dark:text-gray-100",
-    padding = "px-3 py-2",
+    labelColor = "text-sm font-semibold text-gray-900 dark:text-neutral-400",
+    bgColor = "bg-gray-100 dark:bg-neutral-900",
+    textColor = "text-sm text-gray-900 dark:text-neutral-400 dark:placeholder-neutral-500",
+    padding = "px-4 py-3",
     width = "w-full",
     rounded = "rounded-lg",
-    shadow = "hover:shadow-lg shadow-sky-500 dark:shadow-sky-400 focus:shadow-lg focus:shadow-sky-500 dark:focus:shadow-sky-400",
-    outline = "",
+    shadow = "",
+    outline = "focus:outline-none focus:ring-0",
     className = "ease-in duration-700",
     label = "",
-    border = "",
+    border = " border-gray-200 dark:border-neutral-700",
     options = [
-      { id: "option1", name: "Option 1" },
-      { id: "option2", name: "Option 2" },
-      { id: "option3", name: "Option 3" },
+      { id: "option1", name: "Option 1", value: "option1" },
+      { id: "option2", name: "Option 2", value: "option2" },
+      { id: "option3", name: "Option 3", value: "option3" },
     ],
     ...props
   },
@@ -43,7 +43,12 @@ function Select(
       )}
       <select {...selectProps}>
         {options.map((option) => (
-          <option key={option.id}>{option.name}</option>
+          <option
+            key={option.id}
+            value={option.value}
+          >
+            {option.name}
+          </option>
         ))}
       </select>
     </div>

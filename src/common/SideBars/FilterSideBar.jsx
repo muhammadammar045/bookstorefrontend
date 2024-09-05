@@ -1,106 +1,72 @@
-const filters = [
-  {
-    name: "Category",
-    options: ["Men", "Women", "Kids"],
-  },
-  {
-    name: "Price",
-    options: ["1000-10000", "10000-20000", "20000-30000"],
-  },
-  {
-    name: "Brand",
-    options: ["Gul-Ahmed", "Ideas", "Levi's", "Nike", "Puma"],
-  },
-  {
-    name: "Rating",
-    options: ["4.5 and above", "4.0 and above", "3.5 and above"],
-  },
+import React from "react";
+import { useDispatch } from "react-redux";
+import { setPriceRange, setSortOrder, setSort } from "@storeVars";
+import { SelectBox, Select, SearchBox, Heading } from "@commonPartials";
+import Category from "../../user/components/Category/Category";
+
+const price = [
+  { id: 1, label: "Price", name: "Rs. 0 - Rs. 100", value: "0-100" },
+  { id: 2, name: "Rs. 100 - Rs. 200", value: "100-200" },
+  { id: 3, name: "Rs. 200 - Rs. 300", value: "200-300" },
+  { id: 4, name: "Rs. 300 - Rs. 400", value: "300-400" },
+  { id: 5, name: "Rs. 400 - Rs. 500", value: "400-500" },
+  { id: 6, name: "Rs. 500 - Rs. 600", value: "500-600" },
+  { id: 7, name: "Rs. 600 - Rs. 700", value: "600-700" },
+  { id: 8, name: "Rs. 700 - Rs. 800", value: "700-800" },
 ];
 
-const FiltersComponent = () => (
-  <div>
-    <h1 className="mb-4 text-xl font-bold">Filters</h1>
+const sort = [
+  { id: 1, name: "Price", value: "price" },
+  { id: 2, name: "Date", value: "date" },
+  { id: 3, name: "Rating", value: "rating" },
+  { id: 4, name: "Name", value: "name" },
+];
 
-    {/* Category Filter */}
-    <div className="mb-4 flex flex-col gap-4 ps-4">
-      <h1 className="text-lg font-bold">Category</h1>
-      {filters
-        .find((filter) => filter.name === "Category")
-        .options.map((option, index) => (
-          <div
-            key={index}
-            className="flex items-center gap-2"
-          >
-            <input
-              type="radio"
-              name="Category"
-              className="h-4 w-4"
-            />
-            <label className="text-sm">{option}</label>
-          </div>
-        ))}
-    </div>
+const order = [
+  { id: 1, name: "Ascending", value: "asc" },
+  { id: 2, name: "Descending", value: "desc" },
+];
 
-    {/* Price Filter */}
-    <div className="mb-4 flex flex-col gap-4 ps-4">
-      <h1 className="text-lg font-bold">Price</h1>
-      {filters
-        .find((filter) => filter.name === "Price")
-        .options.map((option, index) => (
-          <div
-            key={index}
-            className="flex items-center gap-2"
-          >
-            <input
-              type="radio"
-              name="Price"
-              className="h-4 w-4"
-            />
-            <label className="text-sm">{option}</label>
-          </div>
-        ))}
-    </div>
+const FiltersComponent = () => {
+  const dispatch = useDispatch();
 
-    {/* Brand Filter */}
-    <div className="mb-4 flex flex-col gap-4 ps-4">
-      <h1 className="text-lg font-bold">Brand</h1>
-      {filters
-        .find((filter) => filter.name === "Brand")
-        .options.map((option, index) => (
-          <div
-            key={index}
-            className="flex items-center gap-2"
-          >
-            <input
-              type="radio"
-              name="Brand"
-              className="h-4 w-4"
-            />
-            <label className="text-sm">{option}</label>
-          </div>
-        ))}
-    </div>
+  const handlePriceChange = (e) => {
+    dispatch(setPriceRange(e.target.value));
+  };
 
-    {/* Rating Filter */}
-    <div className="mb-4 flex flex-col gap-4 ps-4">
-      <h1 className="text-lg font-bold">Rating</h1>
-      {filters
-        .find((filter) => filter.name === "Rating")
-        .options.map((option, index) => (
-          <div
-            key={index}
-            className="flex items-center gap-2"
-          >
-            <input
-              type="radio"
-              name="Rating"
-              className="h-4 w-4"
-            />
-            <label className="text-sm">{option}</label>
-          </div>
-        ))}
+  const handleSortOrderChange = (e) => {
+    dispatch(setSortOrder(e.target.value));
+  };
+
+  const handleSortByChange = (e) => {
+    dispatch(setSort(e.target.value));
+  };
+
+  return (
+    <div>
+      <Heading className="mb-4 text-xl font-bold">Filters</Heading>
+      <div className="flex flex-col gap-4">
+        <Category label="Categories" />
+        <SelectBox label="Items per Page" />
+        <Select
+          label="Price Range"
+          options={price}
+          onChange={handlePriceChange}
+        />
+        <Select
+          label="Sort Order"
+          options={order}
+          onChange={handleSortOrderChange}
+        />
+        <Select
+          label="Sort By"
+          options={sort}
+          onChange={handleSortByChange}
+        />
+        <SearchBox />
+      </div>
     </div>
-  </div>
-);
+  );
+};
 
 export default FiltersComponent;

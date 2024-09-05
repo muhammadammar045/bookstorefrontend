@@ -16,7 +16,7 @@ function Logout() {
     try {
       const res = await dispatch(logoutUserThunk()).unwrap();
       showToast("success", `${res.message}`);
-      navigate("/login");
+      navigate("/");
     } catch (error) {
       showToast("error", `${error.message}`);
     }

@@ -1,15 +1,10 @@
 import React from "react";
-import {
-  selectPaginationCurrentPage,
-  selectTotalPages,
-  setCurrentPage,
-} from "@storeVars";
+import { selectPaginationCurrentPage, setCurrentPage } from "@storeVars";
 import { useSelector, useDispatch } from "react-redux";
 
-const Pagination = () => {
+const Pagination = ({ totalPages }) => {
   const dispatch = useDispatch();
   const currentPage = useSelector(selectPaginationCurrentPage);
-  const totalPages = useSelector(selectTotalPages);
 
   const handleClick = (page) => {
     if (page !== currentPage && page > 0 && page <= totalPages) {

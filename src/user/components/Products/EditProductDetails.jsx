@@ -12,7 +12,7 @@ import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { Input, Button, Select } from "@commonPartials";
+import { Input, Button, Select, Heading } from "@commonPartials";
 import { ProductSpinner } from "@loadingState";
 import showToast from "@utils/toastAlert/toaster";
 
@@ -50,7 +50,6 @@ function EditProductDetails() {
   }, [dispatch]);
 
   const onSubmit = async (productData) => {
-    console.log(productData);
     try {
       if (product) {
         if (productData.thumbnail.length > 0) {
@@ -61,7 +60,6 @@ function EditProductDetails() {
               productData,
             })
           ).unwrap();
-          console.log(thumbnailRes);
           showToast("success", `${thumbnailRes.message}`);
         }
 
@@ -73,7 +71,6 @@ function EditProductDetails() {
         ].some((key) => productData[key] && productData[key] !== product[key]);
 
         if (contentUpdated) {
-          console.log("Content");
           const contentRes = await dispatch(
             updateProductThunk({
               productId: product._id,
@@ -100,9 +97,9 @@ function EditProductDetails() {
         <ProductSpinner />
       ) : (
         <div className="mx-auto my-10 max-w-3xl rounded-lg border-2 border-gray-900 bg-gray-200 p-10 dark:border-gray-500 dark:bg-gray-900">
-          <h1 className="mb-4 text-center text-3xl text-gray-900 dark:text-gray-200">
+          <Heading>
             {product ? "Edit Product Details" : "Add New Product"}
-          </h1>
+          </Heading>
           <form onSubmit={handleSubmit(onSubmit)}>
             <div className="flex w-full">
               {/* TITLE */}

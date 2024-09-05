@@ -1,9 +1,10 @@
 import React from "react";
+import { Heading } from "@commonPartials";
 
 function SomethingWrong({ error, resetErrorBoundary }) {
   return (
     <div className="flex h-screen flex-col items-center justify-center bg-gray-100 text-gray-900 dark:bg-gray-800 dark:text-gray-100">
-      <h1 className="mb-4 text-5xl font-bold">Something went wrong</h1>
+      <Heading>Something went wrong</Heading>
       <p className="mb-4 text-xl">
         We're sorry, but something unexpected happened.
       </p>

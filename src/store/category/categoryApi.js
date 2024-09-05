@@ -1,96 +1,56 @@
-import axios from "../axiosInstance";
+import { axiosInstance as axios, getAuthConfig } from "../axiosInstance";
 
-const apiAddCategory = async (categoryData, accessToken) => {
+
+export const apiAddCategory = async (categoryData, accessToken) => {
     try {
-        const response = await axios
-            .post(
-                '/categories/add-category',
-                categoryData,
-                {
-                    headers: {
-                        'Authorization': `Bearer ${accessToken}`
-                    }
-                }
-            );
-        return response.data;
+        const { data } = await axios.post('/categories/add-category', categoryData, getAuthConfig(accessToken));
+        return data;
     } catch (error) {
         throw error;
     }
-}
-
-const apiFetchAllCategories = async (accessToken) => {
-    try {
-        const response = await axios
-            .get(`/categories/get-all-categories`,
-                {
-                    headers: {
-                        'Authorization': `Bearer ${accessToken}`
-                    }
-                });
-        return response.data;
-    } catch (error) {
-        throw error;
-    }
-}
-
-const apiFetchCategory = async (categoryId, accessToken) => {
-    try {
-        const response = await axios
-            .get(`/categories/get-category/${categoryId}`,
-                {
-                    headers: {
-                        'Authorization': `Bearer ${accessToken}`
-                    }
-                });
-        return response.data;
-    } catch (error) {
-        throw error;
-    }
-}
-
-const apiDeleteCategory = async (categoryId, accessToken) => {
-    try {
-        const response = await axios
-            .delete(
-                `/categories/delete-category/${categoryId}`,
-                {
-                    headers: {
-                        'Authorization': `Bearer ${accessToken}`
-                    }
-                });
-        return response.data;
-    } catch (error) {
-        throw error;
-    }
-}
-
-const apiUpdateCategory = async (categoryId, categoryData, accessToken) => {
-    try {
-        const response = await axios
-            .patch(
-                `/categories/update-category/${categoryId}`,
-                categoryData,
-                {
-                    headers: {
-                        'Authorization': `Bearer ${accessToken}`
-                    }
-                }
-            );
-        return response.data;
-    } catch (error) {
-        throw error;
-    }
-}
-
-
-export {
-    apiUpdateCategory,
-    apiAddCategory,
-    apiDeleteCategory,
-    apiFetchAllCategories,
-    apiFetchCategory
-
 };
 
+export const apiFetchAllCategories = async (accessToken) => {
+    try {
+        const { data } = await axios.get('/categories/get-all-categories', getAuthConfig(accessToken));
+        return data;
+    } catch (error) {
+        throw error;
+    }
+};
 
+export const apiFetchCategory = async (categoryId, accessToken) => {
+    try {
+        const { data } = await axios.get(`/categories/get-category/${categoryId}`, getAuthConfig(accessToken));
+        return data;
+    } catch (error) {
+        throw error;
+    }
+};
 
+export const apiFetchCategoryProducts = async (categoryId, accessToken) => {
+    try {
+        const { data } = await axios.get(`/categories/get-category-products/${categoryId}`, getAuthConfig(accessToken));
+        return data;
+    } catch (error) {
+        throw error;
+    }
+};
+
+export const apiDeleteCategory = async (categoryId, accessToken) => {
+    try {
+        const { data } = await axios.delete(`/categories/delete-category/${categoryId}`, getAuthConfig(accessToken));
+        return data;
+    } catch (error) {
+        throw error;
+    }
+};
+
+export const apiUpdateCategory = async (categoryId, categoryData, accessToken) => {
+    try {
+        const { data } = await axios.patch(`/categories/update-category/${categoryId}`, categoryData, getAuthConfig(accessToken));
+        return data;
+    } catch (error) {
+        throw error;
+    }
+};

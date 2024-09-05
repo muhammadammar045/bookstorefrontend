@@ -1,18 +1,18 @@
 import React, { useState, useEffect } from "react";
 import { Input } from "@commonPartials";
 import { useDispatch, useSelector } from "react-redux";
-import { setSearchValue, selectSearchValue } from "@storeVars";
+import { setSearchQuery, selectSearchQuery } from "@storeVars";
 import debounce from "lodash/debounce";
 import { FaSearch, FaTimes } from "react-icons/fa"; // Importing search and cross icons
 
 function SearchBox() {
   const dispatch = useDispatch();
-  const searchValue = useSelector(selectSearchValue);
+  const searchValue = useSelector(selectSearchQuery);
   const [searchTerm, setSearchTerm] = useState(searchValue);
   const [isInputVisible, setIsInputVisible] = useState(false); // State to toggle input visibility
 
   const debouncedDispatch = debounce((value) => {
-    dispatch(setSearchValue(value));
+    dispatch(setSearchQuery(value));
   }, 700);
 
   useEffect(() => {
