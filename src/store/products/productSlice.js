@@ -1,4 +1,4 @@
-import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import { createSlice, createAsyncThunk, createSelector } from "@reduxjs/toolkit";
 import { logoutUserThunk, selectAccessToken } from "../user/userAuthSlice"
 import {
     apiAddProducts,
@@ -115,8 +115,13 @@ export const fetchProductThunk = createAsyncThunk(
         { getState, rejectWithValue }
     ) => {
         const state = getState();
+        const products = selectProducts(state);
         const accessToken = selectAccessToken(state);
         try {
+            const product = products.find((product) => product._id === productId);
+            if (product) {
+                return product;
+            }
             const response = await apiFetchProduct(productId, accessToken);
             return response;
         } catch (error) {
@@ -256,7 +261,7 @@ const productsSlice = createSlice({
             .addCase(fetchProductThunk.rejected, handleRejected)
             .addCase(fetchProductThunk.fulfilled, (state, action) => {
                 handleFulfilled(state, action, (state) => {
-                    state.product = action.payload.data;
+                    state.product = action.payload;
                 });
             })
 
@@ -307,9 +312,11 @@ export default productsSlice.reducer;
 
 const getProductsState = (state) => state.products;
 
+
+
 export const selectProducts = (state) => getProductsState(state)?.products?.products;
 export const selectAdminProducts = (state) => getProductsState(state)?.products?.products;
-export const selectProduct = (state) => getProductsState(state)?.product?.product;
+export const selectProduct = (state) => getProductsState(state)?.product;
 export const selectProductId = (state) => getProductsState(state)?.product?.product._id;
 export const selectProductIsOwner = (state) => getProductsState(state)?.product?.isOwner;
 export const selectTotalPages = (state) => getProductsState(state)?.products?.totalPages;
@@ -318,3 +325,15 @@ export const selectCurrentPage = (state) => getProductsState(state)?.products?.m
 export const selectProductIsLoading = (state) => getProductsState(state)?.isLoading;
 export const selectProductError = (state) => getProductsState(state)?.error;
 export const selectStatus = (state) => getProductsState(state)?.status;
+
+export const selectSingleProduct = createSelector(
+    [selectProducts, (_, productId) => productId], // Using a function to grab productId as a second argument
+    (products, productId) => products?.find((product) => product._id === productId)
+);
+export const removeSingleProduct = (products, productId) => {
+    return products.filter((product) => product._id !== productId);
+}
+
+export const addSingleProduct = (products, product) => {
+    return [...products, product];
+}

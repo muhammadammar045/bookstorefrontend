@@ -5,18 +5,18 @@ import AddToCart from "../Cart/AddToCart";
 
 function ProductCard({ product }) {
   return (
-    <div className="space-y-6 overflow-hidden rounded-lg border border-gray-200 bg-white p-6 shadow-sm dark:border-gray-700 dark:bg-gray-800">
+    <div className="space-y-4 overflow-hidden rounded-lg border border-gray-200 bg-white p-6 shadow-sm dark:border-gray-700 dark:bg-gray-800">
       <Link
         to={`/product/${product._id}`}
         className="overflow-hidden rounded"
       >
         <img
-          className="mx-auto h-44 w-44 dark:hidden"
+          className="mx-auto h-44 w-full dark:hidden"
           src={product.productThumbnail}
           alt={product.productThumbnail}
         />
         <img
-          className="mx-auto hidden h-44 w-44 dark:block"
+          className="mx-auto hidden h-44 w-full dark:block"
           src={product.productThumbnail}
           alt={product.productThumbnail}
         />
@@ -29,7 +29,7 @@ function ProductCard({ product }) {
           {product.productTitle}{" "}
         </Link>
         <p className="mt-2 text-base font-normal text-gray-500 dark:text-gray-400">
-          {product.productDescription}
+          {product.productDescription.slice(0, 60) + "..."}
         </p>
       </div>
       <div>

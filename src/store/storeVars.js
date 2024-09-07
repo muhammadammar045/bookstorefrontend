@@ -84,7 +84,7 @@ import {
     selectShowModal, openModal, closeModal
 } from "./modal/modalSlice";
 
-import { fetchAllProductReviewsThunk, addReviewThunk, fetchReviewThunk, updateReviewThunk, deleteReviewThunk, resetSelectedReview, selectAllReviews, selectAllProductReviews, selectReview, selectReviewIsLoading, selectReviewError, selectReviewStatus }
+import { fetchAllProductReviewsThunk, addReviewThunk, fetchReviewThunk, updateReviewThunk, deleteReviewThunk, resetSelectedReview, selectAllReviews, selectAllProductReviews, selectReview, selectReviewIsLoading, selectReviewError, selectReviewStatus, selectProductReviewsCount, selectProductReviewsAverageRating, selectProductReviewsIndividualStarCount }
     from "./review/reviewSlice"
 
 //=============================================================== EXPORTS ============================================================
@@ -128,5 +128,5 @@ export {
     selectShowModal, openModal, closeModal,
 
     //Reviews
-    fetchAllProductReviewsThunk, addReviewThunk, fetchReviewThunk, updateReviewThunk, deleteReviewThunk, resetSelectedReview, selectAllReviews, selectAllProductReviews, selectReview, selectReviewIsLoading, selectReviewError, selectReviewStatus
+    fetchAllProductReviewsThunk, addReviewThunk, fetchReviewThunk, updateReviewThunk, deleteReviewThunk, resetSelectedReview, selectAllReviews, selectAllProductReviews, selectReview, selectReviewIsLoading, selectReviewError, selectReviewStatus, selectProductReviewsCount, selectProductReviewsAverageRating, selectProductReviewsIndividualStarCount
 };
