@@ -1,12 +1,22 @@
 import React from "react";
+import { useSelector } from "react-redux";
+import {
+  selectProductReviewsIndividualStarCount,
+  selectProductReviewsAverageRating,
+} from "@storeVars";
 
-function ProductIndividualStarRating({ reviews }) {
+function ProductIndividualStarRating() {
+  const average = useSelector(selectProductReviewsAverageRating);
+
+  const individualStarCount = useSelector(
+    selectProductReviewsIndividualStarCount
+  );
   const starRatings = [
-    { star: 5, count: reviews?.individualStarCount?.fiveStar },
-    { star: 4, count: reviews?.individualStarCount?.fourStar },
-    { star: 3, count: reviews?.individualStarCount?.threeStar },
-    { star: 2, count: reviews?.individualStarCount?.twoStar },
-    { star: 1, count: reviews?.individualStarCount?.oneStar },
+    { star: 5, count: individualStarCount?.fiveStar },
+    { star: 4, count: individualStarCount?.fourStar },
+    { star: 3, count: individualStarCount?.threeStar },
+    { star: 2, count: individualStarCount?.twoStar },
+    { star: 1, count: individualStarCount?.oneStar },
   ];
   const totalReviews = starRatings.reduce((sum, item) => sum + item?.count, 0);
 
@@ -14,7 +24,7 @@ function ProductIndividualStarRating({ reviews }) {
     <div className="my-6 gap-8 sm:flex sm:items-start md:my-8">
       <div className="shrink-0 space-y-4">
         <p className="text-2xl font-semibold leading-none text-gray-900 dark:text-white">
-          {reviews.averageRating} out of 5
+          {average} out of 5
         </p>
         <button
           type="button"
@@ -59,7 +69,8 @@ function ProductIndividualStarRating({ reviews }) {
                 href="#"
                 className="text-primary-700 dark:text-primary-500 w-8 shrink-0 text-right text-sm font-medium leading-none hover:underline sm:w-auto sm:text-left"
               >
-                {item.count} <span className="hidden sm:inline">reviews</span>
+                {item.count}{" "}
+                <span className="hidden sm:inline sm:ps-2"> reviews</span>
               </a>
             </div>
           );

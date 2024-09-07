@@ -174,6 +174,9 @@ const getReviewsState = (state) => state.reviews;
 
 export const selectAllReviews = (state) => getReviewsState(state)?.reviews;
 export const selectAllProductReviews = (state) => getReviewsState(state)?.reviews;
+export const selectProductReviewsCount = (state) => getReviewsState(state)?.reviews?.reviewCount;
+export const selectProductReviewsAverageRating = (state) => getReviewsState(state)?.reviews?.averageRating;
+export const selectProductReviewsIndividualStarCount = (state) => getReviewsState(state)?.reviews?.individualStarCount;
 export const selectReview = (state) => getReviewsState(state)?.review;
 export const selectReviewIsLoading = (state) => getReviewsState(state)?.isLoading;
 export const selectReviewError = (state) => getReviewsState(state)?.error;

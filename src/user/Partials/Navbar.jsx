@@ -21,7 +21,7 @@ function Navbar() {
 
   const authenticatedLinks = [
     ["Home", "/"],
-    ["My Products", "/products"],
+    // ["My Products", "/products"],
     ["Add Product", "/add-product"],
     ...(role === "admin" ? [["Admin", "/admin/dashboard/main"]] : []),
   ];

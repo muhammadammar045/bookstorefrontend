@@ -1,11 +1,18 @@
 import React from "react";
 import { Rating, ProductIndividualStarRating } from "@userComponents";
-import { selectAllProductReviews, selectReviewIsLoading } from "@storeVars";
+import {
+  selectAllProductReviews,
+  selectReviewIsLoading,
+  selectProductReviewsAverageRating,
+  selectProductReviewsCount,
+} from "@storeVars";
 import { useSelector } from "react-redux";
 
 function ProductComments() {
   const reviews = useSelector(selectAllProductReviews);
   const isLoading = useSelector(selectReviewIsLoading);
+  const average = useSelector(selectProductReviewsAverageRating);
+  const count = useSelector(selectProductReviewsCount);
 
   if (isLoading) return <div>Loading...</div>;
 
@@ -13,22 +20,23 @@ function ProductComments() {
     <>
       <section className="bg-white p-8 antialiased dark:bg-gray-900 md:py-16">
         <div className="mx-auto max-w-screen-xl px-4 2xl:px-0">
-          <h2 className="text-2xl font-semibold text-gray-900 dark:text-white">
+          <h2 className="mb-8 text-center text-4xl font-semibold text-gray-900 dark:text-white">
             Reviews
           </h2>
           {reviews ? (
             <>
-              {" "}
               <div className="flex items-center gap-2">
                 <div className="mt-2 flex items-center gap-2 sm:mt-0">
-                  <Rating reviewRating={reviews?.averageRating} />
+                  <Rating reviewRating={average} />
                   <p className="text-sm font-medium leading-none text-gray-500 dark:text-gray-400">
-                    ({reviews?.averageRating})
+                    ({average})
                   </p>
-                  {reviews?.reviewCount} Ratings
+                  {count} Reviews
                 </div>
               </div>
-              <ProductIndividualStarRating reviews={reviews} />
+
+              <ProductIndividualStarRating />
+
               <div className="mt-20 divide-y divide-gray-200 dark:divide-gray-700">
                 {reviews.reviews?.map((review) => (
                   <div

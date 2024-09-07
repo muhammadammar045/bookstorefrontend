@@ -1,8 +1,8 @@
 import {
-  fetchProductThunk,
-  selectProduct,
   selectProductIsLoading,
   fetchAllProductReviewsThunk,
+  selectProductReviewsCount,
+  selectProductReviewsAverageRating,
 } from "@storeVars";
 import { faCartShopping } from "@fortawesome/free-solid-svg-icons";
 import React, { useEffect } from "react";
@@ -10,17 +10,18 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link, useParams } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { ProductSpinner } from "@loadingState";
-import { Like, ProductComments } from "@userComponents";
+import { Like, ProductComments, Rating } from "@userComponents";
+import { selectSingleProduct } from "../../../store/products/productSlice";
 
 function Product() {
+  const { productId } = useParams();
   const loading = useSelector(selectProductIsLoading);
   const dispatch = useDispatch();
-  const product = useSelector(selectProduct);
-  const { productId } = useParams();
-  console.log(productId);
+  const product = useSelector((state) => selectSingleProduct(state, productId));
+  const average = useSelector(selectProductReviewsAverageRating);
+  const count = useSelector(selectProductReviewsCount);
 
   useEffect(() => {
-    dispatch(fetchProductThunk(productId));
     dispatch(fetchAllProductReviewsThunk(productId));
   }, [dispatch, productId]);
 
@@ -34,7 +35,7 @@ function Product() {
             <section className="bg-white py-8 antialiased dark:bg-gray-900 md:py-16">
               <div className="mx-auto max-w-screen-xl px-4 2xl:px-0">
                 <div className="lg:grid lg:grid-cols-2 lg:gap-8 xl:gap-16">
-                  <div className="grid gap-4">
+                  <div className="grid gap-3">
                     {/* PRODUCT THUMBNAIL IMAGE */}
                     <div>
                       <img
@@ -43,12 +44,12 @@ function Product() {
                         alt=""
                       />
                     </div>
-                    <div className="grid grid-cols-5 gap-4 p-5">
+                    <div className="grid gap-4 p-5 lg:grid-cols-4">
                       {/* PRODUCT SMALL IMAGES */}
                       {product?.productImages?.map((image) => (
                         <div key={image}>
                           <img
-                            className="h-auto max-w-full rounded-lg"
+                            className="h-auto max-w-full rounded-md"
                             src={image}
                             alt=""
                           />
@@ -68,23 +69,23 @@ function Product() {
                       <p className="text-xl font-bold text-gray-900 dark:text-white sm:text-3xl">
                         Rs {product.productPrice}
                       </p>
-                      {/* <div className="mt-2 flex items-center gap-2 sm:mt-0"> */}
-                      {/* PRODUCT RATING */}
-                      {/* <div className="flex items-center gap-1">
-                          <Rating reviewRating={product.productAverageRating} />
+                      <div className="mt-2 flex items-center gap-2 sm:mt-0">
+                        {/* PRODUCT RATING */}
+                        <div className="flex items-center gap-1">
+                          <Rating reviewRating={average} />
                         </div>
                         <p className="text-sm font-medium leading-none text-gray-500 dark:text-gray-400">
-                          ({product.productAverageRating})
-                        </p> */}
+                          ({average})
+                        </p>
 
-                      {/* PRODUCT REVIEWS COUNT */}
-                      {/* <Link
+                        {/* PRODUCT REVIEWS COUNT */}
+                        <Link
                           to="#"
                           className="text-sm font-medium leading-none text-gray-900 underline hover:no-underline dark:text-white"
                         >
-                          {product.productReviewsCount} Reviews
-                        </Link> */}
-                      {/* </div> */}
+                          {count} Reviews
+                        </Link>
+                      </div>
                     </div>
                     <div className="mt-6 sm:mt-8 sm:flex sm:items-center sm:gap-4">
                       {/* ADD TO FAVORITE */}
@@ -108,9 +109,9 @@ function Product() {
                     </div>
                     <hr className="my-6 border-gray-200 dark:border-gray-800 md:my-8" />
                     {/* PRODUCT DESCRIPTION */}
-                    {/* <p className="mb-6 text-gray-500 dark:text-gray-400"> */}
-                    {product.productDescription}
-                    {/* </p> */}
+                    <p className="mb-6 text-gray-500 dark:text-gray-400">
+                      {product.productDescription}
+                    </p>
                   </div>
                 </div>
               </div>
