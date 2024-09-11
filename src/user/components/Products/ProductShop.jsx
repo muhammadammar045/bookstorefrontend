@@ -40,7 +40,7 @@ function AllProducts() {
 
   return (
     <div className="flex">
-      <div className="w-2/12 border-e-2 border-gray-300 p-4 dark:border-violet-700 dark:bg-gray-950">
+      <div className="w-2/12 p-4 dark:bg-gray-950">
         <FilterSideBar />
       </div>
       <div className="w-10/12 p-8">

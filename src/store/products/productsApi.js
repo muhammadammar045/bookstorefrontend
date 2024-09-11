@@ -10,10 +10,17 @@ const apiAddProducts = async (productData, accessToken) => {
     }
 };
 
-const apiFetchAllUsersProducts = async (page, searchQuery, sort, sortOrder, limit, accessToken) => {
+const apiFetchAllUsersProducts = async (page, searchQuery, sort, sortOrder, limit, priceRange, accessToken) => {
     try {
         const { data } = await axios.get(`/products/get-all-products`, {
-            params: { page, q: searchQuery, limit, sort, sortOrder },
+            params: {
+                page,
+                q: searchQuery,
+                limit,
+                sort,
+                sortOrder,
+                priceRange
+            },
             ...getAuthConfig(accessToken),
         });
         return data;

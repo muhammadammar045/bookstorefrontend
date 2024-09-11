@@ -41,6 +41,7 @@ export const fetchAllUsersProductsThunk = createAsyncThunk(
             sort,
             sortOrder,
             limit,
+            priceRange,
         },
         { getState, rejectWithValue }
     ) => {
@@ -53,7 +54,8 @@ export const fetchAllUsersProductsThunk = createAsyncThunk(
                 sort,
                 sortOrder,
                 limit,
-                accessToken
+                priceRange,
+                accessToken,
             );
             return response;
         } catch (error) {

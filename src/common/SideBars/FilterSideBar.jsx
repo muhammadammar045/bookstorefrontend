@@ -5,21 +5,19 @@ import { SelectBox, Select, SearchBox, Heading } from "@commonPartials";
 import Category from "../../user/components/Category/Category";
 
 const price = [
-  { id: 1, label: "Price", name: "Rs. 0 - Rs. 100", value: "0-100" },
-  { id: 2, name: "Rs. 100 - Rs. 200", value: "100-200" },
-  { id: 3, name: "Rs. 200 - Rs. 300", value: "200-300" },
-  { id: 4, name: "Rs. 300 - Rs. 400", value: "300-400" },
-  { id: 5, name: "Rs. 400 - Rs. 500", value: "400-500" },
-  { id: 6, name: "Rs. 500 - Rs. 600", value: "500-600" },
-  { id: 7, name: "Rs. 600 - Rs. 700", value: "600-700" },
-  { id: 8, name: "Rs. 700 - Rs. 800", value: "700-800" },
+  { id: 1, name: "All", value: "all" },
+  { id: 2, name: "Greater Than Rs. 100", value: "100" },
+  { id: 3, name: "Greater Than Rs. 200 ", value: "200" },
+  { id: 4, name: "Greater Than Rs. 300", value: "300" },
+  { id: 5, name: "Greater Than Rs. 500", value: "500" }, // Fixed value here
+  { id: 6, name: "Greater Than Rs. 600", value: "600" },
 ];
 
 const sort = [
-  { id: 1, name: "Price", value: "price" },
-  { id: 2, name: "Date", value: "date" },
+  { id: 1, name: "Price", value: "productPrice" },
+  { id: 2, name: "Date", value: "createdAt" },
   { id: 3, name: "Rating", value: "rating" },
-  { id: 4, name: "Name", value: "name" },
+  { id: 4, name: "Alphabetical Order", value: "alphabetical" },
 ];
 
 const order = [
@@ -46,6 +44,12 @@ const FiltersComponent = () => {
     <div>
       <Heading className="mb-4 text-xl font-bold">Filters</Heading>
       <div className="flex flex-col gap-4">
+        <SearchBox />
+        <Select
+          label="Sort Order"
+          options={order}
+          onChange={handleSortOrderChange}
+        />
         <Category label="Categories" />
         <SelectBox label="Items per Page" />
         <Select
@@ -54,16 +58,10 @@ const FiltersComponent = () => {
           onChange={handlePriceChange}
         />
         <Select
-          label="Sort Order"
-          options={order}
-          onChange={handleSortOrderChange}
-        />
-        <Select
           label="Sort By"
           options={sort}
           onChange={handleSortByChange}
         />
-        <SearchBox />
       </div>
     </div>
   );

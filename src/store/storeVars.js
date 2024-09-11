@@ -39,7 +39,7 @@ import {
 
 //============================================================= FILTERS =============================================================
 import {
-    setCurrentPage, setPageSize, setSort, setSortOrder, setPriceRange, setSelectedCategory, setSearchQuery, selectPaginationCurrentPage, selectPageSize, selectSort, selectSortOrder, selectPriceRange, selectSelectedCategory, selectSearchQuery
+    setFilterShow, setCurrentPage, setPageSize, setSort, setSortOrder, setPriceRange, setSelectedCategory, setSearchQuery, selectPaginationCurrentPage, selectFilterShow, selectPageSize, selectSort, selectSortOrder, selectPriceRange, selectSelectedCategory, selectSearchQuery
 } from "./filter/filterSlice";
 
 
@@ -107,7 +107,7 @@ export {
     addProductToCartThunk, fetchUserCartThunk, removeProductFromCartThunk, resetSelectedCart, selectedCartIsLoading, selectedCartItem, selectedCartItems, selectedCartStatus, selectedCartTotal,
 
     // Filters
-    setCurrentPage, setPageSize, setSort, setSortOrder, setPriceRange, setSelectedCategory, setSearchQuery, selectPaginationCurrentPage, selectPageSize, selectSort, selectSortOrder, selectPriceRange, selectSelectedCategory, selectSearchQuery,
+    setFilterShow, setCurrentPage, setPageSize, setSort, setSortOrder, setPriceRange, setSelectedCategory, setSearchQuery, selectPaginationCurrentPage, selectFilterShow, selectPageSize, selectSort, selectSortOrder, selectPriceRange, selectSelectedCategory, selectSearchQuery,
 
     // User
     registerUserThunk, fetchUserThunk, fetchAllUserThunk, loginUserThunk, logoutUserThunk, updateUserThunk, deleteUserThunk, resetSelectedUser, selectUser, selectUsers, selectFetchedUser, selectUserRole, selectUserPermissions, selectUserIsLoading, selectUserError, selectAccessToken, selectRefreshToken, selectUserId,
