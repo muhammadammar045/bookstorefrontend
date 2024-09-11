@@ -8,6 +8,8 @@ import {
   selectSearchQuery,
   selectSort,
   selectSortOrder,
+  selectFilterShow,
+  selectPriceRange,
 } from "@storeVars";
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
@@ -19,10 +21,12 @@ function AllProducts() {
   const dispatch = useDispatch();
   const loading = useSelector(selectProductIsLoading);
   const products = useSelector(selectProducts) || [];
+  const filterShow = useSelector(selectFilterShow);
   const totalPages = useSelector(selectTotalPages);
   const currentPage = useSelector(selectPaginationCurrentPage);
   const searchQuery = useSelector(selectSearchQuery);
   const sort = useSelector(selectSort);
+  const priceRange = useSelector(selectPriceRange);
   const sortOrder = useSelector(selectSortOrder);
   const limit = useSelector(selectPageSize);
 
@@ -34,23 +38,29 @@ function AllProducts() {
         sort,
         sortOrder,
         limit,
+        priceRange,
       })
     );
-  }, [dispatch, currentPage, searchQuery, sort, sortOrder, limit]);
+  }, [dispatch, currentPage, searchQuery, sort, sortOrder, limit, priceRange]);
 
   return (
     <div className="flex">
-      <div className="w-2/12 border-e-2 border-gray-300 p-4 dark:border-violet-700 dark:bg-gray-950">
-        <FilterSideBar />
-      </div>
-      <div className="w-10/12 p-8">
+      {filterShow && (
+        <div className="w-2/12 p-4 dark:bg-gray-950">
+          <FilterSideBar />
+        </div>
+      )}
+
+      <div className={`${filterShow ? "w-10/12" : "w-full"} p-8`}>
         <Heading>Latest Products</Heading>
 
         {loading ? (
           <ProductsSpinner count={12} />
         ) : (
           <>
-            <div className="mb-4 grid gap-4 sm:grid-cols-2 md:mb-8 lg:grid-cols-3 xl:grid-cols-4">
+            <div
+              className={`mb-4 grid gap-4 sm:grid-cols-2 md:mb-8 lg:grid-cols-3 ${filterShow ? "xl:grid-cols-4" : "xl:grid-cols-5"}`}
+            >
               {products.length > 0 ? (
                 products.map((product) => (
                   <ProductCard

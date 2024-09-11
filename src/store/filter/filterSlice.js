@@ -1,13 +1,14 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
+    filterShow: false,
     currentPage: 1,
     pageSize: 12,
     sort: {
         field: 'createdAt',
         order: 'asc',
     },
-    priceRange: '',
+    priceRange: 'all',
     selectedCategory: '',
     searchQuery: '',
 };
@@ -16,6 +17,9 @@ const filterSlice = createSlice({
     name: 'filter',
     initialState,
     reducers: {
+        setFilterShow: (state, action) => {
+            state.filterShow = action.payload;
+        },
         setCurrentPage: (state, action) => {
             state.currentPage = action.payload;
         },
@@ -42,6 +46,7 @@ const filterSlice = createSlice({
 });
 
 export const {
+    setFilterShow,
     setCurrentPage,
     setPageSize,
     setSort,
@@ -54,6 +59,7 @@ export const {
 
 const getFilterState = (state) => state.filter;
 
+export const selectFilterShow = (state) => getFilterState(state)?.filterShow;
 export const selectPaginationCurrentPage = (state) => getFilterState(state)?.currentPage;
 export const selectPageSize = (state) => getFilterState(state)?.pageSize;
 export const selectSort = (state) => getFilterState(state)?.sort?.field;
